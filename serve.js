@@ -102,8 +102,14 @@ const server = http.createServer((req, res) => {
                         type: incoming.type,
                         text: incoming.text
                     });
-                    res.writeHead(200, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ item }));
+                    synthesizeReadAudio(item.id, (audioErr) => {
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({
+                            item,
+                            audioReady: !audioErr,
+                            audioError: audioErr ? (audioErr.message || 'Failed to generate audio') : null
+                        }));
+                    });
                 } catch (err) {
                     res.writeHead(400, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ error: err.message || 'Failed to save read item' }));

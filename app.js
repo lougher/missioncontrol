@@ -1560,7 +1560,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!title || !text) return;
             
             const originalText = readSubmitBtn.innerText;
-            readSubmitBtn.innerText = 'Adding...';
+            readSubmitBtn.innerText = 'Saving + generating audio...';
             readSubmitBtn.disabled = true;
             try {
                 const res = await fetch('/api/read', {
@@ -1568,9 +1568,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ title, type, text })
                 });
+                const data = await res.json();
                 if (!res.ok) {
-                    const data = await res.json();
                     throw new Error(data.error || 'Failed to add item');
+                }
+                if (data.audioReady === false) {
+                    alert(`Saved, but audio preprocessing failed: ${data.audioError || 'Unknown error'}`);
                 }
                 document.getElementById('read-title').value = '';
                 document.getElementById('read-text').value = '';
