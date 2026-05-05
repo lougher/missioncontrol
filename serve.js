@@ -120,7 +120,7 @@ const server = http.createServer((req, res) => {
                 res.writeHead(500, { 'Content-Type': 'application/json' });
                 return res.end(JSON.stringify({ error: err.message || 'Failed to generate audio' }));
             }
-            serveFile(res, audioPath, 'audio/wav');
+            serveFile(res, audioPath, 'audio/wav', req);
         });
     } else if (req.url.startsWith('/api/read/') && req.url.endsWith('/listened')) {
         const id = decodeURIComponent(req.url.replace('/api/read/', '').replace('/listened', '').replace(/\/$/, ''));
@@ -704,15 +704,50 @@ const server = http.createServer((req, res) => {
     }
 });
 
-function serveFile(res, filePath, contentType) {
-    fs.readFile(filePath, (err, content) => {
-        if (err) {
+function serveFile(res, filePath, contentType, req = null) {
+    fs.stat(filePath, (statErr, stats) => {
+        if (statErr) {
             res.writeHead(500);
             res.end("Error loading file.");
             return;
         }
-        res.writeHead(200, { 'Content-Type': contentType });
-        res.end(content, 'utf-8');
+
+        const headers = {
+            'Content-Type': contentType,
+            'Content-Length': stats.size,
+            'Accept-Ranges': 'bytes'
+        };
+
+        const range = req?.headers?.range;
+        if (range) {
+            const match = range.match(/bytes=(\d*)-(\d*)/);
+            if (!match) {
+                res.writeHead(416, { 'Content-Range': `bytes */${stats.size}` });
+                res.end();
+                return;
+            }
+
+            const start = match[1] ? parseInt(match[1], 10) : 0;
+            const end = match[2] ? parseInt(match[2], 10) : stats.size - 1;
+
+            if (Number.isNaN(start) || Number.isNaN(end) || start > end || start >= stats.size) {
+                res.writeHead(416, { 'Content-Range': `bytes */${stats.size}` });
+                res.end();
+                return;
+            }
+
+            const safeEnd = Math.min(end, stats.size - 1);
+            res.writeHead(206, {
+                ...headers,
+                'Content-Length': safeEnd - start + 1,
+                'Content-Range': `bytes ${start}-${safeEnd}/${stats.size}`
+            });
+            fs.createReadStream(filePath, { start, end: safeEnd }).pipe(res);
+            return;
+        }
+
+        res.writeHead(200, headers);
+        fs.createReadStream(filePath).pipe(res);
     });
 }
 
