@@ -1672,9 +1672,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         <button data-read-edit="${id}" data-read-title="${title}" class="read-preview-btn block w-full bg-transparent border-0 p-0 text-left text-sm text-gray-600 dark:text-gray-300 line-clamp-3 cursor-pointer">${escapeHtml(item.preview || '')}${(item.preview || '').length >= 240 ? '…' : ''}</button>
                     </div>
                     <div class="flex items-center gap-2 shrink-0">
-                        <button data-read-delete="${id}" data-read-title="${title}" class="read-delete-btn h-10 w-10 inline-flex items-center justify-center rounded-full border border-red-200 text-red-600 dark:border-red-500/30 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors" aria-label="Delete ${title}" title="Delete">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14M10 11v6M14 11v6"></path></svg>
-                        </button>
                         <button data-read-play="${id}" class="read-play-btn h-10 w-10 inline-flex items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black hover:opacity-80 transition-opacity" aria-label="Play ${title}" title="Play">${PLAY_ICON}</button>
                         <button data-read-pause="${id}" class="read-pause-btn h-10 w-10 inline-flex items-center justify-center rounded-full border border-gray-200 dark:border-white/10 dark:text-gray-200 hover:bg-white dark:hover:bg-white/10 transition-colors" aria-label="Pause ${title}" title="Pause">${PAUSE_ICON}</button>
                     </div>
@@ -1691,17 +1688,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const editClose = document.getElementById('read-edit-close');
         const editCancel = document.getElementById('read-edit-cancel');
         const editSave = document.getElementById('read-edit-save');
+        const editDelete = document.getElementById('read-edit-delete');
         const editSpinner = document.getElementById('read-edit-spinner');
         let currentEditId = null;
+        let currentEditTitle = null;
 
         const closeEditModal = () => {
             editModal.classList.add('hidden');
             currentEditId = null;
+            currentEditTitle = null;
             editText.value = '';
         };
 
         const deleteReadEntry = async (id, titleStr = 'this item') => {
-            if (!confirm(`Delete “${titleStr}”? This cannot be undone.`)) return;
+            if (!confirm(`Delete “${titleStr}”? This cannot be undone.`)) return false;
             try {
                 const res = await fetch(`/api/read/${encodeURIComponent(id)}`, { method: 'DELETE' });
                 const data = await res.json();
@@ -1713,9 +1713,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     activeReadId = null;
                 }
                 await loadReadLibrary();
+                return true;
             } catch (err) {
                 console.error(err);
                 alert('Error deleting content: ' + err.message);
+                return false;
             }
         };
 
@@ -1727,6 +1729,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (editModal && editText && editTitle) {
                     currentEditId = id;
+                    currentEditTitle = titleStr;
                     editTitle.innerText = `Edit: ${titleStr}`;
                     editText.value = data.text || '';
                     editModal.classList.remove('hidden');
@@ -1739,6 +1742,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (editClose) editClose.addEventListener('click', closeEditModal);
         if (editCancel) editCancel.addEventListener('click', closeEditModal);
+        if (editDelete) {
+            editDelete.addEventListener('click', async () => {
+                if (!currentEditId) return;
+                const deleted = await deleteReadEntry(currentEditId, currentEditTitle || 'this item');
+                if (deleted) closeEditModal();
+            });
+        }
 
         if (editSave) {
             editSave.addEventListener('click', async () => {
@@ -1777,12 +1787,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const playBtn = event.target.closest('[data-read-play]');
             const pauseBtn = event.target.closest('[data-read-pause]');
             const editBtn = event.target.closest('[data-read-edit]');
-            const deleteBtn = event.target.closest('[data-read-delete]');
             
             if (editBtn) {
                 await openReadEditor(editBtn.dataset.readEdit, editBtn.dataset.readTitle || 'Content');
-            } else if (deleteBtn) {
-                await deleteReadEntry(deleteBtn.dataset.readDelete, deleteBtn.dataset.readTitle || 'this item');
             } else if (playBtn) {
                 await playReadItem(playBtn.dataset.readPlay, playBtn);
             } else if (pauseBtn && readAudioPlayer) {
