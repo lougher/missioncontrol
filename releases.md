@@ -1,10 +1,12 @@
 # OpenClaw Releases
 
+_Last fetched: 2026-05-05 via GitHub REST API_
+
 ## May 2026
 
 ### OpenClaw 2026.5.4 (2026-05-05)
-- Google Meet/Voice Call with Twilio dial-in realtime voice bridge, backpressure-aware buffering, barge-in queue.
-- Plugins/file-transfer: bundled file-transfer plugin with `file_fetch`, `dir_list`, `dir_fetch`, `file_write` agent tools for binary file ops on paired nodes.
+- Google Meet/Voice Call: Twilio dial-in joins speak through the realtime Gemini voice bridge with paced audio streaming, backpressure-aware buffering, barge-in queue.
+- Gateway/Windows: bind loopback listener only to `127.0.0.1` on Windows to prevent dual-stack exposure.
 
 ### OpenClaw 2026.5.3 (2026-05-04)
 - File-transfer plugin bundled, with default-deny permissions and paired-node routing.
@@ -49,4 +51,4 @@
 
 ---
 
-_Source: [OpenClaw GitHub releases](https://github.com/openclaw/openclaw/releases)_
+_Source: [OpenClaw GitHub releases](https://github.com/openclaw/openclaw/releases) · fetched 2026-05-05 via REST API_
