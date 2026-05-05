@@ -1549,7 +1549,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const readAudioPlayer = document.getElementById('read-audio-player');
     const readForm = document.getElementById('read-form');
     const readSubmitBtn = document.getElementById('read-submit-btn');
+    const readSpeedSelect = document.getElementById('read-speed');
     let activeReadId = null;
+
+    const PLAY_ICON = `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72c0 .72.78 1.17 1.4.81l10.2-5.86a.94.94 0 000-1.62L9.4 4.33A.94.94 0 008 5.14z"></path></svg>`;
+    const PAUSE_ICON = `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5.75A.75.75 0 017.75 5h2.5a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 01-.75-.75V5.75zm6 0A.75.75 0 0113.75 5h2.5a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 01-.75-.75V5.75z"></path></svg>`;
+    const SPINNER_ICON = `<svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 11-6.219-8.56"></path></svg>`;
+
+    function applyReadPlaybackRate(rate) {
+        const safeRate = Number(rate) || 1;
+        if (readAudioPlayer) readAudioPlayer.playbackRate = safeRate;
+        if (readSpeedSelect) readSpeedSelect.value = String(safeRate);
+        try { localStorage.setItem('readPlaybackRate', String(safeRate)); } catch {}
+    }
+
+    applyReadPlaybackRate((() => {
+        try { return localStorage.getItem('readPlaybackRate') || '1'; } catch { return '1'; }
+    })());
+
+    if (readSpeedSelect) {
+        readSpeedSelect.addEventListener('change', () => applyReadPlaybackRate(readSpeedSelect.value));
+    }
 
     if (readForm) {
         readForm.addEventListener('submit', async (e) => {
@@ -1614,23 +1634,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const created = item.createdAt ? new Date(item.createdAt).toLocaleDateString() : '';
         const chars = Number(item.charCount || 0).toLocaleString();
         const listens = Number(item.listenCount || 0).toLocaleString();
+        const id = escapeHtml(item.id);
+        const title = escapeHtml(item.title || 'Untitled');
         return `
             <article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
                 <div class="p-6 flex flex-col md:flex-row md:items-start md:justify-between gap-5">
-                    <div class="min-w-0">
+                    <div class="min-w-0 flex-1">
                         <div class="flex items-center gap-2 flex-wrap mb-2">
                             <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300">${escapeHtml(item.type || 'article')}</span>
                             <span class="text-xs text-gray-500 dark:text-gray-400">${created}</span>
                             <span class="text-xs text-gray-500 dark:text-gray-400">${chars} chars</span>
-                            <span id="read-count-${escapeHtml(item.id)}" class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">Listened ${listens}×</span>
+                            <span id="read-count-${id}" class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">Listened ${listens}×</span>
                         </div>
-                        <h2 class="text-lg font-semibold dark:text-white mb-2">${escapeHtml(item.title || 'Untitled')}</h2>
+                        <button data-read-edit="${id}" data-read-title="${title}" class="read-title-btn bg-transparent border-0 p-0 text-left text-lg font-semibold dark:text-white mb-2 hover:underline underline-offset-4">${title}</button>
                         <p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-3">${escapeHtml(item.preview || '')}${(item.preview || '').length >= 240 ? '…' : ''}</p>
                     </div>
                     <div class="flex items-center gap-2 shrink-0">
-                        <button data-read-edit="${escapeHtml(item.id)}" data-read-title="${escapeHtml(item.title || 'Untitled')}" class="read-edit-btn text-sm px-4 py-2 rounded-full border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">View / Edit</button>
-                        <button data-read-play="${escapeHtml(item.id)}" class="read-play-btn text-sm px-4 py-2 rounded-full bg-black text-white dark:bg-white dark:text-black hover:opacity-80 transition-opacity">Play</button>
-                        <button data-read-pause="${escapeHtml(item.id)}" class="read-pause-btn text-sm px-4 py-2 rounded-full border border-gray-200 dark:border-white/10 dark:text-gray-200 hover:bg-white dark:hover:bg-white/10 transition-colors">Pause</button>
+                        <button data-read-play="${id}" class="read-play-btn h-10 w-10 inline-flex items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black hover:opacity-80 transition-opacity" aria-label="Play ${title}" title="Play">${PLAY_ICON}</button>
+                        <button data-read-pause="${id}" class="read-pause-btn h-10 w-10 inline-flex items-center justify-center rounded-full border border-gray-200 dark:border-white/10 dark:text-gray-200 hover:bg-white dark:hover:bg-white/10 transition-colors" aria-label="Pause ${title}" title="Pause">${PAUSE_ICON}</button>
                     </div>
                 </div>
             </article>
@@ -1652,6 +1673,24 @@ document.addEventListener("DOMContentLoaded", () => {
             editModal.classList.add('hidden');
             currentEditId = null;
             editText.value = '';
+        };
+
+        const openReadEditor = async (id, titleStr = 'Content') => {
+            try {
+                const res = await fetch(`/api/read/${encodeURIComponent(id)}/text`);
+                if (!res.ok) throw new Error('Failed to fetch text');
+                const data = await res.json();
+
+                if (editModal && editText && editTitle) {
+                    currentEditId = id;
+                    editTitle.innerText = `Edit: ${titleStr}`;
+                    editText.value = data.text || '';
+                    editModal.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error loading text: ' + err.message);
+            }
         };
 
         if (editClose) editClose.addEventListener('click', closeEditModal);
@@ -1696,23 +1735,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const editBtn = event.target.closest('[data-read-edit]');
             
             if (editBtn) {
-                const id = editBtn.dataset.readEdit;
-                const titleStr = editBtn.dataset.readTitle || 'Content';
-                try {
-                    const res = await fetch(`/api/read/${encodeURIComponent(id)}/text`);
-                    if (!res.ok) throw new Error('Failed to fetch text');
-                    const data = await res.json();
-                    
-                    if (editModal && editText && editTitle) {
-                        currentEditId = id;
-                        editTitle.innerText = `Edit: ${titleStr}`;
-                        editText.value = data.text || '';
-                        editModal.classList.remove('hidden');
-                    }
-                } catch (err) {
-                    console.error(err);
-                    alert('Error loading text: ' + err.message);
-                }
+                await openReadEditor(editBtn.dataset.readEdit, editBtn.dataset.readTitle || 'Content');
             } else if (playBtn) {
                 await playReadItem(playBtn.dataset.readPlay, playBtn);
             } else if (pauseBtn && readAudioPlayer) {
@@ -1723,9 +1746,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function playReadItem(id, button) {
         if (!id || !readAudioPlayer) return;
-        const originalLabel = button?.innerText || 'Play';
+        const originalHtml = button?.innerHTML || PLAY_ICON;
+        if (button) {
+            button.innerHTML = SPINNER_ICON;
+            button.disabled = true;
+        }
         if (activeReadId !== id) {
-            if (button) button.innerText = 'Preparing...';
             readAudioPlayer.src = `/api/read/${encodeURIComponent(id)}/audio`;
             activeReadId = id;
             try {
@@ -1736,11 +1762,15 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (e) { console.error(e); }
         }
         try {
+            applyReadPlaybackRate(readSpeedSelect?.value || readAudioPlayer.playbackRate || 1);
             await readAudioPlayer.play();
         } catch (e) {
             alert(`Could not play audio yet: ${e.message}`);
         } finally {
-            if (button) button.innerText = originalLabel;
+            if (button) {
+                button.innerHTML = originalHtml;
+                button.disabled = false;
+            }
         }
     }
 

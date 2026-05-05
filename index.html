@@ -579,7 +579,17 @@
                     <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Read</h1>
                     <p class="text-sm text-gray-500 dark:text-gray-400">Your local Audible-style library for articles and book summaries, read back with free MLX/Kokoro TTS.</p>
                 </div>
-                <button id="refresh-read-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Library</button>
+                <div class="flex items-center gap-3">
+                    <label for="read-speed" class="text-xs text-gray-500 dark:text-gray-400">Speed</label>
+                    <select id="read-speed" class="text-xs border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] dark:text-gray-300 px-3 py-1.5 rounded focus:outline-none cursor-pointer">
+                        <option value="1">1x</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="1.75">1.75x</option>
+                        <option value="2">2x</option>
+                    </select>
+                    <button id="refresh-read-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Library</button>
+                </div>
             </header>
 
             <div class="mb-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#171717] p-5">
