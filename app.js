@@ -1567,7 +1567,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     applyReadPlaybackRate((() => {
-        try { return localStorage.getItem('readPlaybackRate') || '1'; } catch { return '1'; }
+        try { return localStorage.getItem('readPlaybackRate') || '2'; } catch { return '2'; }
     })());
 
     if (readSpeedSelect) {
