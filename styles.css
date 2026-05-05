@@ -1,0 +1,334 @@
+/* Base custom styles to complement Tailwind */
+::selection {
+    background: #000;
+    color: #fff;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle fade-in animation for loading data */
+.fade-in {
+    animation: fadeIn 0.4s ease-in-out;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom scrollbar for sidebar */
+aside::-webkit-scrollbar {
+    width: 6px;
+}
+aside::-webkit-scrollbar-track {
+    background: transparent;
+}
+aside::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+aside::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Custom scrollbar for main content */
+main::-webkit-scrollbar {
+    width: 8px;
+}
+main::-webkit-scrollbar-track {
+    background: transparent;
+}
+main::-webkit-scrollbar-thumb {
+    background: #e5e7eb;
+    border-radius: 10px;
+}
+main::-webkit-scrollbar-thumb:hover {
+    background: #d1d5db;
+}
+
+/* Pre block scrollbar */
+pre::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+pre::-webkit-scrollbar-track {
+    background: transparent;
+}
+pre::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 10px;
+}
+pre::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* Collapsed Sidebar Styles */
+#sidebar {
+    width: 16rem;
+    transition: width 0.3s ease;
+}
+
+#sidebar.collapsed {
+    width: 4.5rem;
+}
+
+#sidebar.collapsed .sidebar-text,
+#sidebar.collapsed .sidebar-section-title,
+#sidebar.collapsed .context-switcher-wrapper {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#sidebar.collapsed .sidebar-header,
+#sidebar.collapsed .bottom-actions {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+#sidebar.collapsed .sidebar-header-content,
+#sidebar.collapsed .nav-item,
+#sidebar.collapsed .bottom-actions {
+    justify-content: center;
+}
+
+#sidebar.collapsed .sidebar-header-content,
+#sidebar.collapsed .nav-item {
+    gap: 0;
+}
+
+#sidebar.collapsed .nav-item {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+#sidebar.collapsed .nav-item svg,
+#sidebar.collapsed .sidebar-header-content > *:first-child {
+    margin: 0;
+}
+
+#sidebar.collapsed .bottom-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#sidebar.collapsed .bottom-actions button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+/* Script preview section colours */
+.script-section-script {
+  background: rgba(59, 130, 246, 0.12);
+  border-left: 4px solid rgb(59, 130, 246);
+}
+
+.script-section-visuals {
+  background: rgba(34, 197, 94, 0.12);
+  border-left: 4px solid rgb(34, 197, 94);
+}
+
+.script-section-audio {
+  background: rgba(168, 85, 247, 0.12);
+  border-left: 4px solid rgb(168, 85, 247);
+}
+
+.script-section-heading,
+.script-section-body {
+  display: block;
+  padding: 0.6rem 0.85rem;
+  margin: 0.75rem 0;
+  border-radius: 0.6rem;
+}
+
+/* Org chart */
+.org-connector {
+  width: 2px;
+  height: 34px;
+  background: linear-gradient(to bottom, #d1d5db, #9ca3af);
+}
+
+.dark .org-connector {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.16), rgba(255,255,255,0.32));
+}
+
+.org-card-featured {
+  position: relative;
+  overflow: hidden;
+}
+
+.org-card-featured::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, #111827, #6366f1, #22c55e);
+}
+
+.task-metric-card {
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.task-metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.task-metric-value {
+  letter-spacing: -0.04em;
+}
+
+.task-card,
+.task-title {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Calendar */
+.calendar-grid {
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
+}
+
+.calendar-day {
+  min-width: 0;
+}
+
+.calendar-block {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.calendar-block:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.youtube-framework-copy {
+  line-height: 1.65;
+}
+
+.youtube-strategy-content {
+  max-height: 28rem;
+  overflow-y: auto;
+  line-height: 1.7;
+}
+
+.youtube-strategy-content h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.9rem;
+}
+
+.youtube-strategy-content h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-top: 1.25rem;
+  margin-bottom: 0.55rem;
+}
+
+.youtube-strategy-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.45rem;
+}
+
+.youtube-strategy-content ul,
+.youtube-strategy-content ol {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.youtube-strategy-content ul {
+  list-style: disc;
+}
+
+.youtube-strategy-content ol {
+  list-style: decimal;
+}
+
+.youtube-strategy-content blockquote {
+  border-left: 3px solid #ef4444;
+  padding-left: 0.9rem;
+  margin: 0.8rem 0;
+  color: #991b1b;
+  font-weight: 600;
+}
+
+.dark .youtube-strategy-content blockquote {
+  color: #fecaca;
+}
+
+.youtube-competitor-copy {
+  line-height: 1.7;
+}
+
+.youtube-competitor-copy h1,
+.youtube-competitor-copy h2,
+.youtube-competitor-copy h3 {
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.youtube-competitor-copy ul,
+.youtube-competitor-copy ol {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.youtube-competitor-copy ul {
+  list-style: disc;
+}
+
+.youtube-competitor-copy ol {
+  list-style: decimal;
+}
+
+.youtube-detail-card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(229, 231, 235, 1);
+  border-radius: 0.9rem;
+  padding: 1rem;
+}
+
+.dark .youtube-detail-card {
+  background: rgba(23, 23, 23, 0.78);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.youtube-detail-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 0.45rem;
+}
+
+.dark .youtube-detail-label {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.youtube-detail-value {
+  color: #111827;
+  line-height: 1.65;
+}
+
+.dark .youtube-detail-value {
+  color: #e5e7eb;
+}
+
+.animate-spin { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }

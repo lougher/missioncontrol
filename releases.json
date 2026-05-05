@@ -1,0 +1,24 @@
+{
+  "items": [
+    { "date": "2026-04-27", "title": "OpenClaw 2026.4.25", "summary": "Latest release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.25" },
+    { "date": "2026-04-25", "title": "OpenClaw 2026.4.24", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.24" },
+    { "date": "2026-04-24", "title": "OpenClaw 2026.4.23", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.23" },
+    { "date": "2026-04-23", "title": "OpenClaw 2026.4.22", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.22" },
+    { "date": "2026-04-22", "title": "OpenClaw 2026.4.21", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.21" },
+    { "date": "2026-04-21", "title": "OpenClaw 2026.4.20", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.20" },
+    { "date": "2026-04-16", "title": "OpenClaw 2026.4.15", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.15" },
+    { "date": "2026-04-14", "title": "OpenClaw 2026.4.14", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.14" },
+    { "date": "2026-04-13", "title": "OpenClaw 2026.4.12", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.12" },
+    { "date": "2026-04-12", "title": "OpenClaw 2026.4.11", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.11" },
+    { "date": "2026-04-11", "title": "OpenClaw 2026.4.10", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.10" },
+    { "date": "2026-04-09", "title": "OpenClaw 2026.4.9", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.9" },
+    { "date": "2026-04-08", "title": "OpenClaw 2026.4.8", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.8" },
+    { "date": "2026-04-08", "title": "OpenClaw 2026.4.7", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.7" },
+    { "date": "2026-04-06", "title": "OpenClaw 2026.4.5", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.5" },
+    { "date": "2026-04-02", "title": "OpenClaw 2026.4.2", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.2" },
+    { "date": "2026-04-01", "title": "OpenClaw 2026.4.1", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.4.1" },
+    { "date": "2026-03-31", "title": "OpenClaw 2026.3.31", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.3.31" },
+    { "date": "2026-03-29", "title": "OpenClaw 2026.3.28", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.3.28" },
+    { "date": "2026-03-25", "title": "OpenClaw 2026.3.24", "summary": "Release.", "link": "https://github.com/openclaw/openclaw/releases/tag/v2026.3.24" }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "id": "seed-title-jarvis",
+      "type": "title",
+      "title": "I Built My Own Jarvis Using OpenClaw",
+      "notes": "Big mass-market promise. OpenClaw is the engine, Jarvis is the click.",
+      "source": "PhilAI strategy",
+      "createdAt": "2026-05-03T06:46:00.000Z"
+    },
+    {
+      "id": "seed-title-ai-life",
+      "type": "title",
+      "title": "I Let AI Run My Life for 7 Days",
+      "notes": "Challenge format with natural stakes and retention loop.",
+      "source": "PhilAI strategy",
+      "createdAt": "2026-05-03T06:46:00.000Z"
+    },
+    {
+      "id": "seed-thumb-before-after",
+      "type": "thumbnail",
+      "title": "Before: messy desktop / After: AI command centre",
+      "notes": "Split-screen transformation: chaos on left, clean Mission Control/OpenClaw dashboard on right. Big text: '3 HOURS → 1 VOICE NOTE'.",
+      "source": "PhilAI strategy",
+      "createdAt": "2026-05-03T06:46:00.000Z"
+    }
+  ]
+}

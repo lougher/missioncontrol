@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        // Check local storage for theme early to prevent flash
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { sidebar: '#171717', sidebarHover: '#2A2B32' }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-white dark:bg-[#212121] text-gray-900 dark:text-gray-100 font-sans antialiased flex h-screen overflow-hidden transition-colors duration-200">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-gray-50 dark:bg-sidebar text-gray-900 dark:text-[#ececf1] flex flex-col shrink-0 relative border-r border-gray-200 dark:border-gray-800 z-20 overflow-hidden transition-all duration-300">
+        <!-- Context Switcher Header -->
+        <div class="sidebar-header p-4 border-b border-gray-200 dark:border-gray-800/60 relative group cursor-pointer hover:bg-gray-100 dark:hover:bg-sidebarHover transition-colors">
+            <div class="sidebar-header-content flex items-center gap-3">
+                <div class="w-8 h-8 shrink-0 bg-black text-white dark:bg-white dark:text-black rounded-full flex items-center justify-center font-semibold text-sm mx-auto">P</div>
+                <div class="context-switcher-wrapper flex-1 relative flex items-center">
+                    <select id="context-switcher" class="bg-transparent text-gray-900 dark:text-[#ececf1] font-medium focus:outline-none appearance-none cursor-pointer w-full tracking-wide">
+                        <option value="mission-control" class="text-black">Mission Control</option>
+                        <option value="lifeos" class="text-black">LifeOS</option>
+                    </select>
+                    <!-- Custom Arrow -->
+                    <svg class="w-4 h-4 text-gray-400 absolute right-0 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission Control Navigation -->
+        <nav id="nav-mission-control" class="flex-1 py-4 px-3 space-y-1 overflow-y-auto overflow-x-hidden">
+            <div class="sidebar-section-title text-xs font-semibold text-gray-500 mb-2 px-3 mt-2 whitespace-nowrap">Manage</div>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-200 dark:bg-sidebarHover text-gray-900 dark:text-white transition-colors" data-target="view-usage" title="Usage">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Usage</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-files" title="System Files">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">System Files</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-fleet" title="Tasks">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2m-6 0a2 2 0 012-2h2a2 2 0 012 2m-6 0h6m-6 5h6m-6 4h6"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Tasks</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-calendar" title="Calendar">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M4 11h16M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Calendar</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-org-chart" title="Org Chart">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 7a3 3 0 116 0 3 3 0 01-6 0zm9 2a3 3 0 116 0 3 3 0 01-6 0zM3 20a5 5 0 0110 0M14 20a5 5 0 017-4.584M12 10v3m0 0H8m4 0h4"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Org Chart</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-cron" title="Cron Jobs">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Cron Jobs</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-memory" title="Memory">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Memory</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-releases" title="Releases">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Releases</span>
+            </a>
+        </nav>
+
+        <!-- LifeOS Navigation -->
+        <nav id="nav-lifeos" class="flex-1 py-4 px-3 space-y-1 overflow-y-auto overflow-x-hidden hidden">
+            <div class="sidebar-section-title text-xs font-semibold text-gray-500 mb-2 px-3 mt-2 whitespace-nowrap">Personal</div>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-goals" title="Goals">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Goals</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-health" title="Health & Fitness">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Health & Fitness</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-news" title="Daily AI News">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Daily AI News</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-learnings" title="Learnings Log">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Learnings Log</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-read" title="Read">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Read</span>
+            </a>
+            <div class="sidebar-section-title text-xs font-semibold text-gray-500 mb-2 px-3 mt-4 whitespace-nowrap">Creator</div>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-analytics" title="Analytics">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3v18m-4-8v8m8-12v12m4-16v16M5 21h14"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Analytics</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-youtube" title="YouTube">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">YouTube</span>
+            </a>
+        </nav>
+
+        <!-- Bottom Toggles (Sidebar & Theme) -->
+        <div class="bottom-actions p-3 border-t border-gray-200 dark:border-gray-800/60 flex items-center gap-2">
+            <button id="toggle-sidebar" class="p-2 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white rounded-md hover:bg-gray-200 dark:hover:bg-sidebarHover transition-colors" title="Toggle sidebar" aria-expanded="true">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke-width="2"></rect><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v18"></path></svg>
+            </button>
+            <button id="toggle-theme" class="p-2 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white rounded-md hover:bg-gray-200 dark:hover:bg-sidebarHover transition-colors" title="Toggle Dark/Light Mode">
+                <!-- Sun/Moon SVG -->
+                <svg class="w-5 h-5 shrink-0 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                <svg class="w-5 h-5 shrink-0 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 overflow-y-auto flex flex-col relative transition-all duration-300">
+        
+        <!-- ================= VIEW: USAGE ================= -->
+        <div id="view-usage" class="view-section max-w-5xl w-full mx-auto px-8 py-12 block">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Usage & Costs</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Monitor your OpenClaw local telemetry and token consumption.</p>
+                </div>
+                <button id="refresh-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Data</button>
+            </header>
+
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-medium tracking-tight dark:text-white">Overview</h2>
+                <select id="time-filter" class="text-xs border border-gray-200 dark:border-white/10 dark:bg-[#171717] dark:text-white px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors focus:outline-none cursor-pointer">
+                    <option value="today" selected>Today</option>
+                    <option value="yesterday">Yesterday</option>
+                    <option value="thisWeek">This Week</option>
+                    <option value="thisMonth">This Month</option>
+                    <option value="thisYear">This Year</option>
+                    <option value="lifetime">Lifetime</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+                <div class="border border-gray-200 dark:border-white/10 rounded-lg p-5 hover:border-gray-300 dark:hover:border-white/20 transition-colors">
+                    <h3 class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1" id="cost-title">Cost</h3>
+                    <div class="text-2xl font-medium tracking-tight dark:text-white" id="key-usage">$0.00</div>
+                    <div class="text-xs text-gray-400 dark:text-gray-500 mt-2">Across all models & providers</div>
+                </div>
+                <div class="border border-gray-200 dark:border-white/10 rounded-lg p-5 hover:border-gray-300 dark:hover:border-white/20 transition-colors">
+                    <h3 class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1" id="tokens-title">Tokens</h3>
+                    <div class="text-2xl font-medium tracking-tight dark:text-white" id="total-credits">0</div>
+                    <div class="text-xs text-gray-400 dark:text-gray-500 mt-2">Total Prompt & Completion</div>
+                </div>
+            </div>
+
+            <section>
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-medium tracking-tight dark:text-white">Recent Generations (Latest 50)</h2>
+                </div>
+                <div class="border border-gray-200 dark:border-white/10 rounded-lg overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-gray-50/50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10">
+                            <tr>
+                                <th class="px-5 py-3 font-medium text-gray-500 dark:text-gray-400">Time</th>
+                                <th class="px-5 py-3 font-medium text-gray-500 dark:text-gray-400">Session</th>
+                                <th class="px-5 py-3 font-medium text-gray-500 dark:text-gray-400">Model</th>
+                                <th class="px-5 py-3 font-medium text-gray-500 dark:text-gray-400 text-right">Tokens</th>
+                                <th class="px-5 py-3 font-medium text-gray-500 dark:text-gray-400 text-right">Est. Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-white/10" id="activity-table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= VIEW: SYSTEM FILES ================= -->
+        <div id="view-files" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10">
+                <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">System Context</h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Read-only view of your core OpenClaw identity and memory files.</p>
+            </header>
+
+            <div class="flex border-b border-gray-200 dark:border-white/10 mb-6 space-x-6 overflow-x-auto" id="file-tabs">
+                <button class="file-tab active-tab pb-3 border-b-2 border-black dark:border-white font-medium text-black dark:text-white text-sm whitespace-nowrap transition-colors" data-file="USER.md">USER.md</button>
+                <button class="file-tab pb-3 border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-sm whitespace-nowrap transition-colors" data-file="SOUL.md">SOUL.md</button>
+                <button class="file-tab pb-3 border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-sm whitespace-nowrap transition-colors" data-file="IDENTITY.md">IDENTITY.md</button>
+                <button class="file-tab pb-3 border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-sm whitespace-nowrap transition-colors" data-file="MEMORY.md">MEMORY.md</button>
+                <button class="file-tab pb-3 border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-sm whitespace-nowrap transition-colors" data-file="AGENTS.md">AGENTS.md</button>
+            </div>
+
+            <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-6 overflow-auto" style="height: calc(100vh - 280px);">
+                <pre id="file-content" class="text-sm font-mono whitespace-pre-wrap text-gray-800 dark:text-gray-200 leading-relaxed">Select a file to load.</pre>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: TASKS ================= -->
+        <div id="view-fleet" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Tasks</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Monitor task throughput, progress, activity, and shared logs.</p>
+                </div>
+                <button id="refresh-fleet-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Board</button>
+            </header>
+
+            <!-- Task Metrics -->
+            <section class="mb-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="task-metric-card border border-gray-200 dark:border-white/10 rounded-xl p-5 bg-white dark:bg-[#171717]">
+                        <div class="task-metric-value text-3xl font-semibold text-emerald-500" id="metric-this-week">0</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">This week</div>
+                    </div>
+                    <div class="task-metric-card border border-gray-200 dark:border-white/10 rounded-xl p-5 bg-white dark:bg-[#171717]">
+                        <div class="task-metric-value text-3xl font-semibold text-indigo-500" id="metric-in-progress">0</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">In progress</div>
+                    </div>
+                    <div class="task-metric-card border border-gray-200 dark:border-white/10 rounded-xl p-5 bg-white dark:bg-[#171717]">
+                        <div class="task-metric-value text-3xl font-semibold text-gray-900 dark:text-white" id="metric-total">0</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">Total</div>
+                    </div>
+                    <div class="task-metric-card border border-gray-200 dark:border-white/10 rounded-xl p-5 bg-white dark:bg-[#171717]">
+                        <div class="task-metric-value text-3xl font-semibold text-violet-500" id="metric-completion">0%</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">Completion</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Agent Status Panel -->
+            <section class="mb-8">
+                <h2 class="text-lg font-medium tracking-tight dark:text-white mb-4">Active Agents</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="fleet-agents-container">
+                    <!-- JS Populated -->
+                </div>
+            </section>
+
+            <!-- Task Board -->
+            <section class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-medium tracking-tight dark:text-white">Task Board</h2>
+                    <button id="add-task-btn" class="text-xs bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 rounded transition-colors">+ New Task</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- To Do -->
+                    <div class="bg-gray-50 dark:bg-[#171717] rounded-lg p-4 border border-gray-200 dark:border-white/10">
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex justify-between">To Do <span id="count-todo" class="text-xs bg-gray-200 dark:bg-white/10 px-2 py-0.5 rounded-full">0</span></h3>
+                        <div id="tasks-todo" class="space-y-3 min-h-[100px]"></div>
+                    </div>
+                    <!-- In Progress -->
+                    <div class="bg-gray-50 dark:bg-[#171717] rounded-lg p-4 border border-gray-200 dark:border-white/10">
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex justify-between">In Progress <span id="count-inprogress" class="text-xs bg-gray-200 dark:bg-white/10 px-2 py-0.5 rounded-full">0</span></h3>
+                        <div id="tasks-inprogress" class="space-y-3 min-h-[100px]"></div>
+                    </div>
+                    <!-- Done -->
+                    <div class="bg-gray-50 dark:bg-[#171717] rounded-lg p-4 border border-gray-200 dark:border-white/10">
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex justify-between">Done <span id="count-done" class="text-xs bg-gray-200 dark:bg-white/10 px-2 py-0.5 rounded-full">0</span></h3>
+                        <div id="tasks-done" class="space-y-3 min-h-[100px]"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom Split: Activity & Logs -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Activity Feed -->
+                <section>
+                    <h2 class="text-lg font-medium tracking-tight dark:text-white mb-4">Recent Activity</h2>
+                    <div class="bg-white dark:bg-transparent border border-gray-200 dark:border-white/10 rounded-lg overflow-hidden h-80 overflow-y-auto">
+                        <ul id="fleet-activity-list" class="divide-y divide-gray-200 dark:divide-white/10 text-sm">
+                            <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- Shared Log -->
+                <section>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-medium tracking-tight dark:text-white">Shared Log</h2>
+                    </div>
+                    <div class="border border-gray-200 dark:border-white/10 rounded-lg flex flex-col h-80 overflow-hidden">
+                        <div id="fleet-logs-container" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50 dark:bg-transparent">
+                            <!-- JS Populated -->
+                        </div>
+                        <div class="p-3 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717]">
+                            <div class="flex gap-2">
+                                <input type="text" id="new-log-input" class="flex-1 text-sm border border-gray-300 dark:border-white/20 rounded px-3 py-1.5 bg-transparent dark:text-white focus:outline-none" placeholder="Leave a note...">
+                                <button id="add-log-btn" class="bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 rounded text-sm font-medium">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: CALENDAR ================= -->
+        <div id="view-calendar" class="view-section max-w-7xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Calendar</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Scheduled tasks and recurring jobs for the current Monday–Sunday week.</p>
+                </div>
+                <button id="refresh-calendar-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Calendar</button>
+            </header>
+
+            <div class="mb-4 flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-pink-500"></span>YouTube</span>
+                <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>Coding</span>
+                <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span>Marketing</span>
+                <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>LifeOS</span>
+                <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-sky-500"></span>Recurring</span>
+            </div>
+
+            <section id="calendar-grid" class="calendar-grid bg-gray-50 dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-2xl overflow-hidden">
+                <!-- JS Populated -->
+            </section>
+        </div>
+
+        <!-- ================= VIEW: ORG CHART ================= -->
+        <div id="view-org-chart" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Org Chart</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Phil prompts the Chief of Staff, who delegates specialist work to the agent team.</p>
+                </div>
+                <button id="refresh-org-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Org</button>
+            </header>
+
+            <section id="org-chart-container" class="org-chart space-y-8">
+                <!-- JS Populated -->
+            </section>
+        </div>
+
+        <!-- ================= VIEW: OPENCLAW MEMORY ================= -->
+        <div id="view-memory" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">OpenClaw Memory</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Review long-term memory and daily notes from the workspace.</p>
+                </div>
+                <button id="refresh-memory-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Memory</button>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <aside class="lg:col-span-1 border border-gray-200 dark:border-white/10 rounded-lg overflow-hidden bg-gray-50/50 dark:bg-[#171717]">
+                    <button id="memory-long-term-btn" class="w-full text-left px-4 py-3 text-sm font-medium border-b border-gray-200 dark:border-white/10 bg-white dark:bg-white/10 dark:text-white">Long-term Memory</button>
+                    <div class="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Daily Notes</div>
+                    <div id="memory-notes-list" class="max-h-[620px] overflow-y-auto divide-y divide-gray-200 dark:divide-white/10">
+                        <!-- Populated by JS -->
+                    </div>
+                </aside>
+
+                <section class="lg:col-span-3 border border-gray-200 dark:border-white/10 rounded-lg overflow-hidden bg-white dark:bg-[#171717]">
+                    <div class="px-5 py-4 border-b border-gray-200 dark:border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                        <div>
+                            <h2 id="memory-title" class="text-lg font-medium tracking-tight dark:text-white">Long-term Memory</h2>
+                            <p id="memory-meta" class="text-xs text-gray-500 dark:text-gray-400">MEMORY.md</p>
+                        </div>
+                    </div>
+                    <pre id="memory-content" class="p-5 text-sm leading-6 whitespace-pre-wrap overflow-auto max-h-[700px] bg-gray-50/40 dark:bg-transparent dark:text-gray-200">Loading memory...</pre>
+                </section>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: CRON JOBS ================= -->
+        <div id="view-cron" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Cron Jobs</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Keep track of scheduled OpenClaw jobs, next runs, and recent status.</p>
+                </div>
+                <button id="refresh-cron-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Jobs</button>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <div class="border border-gray-200 dark:border-white/10 rounded-lg p-5 bg-gray-50/50 dark:bg-[#171717]">
+                    <h3 class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Total Jobs</h3>
+                    <div class="text-2xl font-medium tracking-tight dark:text-white" id="cron-total">0</div>
+                </div>
+                <div class="border border-gray-200 dark:border-white/10 rounded-lg p-5 bg-gray-50/50 dark:bg-[#171717]">
+                    <h3 class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Enabled</h3>
+                    <div class="text-2xl font-medium tracking-tight text-green-600 dark:text-green-400" id="cron-enabled">0</div>
+                </div>
+                <div class="border border-gray-200 dark:border-white/10 rounded-lg p-5 bg-gray-50/50 dark:bg-[#171717]">
+                    <h3 class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Errors</h3>
+                    <div class="text-2xl font-medium tracking-tight text-red-600 dark:text-red-400" id="cron-errors">0</div>
+                </div>
+                <div class="border border-gray-200 dark:border-white/10 rounded-lg p-5 bg-gray-50/50 dark:bg-[#171717]">
+                    <h3 class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Next Run</h3>
+                    <div class="text-sm font-medium tracking-tight dark:text-white" id="cron-next">—</div>
+                </div>
+            </div>
+
+            <section>
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+                    <h2 class="text-lg font-medium tracking-tight dark:text-white">Scheduled Jobs</h2>
+                    <div class="flex items-center gap-2">
+                        <label for="cron-filter" class="text-xs text-gray-500 dark:text-gray-400">Filter</label>
+                        <select id="cron-filter" class="text-xs border border-gray-200 dark:border-white/10 dark:bg-[#171717] dark:text-white px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors focus:outline-none cursor-pointer">
+                            <option value="all" selected>All jobs</option>
+                            <option value="enabled">Enabled only</option>
+                            <option value="errors">Errors only</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="cron-jobs-container" class="space-y-4">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= VIEW: HEALTH & FITNESS ================= -->
+        <div id="view-health" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Health & Fitness</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Workout performance and weight trends synced from your health logs.</p>
+                </div>
+                <button id="refresh-health-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Health</button>
+            </header>
+
+            <div id="health-section-tabs" class="mb-8 flex gap-2 overflow-x-auto rounded-full border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#171717] p-1 w-fit max-w-full">
+                <button type="button" data-health-section="workouts" class="health-section-tab px-4 py-2 text-xs font-medium rounded-full bg-black text-white dark:bg-white dark:text-black whitespace-nowrap">Workouts</button>
+                <button type="button" data-health-section="weight" class="health-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Body Measurements</button>
+            </div>
+
+            
+            <section data-health-panel="workouts" class="health-section-panel mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Sessions Logged</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="health-sessions">0</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2" id="health-date-range">No workouts yet</div>
+                    </div>
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Total Volume</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="health-volume">0 kg</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Weighted sets only</div>
+                    </div>
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Best Dead Hang</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="health-deadhang">0s</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Grip strength finisher</div>
+                    </div>
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Latest Workout</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="health-latest-day">-</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2" id="health-latest-date">-</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
+                    <section class="xl:col-span-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 flex items-center justify-between gap-3">
+                            <div>
+                                <h2 class="text-lg font-semibold dark:text-white">Session Volume Trend</h2>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Estimated kg volume from logged reps × weight.</p>
+                            </div>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">GBC Plan</span>
+                        </div>
+                        <div class="p-6" id="health-volume-chart"></div>
+                    </section>
+
+                    <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
+                            <h2 class="text-lg font-semibold dark:text-white">Workout Split</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Day A/B/C balance.</p>
+                        </div>
+                        <div class="p-6 space-y-4" id="health-split-bars"></div>
+                    </section>
+                </div>
+
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                    <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
+                            <h2 class="text-lg font-semibold dark:text-white">Exercise Progress</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Latest top set vs previous logged top set.</p>
+                        </div>
+                        <div class="divide-y divide-gray-200 dark:divide-white/10" id="health-exercise-progress"></div>
+                    </section>
+
+                    <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
+                            <h2 class="text-lg font-semibold dark:text-white">Recent Workouts</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">The latest sessions from your workout log.</p>
+                        </div>
+                        <div class="divide-y divide-gray-200 dark:divide-white/10" id="health-recent-workouts"></div>
+                    </section>
+                </div>
+            </section>
+
+            <section data-health-panel="weight" class="health-section-panel mb-8 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-8">
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Current Weight</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="health-weight-current">-</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2" id="health-weight-date">No weigh-ins yet</div>
+                    </div>
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Change Since Previous</div>
+                        <div class="flex items-end gap-2">
+                            <div class="text-3xl font-semibold tracking-tight dark:text-white" id="health-weight-change-prev">-</div>
+                        </div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Relative to last recorded weigh-in</div>
+                    </div>
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Change (30 Days)</div>
+                        <div class="flex items-end gap-2">
+                            <div class="text-3xl font-semibold tracking-tight dark:text-white" id="health-weight-change-30d">-</div>
+                        </div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Trend over approximately one month</div>
+                    </div>
+                </div>
+
+                <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden mb-8">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 flex items-center justify-between gap-3">
+                        <div>
+                            <h2 class="text-lg font-semibold dark:text-white">Weight Trend</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Tracked over time to monitor average.</p>
+                        </div>
+                    </div>
+                    <div class="p-6" id="health-weight-chart"></div>
+                </section>
+            </section>
+        </div>
+
+        <!-- ================= VIEW: DAILY NEWS ================= -->       <div id="view-news" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Daily AI News</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Your morning briefing generated daily at 7 AM.</p>
+                </div>
+                <button id="refresh-news-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Data</button>
+            </header>
+
+            <div id="news-content" class="space-y-5">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">
+                    Loading news briefings...
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: LEARNINGS LOG ================= -->
+        <div id="view-learnings" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Learnings Log</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">A rolling database of everything you've learned.</p>
+                </div>
+                <button id="refresh-learnings-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Data</button>
+            </header>
+
+            <div class="space-y-6" id="learnings-container">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- ================= VIEW: READ ================= -->
+        <div id="view-read" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end gap-6">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Read</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Your local Audible-style library for articles and book summaries, read back with free MLX/Kokoro TTS.</p>
+                </div>
+                <button id="refresh-read-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Library</button>
+            </header>
+
+            <div class="mb-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#171717] p-5">
+                <div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-3">Add to Read Library</div>
+                <form id="read-form" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+                            <input type="text" id="read-title" required class="w-full bg-white dark:bg-[#212121] border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black dark:focus:border-white transition-colors" placeholder="Article or Book Title">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Type</label>
+                            <select id="read-type" class="w-full bg-white dark:bg-[#212121] border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black dark:focus:border-white transition-colors">
+                                <option value="article">Article</option>
+                                <option value="book summary">Book Summary</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Content</label>
+                        <textarea id="read-text" required rows="16" class="w-full bg-white dark:bg-[#212121] border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black dark:focus:border-white transition-colors resize-y leading-relaxed font-mono" placeholder="Paste the full article or book summary text here..."></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" id="read-submit-btn" class="text-sm border border-transparent bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-lg hover:opacity-80 transition-opacity font-medium">Add to Library</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="read-library" class="space-y-4">
+                <div class="text-sm text-gray-500 dark:text-gray-400">Loading Read library...</div>
+            </div>
+            <audio id="read-audio-player" class="hidden"></audio>
+
+            <!-- Text Edit Modal -->
+            <div id="read-edit-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+                <div class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-gray-800 rounded-xl shadow-xl w-full max-w-4xl h-[85vh] flex flex-col">
+                    <div class="p-6 border-b border-gray-100 dark:border-white/5 flex justify-between items-center">
+                        <h2 class="text-xl font-semibold dark:text-white" id="read-edit-title">Edit Content</h2>
+                        <button id="read-edit-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                    <div class="p-6 flex-1 overflow-hidden flex flex-col">
+                        <textarea id="read-edit-text" class="w-full h-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 font-mono text-sm focus:outline-none focus:border-black dark:focus:border-white transition-colors resize-none" spellcheck="false"></textarea>
+                        <div class="mt-4 text-xs text-amber-600 dark:text-amber-400 flex items-center gap-2">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Note: Saving edits will delete the existing audio. It will be seamlessly regenerated upon next play.
+                        </div>
+                    </div>
+                    <div class="p-6 border-t border-gray-100 dark:border-white/5 flex justify-end gap-3">
+                        <button id="read-edit-cancel" class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 rounded-lg transition-colors">Cancel</button>
+                        <button id="read-edit-save" class="px-5 py-2 text-sm font-medium bg-black text-white dark:bg-white dark:text-black hover:opacity-80 rounded-lg transition-opacity flex items-center gap-2">
+                            <svg class="w-4 h-4 hidden animate-spin" id="read-edit-spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-6.219-8.56"></path></svg>
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: RELEASES ================= -->
+        <div id="view-releases" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">OpenClaw Releases</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Track the latest updates and release notes.</p>
+                </div>
+                <button id="refresh-releases-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Data</button>
+            </header>
+
+            <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 overflow-auto">
+                <div id="releases-content" class="prose dark:prose-invert prose-sm max-w-none text-gray-800 dark:text-gray-200">
+                    Loading release notes...
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: FREEDOM GOALS ================= -->
+        <div id="view-goals" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Goals</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Tracking the metrics to escape the rat race and live the dream.</p>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <!-- Goal 1 -->
+                <div class="bg-gray-50 dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-6 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 bg-red-100 dark:bg-red-500/20 rounded-lg">
+                            <svg class="w-6 h-6 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg>
+                        </div>
+                        <span class="text-xs font-medium bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 px-2 py-1 rounded-full text-gray-500 dark:text-gray-400">Target: 100,000</span>
+                    </div>
+                    <h3 class="text-lg font-semibold dark:text-white mb-1">YouTube Subs</h3>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100"><span id="val-youtube">0</span> <span class="text-sm font-normal text-gray-500">/ 100k</span></div>
+                        <button onclick="editGoal('youtube')" class="opacity-0 group-hover:opacity-100 text-xs text-blue-500 hover:underline transition-opacity">Edit</button>
+                    </div>
+                    
+                    <div class="w-full bg-gray-200 dark:bg-white/10 rounded-full h-2 mb-2">
+                        <div id="bar-youtube" class="bg-red-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <div class="text-xs text-right text-gray-500" id="pct-youtube">0%</div>
+                </div>
+
+                <!-- Goal 2 -->
+                <div class="bg-gray-50 dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-6 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-blue-500"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-500/20 rounded-lg">
+                            <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <span class="text-xs font-medium bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 px-2 py-1 rounded-full text-gray-500 dark:text-gray-400">Target: 10,000</span>
+                    </div>
+                    <h3 class="text-lg font-semibold dark:text-white mb-1">Skool Members</h3>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100"><span id="val-skool">0</span> <span class="text-sm font-normal text-gray-500">/ 10k</span></div>
+                        <button onclick="editGoal('skool')" class="opacity-0 group-hover:opacity-100 text-xs text-blue-500 hover:underline transition-opacity">Edit</button>
+                    </div>
+                    
+                    <div class="w-full bg-gray-200 dark:bg-white/10 rounded-full h-2 mb-2">
+                        <div id="bar-skool" class="bg-blue-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <div class="text-xs text-right text-gray-500" id="pct-skool">0%</div>
+                </div>
+
+                <!-- Goal 3 -->
+                <div class="bg-gray-50 dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-6 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-green-500"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 bg-green-100 dark:bg-green-500/20 rounded-lg">
+                            <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <span class="text-xs font-medium bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 px-2 py-1 rounded-full text-gray-500 dark:text-gray-400">Target: £10,000</span>
+                    </div>
+                    <h3 class="text-lg font-semibold dark:text-white mb-1">Revenue</h3>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">£<span id="val-revenue">0</span> <span class="text-sm font-normal text-gray-500">/ £10k</span></div>
+                        <button onclick="editGoal('revenue')" class="opacity-0 group-hover:opacity-100 text-xs text-blue-500 hover:underline transition-opacity">Edit</button>
+                    </div>
+                    
+                    <div class="w-full bg-gray-200 dark:bg-white/10 rounded-full h-2 mb-2">
+                        <div id="bar-revenue" class="bg-green-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <div class="text-xs text-right text-gray-500" id="pct-revenue">0%</div>
+                </div>
+
+            </div>
+            
+            <div class="p-8 border border-dashed border-gray-300 dark:border-white/20 rounded-xl text-center bg-gray-50/50 dark:bg-white/5 text-gray-500">
+                <p class="text-sm dark:text-gray-400 italic">"Small steps, made over time, move mountains"</p>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: ANALYTICS ================= -->
+        <div id="view-analytics" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Analytics</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Social media performance hub. Starting with YouTube long-form retention and CTR.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button id="sync-youtube-analytics-btn" class="text-xs bg-red-600 text-white px-3 py-1.5 rounded hover:bg-red-700 transition-colors w-fit">Pull from YouTube</button>
+                    <button id="refresh-analytics-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Analytics</button>
+                </div>
+            </header>
+
+            <div id="analytics-auth-note" class="mb-8 rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-100">
+                <div class="font-semibold mb-1">YouTube Analytics access required</div>
+                <p>Impressions CTR and audience retention are private Studio metrics, so the public channel URL cannot expose them. This dashboard is ready to compare them once values are added to <code class="text-xs">mission-control/youtube_analytics_metrics.json</code> or the official YouTube Analytics API is connected.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                    <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Long-form Videos</div>
+                    <div class="text-3xl font-semibold tracking-tight dark:text-white" id="analytics-video-count">0</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">From your YouTube planner / analytics file.</div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                    <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Avg CTR</div>
+                    <div class="text-3xl font-semibold tracking-tight dark:text-white" id="analytics-avg-ctr">-</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Impressions click-through rate.</div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                    <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Avg Retention</div>
+                    <div class="text-3xl font-semibold tracking-tight dark:text-white" id="analytics-avg-retention">-</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Average audience retention.</div>
+                </div>
+            </div>
+
+            <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <h2 class="text-lg font-semibold dark:text-white">YouTube Long-form Comparison</h2>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Compare CTR vs retention across each long-form video.</p>
+                    </div>
+                    <a href="https://www.youtube.com/@PhilLougherAI" target="_blank" rel="noopener" class="text-xs px-3 py-1.5 rounded-full bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300">@PhilLougherAI</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm">
+                        <thead class="bg-white/70 dark:bg-[#171717]/70 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                            <tr>
+                                <th class="text-left px-6 py-3 font-medium">Video</th>
+                                <th class="text-right px-6 py-3 font-medium">CTR</th>
+                                <th class="text-right px-6 py-3 font-medium">Audience Retention</th>
+                                <th class="text-right px-6 py-3 font-medium">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="youtube-analytics-table" class="divide-y divide-gray-200 dark:divide-white/10">
+                            <tr><td colspan="4" class="px-6 py-8 text-center text-gray-500">Loading analytics...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= VIEW: YOUTUBE ================= -->
+        <div id="view-youtube" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">YouTube</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Strategy, content pipeline, scripts, and publishing workflow for the road to 100,000 subscribers.</p>
+                </div>
+                <button id="refresh-youtube-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Data</button>
+            </header>
+
+            <div id="youtube-section-tabs" class="mb-8 flex gap-2 overflow-x-auto rounded-full border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#171717] p-1 w-fit max-w-full">
+                <button type="button" data-youtube-section="growth" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full bg-black text-white dark:bg-white dark:text-black whitespace-nowrap">Growth Strategy</button>
+                <button type="button" data-youtube-section="pipeline" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Video Pipeline</button>
+                <button type="button" data-youtube-section="metrics" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Metrics</button>
+                <button type="button" data-youtube-section="competitors" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Competitor Analysis</button>
+                <button type="button" data-youtube-section="swipe" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Swipe File</button>
+                <button type="button" data-youtube-section="team" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Dream Team</button>
+            </div>
+
+            <section data-youtube-panel="growth" class="youtube-section-panel mb-8 bg-gradient-to-br from-red-50 to-white dark:from-red-500/10 dark:to-[#171717] border border-red-100 dark:border-red-500/20 rounded-2xl overflow-hidden">
+                <div class="px-6 py-5 border-b border-red-100 dark:border-red-500/20 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+                    <div>
+                        <div class="text-xs font-semibold uppercase tracking-[0.18em] text-red-600 dark:text-red-300 mb-2">Growth Strategy</div>
+                        <h2 class="text-2xl font-semibold tracking-tight dark:text-white">Road to 100,000 subscribers</h2>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Outcome-first OpenClaw content: challenges, transformations, comparisons, and tutorials.</p>
+                    </div>
+                    <span class="text-xs px-3 py-1.5 rounded-full bg-white dark:bg-white/10 border border-red-100 dark:border-red-500/20 text-red-700 dark:text-red-200 w-fit">80/20 Focus</span>
+                </div>
+                <div id="youtube-strategy-content" class="youtube-strategy-content p-6 text-sm text-gray-700 dark:text-gray-200">
+                    Loading 100K strategy...
+                </div>
+            </section>
+
+            <section data-youtube-panel="pipeline" class="youtube-section-panel hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
+                        <h3 class="text-sm font-semibold dark:text-white">Total Videos</h3>
+                    </div>
+                    <div class="p-5">
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="yt-total">0</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">All ideas in your content pipeline.</div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
+                        <h3 class="text-sm font-semibold dark:text-white">Done</h3>
+                    </div>
+                    <div class="p-5">
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="yt-done">0</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Videos marked complete.</div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
+                        <h3 class="text-sm font-semibold dark:text-white">Remaining</h3>
+                    </div>
+                    <div class="p-5">
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="yt-remaining">0</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Videos still to make.</div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 flex items-center justify-between gap-3">
+                        <h3 class="text-sm font-semibold dark:text-white">Completion</h3>
+                        <span class="text-[11px] px-2.5 py-1 rounded-full bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300">Creator</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="yt-completion">0%</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Share of the plan already done.</div>
+                    </div>
+                </div>
+            </div>
+
+            <section>
+                <div class="flex flex-col gap-4 mb-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <h2 class="text-lg font-medium tracking-tight dark:text-white">Video Pipeline</h2>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Click a title to open the script editor.</div>
+                    </div>
+                    <div id="youtube-filter-group" class="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] p-1 w-fit">
+                        <button type="button" data-filter="all" class="youtube-filter-btn px-3 py-1.5 text-xs font-medium rounded-full bg-black text-white dark:bg-white dark:text-black">All</button>
+                        <button type="button" data-filter="todo" class="youtube-filter-btn px-3 py-1.5 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">Not Done</button>
+                        <button type="button" data-filter="done" class="youtube-filter-btn px-3 py-1.5 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">Done</button>
+                    </div>
+                </div>
+                <div class="space-y-5" id="youtube-videos-container">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+            </section>
+
+            <section data-youtube-panel="metrics" class="youtube-section-panel hidden space-y-8">
+                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <h2 class="text-2xl font-semibold tracking-tight dark:text-white">YouTube Metrics</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">CTR and retention comparison pulled from your YouTube analytics data.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="youtube-page-sync-analytics-btn" class="text-xs bg-red-600 text-white px-3 py-1.5 rounded hover:bg-red-700 transition-colors w-fit">Pull from YouTube</button>
+                        <button id="youtube-page-refresh-analytics-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Metrics</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Long-form Videos</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="youtube-page-analytics-video-count">0</div>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Avg CTR</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="youtube-page-analytics-avg-ctr">-</div>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Avg Retention</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="youtube-page-analytics-avg-retention">-</div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
+                        <h3 class="text-lg font-semibold dark:text-white">Long-form Comparison</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Compare packaging performance and retention across videos.</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm">
+                            <thead class="bg-white/70 dark:bg-[#171717]/70 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                                <tr>
+                                    <th class="text-left px-6 py-3 font-medium">Video</th>
+                                    <th class="text-right px-6 py-3 font-medium">CTR</th>
+                                    <th class="text-right px-6 py-3 font-medium">Audience Retention</th>
+                                    <th class="text-right px-6 py-3 font-medium">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="youtube-page-analytics-table" class="divide-y divide-gray-200 dark:divide-white/10">
+                                <tr><td colspan="4" class="px-6 py-8 text-center text-gray-500">Loading metrics...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section data-youtube-panel="competitors" class="youtube-section-panel hidden space-y-6">
+                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <h2 class="text-2xl font-semibold tracking-tight dark:text-white">Competitor Analysis</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Reference notes from the YouTube skill folder: competitor channels, inspiration, packaging patterns, and analysis frameworks.</p>
+                    </div>
+                    <button id="youtube-refresh-competitors-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Analysis</button>
+                </div>
+                <div id="youtube-competitor-container" class="space-y-4">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <section data-youtube-panel="swipe" class="youtube-section-panel hidden space-y-6">
+                <div>
+                    <h2 class="text-2xl font-semibold tracking-tight dark:text-white">Swipe File</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Store reusable thumbnail angles, title ideas, hooks, and packaging inspiration.</p>
+                </div>
+                <form id="youtube-swipe-form" class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 grid grid-cols-1 md:grid-cols-4 gap-3">
+                    <select id="youtube-swipe-type" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                        <option value="title">Title idea</option>
+                        <option value="thumbnail">Thumbnail idea</option>
+                    </select>
+                    <input id="youtube-swipe-title" type="text" required class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="e.g. I Let AI Run My Life for 7 Days">
+                    <input id="youtube-swipe-source" type="text" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Source / channel">
+                    <textarea id="youtube-swipe-notes" rows="3" class="md:col-span-4 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none resize-none" placeholder="Why it works, visual layout, curiosity gap, emotional trigger..."></textarea>
+                    <button type="submit" class="md:col-start-4 text-sm bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors">Add to Swipe File</button>
+                </form>
+                <div id="youtube-swipe-items" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Dream Team Section -->
+            <section data-youtube-panel="team" class="youtube-section-panel hidden space-y-6">
+                <div>
+                    <h2 class="text-2xl font-semibold tracking-tight dark:text-white">Dream Team</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Key people from your Personal CRM specializing in YouTube editing, strategy, and design.</p>
+                </div>
+                <div id="youtube-team-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Loading your CRM dream team...</div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Script Editor Modal -->
+    <div id="script-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex flex-col items-center justify-center opacity-0 transition-opacity p-4 sm:p-6">
+        <div class="bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 rounded-xl shadow-2xl w-full max-w-5xl h-full max-h-[90vh] flex flex-col transform scale-95 transition-transform" id="script-modal-content">
+            <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-white/10">
+                <div class="flex items-center gap-3">
+                    <h2 class="text-lg font-medium tracking-tight dark:text-white" id="script-modal-title">Edit Script</h2>
+                    <div class="bg-gray-100 dark:bg-white/10 p-1 rounded-md flex text-xs">
+                        <button id="tab-edit" class="px-3 py-1 bg-white dark:bg-[#171717] rounded shadow-sm font-medium dark:text-white pointer-events-none">Edit</button>
+                        <button id="tab-preview" class="px-3 py-1 text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors">Preview</button>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button id="close-script-btn" class="px-3 py-1.5 text-sm text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors rounded-md hover:bg-gray-100 dark:hover:bg-white/5">Cancel</button>
+                    <button id="save-script-btn" class="px-4 py-1.5 text-sm bg-black text-white dark:bg-white dark:text-black rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors font-medium">Save Script</button>
+                </div>
+            </div>
+            <div class="flex-1 overflow-hidden relative">
+                <textarea id="script-textarea" class="absolute inset-0 w-full h-full p-6 font-mono text-sm bg-gray-50 dark:bg-[#171717] border-0 text-gray-900 dark:text-gray-100 focus:outline-none resize-none leading-relaxed" spellcheck="false" placeholder="Write your script here..."></textarea>
+                <div id="script-preview" class="absolute inset-0 w-full h-full p-8 overflow-y-auto bg-white dark:bg-[#212121] hidden prose dark:prose-invert max-w-none"></div>
+            </div>
+            <div id="youtube-checklist-panel" class="border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#171717] p-4 max-h-56 overflow-y-auto">
+                <div class="flex items-center justify-between gap-3 mb-3">
+                    <div>
+                        <h3 class="text-sm font-semibold dark:text-white">YouTube Publishing Checklist</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Tick these off per script as you edit or preview.</p>
+                    </div>
+                    <span id="youtube-checklist-progress" class="text-xs px-2.5 py-1 rounded-full bg-white dark:bg-white/10 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300">0/9 done</span>
+                </div>
+                <div id="youtube-checklist-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Task Modal -->
+    <div id="task-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity">
+        <div id="task-modal-content" class="bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl w-full max-w-2xl transform scale-95 transition-transform overflow-hidden">
+            <form id="task-form">
+                <div class="px-6 py-5 border-b border-gray-200 dark:border-white/10">
+                    <h2 class="text-xl font-semibold tracking-tight dark:text-white">Create New Task</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Add it to your parked To Do backlog. It won’t be actioned until you click Start.</p>
+                </div>
+                <div class="p-6 space-y-5">
+                    <div>
+                        <label for="task-title-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Title</label>
+                        <input id="task-title-input" name="title" type="text" required class="w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20" placeholder="e.g. Create YouTube thumbnail ideas">
+                    </div>
+                    <div>
+                        <label for="task-description-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+                        <textarea id="task-description-input" name="description" rows="4" class="w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20 resize-none" placeholder="What needs doing? Add any useful context here."></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="task-tag-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Type / Tag</label>
+                            <select id="task-tag-input" name="tag" class="w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20">
+                                <option>General</option>
+                                <option>YouTube</option>
+                                <option>Coding</option>
+                                <option>Marketing</option>
+                                <option>LifeOS</option>
+                                <option>Research</option>
+                                <option>Admin</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="task-assignee-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Assign to</label>
+                            <select id="task-assignee-input" name="assignee" class="w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20">
+                                <option value="main">Chief of Staff</option>
+                                <option value="cto">CTO</option>
+                                <option value="cmo">CMO</option>
+                                <option value="daily-tasks">Daily Tasks</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label for="task-schedule-day-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Schedule day</label>
+                            <select id="task-schedule-day-input" name="scheduleDay" class="w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20">
+                                <option value="">Unscheduled</option>
+                                <option value="0">Monday</option>
+                                <option value="1">Tuesday</option>
+                                <option value="2">Wednesday</option>
+                                <option value="3">Thursday</option>
+                                <option value="4">Friday</option>
+                                <option value="5">Saturday</option>
+                                <option value="6">Sunday</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="task-start-time-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Start</label>
+                            <input id="task-start-time-input" name="startTime" type="time" class="w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20">
+                        </div>
+                        <div>
+                            <label for="task-end-time-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">End</label>
+                            <input id="task-end-time-input" name="endTime" type="time" class="w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20">
+                        </div>
+                    </div>
+                </div>
+                <div class="px-6 py-4 bg-gray-50 dark:bg-[#171717] border-t border-gray-200 dark:border-white/10 flex justify-end gap-3">
+                    <button type="button" id="cancel-task-btn" class="px-4 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">Cancel</button>
+                    <button type="submit" class="px-4 py-2 text-sm rounded-lg bg-black text-white dark:bg-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors font-medium">Create Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

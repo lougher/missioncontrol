@@ -1,0 +1,78 @@
+{
+  "Scripts/OpenClaw_Codex_55_OAuth_Script.md": [
+    {
+      "label": "Subtitles",
+      "done": true
+    },
+    {
+      "label": "Music",
+      "done": true
+    },
+    {
+      "label": "Sound design",
+      "done": true
+    },
+    {
+      "label": "Colour grading",
+      "done": false
+    },
+    {
+      "label": "Transitions",
+      "done": true
+    },
+    {
+      "label": "Zooms",
+      "done": true
+    },
+    {
+      "label": "Add the first comment after posting",
+      "done": false
+    },
+    {
+      "label": "Create bloopers at the end of the video",
+      "done": true
+    },
+    {
+      "label": "3 x Thumbnails",
+      "done": false
+    }
+  ],
+  "Scripts/OpenClaw_Nutritionist_Wife_Script.md": [
+    {
+      "label": "Subtitles",
+      "done": false
+    },
+    {
+      "label": "Music",
+      "done": false
+    },
+    {
+      "label": "Sound design",
+      "done": false
+    },
+    {
+      "label": "Colour grading",
+      "done": false
+    },
+    {
+      "label": "Transitions",
+      "done": false
+    },
+    {
+      "label": "Zooms",
+      "done": false
+    },
+    {
+      "label": "Add the first comment after posting",
+      "done": false
+    },
+    {
+      "label": "Create bloopers at the end of the video",
+      "done": false
+    },
+    {
+      "label": "3 x Thumbnails",
+      "done": false
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+*.err.log
+*.out.log
+
+# Local runtime/state data
+fleet_data.json
+goals.json
+daily_news.md
+daily_news_history.json
+read_library.json
+youtube_analytics_metrics.json
+read-audio/
+read-content/
+
+# Local backups / editor artefacts
+*.bak
+
+# Secrets should live outside this repo in ~/.openclaw/workspace/secrets
+secrets/
+.env
+.env.*
