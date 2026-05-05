@@ -24,7 +24,6 @@ const YOUTUBE_TOKEN_FILE = path.join(WORKSPACE_DIR, 'secrets', 'youtube-token.js
 const DAILY_NEWS_FILE = path.join(__dirname, 'daily_news.md');
 const DAILY_NEWS_HISTORY_FILE = path.join(__dirname, 'daily_news_history.json');
 const RELEASES_FILE = path.join(__dirname, 'releases.md');
-const RELEASES_JSON_FILE = path.join(__dirname, 'releases.json');
 const LEARNINGS_FILE = path.join(WORKSPACE_DIR, 'skills', 'learnings', 'learning_log.md');
 const GOALS_FILE = path.join(__dirname, 'goals.json');
 const WORKOUT_LOGS_FILE = path.join(WORKSPACE_DIR, 'skills', 'workout-tracker', 'workout_logs.csv');
@@ -220,22 +219,13 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify({ content: data, items: history }));
         });
     } else if (req.url === '/api/releases') {
-        fs.readFile(RELEASES_JSON_FILE, 'utf8', (jsonErr, jsonData) => {
-            if (!jsonErr) {
-                try {
-                    const parsed = JSON.parse(jsonData);
-                    res.writeHead(200, { 'Content-Type': 'application/json' });
-                    return res.end(JSON.stringify({ items: parsed.items || [] }));
-                } catch {}
+        fs.readFile(RELEASES_FILE, 'utf8', (err, data) => {
+            if (err) {
+                res.writeHead(404, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({ error: "Releases not found", content: "", items: [] }));
             }
-            fs.readFile(RELEASES_FILE, 'utf8', (err, data) => {
-                if (err) {
-                    res.writeHead(404, { 'Content-Type': 'application/json' });
-                    return res.end(JSON.stringify({ error: "Releases not found", content: "", items: [] }));
-                }
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ content: data, items: [] }));
-            });
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ content: data, items: [] }));
         });
     } else if (req.url === '/api/learnings') {
         fs.readFile(LEARNINGS_FILE, 'utf8', (err, data) => {

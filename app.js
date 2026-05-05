@@ -1455,8 +1455,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     `).join('');
                     return;
                 }
-                const html = data.content || '';
-                releasesContent.innerHTML = html ? html.replace(/\n/g, '<br/>') : '<p class="text-gray-500">No release notes yet.</p>';
+                const md = data.content || '';
+                releasesContent.innerHTML = md ? (typeof marked !== 'undefined' ? marked.parse(md) : md.replace(/\n/g, '<br/>')) : '<p class="text-gray-500">No release notes yet.</p>';
             }
         } catch(e) { console.error(e); }
         if (refreshReleasesBtn && !silent) refreshReleasesBtn.innerText = 'Refresh Data';
