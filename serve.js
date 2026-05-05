@@ -181,6 +181,16 @@ const server = http.createServer((req, res) => {
                 }
             });
         }
+    } else if (req.method === 'DELETE' && req.url.startsWith('/api/read/')) {
+        const id = decodeURIComponent(req.url.replace('/api/read/', '').replace(/\/$/, ''));
+        try {
+            const item = deleteReadItem(id);
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ item, deleted: true }));
+        } catch (err) {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: err.message || 'Failed to delete content' }));
+        }
     } else if (req.url.startsWith('/api/files/')) {
         const filename = req.url.replace('/api/files/', '');
         const allowed = ['USER.md', 'SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'AGENTS.md'];
@@ -1405,6 +1415,20 @@ function markReadItemListened(id) {
     item.lastListenedAt = new Date().toISOString();
     item.updatedAt = item.lastListenedAt;
     writeReadLibrary(library);
+    return item;
+}
+
+function deleteReadItem(id) {
+    const library = readReadLibrary();
+    const index = library.items.findIndex(entry => entry.id === id);
+    if (index === -1) throw new Error('Read item not found');
+
+    const [item] = library.items.splice(index, 1);
+    writeReadLibrary(library);
+
+    try { fs.unlinkSync(path.join(READ_CONTENT_DIR, item.textFile)); } catch {}
+    try { fs.unlinkSync(path.join(READ_AUDIO_DIR, item.audioFile || `${item.id}.wav`)); } catch {}
+
     return item;
 }
 
