@@ -580,6 +580,7 @@
                     <p class="text-sm text-gray-500 dark:text-gray-400">Your local Audible-style library for articles and book summaries, read back with free MLX/Kokoro TTS.</p>
                 </div>
                 <div class="flex items-center gap-3">
+                    <button id="toggle-read-form-btn" class="text-xs border border-transparent bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 rounded hover:opacity-80 transition-opacity">Add content</button>
                     <label for="read-speed" class="text-xs text-gray-500 dark:text-gray-400">Speed</label>
                     <select id="read-speed" class="text-xs border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] dark:text-gray-300 px-3 py-1.5 rounded focus:outline-none cursor-pointer">
                         <option value="1">1x</option>
@@ -592,7 +593,7 @@
                 </div>
             </header>
 
-            <div class="mb-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#171717] p-5">
+            <div id="read-form-panel" class="mb-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#171717] p-5 hidden">
                 <div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-3">Add to Read Library</div>
                 <form id="read-form" class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -612,7 +613,8 @@
                         <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Content</label>
                         <textarea id="read-text" required rows="16" class="w-full bg-white dark:bg-[#212121] border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black dark:focus:border-white transition-colors resize-y leading-relaxed font-mono" placeholder="Paste the full article or book summary text here..."></textarea>
                     </div>
-                    <div class="flex justify-end">
+                    <div class="flex justify-end gap-3">
+                        <button type="button" id="read-form-cancel-btn" class="text-sm border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors font-medium">Cancel</button>
                         <button type="submit" id="read-submit-btn" class="text-sm border border-transparent bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-lg hover:opacity-80 transition-opacity font-medium">Add to Library</button>
                     </div>
                 </form>

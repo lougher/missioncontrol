@@ -1548,6 +1548,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const readLibraryEl = document.getElementById('read-library');
     const readAudioPlayer = document.getElementById('read-audio-player');
     const readForm = document.getElementById('read-form');
+    const readFormPanel = document.getElementById('read-form-panel');
+    const readFormCancelBtn = document.getElementById('read-form-cancel-btn');
+    const toggleReadFormBtn = document.getElementById('toggle-read-form-btn');
     const readSubmitBtn = document.getElementById('read-submit-btn');
     const readSpeedSelect = document.getElementById('read-speed');
     let activeReadId = null;
@@ -1569,6 +1572,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (readSpeedSelect) {
         readSpeedSelect.addEventListener('change', () => applyReadPlaybackRate(readSpeedSelect.value));
+    }
+
+    function setReadFormOpen(open) {
+        if (!readFormPanel || !toggleReadFormBtn) return;
+        readFormPanel.classList.toggle('hidden', !open);
+        toggleReadFormBtn.innerText = open ? 'Hide form' : 'Add content';
+        if (open) document.getElementById('read-title')?.focus();
+    }
+
+    if (toggleReadFormBtn) {
+        toggleReadFormBtn.addEventListener('click', () => {
+            const isHidden = readFormPanel?.classList.contains('hidden');
+            setReadFormOpen(Boolean(isHidden));
+        });
+    }
+
+    if (readFormCancelBtn) {
+        readFormCancelBtn.addEventListener('click', () => setReadFormOpen(false));
     }
 
     if (readForm) {
@@ -1597,6 +1618,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 document.getElementById('read-title').value = '';
                 document.getElementById('read-text').value = '';
+                setReadFormOpen(false);
                 await loadReadLibrary();
             } catch (err) {
                 console.error(err);
