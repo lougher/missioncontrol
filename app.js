@@ -1553,6 +1553,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggleReadFormBtn = document.getElementById('toggle-read-form-btn');
     const readSubmitBtn = document.getElementById('read-submit-btn');
     const readSpeedSelect = document.getElementById('read-speed');
+    const readSortSelect = document.getElementById('read-sort');
     let activeReadId = null;
 
     const PLAY_ICON = `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72c0 .72.78 1.17 1.4.81l10.2-5.86a.94.94 0 000-1.62L9.4 4.33A.94.94 0 008 5.14z"></path></svg>`;
@@ -1572,6 +1573,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (readSpeedSelect) {
         readSpeedSelect.addEventListener('change', () => applyReadPlaybackRate(readSpeedSelect.value));
+    }
+
+    function getReadSort() {
+        try { return localStorage.getItem('readSort') || 'created'; } catch { return 'created'; }
+    }
+
+    function sortReadItems(items) {
+        const sort = readSortSelect?.value || getReadSort();
+        const timestamp = (value) => {
+            const parsed = Date.parse(value || '');
+            return Number.isNaN(parsed) ? 0 : parsed;
+        };
+        return [...items].sort((a, b) => {
+            if (sort === 'listened') {
+                const listenedDifference = timestamp(b.lastListenedAt) - timestamp(a.lastListenedAt);
+                if (listenedDifference) return listenedDifference;
+            }
+            return timestamp(b.createdAt) - timestamp(a.createdAt);
+        });
+    }
+
+    if (readSortSelect) {
+        readSortSelect.value = getReadSort();
+        readSortSelect.addEventListener('change', () => {
+            try { localStorage.setItem('readSort', readSortSelect.value); } catch {}
+            loadReadLibrary(true);
+        });
     }
 
     function setReadFormOpen(open) {
@@ -1638,7 +1666,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const res = await fetch('/api/read');
             const data = await res.json();
-            const items = Array.isArray(data.items) ? data.items : [];
+            const items = sortReadItems(Array.isArray(data.items) ? data.items : []);
             readLibraryEl.innerHTML = items.length ? items.map(renderReadItem).join('') : `
                 <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">
                     Nothing saved yet. Use the form above to add an article or book summary.
