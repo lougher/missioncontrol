@@ -23,6 +23,22 @@
       "notes": "Split-screen transformation: chaos on left, clean Mission Control/OpenClaw dashboard on right. Big text: '3 HOURS → 1 VOICE NOTE'.",
       "source": "PhilAI strategy",
       "createdAt": "2026-05-03T06:46:00.000Z"
+    },
+    {
+      "id": "swipe-github-backup",
+      "type": "title",
+      "title": "Back Up Your OpenClaw AI With GitHub",
+      "notes": "How-to tutorial. Hook: corrupted workspace story → GitHub salvation. .gitignore security beat is the most critical moment.",
+      "source": "Phil's video ideas",
+      "createdAt": "2026-05-06T16:37:00.000Z"
+    },
+    {
+      "id": "swipe-mobile-empire",
+      "type": "title",
+      "title": "Run Your AI Empire From Your Phone",
+      "notes": "Before/After transformation. Phil outdoors with phone approving agent tasks. First video shot away from desk — visually proves the freedom promise.",
+      "source": "Phil's video ideas",
+      "createdAt": "2026-05-06T16:37:00.000Z"
     }
   ]
 }

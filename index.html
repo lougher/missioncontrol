@@ -27,7 +27,7 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260904-social-crm">
 </head>
 <body class="bg-white dark:bg-[#212121] text-gray-900 dark:text-gray-100 font-sans antialiased flex h-screen overflow-hidden transition-colors duration-200">
 
@@ -40,7 +40,7 @@
                 <div class="context-switcher-wrapper flex-1 relative flex items-center">
                     <select id="context-switcher" class="bg-transparent text-gray-900 dark:text-[#ececf1] font-medium focus:outline-none appearance-none cursor-pointer w-full tracking-wide">
                         <option value="mission-control" class="text-black">Mission Control</option>
-                        <option value="lifeos" class="text-black">LifeOS</option>
+                        <option value="lifeos" class="text-black" selected>LifeOS</option>
                     </select>
                     <!-- Custom Arrow -->
                     <svg class="w-4 h-4 text-gray-400 absolute right-0 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -49,7 +49,7 @@
         </div>
 
         <!-- Mission Control Navigation -->
-        <nav id="nav-mission-control" class="flex-1 py-4 px-3 space-y-1 overflow-y-auto overflow-x-hidden">
+        <nav id="nav-mission-control" class="flex-1 py-4 px-3 space-y-1 overflow-y-auto overflow-x-hidden hidden">
             <div class="sidebar-section-title text-xs font-semibold text-gray-500 mb-2 px-3 mt-2 whitespace-nowrap">Manage</div>
             <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-200 dark:bg-sidebarHover text-gray-900 dark:text-white transition-colors" data-target="view-usage" title="Usage">
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
@@ -86,11 +86,19 @@
         </nav>
 
         <!-- LifeOS Navigation -->
-        <nav id="nav-lifeos" class="flex-1 py-4 px-3 space-y-1 overflow-y-auto overflow-x-hidden hidden">
+        <nav id="nav-lifeos" class="flex-1 py-4 px-3 space-y-1 overflow-y-auto overflow-x-hidden">
             <div class="sidebar-section-title text-xs font-semibold text-gray-500 mb-2 px-3 mt-2 whitespace-nowrap">Personal</div>
             <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-goals" title="Goals">
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 <span class="sidebar-text text-sm whitespace-nowrap">Goals</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-people" title="People">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H2v-2a4 4 0 014-4h3m4 6h-2m1-10a4 4 0 110-8 4 4 0 010 8zm7 1a3 3 0 10-2.83-4"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">People</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-business-ideas" title="Business Ideas">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.021 10.607A5 5 0 1116.343 16.25c-.665.62-1.126 1.26-1.343 1.75H9c-.216-.49-.678-1.13-1.343-1.75z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21h6"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Business Ideas</span>
             </a>
             <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-health" title="Health & Fitness">
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
@@ -104,9 +112,25 @@
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                 <span class="sidebar-text text-sm whitespace-nowrap">Learnings Log</span>
             </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-journal" title="Journal">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Journal</span>
+            </a>
             <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-read" title="Read">
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                 <span class="sidebar-text text-sm whitespace-nowrap">Read</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-linkedin-jobs" title="LinkedIn Jobs">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">LinkedIn Jobs</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-ytjobs" title="YTJobs">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3" stroke-width="2"></rect><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9.5v5l5-2.5-5-2.5z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">YTJobs</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-property" title="Property">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 11l9-8 9 8M5 10v10h14V10M9 20v-6h6v6"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Property</span>
             </a>
             <div class="sidebar-section-title text-xs font-semibold text-gray-500 mb-2 px-3 mt-4 whitespace-nowrap">Creator</div>
             <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-analytics" title="Analytics">
@@ -116,6 +140,10 @@
             <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-youtube" title="YouTube">
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <span class="sidebar-text text-sm whitespace-nowrap">YouTube</span>
+            </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-instagram" title="Instagram">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" ry="5" stroke-width="2"></rect><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.5 7.5h.01M8 12a4 4 0 108 0 4 4 0 00-8 0z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Instagram</span>
             </a>
         </nav>
 
@@ -245,10 +273,14 @@
                 </div>
             </section>
 
+            <section class="mb-8" id="focus-mode-container">
+                <!-- JS Populated -->
+            </section>
+
             <!-- Agent Status Panel -->
             <section class="mb-8">
-                <h2 class="text-lg font-medium tracking-tight dark:text-white mb-4">Active Agents</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="fleet-agents-container">
+                <h2 class="text-lg font-medium tracking-tight dark:text-white mb-4">Agent Status</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4" id="fleet-agents-container">
                     <!-- JS Populated -->
                 </div>
             </section>
@@ -299,7 +331,8 @@
                         <div id="fleet-logs-container" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50 dark:bg-transparent">
                             <!-- JS Populated -->
                         </div>
-                        <div class="p-3 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717]">
+                        <div class="p-3 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] space-y-2">
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Use this for human context, not routine status. Examples: “Pause YouTube work until Friday”, “API key is failing”, “Deadline moved to tomorrow”.</p>
                             <div class="flex gap-2">
                                 <input type="text" id="new-log-input" class="flex-1 text-sm border border-gray-300 dark:border-white/20 rounded px-3 py-1.5 bg-transparent dark:text-white focus:outline-none" placeholder="Leave a note...">
                                 <button id="add-log-btn" class="bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 rounded text-sm font-medium">Send</button>
@@ -338,7 +371,7 @@
             <header class="mb-10 flex justify-between items-end">
                 <div>
                     <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Org Chart</h1>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Phil prompts the Chief of Staff, who delegates specialist work to the agent team.</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Phil sets the direction for Vin, Chief AI Officer, who delegates work across the specialist AI team.</p>
                 </div>
                 <button id="refresh-org-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Org</button>
             </header>
@@ -427,6 +460,45 @@
         </div>
 
         <!-- ================= VIEW: HEALTH & FITNESS ================= -->
+        <!-- ================= VIEW: PEOPLE / SOCIAL CRM ================= -->
+        <div id="view-people" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
+            <header class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+                <div>
+                    <div class="text-xs font-semibold uppercase tracking-[0.18em] text-violet-600 dark:text-violet-300 mb-2">Social CRM</div>
+                    <h1 class="text-3xl font-semibold tracking-tight dark:text-white">People</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 max-w-2xl">Remember the person, not just the contact. Keep a gentle rhythm with the people you want in your life.</p>
+                </div>
+                <button id="people-add-btn" class="inline-flex items-center justify-center gap-2 rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-violet-700 transition-colors">+ Add person</button>
+            </header>
+
+            <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+                <div class="people-stat-card"><div class="people-stat-label">People</div><div id="people-total" class="people-stat-value">0</div><div class="people-stat-note">in your circle</div></div>
+                <div class="people-stat-card"><div class="people-stat-label">Due now</div><div id="people-due" class="people-stat-value text-rose-600 dark:text-rose-300">0</div><div class="people-stat-note">worth a message</div></div>
+                <div class="people-stat-card"><div class="people-stat-label">Next 7 days</div><div id="people-upcoming" class="people-stat-value text-amber-600 dark:text-amber-300">0</div><div class="people-stat-note">coming up soon</div></div>
+                <div class="people-stat-card"><div class="people-stat-label">No history</div><div id="people-never" class="people-stat-value text-violet-600 dark:text-violet-300">0</div><div class="people-stat-note">start the rhythm</div></div>
+            </div>
+
+            <section class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] overflow-hidden mb-8">
+                <div class="p-5 border-b border-gray-200 dark:border-white/10 flex items-center justify-between gap-4 bg-violet-50/60 dark:bg-violet-500/[0.07]">
+                    <div><h2 class="text-lg font-semibold dark:text-white">Stay in touch</h2><p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Your relationship queue, ordered by what needs attention.</p></div>
+                    <span id="people-queue-count" class="text-xs rounded-full bg-white dark:bg-white/10 border border-violet-100 dark:border-white/10 px-2.5 py-1 text-violet-700 dark:text-violet-200">0 due</span>
+                </div>
+                <div id="people-queue" class="p-5 grid grid-cols-1 lg:grid-cols-2 gap-3"></div>
+            </section>
+
+            <section class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] overflow-hidden">
+                <div class="p-5 border-b border-gray-200 dark:border-white/10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                    <div><h2 class="text-lg font-semibold dark:text-white">Everyone</h2><p id="people-result-count" class="text-xs text-gray-500 dark:text-gray-400 mt-1">0 people</p></div>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input id="people-search" type="search" class="people-input sm:w-72" placeholder="Search names, notes or tags">
+                        <select id="people-relationship-filter" class="people-input sm:w-44"><option value="">All relationships</option><option>Close friend</option><option>Friend</option><option>Family</option><option>Professional</option><option>Acquaintance</option></select>
+                        <select id="people-due-filter" class="people-input sm:w-36"><option value="">Any timing</option><option value="due">Due now</option><option value="upcoming">Upcoming</option><option value="later">Later</option></select>
+                    </div>
+                </div>
+                <div id="people-list" class="divide-y divide-gray-200 dark:divide-white/10"></div>
+            </section>
+        </div>
+
         <div id="view-health" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
             <header class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div>
@@ -439,71 +511,348 @@
             <div id="health-section-tabs" class="mb-8 flex gap-2 overflow-x-auto rounded-full border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#171717] p-1 w-fit max-w-full">
                 <button type="button" data-health-section="workouts" class="health-section-tab px-4 py-2 text-xs font-medium rounded-full bg-black text-white dark:bg-white dark:text-black whitespace-nowrap">Workouts</button>
                 <button type="button" data-health-section="weight" class="health-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Body Measurements</button>
+                <button type="button" data-health-section="nutrition" class="health-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Nutrition</button>
+                <button type="button" data-health-section="biomarkers" class="health-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Biomarkers</button>
             </div>
 
-            
-            <section data-health-panel="workouts" class="health-section-panel mb-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+            <section data-health-panel="biomarkers" class="health-section-panel mb-8 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4 mb-8">
                     <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
-                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Sessions Logged</div>
-                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="health-sessions">0</div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2" id="health-date-range">No workouts yet</div>
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Latest Blood Test</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="biomarker-test-date">-</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2" id="biomarker-print-date">No biomarker data yet</div>
                     </div>
                     <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
-                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Total Volume</div>
-                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="health-volume">0 kg</div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Weighted sets only</div>
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Markers Saved</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="biomarker-marker-count">-</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2" id="biomarker-normal-count">From October 2025 upload</div>
                     </div>
                     <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
-                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Best Dead Hang</div>
-                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="health-deadhang">0s</div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Grip strength finisher</div>
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Vitamin D</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="biomarker-vitamin-d">-</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">25-hydroxyvitamin D</div>
                     </div>
                     <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
-                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Latest Workout</div>
-                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="health-latest-day">-</div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2" id="health-latest-date">-</div>
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">HbA1c</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="biomarker-hba1c">-</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">IFCC standardised</div>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
                     <section class="xl:col-span-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 flex items-center justify-between gap-3">
+                        <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
+                            <h2 class="text-lg font-semibold dark:text-white">Biomarker Results</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Saved from health/biomarkers/biomarkers.json.</p>
+                        </div>
+                        <div class="divide-y divide-gray-200 dark:divide-white/10" id="biomarker-results"></div>
+                    </section>
+                    <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
+                            <h2 class="text-lg font-semibold dark:text-white">Categories</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Marker coverage by panel.</p>
+                        </div>
+                        <div class="p-6 space-y-4" id="biomarker-category-bars"></div>
+                    </section>
+                </div>
+            </section>
+
+            <section data-health-panel="workouts" class="health-section-panel mb-8">
+                <div id="workout-dashboard" class="space-y-6">
+                    <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
+                        <div class="workout-stat-card rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] p-5">
+                            <div class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Programme week</div>
+                            <div id="workout-current-week" class="mt-2 text-3xl font-semibold tracking-tight dark:text-white">-</div>
+                            <div id="workout-week-dates" class="mt-1 text-xs text-gray-500 dark:text-gray-400">Loading programme</div>
+                        </div>
+                        <div class="workout-stat-card rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] p-5">
+                            <div class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Sessions logged</div>
+                            <div id="health-sessions" class="mt-2 text-3xl font-semibold tracking-tight dark:text-white">0</div>
+                            <div id="health-date-range" class="mt-1 text-xs text-gray-500 dark:text-gray-400">No workouts yet</div>
+                        </div>
+                        <div class="workout-stat-card rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] p-5">
+                            <div class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Exercises improving</div>
+                            <div id="workout-improving-count" class="mt-2 text-3xl font-semibold tracking-tight text-emerald-600 dark:text-emerald-300">0</div>
+                            <div class="mt-1 text-xs text-gray-500 dark:text-gray-400">Compared with the previous log</div>
+                        </div>
+                        <div class="workout-stat-card rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] p-5">
+                            <div class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Latest workout</div>
+                            <div id="health-latest-day" class="mt-2 text-xl font-semibold tracking-tight dark:text-white">-</div>
+                            <div id="health-latest-date" class="mt-1 text-xs text-gray-500 dark:text-gray-400">-</div>
+                        </div>
+                    </div>
+
+                    <section class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] overflow-hidden">
+                        <div class="p-5 lg:p-6 border-b border-gray-200 dark:border-white/10 bg-gray-50/70 dark:bg-white/[0.03] flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
                             <div>
-                                <h2 class="text-lg font-semibold dark:text-white">Session Volume Trend</h2>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Estimated kg volume from logged reps × weight.</p>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h2 class="text-xl font-semibold dark:text-white">Weekly workouts</h2>
+                                    <span class="rounded-full bg-indigo-100 px-2.5 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300">Jorge programme</span>
+                                </div>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Choose a week and session, enter your working sets, then save the full session.</p>
                             </div>
-                            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">GBC Plan</span>
+                            <div class="flex flex-col sm:flex-row gap-3 sm:items-end">
+                                <label class="text-xs font-medium text-gray-500 dark:text-gray-400">Week
+                                    <select id="workout-week-select" class="mt-1 block min-w-48 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2.5 text-sm text-gray-900 dark:text-white"></select>
+                                </label>
+                                <label class="text-xs font-medium text-gray-500 dark:text-gray-400">Workout date
+                                    <input id="workout-date-input" type="date" class="mt-1 block rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2.5 text-sm text-gray-900 dark:text-white">
+                                </label>
+                            </div>
                         </div>
-                        <div class="p-6" id="health-volume-chart"></div>
+                        <div id="workout-session-tabs" class="flex gap-2 overflow-x-auto p-4 border-b border-gray-200 dark:border-white/10"></div>
+                        <div id="workout-session-summary" class="px-5 lg:px-6 py-4 bg-indigo-50/60 dark:bg-indigo-500/10 border-b border-indigo-100 dark:border-indigo-500/20"></div>
+                        <div class="overflow-x-auto">
+                            <table class="workout-table w-full min-w-[980px] text-left">
+                                <thead class="text-[11px] uppercase tracking-wider text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-white/[0.03]">
+                                    <tr>
+                                        <th class="px-5 py-3">Exercise</th>
+                                        <th class="px-4 py-3">Target</th>
+                                        <th class="px-4 py-3">Previous</th>
+                                        <th class="px-4 py-3 min-w-[340px]">Working sets</th>
+                                        <th class="px-5 py-3 text-right">Progress</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="workout-session-rows" class="divide-y divide-gray-200 dark:divide-white/10"></tbody>
+                            </table>
+                        </div>
+                        <div class="p-5 lg:p-6 border-t border-gray-200 dark:border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                            <p id="workout-save-status" class="text-sm text-gray-500 dark:text-gray-400">RIR is recorded as 0 automatically.</p>
+                            <button id="workout-save-session" type="button" class="rounded-xl bg-black dark:bg-white px-5 py-2.5 text-sm font-semibold text-white dark:text-black hover:opacity-80 transition-opacity">Save session</button>
+                        </div>
+                    </section>
+
+                    <section class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] overflow-hidden">
+                        <div class="p-5 lg:p-6 border-b border-gray-200 dark:border-white/10 bg-gray-50/70 dark:bg-white/[0.03] flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                            <div>
+                                <h2 class="text-xl font-semibold dark:text-white">Monitoring</h2>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">The useful parts of MONITOREO, now available across all four sessions.</p>
+                            </div>
+                            <div id="workout-monitor-filters" class="flex gap-2 overflow-x-auto"></div>
+                        </div>
+                        <div id="workout-monitor-summary" class="grid grid-cols-2 lg:grid-cols-4 gap-3 p-5 lg:p-6 border-b border-gray-200 dark:border-white/10"></div>
+                        <div class="overflow-x-auto">
+                            <table class="workout-table w-full min-w-[900px] text-left">
+                                <thead class="text-[11px] uppercase tracking-wider text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-white/[0.03]">
+                                    <tr>
+                                        <th class="px-5 py-3">Exercise</th>
+                                        <th class="px-4 py-3">Session</th>
+                                        <th class="px-4 py-3">Latest result</th>
+                                        <th class="px-4 py-3">Tonnage</th>
+                                        <th class="px-4 py-3">Change</th>
+                                        <th class="px-5 py-3">History</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="workout-monitor-rows" class="divide-y divide-gray-200 dark:divide-white/10"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </section>
+
+            <section data-health-panel="nutrition" class="health-section-panel mb-8 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Today / Latest Calories</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="nutrition-calories">-</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2" id="nutrition-latest-date">No macro logs yet</div>
+                    </div>
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Protein</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="nutrition-protein">-</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2" id="nutrition-protein-percent">-</div>
+                    </div>
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Fat</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="nutrition-fat">-</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2" id="nutrition-fat-percent">-</div>
+                    </div>
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Carbs</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="nutrition-carbs">-</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2" id="nutrition-carbs-percent">-</div>
+                    </div>
+                    <div class="health-metric-card bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Food Cost</div>
+                        <div class="text-3xl font-semibold tracking-tight dark:text-white" id="nutrition-cost">-</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Latest daily total</div>
+                    </div>
+                </div>
+
+                <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden mb-8">
+                    <details class="group">
+                    <summary class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 cursor-pointer list-none flex items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-semibold dark:text-white">Food Database</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Editable estimates for calories, macros, sugars, fibre, salt and price per default amount.</p>
+                        </div>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300 group-open:hidden">Show</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300 hidden group-open:inline-flex">Hide</span>
+                    </summary>
+                    <div class="p-6 border-b border-gray-200 dark:border-white/10">
+                        <form id="nutrition-food-db-form" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-3">
+                            <input type="hidden" id="nutrition-food-db-id">
+                            <input type="text" id="nutrition-food-db-name" required placeholder="Food" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white xl:col-span-2">
+                            <input type="text" id="nutrition-food-db-amount" placeholder="Default amount" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-db-calories" min="0" step="0.1" placeholder="Calories" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-db-protein" min="0" step="0.1" placeholder="Protein g" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-db-fat" min="0" step="0.1" placeholder="Fat g" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-db-carbs" min="0" step="0.1" placeholder="Carbs g" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-db-sugars" min="0" step="0.1" placeholder="Sugars g" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-db-fibre" min="0" step="0.1" placeholder="Fibre g" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-db-salt" min="0" step="0.01" placeholder="Salt g" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-db-price" min="0" step="0.01" placeholder="Price £" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="text" id="nutrition-food-db-notes" placeholder="Notes" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white xl:col-span-2">
+                            <div class="flex gap-2 xl:col-span-2">
+                                <button type="submit" id="nutrition-food-db-save-btn" class="text-sm border border-transparent bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-lg hover:opacity-80 transition-opacity font-medium">Save food</button>
+                                <button type="button" id="nutrition-food-db-cancel-btn" class="text-sm border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors font-medium hidden">Cancel edit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="divide-y divide-gray-200 dark:divide-white/10" id="nutrition-food-database"></div>
+                    </details>
+                </section>
+
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
+                    <section class="xl:col-span-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
+                            <h2 class="text-lg font-semibold dark:text-white">Calories Trend</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Last 30 daily macro logs.</p>
+                        </div>
+                        <div class="p-6" id="nutrition-calories-chart"></div>
                     </section>
 
                     <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
-                            <h2 class="text-lg font-semibold dark:text-white">Workout Split</h2>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Day A/B/C balance.</p>
+                            <h2 class="text-lg font-semibold dark:text-white">7-Day Average</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Average macros from recent logs.</p>
                         </div>
-                        <div class="p-6 space-y-4" id="health-split-bars"></div>
+                        <div class="p-6 space-y-4" id="nutrition-average-bars"></div>
                     </section>
                 </div>
 
-                <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                    <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
-                            <h2 class="text-lg font-semibold dark:text-white">Exercise Progress</h2>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Latest top set vs previous logged top set.</p>
+                <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden mb-8">
+                    <details class="group">
+                    <summary class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 cursor-pointer list-none flex items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-semibold dark:text-white">Recipe Database</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Editable meal recipes you can select when logging food.</p>
                         </div>
-                        <div class="divide-y divide-gray-200 dark:divide-white/10" id="health-exercise-progress"></div>
-                    </section>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300 group-open:hidden">Show</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300 hidden group-open:inline-flex">Hide</span>
+                    </summary>
+                    <div class="p-6 border-b border-gray-200 dark:border-white/10">
+                        <form id="nutrition-recipe-db-form" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-3">
+                            <input type="hidden" id="nutrition-recipe-db-id">
+                            <input type="text" id="nutrition-recipe-db-name" required placeholder="Recipe" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white xl:col-span-2">
+                            <input type="text" id="nutrition-recipe-db-meal" placeholder="Meal" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="text" id="nutrition-recipe-db-amount" placeholder="Default amount" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-recipe-db-calories" min="0" step="0.1" placeholder="Calories" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-recipe-db-protein" min="0" step="0.1" placeholder="Protein g" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-recipe-db-fat" min="0" step="0.1" placeholder="Fat g" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-recipe-db-carbs" min="0" step="0.1" placeholder="Carbs g" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-recipe-db-cost" min="0" step="0.01" placeholder="Cost £" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <textarea id="nutrition-recipe-db-ingredients" rows="3" placeholder="Ingredients, e.g. chicken 140g; rice 200g" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white xl:col-span-3"></textarea>
+                            <input type="text" id="nutrition-recipe-db-notes" placeholder="Notes" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white xl:col-span-2">
+                            <div class="flex gap-2 xl:col-span-2">
+                                <button type="submit" id="nutrition-recipe-db-save-btn" class="text-sm border border-transparent bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-lg hover:opacity-80 transition-opacity font-medium">Save recipe</button>
+                                <button type="button" id="nutrition-recipe-db-cancel-btn" class="text-sm border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors font-medium hidden">Cancel edit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="px-6 py-3 border-b border-gray-200 dark:border-white/10 bg-white/40 dark:bg-[#171717]/40 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+                        <label for="nutrition-recipe-sort-field" class="text-xs font-medium text-gray-500 dark:text-gray-400">Sort recipes by</label>
+                        <div class="flex flex-col gap-2 sm:flex-row">
+                            <select id="nutrition-recipe-sort-field" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                                <option value="recipe">Recipe name</option>
+                                <option value="cost">Price</option>
+                                <option value="calories">Calories</option>
+                                <option value="protein">Protein</option>
+                                <option value="fat">Fat</option>
+                                <option value="carbs">Carbs</option>
+                            </select>
+                            <select id="nutrition-recipe-sort-direction" aria-label="Recipe sort direction" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="divide-y divide-gray-200 dark:divide-white/10" id="nutrition-recipe-database"></div>
+                    </details>
+                </section>
 
-                    <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
-                            <h2 class="text-lg font-semibold dark:text-white">Recent Workouts</h2>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">The latest sessions from your workout log.</p>
+                <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden mb-8">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <h2 class="text-lg font-semibold dark:text-white">Daily Food Log</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">One day at a time. Select a date to view or edit its meals.</p>
                         </div>
-                        <div class="divide-y divide-gray-200 dark:divide-white/10" id="health-recent-workouts"></div>
-                    </section>
-                </div>
+                        <div class="flex items-center gap-3">
+                            <div class="text-right">
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Day total</div>
+                                <div class="text-sm font-semibold dark:text-white" id="nutrition-food-log-day-total">No entries</div>
+                            </div>
+                            <input type="date" id="nutrition-food-log-date-filter" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                        </div>
+                    </div>
+                    <div class="p-6 border-b border-gray-200 dark:border-white/10">
+                        <form id="nutrition-food-form" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-3">
+                            <input type="hidden" id="nutrition-food-id">
+                            <input type="date" id="nutrition-food-date" required class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="text" id="nutrition-food-meal" placeholder="Meal" class="nutrition-food-detail hidden rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="time" id="nutrition-food-time" class="nutrition-food-detail hidden rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <div class="relative">
+                                <input type="search" id="nutrition-recipe-db-select" autocomplete="off" placeholder="Search saved recipes" class="w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                                <div id="nutrition-recipe-search-results" class="hidden absolute z-30 left-0 right-0 mt-1 max-h-72 overflow-y-auto rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] shadow-xl"></div>
+                            </div>
+                            <select id="nutrition-food-db-select" class="rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"></select>
+                            <div id="nutrition-recipe-ingredients-adjuster" class="nutrition-food-detail hidden md:col-span-2 xl:col-span-6 rounded-xl border border-gray-200 dark:border-white/10 bg-white/70 dark:bg-[#171717]/70 p-4">
+                                <div class="font-medium text-sm dark:text-white">Adjust recipe ingredients</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Change what you actually ate. The meal totals update automatically before saving.</div>
+                                <div id="nutrition-recipe-ingredient-inputs" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-3"></div>
+                            </div>
+                            <input type="text" id="nutrition-food-item" placeholder="Food item or recipe" class="nutrition-food-detail hidden rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <div class="nutrition-food-detail hidden">
+                                <input type="text" id="nutrition-food-amount" placeholder="Amount, e.g. 80g" class="w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                                <div id="nutrition-food-amount-hint" class="text-xs text-gray-500 dark:text-gray-400 mt-1">Choose a saved food or recipe to scale its nutrition automatically.</div>
+                            </div>
+                            <input type="number" id="nutrition-food-calories" min="0" step="0.1" placeholder="Calories" class="nutrition-food-detail hidden rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-protein" min="0" step="0.1" placeholder="Protein g" class="nutrition-food-detail hidden rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-fat" min="0" step="0.1" placeholder="Fat g" class="nutrition-food-detail hidden rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-carbs" min="0" step="0.1" placeholder="Carbs g" class="nutrition-food-detail hidden rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="number" id="nutrition-food-cost" min="0" step="0.01" placeholder="Cost £" class="nutrition-food-detail hidden rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">
+                            <input type="text" id="nutrition-food-notes" placeholder="Notes" class="nutrition-food-detail hidden rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white xl:col-span-2">
+                            <div class="flex flex-wrap gap-2 xl:col-span-3">
+                                <button type="button" id="nutrition-food-details-btn" class="text-sm border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors font-medium">Edit details</button>
+                                <button type="submit" id="nutrition-food-save-btn" class="text-sm border border-transparent bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-lg hover:opacity-80 transition-opacity font-medium">Add to log</button>
+                                <button type="button" id="nutrition-food-cancel-btn" class="text-sm border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors font-medium hidden">Cancel edit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="divide-y divide-gray-200 dark:divide-white/10" id="nutrition-food-log"></div>
+                </section>
+
+                <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden mb-8">
+                    <details class="group">
+                    <summary class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 cursor-pointer list-none flex items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-semibold dark:text-white">Jorge Meal Plan</h2>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Workout and non-workout day plans from skills/nutrition-tracker/plans/jorge-nutrition-plan.</p>
+                        </div>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300 group-open:hidden">Show</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300 hidden group-open:inline-flex">Hide</span>
+                    </summary>
+                    <div class="p-6" id="nutrition-meal-plan"></div>
+                    </details>
+                </section>
+
+                <section class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden mb-8">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
+                        <h2 class="text-lg font-semibold dark:text-white">Recent Macro Logs</h2>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Daily totals calculated automatically from your food log.</p>
+                    </div>
+                    <div class="divide-y divide-gray-200 dark:divide-white/10" id="nutrition-recent-logs"></div>
+                </section>
             </section>
 
             <section data-health-panel="weight" class="health-section-panel mb-8 hidden">
@@ -568,6 +917,70 @@
             </header>
 
             <div class="space-y-6" id="learnings-container">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- ================= VIEW: JOURNAL ================= -->
+        <div id="view-journal" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end gap-4">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Journal</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Your daily life log — events, reflections, lessons, moods, and data points worth remembering.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button id="toggle-journal-form-btn" class="text-xs border border-transparent bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 rounded hover:opacity-80 transition-opacity">Add entry</button>
+                    <button id="refresh-journal-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Data</button>
+                </div>
+            </header>
+
+            <div id="journal-stats" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <div class="border border-gray-200 dark:border-white/10 rounded-lg p-5 bg-gray-50 dark:bg-white/5">
+                    <h3 class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Entries</h3>
+                    <div class="text-2xl font-medium tracking-tight dark:text-white" id="journal-entry-count">0</div>
+                </div>
+                <div class="border border-gray-200 dark:border-white/10 rounded-lg p-5 bg-gray-50 dark:bg-white/5">
+                    <h3 class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Current Streak</h3>
+                    <div class="text-2xl font-medium tracking-tight dark:text-white" id="journal-current-streak">0 days</div>
+                </div>
+                <div class="border border-gray-200 dark:border-white/10 rounded-lg p-5 bg-gray-50 dark:bg-white/5">
+                    <h3 class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Latest Entry</h3>
+                    <div class="text-lg font-medium tracking-tight dark:text-white" id="journal-latest-date">—</div>
+                </div>
+                <div class="border border-gray-200 dark:border-white/10 rounded-lg p-5 bg-gray-50 dark:bg-white/5">
+                    <h3 class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Source</h3>
+                    <div class="text-lg font-medium tracking-tight dark:text-white">journal.md</div>
+                </div>
+            </div>
+
+            <div class="mb-6 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+                <div class="flex flex-col sm:flex-row gap-3 w-full">
+                    <input type="search" id="journal-search-input" class="w-full sm:max-w-md bg-white dark:bg-[#212121] border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black dark:focus:border-white transition-colors" placeholder="Search journal entries or titles">
+                    <input type="date" id="journal-date-filter" class="bg-white dark:bg-[#212121] border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black dark:focus:border-white transition-colors">
+                    <button id="journal-clear-filters-btn" class="text-sm border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors font-medium">Clear filters</button>
+                </div>
+            </div>
+
+            <div id="journal-form-panel" class="mb-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#171717] p-5 hidden">
+                <div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-3" id="journal-form-heading">Add Journal Entry</div>
+                <form id="journal-form" class="space-y-4">
+                    <input type="hidden" id="journal-original-title">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Entry title</label>
+                        <input type="text" id="journal-title" required class="w-full bg-white dark:bg-[#212121] border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black dark:focus:border-white transition-colors" placeholder="Friday, June 13, 2026">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Content</label>
+                        <textarea id="journal-content" required rows="14" class="w-full bg-white dark:bg-[#212121] border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black dark:focus:border-white transition-colors resize-y leading-relaxed font-mono" placeholder="What happened today?"></textarea>
+                    </div>
+                    <div class="flex justify-end gap-3">
+                        <button type="button" id="journal-form-cancel-btn" class="text-sm border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors font-medium">Cancel</button>
+                        <button type="submit" id="journal-submit-btn" class="text-sm border border-transparent bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-lg hover:opacity-80 transition-opacity font-medium">Save Entry</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="space-y-6" id="journal-container">
                 <!-- Populated by JS -->
             </div>
         </div>
@@ -659,6 +1072,203 @@
             </div>
         </div>
 
+        <!-- ================= VIEW: YTJOBS ================= -->
+        <div id="view-ytjobs" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">YTJobs</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Remote and UK-friendly YouTube roles from the latest prompted YTJobs scan.</p>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mt-2" id="ytjobs-scan-meta">Loading scan details...</p>
+                </div>
+                <button id="refresh-ytjobs-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh View</button>
+            </header>
+
+            <div class="inline-flex rounded-lg border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-1 mb-6">
+                <button id="ytjobs-jobs-tab" type="button" class="px-3 py-1.5 rounded-md text-sm bg-white dark:bg-[#171717] shadow-sm dark:text-white">Jobs</button>
+                <button id="ytjobs-talent-tab" type="button" class="px-3 py-1.5 rounded-md text-sm text-gray-600 dark:text-gray-300">Talent Outreach</button>
+            </div>
+
+            <div id="ytjobs-jobs-panel">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Relevant Jobs</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="ytjobs-total">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Remote or UK-filtered.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">New</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-amber-600 dark:text-amber-300" id="ytjobs-new">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Waiting for review.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Interested</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-emerald-600 dark:text-emerald-300" id="ytjobs-interested">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Worth a closer look.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Applied</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-blue-600 dark:text-blue-300" id="ytjobs-applied">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Applications sent.</div></div></div>
+            </div>
+
+            <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-5 gap-3">
+                <input id="ytjobs-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search title, company, category">
+                <select id="ytjobs-role-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                    <option value="all">All roles</option>
+                    <option value="Video Editor">Video Editor</option>
+                    <option value="Videographer">Videographer</option>
+                    <option value="Channel Manager">Channel Manager</option>
+                </select>
+                <select id="ytjobs-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                    <option value="active" selected>Active review</option>
+                    <option value="new">New</option>
+                    <option value="interested">Interested</option>
+                    <option value="applied">Applied</option>
+                    <option value="not_interested">Not interested</option>
+                    <option value="all">All statuses</option>
+                </select>
+                <select id="ytjobs-sort" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                    <option value="posted-desc" selected>Newest first</option>
+                    <option value="posted-asc">Oldest first</option>
+                    <option value="company">Company A-Z</option>
+                    <option value="role">Role</option>
+                </select>
+            </div>
+
+            <div id="ytjobs-list" class="space-y-3">
+                <div class="text-sm text-gray-500 dark:text-gray-400">Loading YTJobs...</div>
+            </div>
+            </div>
+
+            <div id="ytjobs-talent-panel" class="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Shortlist</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="ytjobs-talent-total">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Editors to review.</div></div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">UK/Wales</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-emerald-600 dark:text-emerald-300" id="ytjobs-talent-uk">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Profile text signal.</div></div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Interested</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-blue-600 dark:text-blue-300" id="ytjobs-talent-interested">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Worth contacting.</div></div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Contacted</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-purple-600 dark:text-purple-300" id="ytjobs-talent-contacted">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Outreach sent.</div></div></div>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-5 gap-3">
+                    <input id="ytjobs-talent-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search editor, style, notes">
+                    <select id="ytjobs-talent-location-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                        <option value="all">All locations</option>
+                        <option value="Wales">Wales</option>
+                        <option value="UK">UK</option>
+                        <option value="Global">Global fallback</option>
+                    </select>
+                    <select id="ytjobs-talent-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                        <option value="active" selected>Active outreach</option>
+                        <option value="new">New</option>
+                        <option value="interested">Interested</option>
+                        <option value="contacted">Contacted</option>
+                        <option value="replied">Replied</option>
+                        <option value="feedback_booked">Feedback booked</option>
+                        <option value="not_fit">Not a fit</option>
+                        <option value="all">All statuses</option>
+                    </select>
+                    <select id="ytjobs-talent-sort" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                        <option value="location-score" selected>Location then score</option>
+                        <option value="score">Best score</option>
+                        <option value="reviews">Most reviews</option>
+                        <option value="name">Name A-Z</option>
+                    </select>
+                </div>
+
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-4" id="ytjobs-talent-meta">Loading talent scan...</p>
+                <div id="ytjobs-talent-list" class="space-y-3">
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Loading YTJobs talent...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: LINKEDIN JOBS ================= -->
+        <div id="view-linkedin-jobs" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">LinkedIn Jobs</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">AgentMail-powered job alerts, AI fit scoring, and tailored application drafts. No scraping.</p>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">Webhook path: <code>/api/webhooks/agentmail/linkedin-jobs</code> · AgentMail needs the full public HTTPS Mission Control URL plus this path · Inbox: <code>philmacmini@agentmail.to</code></p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button id="check-agentmail-jobs-btn" class="text-xs bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 rounded hover:opacity-80 transition-opacity w-fit">Check AgentMail Inbox</button>
+                    <button id="refresh-linkedin-jobs-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Jobs</button>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Total Jobs</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="linkedin-jobs-total">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Stored from LinkedIn alerts.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">New Jobs</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="linkedin-jobs-new">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Waiting for review.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Avg AI Score</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="linkedin-jobs-avg-score">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Fit against Phil’s SaaS sales profile.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Top Matches</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="linkedin-jobs-top-matches">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Jobs scoring 75+.</div></div></div>
+            </div>
+
+            <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-5 gap-3">
+                <input id="linkedin-jobs-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search title or company">
+                <select id="linkedin-jobs-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                    <option value="all">All statuses</option><option value="new">New</option><option value="saved">Saved</option><option value="applied">Applied</option><option value="interview">Interview</option><option value="rejected">Rejected</option><option value="ignored">Ignored</option>
+                </select>
+                <select id="linkedin-jobs-score-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                    <option value="all">All scores</option><option value="75">75+ top matches</option><option value="60">60+ possible fits</option><option value="0">Under 60</option>
+                </select>
+                <input id="linkedin-jobs-location-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Location / remote / hybrid">
+            </div>
+
+            <div id="linkedin-jobs-list" class="space-y-4">
+                <div class="text-sm text-gray-500 dark:text-gray-400">Loading LinkedIn jobs...</div>
+            </div>
+
+            <div id="linkedin-job-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+                <div class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-gray-800 rounded-xl shadow-xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+                    <div class="p-6 border-b border-gray-100 dark:border-white/5 flex justify-between items-start gap-4">
+                        <div><h2 class="text-xl font-semibold dark:text-white" id="linkedin-job-modal-title">Job details</h2><p class="text-sm text-gray-500 dark:text-gray-400 mt-1" id="linkedin-job-modal-subtitle"></p></div>
+                        <button id="linkedin-job-modal-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                    </div>
+                    <div id="linkedin-job-modal-body" class="p-6 overflow-y-auto space-y-5"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: PROPERTY ================= -->
+        <div id="view-property" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Property</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Cardiff HMO leads from the 4+ bedroom deal tracker.</p>
+                </div>
+                <button id="refresh-property-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Properties</button>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Total Leads</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="property-total">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Tracked listings.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Active</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-amber-600 dark:text-amber-300" id="property-outstanding">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Current opportunities.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Good Finds</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-emerald-600 dark:text-emerald-300" id="property-reviewed">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Pinned opportunities.</div></div></div>
+            </div>
+
+            <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-6 gap-3">
+                <input id="property-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search address, price, source">
+                <select id="property-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                    <option value="active" selected>Active properties</option>
+                    <option value="good">Good finds</option>
+                    <option value="all">All current</option>
+                    <option value="not_interested">Archive</option>
+                </select>
+                <select id="property-roi-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                    <option value="all" selected>All ROI</option>
+                    <option value="target">20%+ target</option>
+                    <option value="watchlist">15%+ watchlist</option>
+                    <option value="below">Below 15%</option>
+                </select>
+                <select id="property-source-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                    <option value="all" selected>All sources</option>
+                </select>
+                <select id="property-sort" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                    <option value="roi-desc" selected>ROI high to low</option>
+                    <option value="roi-asc">ROI low to high</option>
+                    <option value="newest">Newest found</option>
+                    <option value="price-asc">Price low to high</option>
+                </select>
+            </div>
+
+            <div id="property-list" class="space-y-3">
+                <div class="text-sm text-gray-500 dark:text-gray-400">Loading property leads...</div>
+            </div>
+
+            <div id="property-analysis-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+                <div class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-gray-800 rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+                    <div class="p-6 border-b border-gray-100 dark:border-white/5 flex justify-between items-start gap-4">
+                        <div><h2 class="text-xl font-semibold dark:text-white" id="property-analysis-modal-title">Deal analysis</h2><p class="text-sm text-gray-500 dark:text-gray-400 mt-1" id="property-analysis-modal-subtitle"></p></div>
+                        <button id="property-analysis-modal-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                    </div>
+                    <div id="property-analysis-modal-body" class="p-6 overflow-y-auto space-y-5"></div>
+                </div>
+            </div>
+        </div>
+
         <!-- ================= VIEW: RELEASES ================= -->
         <div id="view-releases" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
             <header class="mb-10 flex justify-between items-end">
@@ -693,11 +1303,11 @@
                         <div class="p-2 bg-red-100 dark:bg-red-500/20 rounded-lg">
                             <svg class="w-6 h-6 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg>
                         </div>
-                        <span class="text-xs font-medium bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 px-2 py-1 rounded-full text-gray-500 dark:text-gray-400">Target: 100,000</span>
+                        <button id="target-youtube" onclick="editGoalTarget('youtube')" class="text-xs font-medium bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 px-2 py-1 rounded-full text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">Target: 100,000</button>
                     </div>
                     <h3 class="text-lg font-semibold dark:text-white mb-1">YouTube Subs</h3>
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100"><span id="val-youtube">0</span> <span class="text-sm font-normal text-gray-500">/ 100k</span></div>
+                        <div class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100"><span id="val-youtube">0</span> <span id="denominator-youtube" class="text-sm font-normal text-gray-500">/ 100k</span></div>
                         <button onclick="editGoal('youtube')" class="opacity-0 group-hover:opacity-100 text-xs text-blue-500 hover:underline transition-opacity">Edit</button>
                     </div>
                     
@@ -714,11 +1324,11 @@
                         <div class="p-2 bg-blue-100 dark:bg-blue-500/20 rounded-lg">
                             <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         </div>
-                        <span class="text-xs font-medium bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 px-2 py-1 rounded-full text-gray-500 dark:text-gray-400">Target: 10,000</span>
+                        <button id="target-skool" onclick="editGoalTarget('skool')" class="text-xs font-medium bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 px-2 py-1 rounded-full text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">Target: 10,000</button>
                     </div>
                     <h3 class="text-lg font-semibold dark:text-white mb-1">Skool Members</h3>
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100"><span id="val-skool">0</span> <span class="text-sm font-normal text-gray-500">/ 10k</span></div>
+                        <div class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100"><span id="val-skool">0</span> <span id="denominator-skool" class="text-sm font-normal text-gray-500">/ 10k</span></div>
                         <button onclick="editGoal('skool')" class="opacity-0 group-hover:opacity-100 text-xs text-blue-500 hover:underline transition-opacity">Edit</button>
                     </div>
                     
@@ -735,11 +1345,11 @@
                         <div class="p-2 bg-green-100 dark:bg-green-500/20 rounded-lg">
                             <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
-                        <span class="text-xs font-medium bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 px-2 py-1 rounded-full text-gray-500 dark:text-gray-400">Target: £10,000</span>
+                        <button id="target-revenue" onclick="editGoalTarget('revenue')" class="text-xs font-medium bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 px-2 py-1 rounded-full text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">Target: £10,000</button>
                     </div>
                     <h3 class="text-lg font-semibold dark:text-white mb-1">Revenue</h3>
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">£<span id="val-revenue">0</span> <span class="text-sm font-normal text-gray-500">/ £10k</span></div>
+                        <div class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">£<span id="val-revenue">0</span> <span id="denominator-revenue" class="text-sm font-normal text-gray-500">/ £10k</span></div>
                         <button onclick="editGoal('revenue')" class="opacity-0 group-hover:opacity-100 text-xs text-blue-500 hover:underline transition-opacity">Edit</button>
                     </div>
                     
@@ -750,10 +1360,53 @@
                 </div>
 
             </div>
+
+            <section class="mb-10 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl overflow-hidden">
+                <div class="px-6 py-5 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <div class="text-xs font-semibold uppercase tracking-[0.18em] text-purple-600 dark:text-purple-300 mb-2">The Dream</div>
+                        <h2 class="text-2xl font-semibold tracking-tight dark:text-white">Life goals to visualise</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Save the things you dream about, with a description and a visual link you can return to.</p>
+                    </div>
+                    <span class="text-xs px-3 py-1.5 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-500/20 dark:text-purple-300 w-fit">Vision board</span>
+                </div>
+                <form id="dream-form" class="p-6 grid grid-cols-1 md:grid-cols-4 gap-3 border-b border-gray-200 dark:border-white/10">
+                    <textarea id="dream-description" required rows="3" class="md:col-span-3 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none resize-none" placeholder="Describe the dream: Ibiza home, dream studio, family life, freedom lifestyle..."></textarea>
+                    <div class="flex flex-col gap-3">
+                        <input id="dream-url" type="text" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Visual link / URL">
+                        <button type="submit" class="text-sm bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">Add dream</button>
+                    </div>
+                </form>
+                <div id="dreams-container" class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
             
             <div class="p-8 border border-dashed border-gray-300 dark:border-white/20 rounded-xl text-center bg-gray-50/50 dark:bg-white/5 text-gray-500">
                 <p class="text-sm dark:text-gray-400 italic">"Small steps, made over time, move mountains"</p>
             </div>
+        </div>
+
+        <!-- ================= VIEW: BUSINESS IDEAS ================= -->
+        <div id="view-business-ideas" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <div class="text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300 mb-2">Founder vault</div>
+                    <h1 class="text-3xl font-semibold tracking-tight dark:text-white">Business Ideas</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Capture every spark, then rank the ones most worth building.</p>
+                </div>
+                <button id="business-idea-add-btn" class="w-fit text-sm bg-black text-white dark:bg-white dark:text-black px-4 py-2.5 rounded-lg hover:opacity-85 transition-opacity">+ Add idea</button>
+            </header>
+
+            <section class="border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden bg-white dark:bg-[#171717]">
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-white/10"><h2 class="text-lg font-semibold dark:text-white">Idea leaderboard</h2></div>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[760px] text-left text-sm">
+                        <thead class="bg-gray-50 dark:bg-white/5 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400"><tr><th class="px-6 py-3">Rank</th><th class="px-6 py-3">Business idea</th><th class="px-6 py-3">Date</th><th class="px-6 py-3">Where I thought of it</th><th class="px-6 py-3 text-right">Actions</th></tr></thead>
+                        <tbody id="business-ideas-table" class="divide-y divide-gray-200 dark:divide-white/10"></tbody>
+                    </table>
+                </div>
+            </section>
         </div>
 
         <!-- ================= VIEW: ANALYTICS ================= -->
@@ -829,29 +1482,16 @@
             </header>
 
             <div id="youtube-section-tabs" class="mb-8 flex gap-2 overflow-x-auto rounded-full border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#171717] p-1 w-fit max-w-full">
-                <button type="button" data-youtube-section="growth" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full bg-black text-white dark:bg-white dark:text-black whitespace-nowrap">Growth Strategy</button>
-                <button type="button" data-youtube-section="pipeline" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Video Pipeline</button>
+                <button type="button" data-youtube-section="pipeline" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full bg-black text-white dark:bg-white dark:text-black whitespace-nowrap">Video Pipeline</button>
+                <button type="button" data-youtube-section="growth" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Growth Strategy</button>
+                <button type="button" data-youtube-section="shorts" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Short Videos</button>
                 <button type="button" data-youtube-section="metrics" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Metrics</button>
                 <button type="button" data-youtube-section="competitors" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Competitor Analysis</button>
                 <button type="button" data-youtube-section="swipe" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Swipe File</button>
                 <button type="button" data-youtube-section="team" class="youtube-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Dream Team</button>
             </div>
 
-            <section data-youtube-panel="growth" class="youtube-section-panel mb-8 bg-gradient-to-br from-red-50 to-white dark:from-red-500/10 dark:to-[#171717] border border-red-100 dark:border-red-500/20 rounded-2xl overflow-hidden">
-                <div class="px-6 py-5 border-b border-red-100 dark:border-red-500/20 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
-                    <div>
-                        <div class="text-xs font-semibold uppercase tracking-[0.18em] text-red-600 dark:text-red-300 mb-2">Growth Strategy</div>
-                        <h2 class="text-2xl font-semibold tracking-tight dark:text-white">Road to 100,000 subscribers</h2>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Outcome-first OpenClaw content: challenges, transformations, comparisons, and tutorials.</p>
-                    </div>
-                    <span class="text-xs px-3 py-1.5 rounded-full bg-white dark:bg-white/10 border border-red-100 dark:border-red-500/20 text-red-700 dark:text-red-200 w-fit">80/20 Focus</span>
-                </div>
-                <div id="youtube-strategy-content" class="youtube-strategy-content p-6 text-sm text-gray-700 dark:text-gray-200">
-                    Loading 100K strategy...
-                </div>
-            </section>
-
-            <section data-youtube-panel="pipeline" class="youtube-section-panel hidden">
+            <section data-youtube-panel="pipeline" class="youtube-section-panel">
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
                 <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
                     <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60">
@@ -898,13 +1538,74 @@
                         <h2 class="text-lg font-medium tracking-tight dark:text-white">Video Pipeline</h2>
                         <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Click a title to open the script editor.</div>
                     </div>
-                    <div id="youtube-filter-group" class="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] p-1 w-fit">
-                        <button type="button" data-filter="all" class="youtube-filter-btn px-3 py-1.5 text-xs font-medium rounded-full bg-black text-white dark:bg-white dark:text-black">All</button>
-                        <button type="button" data-filter="todo" class="youtube-filter-btn px-3 py-1.5 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">Not Done</button>
-                        <button type="button" data-filter="done" class="youtube-filter-btn px-3 py-1.5 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">Done</button>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button type="button" id="youtube-add-video-btn" class="text-xs bg-red-600 text-white px-3 py-2 rounded-full hover:bg-red-700 transition-colors w-fit">+ Add Video</button>
+                        <div id="youtube-filter-group" class="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] p-1 w-fit">
+                            <button type="button" data-filter="all" class="youtube-filter-btn px-3 py-1.5 text-xs font-medium rounded-full bg-black text-white dark:bg-white dark:text-black">All</button>
+                            <button type="button" data-filter="todo" class="youtube-filter-btn px-3 py-1.5 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">Not Done</button>
+                            <button type="button" data-filter="done" class="youtube-filter-btn px-3 py-1.5 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">Done</button>
+                        </div>
                     </div>
                 </div>
                 <div class="space-y-5" id="youtube-videos-container">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+            </section>
+
+            <section data-youtube-panel="growth" class="youtube-section-panel hidden mb-8 bg-gradient-to-br from-red-50 to-white dark:from-red-500/10 dark:to-[#171717] border border-red-100 dark:border-red-500/20 rounded-2xl overflow-hidden">
+                <div class="px-6 py-5 border-b border-red-100 dark:border-red-500/20 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+                    <div>
+                        <div class="text-xs font-semibold uppercase tracking-[0.18em] text-red-600 dark:text-red-300 mb-2">Growth Strategy</div>
+                        <h2 class="text-2xl font-semibold tracking-tight dark:text-white">Road to 100,000 subscribers</h2>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Outcome-first OpenClaw content: challenges, transformations, comparisons, and tutorials.</p>
+                    </div>
+                    <span class="text-xs px-3 py-1.5 rounded-full bg-white dark:bg-white/10 border border-red-100 dark:border-red-500/20 text-red-700 dark:text-red-200 w-fit">80/20 Focus</span>
+                </div>
+                <div id="youtube-strategy-content" class="youtube-strategy-content p-6 text-sm text-gray-700 dark:text-gray-200">
+                    Loading 100K strategy...
+                </div>
+            </section>
+
+            <section data-youtube-panel="shorts" class="youtube-section-panel hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Total Shorts</h3></div>
+                    <div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="yt-shorts-total">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">All short-form ideas in the pipeline.</div></div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Done</h3></div>
+                    <div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="yt-shorts-done">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Shorts marked complete.</div></div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Remaining</h3></div>
+                    <div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="yt-shorts-remaining">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Shorts still to film/edit.</div></div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 flex items-center justify-between gap-3">
+                        <h3 class="text-sm font-semibold dark:text-white">Completion</h3>
+                        <span class="text-[11px] px-2.5 py-1 rounded-full bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300">Shorts</span>
+                    </div>
+                    <div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="yt-shorts-completion">0%</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Share of the short-form plan already done.</div></div>
+                </div>
+            </div>
+
+            <section>
+                <div class="flex flex-col gap-4 mb-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <h2 class="text-lg font-medium tracking-tight dark:text-white">Short Video Pipeline</h2>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Click a title to open the full short-form plan.</div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button type="button" id="youtube-add-short-btn" class="text-xs bg-red-600 text-white px-3 py-2 rounded-full hover:bg-red-700 transition-colors w-fit">+ Add Short</button>
+                        <div id="youtube-shorts-filter-group" class="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] p-1 w-fit">
+                            <button type="button" data-filter="all" class="youtube-shorts-filter-btn px-3 py-1.5 text-xs font-medium rounded-full bg-black text-white dark:bg-white dark:text-black">All</button>
+                            <button type="button" data-filter="todo" class="youtube-shorts-filter-btn px-3 py-1.5 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">Not Done</button>
+                            <button type="button" data-filter="done" class="youtube-shorts-filter-btn px-3 py-1.5 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">Done</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-5" id="youtube-shorts-container">
                     <!-- Populated by JS -->
                 </div>
             </section>
@@ -964,7 +1665,10 @@
                         <h2 class="text-2xl font-semibold tracking-tight dark:text-white">Competitor Analysis</h2>
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Reference notes from the YouTube skill folder: competitor channels, inspiration, packaging patterns, and analysis frameworks.</p>
                     </div>
-                    <button id="youtube-refresh-competitors-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Analysis</button>
+                    <div class="flex items-center gap-2">
+                        <button id="youtube-add-competitor-btn" class="text-xs bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 rounded hover:opacity-85 transition-opacity w-fit">+ Add Competitor</button>
+                        <button id="youtube-refresh-competitors-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Analysis</button>
+                    </div>
                 </div>
                 <div id="youtube-competitor-container" class="space-y-4">
                     <!-- Populated by JS -->
@@ -1003,6 +1707,115 @@
             </section>
         </div>
 
+        <!-- ================= VIEW: INSTAGRAM ================= -->
+        <div id="view-instagram" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Instagram</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Reels idea pipeline for videos you write yourself, from raw idea through filming, editing, publishing, and review.</p>
+                </div>
+                <button id="refresh-instagram-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Data</button>
+            </header>
+
+            <div id="instagram-section-tabs" class="mb-8 flex gap-2 overflow-x-auto rounded-full border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#171717] p-1 w-fit max-w-full">
+                <button type="button" data-instagram-section="pipeline" class="instagram-section-tab px-4 py-2 text-xs font-medium rounded-full bg-black text-white dark:bg-white dark:text-black whitespace-nowrap">Reels Pipeline</button>
+                <button type="button" data-instagram-section="ideas" class="instagram-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Ideas</button>
+                <button type="button" data-instagram-section="accounts" class="instagram-section-tab px-4 py-2 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 whitespace-nowrap">Accounts</button>
+            </div>
+
+            <section data-instagram-panel="pipeline" class="instagram-section-panel">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Total Reels</h3></div>
+                    <div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="ig-total">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">All Instagram ideas in the pipeline.</div></div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">In Progress</h3></div>
+                    <div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="ig-progress">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Ideas being filmed, edited, or scheduled.</div></div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Published</h3></div>
+                    <div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="ig-published">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Reels already posted.</div></div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+                    <div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60 flex items-center justify-between gap-3"><h3 class="text-sm font-semibold dark:text-white">Completion</h3><span class="text-[11px] px-2.5 py-1 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-500/20 dark:text-pink-300">Reels</span></div>
+                    <div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="ig-completion">0%</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Share of ideas published.</div></div>
+                </div>
+            </div>
+
+            <section>
+                <div class="flex flex-col gap-4 mb-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <h2 class="text-lg font-medium tracking-tight dark:text-white">Reels Pipeline</h2>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Add your own ideas, then move them through the production stages. No scripting workflow included.</div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button type="button" id="instagram-add-reel-btn" class="text-xs bg-pink-600 text-white px-3 py-2 rounded-full hover:bg-pink-700 transition-colors w-fit">+ Add Reel Idea</button>
+                        <div id="instagram-filter-group" class="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] p-1 w-fit">
+                            <button type="button" data-filter="all" class="instagram-filter-btn px-3 py-1.5 text-xs font-medium rounded-full bg-black text-white dark:bg-white dark:text-black">All</button>
+                            <button type="button" data-filter="todo" class="instagram-filter-btn px-3 py-1.5 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">Not Done</button>
+                            <button type="button" data-filter="done" class="instagram-filter-btn px-3 py-1.5 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300">Done</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-xs text-gray-500 dark:text-gray-400">
+                    <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-4"><span class="font-semibold text-gray-800 dark:text-gray-200">1. Capture</span><br>Drop in the raw Instagram Reel idea, angle, format, and notes.</div>
+                    <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-4"><span class="font-semibold text-gray-800 dark:text-gray-200">2. Produce</span><br>Track filmed, edited, captioned, and scheduled stages.</div>
+                    <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-4"><span class="font-semibold text-gray-800 dark:text-gray-200">3. Review</span><br>Log results and reusable lessons after publishing.</div>
+                </div>
+                <div class="space-y-5" id="instagram-reels-container">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+            </section>
+
+            <section data-instagram-panel="ideas" class="instagram-section-panel hidden space-y-6">
+                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <h2 class="text-2xl font-semibold tracking-tight dark:text-white">Ideas & Inspiration</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">A loose dumping ground for Instagram principles, inspiration, music ideas, B-roll notes, daily Reel habits, and repeatable content prompts.</p>
+                    </div>
+                    <span class="text-xs px-3 py-1.5 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-500/20 dark:text-pink-300 w-fit">Not a production queue</span>
+                </div>
+                <form id="instagram-idea-form" class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 grid grid-cols-1 md:grid-cols-4 gap-3">
+                    <select id="instagram-idea-type" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                        <option value="principle">Content principle</option>
+                        <option value="habit">Habit / cadence</option>
+                        <option value="music">Music / audio</option>
+                        <option value="b-roll">B-roll</option>
+                        <option value="inspiration">Inspiration</option>
+                        <option value="prompt">Recurring prompt</option>
+                    </select>
+                    <input id="instagram-idea-title" type="text" required class="md:col-span-3 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="e.g. Create daily Reels with music + simple B-roll">
+                    <textarea id="instagram-idea-notes" rows="4" class="md:col-span-4 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none resize-none" placeholder="Dump the surrounding idea here: why it matters, examples, links, music notes, B-roll reminders, patterns to reuse..."></textarea>
+                    <button type="submit" class="md:col-start-4 text-sm bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition-colors">Add idea</button>
+                </form>
+                <div id="instagram-ideas-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <section data-instagram-panel="accounts" class="instagram-section-panel hidden space-y-6">
+                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <h2 class="text-2xl font-semibold tracking-tight dark:text-white">Inspiration Accounts</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Keep a shortlist of similar Instagram accounts to study for formats, hooks, B-roll, editing style, and content patterns.</p>
+                    </div>
+                    <span class="text-xs px-3 py-1.5 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-500/20 dark:text-pink-300 w-fit">Swipe ethically</span>
+                </div>
+                <form id="instagram-account-form" class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 grid grid-cols-1 md:grid-cols-4 gap-3">
+                    <input id="instagram-account-handle" type="text" required class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="@accountname">
+                    <input id="instagram-account-url" type="text" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Instagram URL">
+                    <input id="instagram-account-niche" type="text" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Niche / why similar">
+                    <button type="submit" class="text-sm bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition-colors">Add account</button>
+                    <textarea id="instagram-account-notes" rows="4" class="md:col-span-4 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none resize-none" placeholder="What to study: hooks, music, B-roll, captions, posting cadence, content formats..."></textarea>
+                </form>
+                <div id="instagram-accounts-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+        </div>
+
     </main>
 
     <!-- Script Editor Modal -->
@@ -1031,7 +1844,7 @@
                         <h3 class="text-sm font-semibold dark:text-white">YouTube Publishing Checklist</h3>
                         <p class="text-xs text-gray-500 dark:text-gray-400">Tick these off per script as you edit or preview.</p>
                     </div>
-                    <span id="youtube-checklist-progress" class="text-xs px-2.5 py-1 rounded-full bg-white dark:bg-white/10 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300">0/9 done</span>
+                    <span id="youtube-checklist-progress" class="text-xs px-2.5 py-1 rounded-full bg-white dark:bg-white/10 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300">0/12 done</span>
                 </div>
                 <div id="youtube-checklist-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-sm"></div>
             </div>
@@ -1055,7 +1868,7 @@
                         <label for="task-description-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
                         <textarea id="task-description-input" name="description" rows="4" class="w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20 resize-none" placeholder="What needs doing? Add any useful context here."></textarea>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                             <label for="task-tag-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Type / Tag</label>
                             <select id="task-tag-input" name="tag" class="w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20">
@@ -1069,9 +1882,17 @@
                             </select>
                         </div>
                         <div>
+                            <label for="task-priority-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Priority</label>
+                            <select id="task-priority-input" name="priority" class="w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20">
+                                <option value="high">H — do it now</option>
+                                <option value="medium" selected>M — normal work</option>
+                                <option value="low">L — nice to have</option>
+                            </select>
+                        </div>
+                        <div>
                             <label for="task-assignee-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Assign to</label>
                             <select id="task-assignee-input" name="assignee" class="w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20">
-                                <option value="main">Chief of Staff</option>
+                                <option value="main">Vin - Chief AI Officer</option>
                                 <option value="cto">CTO</option>
                                 <option value="cmo">CMO</option>
                                 <option value="daily-tasks">Daily Tasks</option>
@@ -1104,12 +1925,69 @@
                 </div>
                 <div class="px-6 py-4 bg-gray-50 dark:bg-[#171717] border-t border-gray-200 dark:border-white/10 flex justify-end gap-3">
                     <button type="button" id="cancel-task-btn" class="px-4 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">Cancel</button>
+                    <button type="button" id="create-focus-task-btn" class="px-4 py-2 text-sm rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors font-medium">Focus Task</button>
                     <button type="submit" class="px-4 py-2 text-sm rounded-lg bg-black text-white dark:bg-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors font-medium">Create Task</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <div id="task-detail-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity">
+        <div id="task-detail-content" class="bg-white dark:bg-[#212121] border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl w-full max-w-3xl transform scale-95 transition-transform overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-200 dark:border-white/10 flex items-start justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-semibold tracking-tight dark:text-white">Task Details</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Full task instructions and metadata.</p>
+                </div>
+                <button type="button" id="close-task-detail-btn" class="px-3 py-1.5 text-sm rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">Close</button>
+            </div>
+            <div id="task-detail-body" class="p-6 max-h-[75vh] overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <div id="people-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/55 backdrop-blur-sm p-4">
+        <div class="w-full max-w-3xl max-h-[92vh] overflow-y-auto rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#212121] shadow-2xl">
+            <div class="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-gray-200 dark:border-white/10 bg-white/95 dark:bg-[#212121]/95 backdrop-blur px-6 py-5">
+                <div><h2 id="people-modal-title" class="text-xl font-semibold dark:text-white">Add person</h2><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Add enough context to make the next conversation feel natural.</p></div>
+                <button id="people-modal-close" type="button" class="rounded-lg px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 dark:hover:bg-white/10">Close</button>
+            </div>
+            <form id="people-form" class="p-6 space-y-5">
+                <input id="people-index" type="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <label class="people-label md:col-span-2">Name *<input id="people-name" class="people-input mt-1.5" required placeholder="Their name"></label>
+                    <label class="people-label">Relationship<select id="people-relationship" class="people-input mt-1.5"><option>Friend</option><option>Close friend</option><option>Family</option><option>Professional</option><option>Acquaintance</option></select></label>
+                    <label class="people-label">Contact rhythm<select id="people-cadence" class="people-input mt-1.5"><option value="14">Every 2 weeks</option><option value="30" selected>Every month</option><option value="60">Every 2 months</option><option value="90">Every 3 months</option><option value="180">Every 6 months</option><option value="365">Yearly</option></select></label>
+                    <label class="people-label">Role / tags<input id="people-tags" class="people-input mt-1.5" placeholder="Founder, music, Cardiff"></label>
+                    <label class="people-label">Link or contact<input id="people-contact" class="people-input mt-1.5" placeholder="Phone, email, LinkedIn or Instagram"></label>
+                    <label class="people-label">Where they live<input id="people-location" class="people-input mt-1.5" placeholder="Cardiff"></label>
+                    <label class="people-label">How you met<input id="people-met" class="people-input mt-1.5" placeholder="SaaS event in London"></label>
+                    <label class="people-label">Last contacted<input id="people-last-contacted" type="date" class="people-input mt-1.5"></label>
+                    <label class="people-label">Next contact<input id="people-next-contact" type="date" class="people-input mt-1.5"><span class="text-[11px] font-normal text-gray-400 mt-1 block">Leave blank to calculate from your rhythm.</span></label>
+                    <label class="people-label">Birthday<input id="people-birthday" type="date" class="people-input mt-1.5"></label>
+                    <label class="people-label">Source<input id="people-source" class="people-input mt-1.5" placeholder="Where you saved them from"></label>
+                    <label class="people-label md:col-span-2">What matters to them<textarea id="people-notes" rows="4" class="people-input mt-1.5 resize-y" placeholder="Family, interests, current projects, things to ask about..."></textarea></label>
+                </div>
+                <div class="flex items-center justify-between gap-3 pt-2">
+                    <button id="people-delete-btn" type="button" class="hidden text-sm text-rose-600 dark:text-rose-300 hover:underline">Delete person</button>
+                    <div class="ml-auto flex gap-2"><button id="people-form-cancel" type="button" class="rounded-lg border border-gray-200 dark:border-white/10 px-4 py-2 text-sm dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5">Cancel</button><button id="people-save-btn" type="submit" class="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700">Save person</button></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="people-contact-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/55 backdrop-blur-sm p-4">
+        <form id="people-contact-form" class="w-full max-w-lg rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#212121] shadow-2xl p-6">
+            <input id="people-contact-index" type="hidden">
+            <h2 class="text-xl font-semibold dark:text-white">Log a catch-up</h2>
+            <p id="people-contact-name" class="text-sm text-gray-500 dark:text-gray-400 mt-1 mb-5"></p>
+            <label class="people-label">Date<input id="people-contact-date" type="date" required class="people-input mt-1.5"></label>
+            <label class="people-label block mt-4">What did you talk about?<textarea id="people-contact-note" rows="4" class="people-input mt-1.5 resize-y" placeholder="A quick memory jog for next time"></textarea></label>
+            <label class="people-label block mt-4">Remind me again<input id="people-contact-next" type="date" class="people-input mt-1.5"></label>
+            <div class="flex justify-end gap-2 mt-6"><button id="people-contact-cancel" type="button" class="rounded-lg border border-gray-200 dark:border-white/10 px-4 py-2 text-sm dark:text-gray-300">Cancel</button><button type="submit" class="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white">Save catch-up</button></div>
+        </form>
+    </div>
+
+    <script src="app.js?v=20260904-social-crm"></script>
+    <script src="workouts.js?v=20260817-rutina-web"></script>
 </body>
 </html>

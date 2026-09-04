@@ -16,6 +16,18 @@ daily_news.md
 daily_news_history.json
 read_library.json
 youtube_analytics_metrics.json
+business_ideas.json
+dreams.json
+instagram_accounts.json
+instagram_ideas.json
+instagram_reels_pipeline.csv
+instagram_reels_priorities.json
+linkedin_jobs_db.json
+property_deals.json
+youtube_video_priorities.json
+youtube_short_video_priorities.json
+ytjobs_*.json
+test-results/
 read-audio/
 read-content/
 

@@ -13,6 +13,18 @@
       "done": true
     },
     {
+      "label": "Audio mixing",
+      "done": false
+    },
+    {
+      "label": "Audio Processing (Auphonic)",
+      "done": false
+    },
+    {
+      "label": "A Roll Compound Clip",
+      "done": false
+    },
+    {
       "label": "Colour grading",
       "done": false
     },
@@ -48,6 +60,168 @@
     },
     {
       "label": "Sound design",
+      "done": false
+    },
+    {
+      "label": "Audio mixing",
+      "done": false
+    },
+    {
+      "label": "Audio Processing (Auphonic)",
+      "done": false
+    },
+    {
+      "label": "A Roll Compound Clip",
+      "done": false
+    },
+    {
+      "label": "Colour grading",
+      "done": false
+    },
+    {
+      "label": "Transitions",
+      "done": false
+    },
+    {
+      "label": "Zooms",
+      "done": false
+    },
+    {
+      "label": "Add the first comment after posting",
+      "done": false
+    },
+    {
+      "label": "Create bloopers at the end of the video",
+      "done": false
+    },
+    {
+      "label": "3 x Thumbnails",
+      "done": false
+    }
+  ],
+  "Scripts/OpenClaw_GitHub_Setup.md": [
+    {
+      "label": "Subtitles",
+      "done": false
+    },
+    {
+      "label": "Music",
+      "done": false
+    },
+    {
+      "label": "Sound design",
+      "done": false
+    },
+    {
+      "label": "Audio mixing",
+      "done": false
+    },
+    {
+      "label": "Audio Processing (Auphonic)",
+      "done": false
+    },
+    {
+      "label": "A Roll Compound Clip",
+      "done": false
+    },
+    {
+      "label": "Colour grading",
+      "done": false
+    },
+    {
+      "label": "Transitions",
+      "done": false
+    },
+    {
+      "label": "Zooms",
+      "done": false
+    },
+    {
+      "label": "Add the first comment after posting",
+      "done": false
+    },
+    {
+      "label": "Create bloopers at the end of the video",
+      "done": false
+    },
+    {
+      "label": "3 x Thumbnails",
+      "done": false
+    }
+  ],
+  "Scripts/OpenClaw_Mobile_Phone.md": [
+    {
+      "label": "Subtitles",
+      "done": false
+    },
+    {
+      "label": "Music",
+      "done": false
+    },
+    {
+      "label": "Sound design",
+      "done": false
+    },
+    {
+      "label": "Audio mixing",
+      "done": false
+    },
+    {
+      "label": "Audio Processing (Auphonic)",
+      "done": false
+    },
+    {
+      "label": "A Roll Compound Clip",
+      "done": false
+    },
+    {
+      "label": "Colour grading",
+      "done": false
+    },
+    {
+      "label": "Transitions",
+      "done": false
+    },
+    {
+      "label": "Zooms",
+      "done": false
+    },
+    {
+      "label": "Add the first comment after posting",
+      "done": false
+    },
+    {
+      "label": "Create bloopers at the end of the video",
+      "done": false
+    },
+    {
+      "label": "3 x Thumbnails",
+      "done": false
+    }
+  ],
+  "Scripts/I_built_a_motion_graphics_AI_agent_for_my_YouTube_channel.md": [
+    {
+      "label": "Subtitles",
+      "done": false
+    },
+    {
+      "label": "Music",
+      "done": false
+    },
+    {
+      "label": "Sound design",
+      "done": false
+    },
+    {
+      "label": "Audio mixing",
+      "done": false
+    },
+    {
+      "label": "Audio Processing (Auphonic)",
+      "done": false
+    },
+    {
+      "label": "A Roll Compound Clip",
       "done": false
     },
     {
