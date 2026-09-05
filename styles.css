@@ -28,6 +28,20 @@ body {
 .people-person-row:hover { background: rgb(249 250 251); }
 .dark .people-person-row:hover { background: rgba(255,255,255,.035); }
 
+/* Read audio player */
+.read-progress {
+  height: .35rem;
+  border-radius: 999px;
+  background: linear-gradient(to right, rgb(79 70 229) var(--read-progress, 0%), rgb(229 231 235) var(--read-progress, 0%));
+  cursor: pointer;
+  appearance: none;
+}
+.dark .read-progress { background: linear-gradient(to right, rgb(129 140 248) var(--read-progress, 0%), rgba(255,255,255,.14) var(--read-progress, 0%)); }
+.read-progress::-webkit-slider-thumb { width: 1rem; height: 1rem; border-radius: 999px; background: rgb(79 70 229); border: 3px solid white; box-shadow: 0 1px 4px rgba(0,0,0,.25); appearance: none; }
+.read-progress::-moz-range-thumb { width: .75rem; height: .75rem; border-radius: 999px; background: rgb(79 70 229); border: 3px solid white; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+.read-card-active { border-color: rgb(165 180 252) !important; box-shadow: 0 0 0 2px rgba(99,102,241,.08); }
+.dark .read-card-active { border-color: rgba(129,140,248,.45) !important; }
+
 /* Workout planner */
 .workout-stat-card {
   position: relative;

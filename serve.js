@@ -190,7 +190,7 @@ function writeJournalSections(doc) {
 const server = http.createServer((req, res) => {
     res.on('error', (err) => console.error('Response error:', err));
     const requestPath = req.url.split('?')[0];
-    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people') {
+    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read') {
         serveFile(res, path.join(__dirname, 'index.html'), 'text/html');
     } else if (requestPath === '/styles.css') {
         serveFile(res, path.join(__dirname, 'styles.css'), 'text/css');
@@ -459,8 +459,12 @@ const server = http.createServer((req, res) => {
     } else if (req.url === '/api/read') {
         if (req.method === 'GET') {
             const library = readReadLibrary();
+            const items = (library.items || []).map(item => ({
+                ...item,
+                durationSeconds: getReadAudioDuration(item)
+            }));
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ items: library.items || [] }));
+            res.end(JSON.stringify({ items }));
         } else if (req.method === 'POST') {
             readBody(req, (body) => {
                 try {
@@ -4396,6 +4400,36 @@ function readReadLibrary() {
 function writeReadLibrary(library) {
     ensureReadDirs();
     fs.writeFileSync(READ_LIBRARY_FILE, JSON.stringify({ items: library.items || [] }, null, 2) + '\n');
+}
+
+function getReadAudioDuration(item = {}) {
+    const audioPath = path.join(READ_AUDIO_DIR, item.audioFile || `${item.id || ''}.wav`);
+    let fileHandle;
+    try {
+        fileHandle = fs.openSync(audioPath, 'r');
+        const stats = fs.fstatSync(fileHandle);
+        const header = Buffer.alloc(Math.min(stats.size, 65536));
+        fs.readSync(fileHandle, header, 0, header.length, 0);
+        if (header.toString('ascii', 0, 4) !== 'RIFF' || header.toString('ascii', 8, 12) !== 'WAVE') return null;
+        let offset = 12;
+        let byteRate = 0;
+        let dataBytes = 0;
+        while (offset + 8 <= header.length) {
+            const chunkId = header.toString('ascii', offset, offset + 4);
+            const chunkSize = header.readUInt32LE(offset + 4);
+            if (chunkId === 'fmt ' && offset + 20 <= header.length) byteRate = header.readUInt32LE(offset + 16);
+            if (chunkId === 'data') {
+                dataBytes = chunkSize;
+                break;
+            }
+            offset += 8 + chunkSize + (chunkSize % 2);
+        }
+        return byteRate && dataBytes ? Math.round((dataBytes / byteRate) * 100) / 100 : null;
+    } catch {
+        return null;
+    } finally {
+        if (fileHandle !== undefined) try { fs.closeSync(fileHandle); } catch {}
+    }
 }
 
 function readSlug(text) {

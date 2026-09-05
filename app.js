@@ -3384,17 +3384,54 @@ document.addEventListener("DOMContentLoaded", () => {
     const readSubmitBtn = document.getElementById('read-submit-btn');
     const readSpeedSelect = document.getElementById('read-speed');
     const readSortSelect = document.getElementById('read-sort');
+    const readNowPlaying = document.getElementById('read-now-playing');
+    const readNowPlayingToggle = document.getElementById('read-now-playing-toggle');
+    const readNowPlayingTitle = document.getElementById('read-now-playing-title');
+    const readNowPlayingTotal = document.getElementById('read-now-playing-total');
+    const readProgress = document.getElementById('read-progress');
+    const readElapsed = document.getElementById('read-elapsed');
+    const readRemaining = document.getElementById('read-remaining');
     let activeReadId = null;
+    let readItems = [];
 
     const PLAY_ICON = `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72c0 .72.78 1.17 1.4.81l10.2-5.86a.94.94 0 000-1.62L9.4 4.33A.94.94 0 008 5.14z"></path></svg>`;
     const PAUSE_ICON = `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5.75A.75.75 0 017.75 5h2.5a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 01-.75-.75V5.75zm6 0A.75.75 0 0113.75 5h2.5a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 01-.75-.75V5.75z"></path></svg>`;
     const SPINNER_ICON = `<svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 11-6.219-8.56"></path></svg>`;
+
+    function formatReadTime(seconds) {
+        const safeSeconds = Number.isFinite(Number(seconds)) && Number(seconds) >= 0 ? Math.floor(Number(seconds)) : 0;
+        const minutes = Math.floor(safeSeconds / 60);
+        return `${minutes}:${String(safeSeconds % 60).padStart(2, '0')}`;
+    }
+
+    function updateReadPlayer() {
+        if (!readAudioPlayer) return;
+        const item = readItems.find(entry => entry.id === activeReadId);
+        const duration = Number.isFinite(readAudioPlayer.duration) ? readAudioPlayer.duration : Number(item?.durationSeconds || 0);
+        const elapsed = Math.min(Number(readAudioPlayer.currentTime || 0), duration || Infinity);
+        const progress = duration > 0 ? Math.min(1000, Math.round((elapsed / duration) * 1000)) : 0;
+        const rate = Number(readAudioPlayer.playbackRate || 1);
+        const wallClockRemaining = duration > 0 ? Math.max(0, (duration - elapsed) / rate) : 0;
+        if (readProgress) {
+            readProgress.value = String(progress);
+            readProgress.style.setProperty('--read-progress', `${progress / 10}%`);
+        }
+        if (readElapsed) readElapsed.innerText = formatReadTime(elapsed);
+        if (readNowPlayingTotal) readNowPlayingTotal.innerText = formatReadTime(duration);
+        if (readRemaining) readRemaining.innerText = `${formatReadTime(wallClockRemaining)} left${rate !== 1 ? ` at ${rate}×` : ''}`;
+        if (readNowPlayingToggle) {
+            readNowPlayingToggle.innerHTML = readAudioPlayer.paused ? PLAY_ICON : PAUSE_ICON;
+            readNowPlayingToggle.setAttribute('aria-label', readAudioPlayer.paused ? 'Play audio' : 'Pause audio');
+        }
+        document.querySelectorAll('[data-read-card]').forEach(card => card.classList.toggle('read-card-active', card.dataset.readCard === activeReadId));
+    }
 
     function applyReadPlaybackRate(rate) {
         const safeRate = Number(rate) || 1;
         if (readAudioPlayer) readAudioPlayer.playbackRate = safeRate;
         if (readSpeedSelect) readSpeedSelect.value = String(safeRate);
         try { localStorage.setItem('readPlaybackRate', String(safeRate)); } catch {}
+        updateReadPlayer();
     }
 
     applyReadPlaybackRate((() => {
@@ -3497,11 +3534,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const res = await fetch('/api/read');
             const data = await res.json();
             const items = sortReadItems(Array.isArray(data.items) ? data.items : []);
+            readItems = items;
             readLibraryEl.innerHTML = items.length ? items.map(renderReadItem).join('') : `
                 <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">
                     Nothing saved yet. Use the form above to add an article or book summary.
                 </div>
             `;
+            updateReadPlayer();
 
         } catch (e) {
             console.error(e);
@@ -3516,14 +3555,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const listens = Number(item.listenCount || 0).toLocaleString();
         const id = escapeHtml(item.id);
         const title = escapeHtml(item.title || 'Untitled');
+        const duration = Number(item.durationSeconds || 0);
         return `
-            <article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+            <article data-read-card="${id}" class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
                 <div class="p-6 flex flex-col md:flex-row md:items-start md:justify-between gap-5">
                     <div class="min-w-0 flex-1">
                         <div class="flex items-center gap-2 flex-wrap mb-2">
                             <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300">${escapeHtml(item.type || 'article')}</span>
                             <span class="text-xs text-gray-500 dark:text-gray-400">${created}</span>
                             <span class="text-xs text-gray-500 dark:text-gray-400">${chars} chars</span>
+                            ${duration > 0 ? `<span class="text-xs text-gray-500 dark:text-gray-400">${formatReadTime(duration)} audio</span>` : ''}
                             <span id="read-count-${id}" class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">Listened ${listens}×</span>
                         </div>
                         <button data-read-edit="${id}" data-read-title="${title}" class="read-title-btn bg-transparent border-0 p-0 text-left text-lg font-semibold dark:text-white mb-2 hover:underline underline-offset-4">${title}</button>
@@ -3569,6 +3610,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     readAudioPlayer.removeAttribute('src');
                     readAudioPlayer.load();
                     activeReadId = null;
+                    readNowPlaying?.classList.add('hidden');
                 }
                 await loadReadLibrary();
                 return true;
@@ -3666,6 +3708,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (activeReadId !== id) {
             readAudioPlayer.src = `/api/read/${encodeURIComponent(id)}/audio`;
             activeReadId = id;
+            const item = readItems.find(entry => entry.id === id);
+            if (readNowPlayingTitle) readNowPlayingTitle.innerText = item?.title || 'Now playing';
+            readNowPlaying?.classList.remove('hidden');
+            updateReadPlayer();
             try {
                 const res = await fetch(`/api/read/${encodeURIComponent(id)}/listened`, { method: 'POST' });
                 const data = await res.json();
@@ -3685,6 +3731,27 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     }
+
+    if (readAudioPlayer) {
+        ['loadedmetadata', 'durationchange', 'timeupdate', 'play', 'pause', 'ended', 'ratechange'].forEach(eventName => {
+            readAudioPlayer.addEventListener(eventName, updateReadPlayer);
+        });
+    }
+
+    readNowPlayingToggle?.addEventListener('click', async () => {
+        if (!readAudioPlayer || !activeReadId) return;
+        if (readAudioPlayer.paused) {
+            try { await readAudioPlayer.play(); } catch (err) { alert(`Could not resume audio: ${err.message}`); }
+        } else {
+            readAudioPlayer.pause();
+        }
+    });
+
+    readProgress?.addEventListener('input', () => {
+        if (!readAudioPlayer || !Number.isFinite(readAudioPlayer.duration)) return;
+        readAudioPlayer.currentTime = (Number(readProgress.value) / 1000) * readAudioPlayer.duration;
+        updateReadPlayer();
+    });
 
     // === Goals Logic ===
     const defaultGoalTargets = { youtube: 100000, skool: 10000, revenue: 10000 };
@@ -6671,9 +6738,11 @@ document.addEventListener("DOMContentLoaded", () => {
             ? 'view-property'
         : location.pathname === '/people'
             ? 'view-people'
+        : location.pathname === '/read'
+            ? 'view-read'
             : 'view-goals';
 
-    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/ytjobs', '/jobs/youtube', '/property', '/people'].includes(location.pathname)) {
+    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/ytjobs', '/jobs/youtube', '/property', '/people', '/read'].includes(location.pathname)) {
         contextSwitcher.value = 'lifeos';
         navMissionControl?.classList.add('hidden');
         navLifeOs?.classList.remove('hidden');

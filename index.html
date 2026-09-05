@@ -27,7 +27,7 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="styles.css?v=20260904-social-crm">
+    <link rel="stylesheet" href="styles.css?v=20260905-read-player">
 </head>
 <body class="bg-white dark:bg-[#212121] text-gray-900 dark:text-gray-100 font-sans antialiased flex h-screen overflow-hidden transition-colors duration-200">
 
@@ -1037,6 +1037,23 @@
                 </form>
             </div>
 
+            <section id="read-now-playing" class="read-now-playing sticky top-4 z-10 mb-5 hidden rounded-2xl border border-indigo-200 dark:border-indigo-500/25 bg-white/95 dark:bg-[#171717]/95 shadow-lg shadow-indigo-100/50 dark:shadow-black/20 backdrop-blur p-4 sm:p-5" aria-live="polite">
+                <div class="flex items-center gap-4">
+                    <button id="read-now-playing-toggle" type="button" class="h-11 w-11 shrink-0 inline-flex items-center justify-center rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors" aria-label="Pause audio"></button>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center justify-between gap-3 mb-2">
+                            <div class="min-w-0"><div class="text-[10px] font-semibold uppercase tracking-[0.16em] text-indigo-600 dark:text-indigo-300">Now playing</div><div id="read-now-playing-title" class="text-sm font-semibold dark:text-white truncate">Select something to listen to</div></div>
+                            <div id="read-now-playing-total" class="text-sm tabular-nums font-medium text-gray-700 dark:text-gray-200 shrink-0">0:00</div>
+                        </div>
+                        <input id="read-progress" class="read-progress block w-full" type="range" min="0" max="1000" value="0" step="1" aria-label="Audio progress">
+                        <div class="mt-2 flex items-center justify-between gap-3 text-[11px] tabular-nums text-gray-500 dark:text-gray-400">
+                            <span><span id="read-elapsed">0:00</span> elapsed</span>
+                            <span id="read-remaining">0:00 left</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <div id="read-library" class="space-y-4">
                 <div class="text-sm text-gray-500 dark:text-gray-400">Loading Read library...</div>
             </div>
@@ -1987,7 +2004,7 @@
         </form>
     </div>
 
-    <script src="app.js?v=20260904-social-crm"></script>
+    <script src="app.js?v=20260905-read-player"></script>
     <script src="workouts.js?v=20260817-rutina-web"></script>
 </body>
 </html>
