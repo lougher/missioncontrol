@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (targetId === 'view-business-ideas') loadBusinessIdeas(true);
         if (targetId === 'view-ytjobs') loadYtJobs(true);
         if (targetId === 'view-people') loadPeople(true);
+        if (targetId === 'view-property') loadOpenRentLeads(true);
     }
 
     if (contextSwitcher) {
@@ -5392,6 +5393,186 @@ document.addEventListener("DOMContentLoaded", () => {
         return value >= goodThreshold ? 'text-emerald-600 dark:text-emerald-300' : 'text-amber-600 dark:text-amber-300';
     }
 
+    // === OpenRent Leads Logic ===
+    const propertyTabs = document.querySelectorAll('[data-property-tab]');
+    const propertyOpenRentPanel = document.getElementById('property-openrent-panel');
+    const propertyHmoPanel = document.getElementById('property-hmo-panel');
+    const openRentList = document.getElementById('openrent-list');
+    const openRentMeta = document.getElementById('openrent-meta');
+    const openRentSearch = document.getElementById('openrent-search');
+    const openRentStatusFilter = document.getElementById('openrent-status-filter');
+    const openRentFitFilter = document.getElementById('openrent-fit-filter');
+    const openRentSort = document.getElementById('openrent-sort');
+    let openRentLeads = [];
+    let openRentLeadMeta = {};
+
+    function switchPropertyTab(tabName) {
+        const isOpenRent = tabName === 'openrent';
+        propertyOpenRentPanel?.classList.toggle('hidden', !isOpenRent);
+        propertyHmoPanel?.classList.toggle('hidden', isOpenRent);
+        refreshPropertyBtn?.classList.toggle('hidden', isOpenRent);
+        propertyTabs.forEach(tab => {
+            const active = tab.dataset.propertyTab === tabName;
+            tab.setAttribute('aria-selected', String(active));
+            tab.classList.toggle('border-blue-600', active);
+            tab.classList.toggle('text-blue-600', active);
+            tab.classList.toggle('dark:text-blue-300', active);
+            tab.classList.toggle('border-transparent', !active);
+            tab.classList.toggle('text-gray-500', !active);
+        });
+        localStorage.setItem('property-tab', tabName);
+        if (isOpenRent) loadOpenRentLeads(true);
+        else loadPropertyDeals(true);
+    }
+
+    function openRentStageLabel(status) {
+        return ({
+            not_contacted: 'Not contacted', researching: 'Researching', ready_to_contact: 'Ready to contact',
+            contacted: 'Contacted', follow_up: 'Follow up', interested: 'Interested',
+            not_interested: 'Not interested', converted: 'Converted'
+        })[status] || 'Not contacted';
+    }
+
+    function filteredOpenRentLeads() {
+        const search = (openRentSearch?.value || '').trim().toLowerCase();
+        const status = openRentStatusFilter?.value || 'all';
+        const fit = openRentFitFilter?.value || 'all';
+        const sort = openRentSort?.value || 'source';
+        return openRentLeads.filter(lead => {
+            const stage = lead.outreach?.status || 'not_contacted';
+            const haystack = `${lead.title || ''} ${lead.postcode || ''} ${lead.landlord?.name || ''} ${lead.listing_id || ''}`.toLowerCase();
+            if (search && !haystack.includes(search)) return false;
+            if (status !== 'all' && stage !== status) return false;
+            if (fit !== 'all' && lead.suitability?.label !== fit) return false;
+            return true;
+        }).sort((a, b) => {
+            if (sort === 'fit') return Number(b.suitability?.score || 0) - Number(a.suitability?.score || 0) || Number(a.rank || 0) - Number(b.rank || 0);
+            if (sort === 'rent-low') return Number(a.monthly_rent || 0) - Number(b.monthly_rent || 0);
+            if (sort === 'rent-high') return Number(b.monthly_rent || 0) - Number(a.monthly_rent || 0);
+            return Number(a.rank || 0) - Number(b.rank || 0);
+        });
+    }
+
+    function renderOpenRentLeads() {
+        if (!openRentList) return;
+        const total = openRentLeads.length;
+        const notContacted = openRentLeads.filter(lead => (lead.outreach?.status || 'not_contacted') === 'not_contacted').length;
+        const contacted = openRentLeads.filter(lead => !['not_contacted', 'researching', 'ready_to_contact'].includes(lead.outreach?.status || 'not_contacted')).length;
+        const interested = openRentLeads.filter(lead => ['interested', 'converted'].includes(lead.outreach?.status)).length;
+        const setText = (id, value) => { const el = document.getElementById(id); if (el) el.innerText = value; };
+        setText('openrent-total', total);
+        setText('openrent-new', notContacted);
+        setText('openrent-contacted', contacted);
+        setText('openrent-interested', interested);
+        if (openRentMeta) {
+            const fetched = openRentLeadMeta.fetched_at ? new Date(openRentLeadMeta.fetched_at).toLocaleString() : 'unknown';
+            openRentMeta.innerText = `${openRentLeadMeta.count || total} whole-property leads · ${openRentLeadMeta.total_search_results || '-'} total search results · ${openRentLeadMeta.excluded_shared_rooms || 0} shared rooms skipped · sourced ${fetched}. Email addresses and phone numbers are hidden by OpenRent unless added manually.`;
+        }
+
+        const leads = filteredOpenRentLeads();
+        if (!leads.length) {
+            openRentList.innerHTML = '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No OpenRent leads match these filters.</div>';
+            return;
+        }
+        openRentList.innerHTML = leads.map(lead => {
+            const stage = lead.outreach?.status || 'not_contacted';
+            const score = Number(lead.suitability?.score || 0);
+            const fit = lead.suitability?.label || 'low';
+            const fitClass = fit === 'high' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300' : fit === 'medium' ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300' : 'bg-gray-200 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+            const email = lead.contact?.email || '';
+            const phone = lead.contact?.phone || '';
+            const openRentSent = ['sent', 'replied'].includes(lead.outreach?.openrent_status);
+            const reasons = Array.isArray(lead.suitability?.reasons) ? lead.suitability.reasons.slice(0, 3) : [];
+            const flags = Array.isArray(lead.suitability?.flags) ? lead.suitability.flags : [];
+            return `
+                <article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                    <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">
+                        <div class="min-w-0 flex-1">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <a href="${escapeHtml(lead.url || '#')}" target="_blank" rel="noopener" class="text-lg font-semibold dark:text-white hover:text-blue-600 dark:hover:text-blue-300">${escapeHtml(lead.title || 'OpenRent property')}</a>
+                                <span class="text-xs px-2.5 py-1 rounded-full ${fitClass}">${escapeHtml(fit)} fit · ${score}/10</span>
+                                <span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">${escapeHtml(openRentStageLabel(stage))}</span>
+                            </div>
+                            <div class="text-sm text-gray-600 dark:text-gray-300 mt-2">${escapeHtml(lead.price_display || '-')} · ${Number(lead.bedrooms || 0)} bed · ${escapeHtml(lead.furnished || 'Furnishing unknown')} · Updated ${escapeHtml(lead.last_updated || 'unknown')}</div>
+                            <div class="text-sm text-gray-700 dark:text-gray-200 mt-3"><span class="font-medium">Landlord:</span> ${escapeHtml(lead.landlord?.name || 'Name not shown')} ${lead.landlord?.response_rate ? `· ${escapeHtml(lead.landlord.response_rate)} response rate` : ''}</div>
+                            <div class="flex flex-wrap gap-2 mt-3 text-xs">
+                                ${reasons.map(reason => `<span class="px-2 py-1 rounded bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10">${escapeHtml(reason)}</span>`).join('')}
+                                ${flags.map(flag => `<span class="px-2 py-1 rounded bg-red-50 text-red-700 dark:bg-red-500/10 dark:text-red-300 border border-red-100 dark:border-red-500/20">${escapeHtml(flag)}</span>`).join('')}
+                            </div>
+                            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                                <div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="font-semibold">Email</div><div class="mt-1 text-gray-500">${email ? escapeHtml(email) : lead.landlord?.email_verified ? 'Verified, address hidden' : 'Not available'}</div></div>
+                                <div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="font-semibold">OpenRent</div><div class="mt-1 ${openRentSent ? 'text-emerald-600' : 'text-gray-500'}">${openRentSent ? escapeHtml(lead.outreach.openrent_status) : 'Message not sent'}</div></div>
+                                <div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="font-semibold">Phone</div><div class="mt-1 text-gray-500">${phone ? escapeHtml(phone) : lead.landlord?.phone_verified ? 'Verified, number hidden' : 'Not available'}</div></div>
+                            </div>
+                            ${lead.notes ? `<div class="mt-3 text-sm text-gray-600 dark:text-gray-300"><span class="font-medium">Notes:</span> ${escapeHtml(lead.notes)}</div>` : ''}
+                        </div>
+                        <div class="flex flex-col gap-2 xl:w-48 shrink-0">
+                            <select onchange="updateOpenRentLead('${escapeHtml(lead.id)}', { status: this.value })" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-xs dark:text-white">
+                                ${['not_contacted','researching','ready_to_contact','contacted','follow_up','interested','not_interested','converted'].map(value => `<option value="${value}" ${stage === value ? 'selected' : ''}>${escapeHtml(openRentStageLabel(value))}</option>`).join('')}
+                            </select>
+                            <a href="${escapeHtml(lead.enquiry_url || lead.contact?.openrent_message_url || '#')}" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Open enquiry</a>
+                            <button onclick="updateOpenRentLead('${escapeHtml(lead.id)}', { openrent_status: '${openRentSent ? 'replied' : 'sent'}' })" class="text-xs px-3 py-2 rounded border border-blue-300 text-blue-700 dark:text-blue-300">${openRentSent ? 'Mark reply received' : 'Mark message sent'}</button>
+                            ${email ? `<a href="mailto:${escapeHtml(email)}" class="text-center text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Email landlord</a><button onclick="updateOpenRentLead('${escapeHtml(lead.id)}', { email_status: 'sent' })" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Mark email sent</button>` : ''}
+                            ${phone ? `<a href="tel:${escapeHtml(phone.replace(/\s+/g, ''))}" class="text-center text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Call landlord</a><button onclick="updateOpenRentLead('${escapeHtml(lead.id)}', { phone_status: 'called' })" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Mark called</button>` : ''}
+                            <button onclick="editOpenRentContact('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Add contact details</button>
+                            <button onclick="editOpenRentNotes('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Edit notes</button>
+                        </div>
+                    </div>
+                </article>`;
+        }).join('');
+    }
+
+    async function loadOpenRentLeads(silent = false) {
+        if (!openRentList) return;
+        if (!silent) openRentList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading OpenRent leads...</div>';
+        try {
+            const res = await fetch('/api/openrent-leads');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'OpenRent lead request failed');
+            openRentLeads = Array.isArray(data.leads) ? data.leads : [];
+            openRentLeadMeta = data.meta || {};
+            renderOpenRentLeads();
+        } catch (error) {
+            console.error(error);
+            openRentList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-lg p-6 text-red-600 dark:text-red-300">Failed to load OpenRent leads.</div>';
+        }
+    }
+
+    window.updateOpenRentLead = async (id, payload) => {
+        try {
+            const res = await fetch(`/api/openrent-leads/${encodeURIComponent(id)}/workflow`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (!res.ok || !data.lead) throw new Error(data.error || 'OpenRent update failed');
+            await loadOpenRentLeads(true);
+        } catch (error) {
+            console.error(error);
+            alert('Could not update the OpenRent lead.');
+        }
+    };
+
+    window.editOpenRentContact = async (id) => {
+        const lead = openRentLeads.find(item => item.id === id);
+        if (!lead) return;
+        const email = prompt('Landlord email (leave blank if unavailable)', lead.contact?.email || '');
+        if (email === null) return;
+        const phone = prompt('Landlord phone (leave blank if unavailable)', lead.contact?.phone || '');
+        if (phone === null) return;
+        await window.updateOpenRentLead(id, { contact: { email, phone } });
+    };
+
+    window.editOpenRentNotes = async (id) => {
+        const lead = openRentLeads.find(item => item.id === id);
+        if (!lead) return;
+        const notes = prompt('Lead notes', lead.notes || '');
+        if (notes === null) return;
+        await window.updateOpenRentLead(id, { notes });
+    };
+
+    propertyTabs.forEach(tab => tab.addEventListener('click', () => switchPropertyTab(tab.dataset.propertyTab)));
+    [openRentSearch, openRentStatusFilter, openRentFitFilter, openRentSort].forEach(control => control?.addEventListener(control === openRentSearch ? 'input' : 'change', renderOpenRentLeads));
+
     // === Property Deals Logic ===
     const refreshPropertyBtn = document.getElementById('refresh-property-btn');
     const propertyList = document.getElementById('property-list');
@@ -5960,6 +6141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (refreshPropertyBtn) refreshPropertyBtn.addEventListener('click', () => loadPropertyDeals());
     [propertySearch, propertyStatusFilter, propertyRoiFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('input', renderPropertyDeals));
     [propertyStatusFilter, propertyRoiFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('change', renderPropertyDeals));
+    switchPropertyTab(localStorage.getItem('property-tab') === 'hmo' ? 'hmo' : 'openrent');
 
     // === YTJobs Logic ===
     const refreshYtJobsBtn = document.getElementById('refresh-ytjobs-btn');
@@ -6724,7 +6906,10 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (activeView.id === 'view-health') loadHealthData(true);
         else if (activeView.id === 'view-ytjobs') loadYtJobs(true);
         else if (activeView.id === 'view-linkedin-jobs') loadLinkedInJobs(true);
-        else if (activeView.id === 'view-property') loadPropertyDeals(true);
+        else if (activeView.id === 'view-property') {
+            if (propertyOpenRentPanel && !propertyOpenRentPanel.classList.contains('hidden')) loadOpenRentLeads(true);
+            else loadPropertyDeals(true);
+        }
         else if (activeView.id === 'view-analytics') loadAnalyticsData(true);
         else if (activeView.id === 'view-people') loadPeople(true);
     }, 5000);
@@ -6764,6 +6949,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadYtJobs(true);
     loadLinkedInJobs(true);
     loadPropertyDeals(true);
+    loadOpenRentLeads(true);
     loadAnalyticsData();
     loadPeople(true);
     switchView(initialView);

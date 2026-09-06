@@ -1235,11 +1235,17 @@
             <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                 <div>
                     <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Property</h1>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Cardiff HMO leads from the 4+ bedroom deal tracker.</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Property sourcing and serviced accommodation lead management.</p>
                 </div>
-                <button id="refresh-property-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Properties</button>
+                <button id="refresh-property-btn" class="hidden text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Properties</button>
             </header>
 
+            <div class="flex gap-2 border-b border-gray-200 dark:border-white/10 mb-6" role="tablist" aria-label="Property sections">
+                <button id="property-tab-openrent" data-property-tab="openrent" class="px-4 py-2.5 text-sm font-medium border-b-2 border-blue-600 text-blue-600 dark:text-blue-300" role="tab" aria-selected="true">OpenRent</button>
+                <button id="property-tab-hmo" data-property-tab="hmo" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">HMO Deals</button>
+            </div>
+
+            <div id="property-hmo-panel" class="hidden">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Total Leads</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="property-total">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Tracked listings.</div></div></div>
                 <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Active</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-amber-600 dark:text-amber-300" id="property-outstanding">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Current opportunities.</div></div></div>
@@ -1282,6 +1288,52 @@
                         <button id="property-analysis-modal-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                     </div>
                     <div id="property-analysis-modal-body" class="p-6 overflow-y-auto space-y-5"></div>
+                </div>
+            </div>
+            </div>
+
+            <div id="property-openrent-panel">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Total Leads</div><div id="openrent-total" class="text-3xl font-semibold mt-2 dark:text-white">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Not Contacted</div><div id="openrent-new" class="text-3xl font-semibold mt-2 text-amber-600 dark:text-amber-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Contacted</div><div id="openrent-contacted" class="text-3xl font-semibold mt-2 text-blue-600 dark:text-blue-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Interested</div><div id="openrent-interested" class="text-3xl font-semibold mt-2 text-emerald-600 dark:text-emerald-300">0</div></div>
+                </div>
+
+                <div class="bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 rounded-xl p-4 mb-6 text-sm text-blue-900 dark:text-blue-100">
+                    <div class="font-semibold">Cardiff serviced accommodation prospects</div>
+                    <div id="openrent-meta" class="mt-1 text-blue-800/80 dark:text-blue-100/70">Loading sourcing details...</div>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-5 gap-3">
+                    <input id="openrent-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search property, landlord or postcode">
+                    <select id="openrent-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                        <option value="all">All stages</option>
+                        <option value="not_contacted" selected>Not contacted</option>
+                        <option value="researching">Researching</option>
+                        <option value="ready_to_contact">Ready to contact</option>
+                        <option value="contacted">Contacted</option>
+                        <option value="follow_up">Follow up</option>
+                        <option value="interested">Interested</option>
+                        <option value="not_interested">Not interested</option>
+                        <option value="converted">Converted</option>
+                    </select>
+                    <select id="openrent-fit-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                        <option value="all">All suitability</option>
+                        <option value="high">High suitability</option>
+                        <option value="medium">Medium suitability</option>
+                        <option value="low">Low suitability</option>
+                    </select>
+                    <select id="openrent-sort" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                        <option value="source" selected>OpenRent order</option>
+                        <option value="fit">Suitability high to low</option>
+                        <option value="rent-low">Rent low to high</option>
+                        <option value="rent-high">Rent high to low</option>
+                    </select>
+                </div>
+
+                <div id="openrent-list" class="space-y-3">
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Loading OpenRent leads...</div>
                 </div>
             </div>
         </div>
