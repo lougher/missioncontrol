@@ -994,6 +994,12 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <button id="toggle-read-form-btn" class="text-xs border border-transparent bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 rounded hover:opacity-80 transition-opacity">Add content</button>
+                    <label for="read-filter" class="text-xs text-gray-500 dark:text-gray-400">Show</label>
+                    <select id="read-filter" class="text-xs border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] dark:text-gray-300 px-3 py-1.5 rounded focus:outline-none cursor-pointer">
+                        <option value="all">All content</option>
+                        <option value="books">Books</option>
+                        <option value="articles">Articles</option>
+                    </select>
                     <label for="read-sort" class="text-xs text-gray-500 dark:text-gray-400">Sort</label>
                     <select id="read-sort" class="text-xs border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] dark:text-gray-300 px-3 py-1.5 rounded focus:outline-none cursor-pointer">
                         <option value="created">Recently created</option>

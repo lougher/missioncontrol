@@ -3384,6 +3384,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggleReadFormBtn = document.getElementById('toggle-read-form-btn');
     const readSubmitBtn = document.getElementById('read-submit-btn');
     const readSpeedSelect = document.getElementById('read-speed');
+    const readFilterSelect = document.getElementById('read-filter');
     const readSortSelect = document.getElementById('read-sort');
     const readNowPlaying = document.getElementById('read-now-playing');
     const readNowPlayingToggle = document.getElementById('read-now-playing-toggle');
@@ -3447,6 +3448,17 @@ document.addEventListener("DOMContentLoaded", () => {
         try { return localStorage.getItem('readSort') || 'created'; } catch { return 'created'; }
     }
 
+    function getReadFilter() {
+        try { return localStorage.getItem('readFilter') || 'all'; } catch { return 'all'; }
+    }
+
+    function filterReadItems(items) {
+        const filter = readFilterSelect?.value || getReadFilter();
+        if (filter === 'books') return items.filter(item => String(item.type || '').toLowerCase().startsWith('book'));
+        if (filter === 'articles') return items.filter(item => String(item.type || 'article').toLowerCase() === 'article');
+        return items;
+    }
+
     function sortReadItems(items) {
         const sort = readSortSelect?.value || getReadSort();
         const timestamp = (value) => {
@@ -3466,6 +3478,14 @@ document.addEventListener("DOMContentLoaded", () => {
         readSortSelect.value = getReadSort();
         readSortSelect.addEventListener('change', () => {
             try { localStorage.setItem('readSort', readSortSelect.value); } catch {}
+            loadReadLibrary(true);
+        });
+    }
+
+    if (readFilterSelect) {
+        readFilterSelect.value = getReadFilter();
+        readFilterSelect.addEventListener('change', () => {
+            try { localStorage.setItem('readFilter', readFilterSelect.value); } catch {}
             loadReadLibrary(true);
         });
     }
@@ -3536,9 +3556,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
             const items = sortReadItems(Array.isArray(data.items) ? data.items : []);
             readItems = items;
-            readLibraryEl.innerHTML = items.length ? items.map(renderReadItem).join('') : `
+            const visibleItems = filterReadItems(items);
+            const filterLabel = readFilterSelect?.selectedOptions?.[0]?.textContent || 'content';
+            readLibraryEl.innerHTML = visibleItems.length ? visibleItems.map(renderReadItem).join('') : `
                 <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">
-                    Nothing saved yet. Use the form above to add an article or book summary.
+                    ${items.length ? `No ${escapeHtml(filterLabel.toLowerCase())} found in your library.` : 'Nothing saved yet. Use the form above to add an article or book summary.'}
                 </div>
             `;
             updateReadPlayer();
