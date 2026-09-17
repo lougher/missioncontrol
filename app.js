@@ -5424,6 +5424,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const openRentSearch = document.getElementById('openrent-search');
     const openRentStatusFilter = document.getElementById('openrent-status-filter');
     const openRentFitFilter = document.getElementById('openrent-fit-filter');
+    const openRentLandlordFilter = document.getElementById('openrent-landlord-filter');
     const openRentSort = document.getElementById('openrent-sort');
     let openRentLeads = [];
     let openRentLeadMeta = {};
@@ -5451,8 +5452,15 @@ document.addEventListener("DOMContentLoaded", () => {
         return ({
             not_contacted: 'Not contacted', researching: 'Researching', ready_to_contact: 'Ready to contact',
             contacted: 'Contacted', follow_up: 'Follow up', interested: 'Interested',
-            not_interested: 'Not interested', converted: 'Converted'
+            not_interested: 'Not interested', converted: 'Converted', disqualified: 'Disqualified'
         })[status] || 'Not contacted';
+    }
+
+    function openRentLandlordTypeLabel(type) {
+        return ({
+            letting_agent: 'Letting agent', suspected_agent: 'Possible agent',
+            direct_landlord: 'Direct landlord', unknown: 'Unknown landlord type'
+        })[type] || 'Unknown landlord type';
     }
 
     function calculateOpenRentSuitability(lead) {
@@ -5501,13 +5509,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const search = (openRentSearch?.value || '').trim().toLowerCase();
         const status = openRentStatusFilter?.value || 'all';
         const fit = openRentFitFilter?.value || 'all';
+        const landlordFilter = openRentLandlordFilter?.value || 'all';
         const sort = openRentSort?.value || 'source';
         return openRentLeads.filter(lead => {
             const stage = lead.outreach?.status || 'not_contacted';
-            const haystack = `${lead.title || ''} ${lead.postcode || ''} ${lead.landlord?.name || ''} ${lead.listing_id || ''}`.toLowerCase();
+            const landlordType = lead.landlord?.type || 'unknown';
+            const haystack = `${lead.title || ''} ${lead.postcode || ''} ${lead.landlord?.name || ''} ${lead.landlord?.type_reason || ''} ${lead.disqualification_reason || ''} ${lead.listing_id || ''}`.toLowerCase();
             if (search && !haystack.includes(search)) return false;
             if (status !== 'all' && stage !== status) return false;
             if (fit !== 'all' && lead.suitability?.label !== fit) return false;
+            if (landlordFilter === 'non_agent' && ['letting_agent', 'suspected_agent'].includes(landlordType)) return false;
+            if (!['all', 'non_agent'].includes(landlordFilter) && landlordType !== landlordFilter) return false;
             return true;
         }).sort((a, b) => {
             if (sort === 'fit') return Number(b.suitability?.score || 0) - Number(a.suitability?.score || 0) || Number(a.rank || 0) - Number(b.rank || 0);
@@ -5521,13 +5533,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!openRentList) return;
         const total = openRentLeads.length;
         const notContacted = openRentLeads.filter(lead => (lead.outreach?.status || 'not_contacted') === 'not_contacted').length;
-        const contacted = openRentLeads.filter(lead => !['not_contacted', 'researching', 'ready_to_contact'].includes(lead.outreach?.status || 'not_contacted')).length;
+        const contacted = openRentLeads.filter(lead => ['contacted', 'follow_up', 'interested', 'converted'].includes(lead.outreach?.status || 'not_contacted')).length;
         const interested = openRentLeads.filter(lead => ['interested', 'converted'].includes(lead.outreach?.status)).length;
+        const disqualified = openRentLeads.filter(lead => lead.outreach?.status === 'disqualified').length;
         const setText = (id, value) => { const el = document.getElementById(id); if (el) el.innerText = value; };
         setText('openrent-total', total);
         setText('openrent-new', notContacted);
         setText('openrent-contacted', contacted);
         setText('openrent-interested', interested);
+        setText('openrent-disqualified', disqualified);
         if (openRentMeta) {
             const fetched = openRentLeadMeta.fetched_at ? new Date(openRentLeadMeta.fetched_at).toLocaleString() : 'unknown';
             openRentMeta.innerText = `${openRentLeadMeta.count || total} whole-property leads · ${openRentLeadMeta.total_search_results || '-'} total search results · ${openRentLeadMeta.excluded_shared_rooms || 0} shared rooms skipped · sourced ${fetched}. Email addresses and phone numbers are hidden by OpenRent unless added manually.`;
@@ -5543,22 +5557,38 @@ document.addEventListener("DOMContentLoaded", () => {
             const score = Number(lead.suitability?.score || 0);
             const fit = lead.suitability?.label || 'low';
             const fitClass = fit === 'high' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300' : fit === 'medium' ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300' : 'bg-gray-200 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+            const landlordType = lead.landlord?.type || 'unknown';
+            const landlordTypeReason = lead.landlord?.type_reason || '';
+            const landlordBadge = landlordType === 'letting_agent'
+                ? '<span class="text-xs px-2.5 py-1 rounded-full bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300">Letting agent</span>'
+                : landlordType === 'suspected_agent'
+                    ? '<span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">Possible agent</span>'
+                    : landlordType === 'direct_landlord'
+                        ? '<span class="text-xs px-2.5 py-1 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300">Direct landlord</span>'
+                        : '';
+            const cardClass = stage === 'disqualified'
+                ? 'bg-red-50/60 dark:bg-red-500/5 border-red-300 dark:border-red-500/30'
+                : landlordType === 'letting_agent'
+                    ? 'bg-amber-50/60 dark:bg-amber-500/5 border-amber-300 dark:border-amber-500/30'
+                    : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10';
             const email = lead.contact?.email || '';
             const phone = lead.contact?.phone || '';
             const openRentSent = ['sent', 'replied'].includes(lead.outreach?.openrent_status);
             const reasons = Array.isArray(lead.suitability?.reasons) ? lead.suitability.reasons.slice(0, 3) : [];
             const flags = Array.isArray(lead.suitability?.flags) ? lead.suitability.flags : [];
             return `
-                <article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                <article class="${cardClass} border rounded-xl p-5">
                     <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">
                         <div class="min-w-0 flex-1">
                             <div class="flex flex-wrap items-center gap-2">
                                 <a href="${escapeHtml(lead.url || '#')}" target="_blank" rel="noopener" class="text-lg font-semibold dark:text-white hover:text-blue-600 dark:hover:text-blue-300">${escapeHtml(lead.title || 'OpenRent property')}</a>
+                                ${landlordBadge}
                                 <span class="text-xs px-2.5 py-1 rounded-full ${fitClass}">${escapeHtml(fit)} fit · ${score}/10</span>
                                 <span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">${escapeHtml(openRentStageLabel(stage))}</span>
                             </div>
                             <div class="text-sm text-gray-600 dark:text-gray-300 mt-2">${escapeHtml(lead.price_display || '-')} · ${Number(lead.bedrooms || 0)} bed · ${escapeHtml(lead.furnished || 'Furnishing unknown')} · Updated ${escapeHtml(lead.last_updated || 'unknown')}</div>
                             <div class="text-sm text-gray-700 dark:text-gray-200 mt-3"><span class="font-medium">Landlord:</span> ${escapeHtml(lead.landlord?.name || 'Name not shown')} ${lead.landlord?.response_rate ? `· ${escapeHtml(lead.landlord.response_rate)} response rate` : ''}</div>
+                            ${landlordTypeReason ? `<div class="mt-2 text-xs ${landlordType === 'letting_agent' ? 'text-red-700 dark:text-red-300' : 'text-amber-700 dark:text-amber-300'}"><span class="font-semibold">Landlord flag:</span> ${escapeHtml(landlordTypeReason)}</div>` : ''}
                             <div class="flex flex-wrap gap-2 mt-3 text-xs">
                                 ${reasons.map(reason => `<span class="px-2 py-1 rounded bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10">${escapeHtml(reason)}</span>`).join('')}
                                 ${flags.map(flag => `<span class="px-2 py-1 rounded bg-red-50 text-red-700 dark:bg-red-500/10 dark:text-red-300 border border-red-100 dark:border-red-500/20">${escapeHtml(flag)}</span>`).join('')}
@@ -5569,10 +5599,14 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="font-semibold">Phone</div><div class="mt-1 text-gray-500">${phone ? escapeHtml(phone) : lead.landlord?.phone_verified ? 'Verified, number hidden' : 'Not available'}</div></div>
                             </div>
                             ${lead.notes ? `<div class="mt-3 text-sm text-gray-600 dark:text-gray-300"><span class="font-medium">Notes:</span> ${escapeHtml(lead.notes)}</div>` : ''}
+                            ${lead.disqualification_reason ? `<div class="mt-3 text-sm text-red-700 dark:text-red-300"><span class="font-semibold">Disqualified:</span> ${escapeHtml(lead.disqualification_reason)}</div>` : ''}
                         </div>
                         <div class="flex flex-col gap-2 xl:w-48 shrink-0">
-                            <select onchange="updateOpenRentLead('${escapeHtml(lead.id)}', { status: this.value })" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-xs dark:text-white">
-                                ${['not_contacted','researching','ready_to_contact','contacted','follow_up','interested','not_interested','converted'].map(value => `<option value="${value}" ${stage === value ? 'selected' : ''}>${escapeHtml(openRentStageLabel(value))}</option>`).join('')}
+                            <select onchange="this.value === 'disqualified' ? disqualifyOpenRentLead('${escapeHtml(lead.id)}') : updateOpenRentLead('${escapeHtml(lead.id)}', { status: this.value, disqualification_reason: '' })" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-xs dark:text-white">
+                                ${['not_contacted','researching','ready_to_contact','contacted','follow_up','interested','not_interested','converted','disqualified'].map(value => `<option value="${value}" ${stage === value ? 'selected' : ''}>${escapeHtml(openRentStageLabel(value))}</option>`).join('')}
+                            </select>
+                            <select onchange="setOpenRentLandlordType('${escapeHtml(lead.id)}', this.value)" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-xs dark:text-white">
+                                ${['unknown','direct_landlord','suspected_agent','letting_agent'].map(value => `<option value="${value}" ${landlordType === value ? 'selected' : ''}>${escapeHtml(openRentLandlordTypeLabel(value))}</option>`).join('')}
                             </select>
                             <a href="${escapeHtml(lead.enquiry_url || lead.contact?.openrent_message_url || '#')}" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Open enquiry</a>
                             <button onclick="updateOpenRentLead('${escapeHtml(lead.id)}', { openrent_status: '${openRentSent ? 'replied' : 'sent'}' })" class="text-xs px-3 py-2 rounded border border-blue-300 text-blue-700 dark:text-blue-300">${openRentSent ? 'Mark reply received' : 'Mark message sent'}</button>
@@ -5580,6 +5614,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             ${phone ? `<a href="tel:${escapeHtml(phone.replace(/\s+/g, ''))}" class="text-center text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Call landlord</a><button onclick="updateOpenRentLead('${escapeHtml(lead.id)}', { phone_status: 'called' })" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Mark called</button>` : ''}
                             <button onclick="editOpenRentContact('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Add contact details</button>
                             <button onclick="editOpenRentNotes('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Edit notes</button>
+                            ${stage === 'disqualified'
+                                ? `<button onclick="restoreOpenRentLead('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-emerald-300 text-emerald-700 dark:text-emerald-300">Restore lead</button>`
+                                : `<button onclick="disqualifyOpenRentLead('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-red-300 text-red-700 dark:text-red-300">Disqualify</button>`}
                         </div>
                     </div>
                 </article>`;
@@ -5636,8 +5673,37 @@ document.addEventListener("DOMContentLoaded", () => {
         await window.updateOpenRentLead(id, { notes });
     };
 
+    window.setOpenRentLandlordType = async (id, landlordType) => {
+        const lead = openRentLeads.find(item => item.id === id);
+        if (!lead) return;
+        let reason = '';
+        if (['letting_agent', 'suspected_agent'].includes(landlordType)) {
+            reason = prompt('Evidence for this landlord flag', lead.landlord?.type_reason || '');
+            if (reason === null || !reason.trim()) {
+                renderOpenRentLeads();
+                return;
+            }
+        }
+        await window.updateOpenRentLead(id, { landlord_type: landlordType, landlord_type_reason: reason });
+    };
+
+    window.disqualifyOpenRentLead = async (id) => {
+        const lead = openRentLeads.find(item => item.id === id);
+        if (!lead) return;
+        const reason = prompt('Why is this listing unsuitable?', lead.disqualification_reason || '');
+        if (reason === null || !reason.trim()) {
+            renderOpenRentLeads();
+            return;
+        }
+        await window.updateOpenRentLead(id, { status: 'disqualified', disqualification_reason: reason });
+    };
+
+    window.restoreOpenRentLead = async (id) => {
+        await window.updateOpenRentLead(id, { status: 'not_contacted', disqualification_reason: '' });
+    };
+
     propertyTabs.forEach(tab => tab.addEventListener('click', () => switchPropertyTab(tab.dataset.propertyTab)));
-    [openRentSearch, openRentStatusFilter, openRentFitFilter, openRentSort].forEach(control => control?.addEventListener(control === openRentSearch ? 'input' : 'change', renderOpenRentLeads));
+    [openRentSearch, openRentStatusFilter, openRentFitFilter, openRentLandlordFilter, openRentSort].forEach(control => control?.addEventListener(control === openRentSearch ? 'input' : 'change', renderOpenRentLeads));
 
     // === Property Deals Logic ===
     const refreshPropertyBtn = document.getElementById('refresh-property-btn');

@@ -1299,11 +1299,12 @@
             </div>
 
             <div id="property-openrent-panel">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
                     <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Total Leads</div><div id="openrent-total" class="text-3xl font-semibold mt-2 dark:text-white">0</div></div>
                     <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Not Contacted</div><div id="openrent-new" class="text-3xl font-semibold mt-2 text-amber-600 dark:text-amber-300">0</div></div>
                     <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Contacted</div><div id="openrent-contacted" class="text-3xl font-semibold mt-2 text-blue-600 dark:text-blue-300">0</div></div>
                     <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Interested</div><div id="openrent-interested" class="text-3xl font-semibold mt-2 text-emerald-600 dark:text-emerald-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Disqualified</div><div id="openrent-disqualified" class="text-3xl font-semibold mt-2 text-red-600 dark:text-red-300">0</div></div>
                 </div>
 
                 <div class="bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 rounded-xl p-4 mb-6 text-sm text-blue-900 dark:text-blue-100">
@@ -1353,7 +1354,7 @@
                     </div>
                 </details>
 
-                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-5 gap-3">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-6 gap-3">
                     <input id="openrent-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search property, landlord or postcode">
                     <select id="openrent-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
                         <option value="all">All stages</option>
@@ -1365,6 +1366,15 @@
                         <option value="interested">Interested</option>
                         <option value="not_interested">Not interested</option>
                         <option value="converted">Converted</option>
+                        <option value="disqualified">Disqualified</option>
+                    </select>
+                    <select id="openrent-landlord-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                        <option value="all">All landlord types</option>
+                        <option value="non_agent">Exclude agents</option>
+                        <option value="letting_agent">Letting agents</option>
+                        <option value="suspected_agent">Possible agents</option>
+                        <option value="direct_landlord">Direct landlords</option>
+                        <option value="unknown">Unknown type</option>
                     </select>
                     <select id="openrent-fit-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
                         <option value="all">All suitability</option>

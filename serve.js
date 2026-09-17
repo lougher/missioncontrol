@@ -2179,7 +2179,8 @@ function updateOpenRentLead(id, payload = {}) {
     const lead = db.leads.find(item => item.id === id);
     if (!lead) throw new Error('OpenRent lead not found');
 
-    const allowedStatuses = ['not_contacted', 'researching', 'ready_to_contact', 'contacted', 'follow_up', 'interested', 'not_interested', 'converted'];
+    const allowedStatuses = ['not_contacted', 'researching', 'ready_to_contact', 'contacted', 'follow_up', 'interested', 'not_interested', 'converted', 'disqualified'];
+    const allowedLandlordTypes = ['unknown', 'direct_landlord', 'suspected_agent', 'letting_agent'];
     const allowedChannelStatuses = {
         email_status: ['not_available', 'not_sent', 'sent', 'replied'],
         openrent_status: ['not_sent', 'sent', 'replied'],
@@ -2188,6 +2189,9 @@ function updateOpenRentLead(id, payload = {}) {
     lead.outreach = lead.outreach && typeof lead.outreach === 'object' ? lead.outreach : {};
     if (payload.status !== undefined) {
         if (!allowedStatuses.includes(payload.status)) throw new Error('Invalid OpenRent lead status');
+        if (payload.status === 'disqualified' && !String(payload.disqualification_reason || lead.disqualification_reason || '').trim()) {
+            throw new Error('A disqualification reason is required');
+        }
         lead.outreach.status = payload.status;
     }
     for (const [field, values] of Object.entries(allowedChannelStatuses)) {
@@ -2196,6 +2200,20 @@ function updateOpenRentLead(id, payload = {}) {
         lead.outreach[field] = payload[field];
     }
     if (payload.notes !== undefined) lead.notes = String(payload.notes || '').trim().slice(0, 4000);
+    if (payload.disqualification_reason !== undefined) {
+        lead.disqualification_reason = String(payload.disqualification_reason || '').trim().slice(0, 1000);
+    }
+    if (payload.landlord_type !== undefined) {
+        if (!allowedLandlordTypes.includes(payload.landlord_type)) throw new Error('Invalid landlord type');
+        lead.landlord = lead.landlord && typeof lead.landlord === 'object' ? lead.landlord : {};
+        lead.landlord.type = payload.landlord_type;
+        lead.landlord.type_reason = ['letting_agent', 'suspected_agent'].includes(payload.landlord_type)
+            ? String(payload.landlord_type_reason || lead.landlord.type_reason || '').trim().slice(0, 1000)
+            : '';
+        if (['letting_agent', 'suspected_agent'].includes(payload.landlord_type) && !lead.landlord.type_reason) {
+            throw new Error('Evidence is required for an agent flag');
+        }
+    }
     if (payload.contact && typeof payload.contact === 'object') {
         lead.contact = lead.contact && typeof lead.contact === 'object' ? lead.contact : {};
         if (payload.contact.email !== undefined) lead.contact.email = String(payload.contact.email || '').trim().slice(0, 320);
