@@ -1311,6 +1311,48 @@
                     <div id="openrent-meta" class="mt-1 text-blue-800/80 dark:text-blue-100/70">Loading sourcing details...</div>
                 </div>
 
+                <details class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl mb-6 group">
+                    <summary class="cursor-pointer list-none p-4 flex items-center justify-between gap-4">
+                        <div>
+                            <div class="font-semibold dark:text-white">How fit scoring works</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">The score is a preliminary outreach-priority signal, not a revenue forecast.</div>
+                        </div>
+                        <span class="text-sm text-blue-600 dark:text-blue-300 group-open:hidden">Show criteria</span>
+                        <span class="text-sm text-blue-600 dark:text-blue-300 hidden group-open:inline">Hide criteria</span>
+                    </summary>
+                    <div class="border-t border-gray-200 dark:border-white/10 p-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 text-sm">
+                            <div class="rounded-lg bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 p-4">
+                                <div class="font-semibold dark:text-white mb-3">Points added</div>
+                                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                                    <li><span class="font-medium text-gray-900 dark:text-white">+2</span> Entire-property listing</li>
+                                    <li><span class="font-medium text-gray-900 dark:text-white">+2</span> One to three bedrooms</li>
+                                    <li><span class="font-medium text-gray-900 dark:text-white">+2</span> Advertised as furnished</li>
+                                    <li><span class="font-medium text-gray-900 dark:text-white">+2</span> Central or visitor-demand wording, such as city centre, Cardiff Central, Principality Stadium or Utilita Arena</li>
+                                    <li><span class="font-medium text-gray-900 dark:text-white">+1</span> Updated within the last few hours or days</li>
+                                </ul>
+                            </div>
+                            <div class="rounded-lg bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 p-4">
+                                <div class="font-semibold dark:text-white mb-3">Deductions and flags</div>
+                                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                                    <li><span class="font-medium text-red-600 dark:text-red-300">-5</span> Explicit wording such as “no subletting”, “no Airbnb” or “no short-term lets”</li>
+                                    <li><span class="font-medium text-amber-600 dark:text-amber-300">Flag only</span> A stated 12-month minimum tenancy</li>
+                                    <li>Scores are capped between 0 and 10.</li>
+                                </ul>
+                            </div>
+                            <div class="rounded-lg bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 p-4">
+                                <div class="font-semibold dark:text-white mb-3">Fit bands</div>
+                                <div class="space-y-3 text-gray-600 dark:text-gray-300">
+                                    <div><span class="inline-block text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300 mr-2">High fit</span> 8-10 points</div>
+                                    <div><span class="inline-block text-xs px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 mr-2">Medium fit</span> 5-7 points</div>
+                                    <div><span class="inline-block text-xs px-2.5 py-1 rounded-full bg-gray-200 text-gray-600 dark:bg-white/10 dark:text-gray-300 mr-2">Low fit</span> 0-4 points</div>
+                                    <p class="pt-1 text-xs text-gray-500 dark:text-gray-400">Before pitching, validate nightly rates, occupancy, seasonality, operating costs, planning, lease or freeholder consent, mortgage, insurance and Welsh regulatory requirements.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
                 <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-5 gap-3">
                     <input id="openrent-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search property, landlord or postcode">
                     <select id="openrent-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">

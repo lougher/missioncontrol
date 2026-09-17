@@ -5455,6 +5455,48 @@ document.addEventListener("DOMContentLoaded", () => {
         })[status] || 'Not contacted';
     }
 
+    function calculateOpenRentSuitability(lead) {
+        const text = `${lead.title || ''} ${lead.summary || ''} ${lead.description || ''}`.toLowerCase();
+        const reasons = ['Entire-property listing'];
+        const flags = [];
+        let score = 2;
+        const bedrooms = Number(lead.bedrooms || 0);
+        if (bedrooms >= 1 && bedrooms <= 3) {
+            score += 2;
+            reasons.push(`${bedrooms}-bed whole property`);
+        }
+        const furnishing = String(lead.furnished || '').trim().toLowerCase();
+        if (furnishing.startsWith('furnished')) {
+            score += 2;
+            reasons.push('Advertised furnished');
+        }
+        const visitorDemandTerms = ['city centre', 'city center', 'central station', 'cardiff central', 'principality', 'motorpoint', 'utilita arena'];
+        if (visitorDemandTerms.some(term => text.includes(term))) {
+            score += 2;
+            reasons.push('Central or visitor-demand location cues');
+        }
+        if (/\b(hour|hours|day|days)\b/i.test(lead.last_updated || '')) {
+            score += 1;
+            reasons.push('Recently updated');
+        }
+        const restrictionTerms = ['no sublet', 'no subletting', 'strictly no airbnb', 'no short term', 'no short-term'];
+        if (restrictionTerms.some(term => text.includes(term))) {
+            score -= 5;
+            flags.push('Listing wording may prohibit short stays or subletting');
+        }
+        if (text.includes('12 months') || text.includes('minimum tenancy 12')) {
+            flags.push('Standard long-term tenancy wording');
+        }
+        score = Math.max(0, Math.min(10, score));
+        return {
+            score,
+            label: score >= 8 ? 'high' : score >= 5 ? 'medium' : 'low',
+            reasons,
+            flags,
+            preliminary: true
+        };
+    }
+
     function filteredOpenRentLeads() {
         const search = (openRentSearch?.value || '').trim().toLowerCase();
         const status = openRentStatusFilter?.value || 'all';
@@ -5551,7 +5593,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const res = await fetch('/api/openrent-leads');
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || 'OpenRent lead request failed');
-            openRentLeads = Array.isArray(data.leads) ? data.leads : [];
+            openRentLeads = Array.isArray(data.leads)
+                ? data.leads.map(lead => ({ ...lead, suitability: calculateOpenRentSuitability(lead) }))
+                : [];
             openRentLeadMeta = data.meta || {};
             renderOpenRentLeads();
         } catch (error) {
