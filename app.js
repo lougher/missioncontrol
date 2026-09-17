@@ -5468,6 +5468,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const reasons = ['Entire-property listing'];
         const flags = [];
         let score = 2;
+        const landlordType = lead.landlord?.type || 'unknown';
+        if (landlordType === 'direct_landlord') {
+            score += 3;
+            reasons.push('Confirmed direct landlord');
+        } else if (landlordType === 'suspected_agent') {
+            score -= 3;
+            flags.push('Advertiser may be a letting agent');
+        } else if (landlordType === 'letting_agent') {
+            score -= 5;
+            flags.push('Advertised by a letting agent');
+        }
         const bedrooms = Number(lead.bedrooms || 0);
         if (bedrooms >= 1 && bedrooms <= 3) {
             score += 2;
@@ -5510,7 +5521,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const status = openRentStatusFilter?.value || 'all';
         const fit = openRentFitFilter?.value || 'all';
         const landlordFilter = openRentLandlordFilter?.value || 'all';
-        const sort = openRentSort?.value || 'source';
+        const sort = openRentSort?.value || 'fit';
         return openRentLeads.filter(lead => {
             const stage = lead.outreach?.status || 'not_contacted';
             const landlordType = lead.landlord?.type || 'unknown';

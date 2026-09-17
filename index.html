@@ -1326,6 +1326,7 @@
                             <div class="rounded-lg bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 p-4">
                                 <div class="font-semibold dark:text-white mb-3">Points added</div>
                                 <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                                    <li><span class="font-medium text-emerald-600 dark:text-emerald-300">+3</span> Confirmed direct landlord</li>
                                     <li><span class="font-medium text-gray-900 dark:text-white">+2</span> Entire-property listing</li>
                                     <li><span class="font-medium text-gray-900 dark:text-white">+2</span> One to three bedrooms</li>
                                     <li><span class="font-medium text-gray-900 dark:text-white">+2</span> Advertised as furnished</li>
@@ -1336,6 +1337,8 @@
                             <div class="rounded-lg bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 p-4">
                                 <div class="font-semibold dark:text-white mb-3">Deductions and flags</div>
                                 <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                                    <li><span class="font-medium text-red-600 dark:text-red-300">-5</span> Confirmed letting agent</li>
+                                    <li><span class="font-medium text-amber-600 dark:text-amber-300">-3</span> Possible letting agent</li>
                                     <li><span class="font-medium text-red-600 dark:text-red-300">-5</span> Explicit wording such as “no subletting”, “no Airbnb” or “no short-term lets”</li>
                                     <li><span class="font-medium text-amber-600 dark:text-amber-300">Flag only</span> A stated 12-month minimum tenancy</li>
                                     <li>Scores are capped between 0 and 10.</li>
@@ -1383,8 +1386,8 @@
                         <option value="low">Low suitability</option>
                     </select>
                     <select id="openrent-sort" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
-                        <option value="source" selected>OpenRent order</option>
-                        <option value="fit">Suitability high to low</option>
+                        <option value="source">OpenRent order</option>
+                        <option value="fit" selected>Suitability high to low</option>
                         <option value="rent-low">Rent low to high</option>
                         <option value="rent-high">Rent high to low</option>
                     </select>
