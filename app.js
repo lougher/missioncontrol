@@ -5841,7 +5841,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const cardCalculation = calculatePropertySheet(getPropertySheetInputs(deal));
             const maxPurchasePrice = cardCalculation.target_purchase_price;
             const askingPrice = cardCalculation.purchase_price;
-            const askingWithinTarget = askingPrice > 0 && maxPurchasePrice > 0 && askingPrice <= maxPurchasePrice;
+            const hasCalculationInputs = askingPrice > 0 && cardCalculation.monthly_rent > 0;
+            const askingWithinTarget = hasCalculationInputs && maxPurchasePrice > 0 && askingPrice <= maxPurchasePrice;
             const amountAboveTarget = Math.max(askingPrice - maxPurchasePrice, 0);
             const roiClass = roi === null
                 ? 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300'
@@ -5864,11 +5865,18 @@ document.addEventListener("DOMContentLoaded", () => {
                                     ${deal.duplicate_of ? '<span class="text-xs px-2.5 py-1 rounded-full bg-gray-200 text-gray-600 dark:bg-white/10 dark:text-gray-300">Duplicate listing</span>' : ''}
                                 </div>
                                 <div class="text-sm text-gray-600 dark:text-gray-300">${escapeHtml(deal.price || 'Price unknown')}${deal.previous_price && deal.previous_price !== deal.price ? ` <span class="text-xs text-emerald-700 dark:text-emerald-300">(was ${escapeHtml(deal.previous_price)})</span>` : ''} · ${Number(deal.bedrooms || 0) || '-'} bed · ${escapeHtml(deal.source || 'Unknown agent')}${deal.agent_phone ? ` · <a href="tel:${escapeHtml(deal.agent_phone.replace(/\s+/g, ''))}" class="text-blue-600 dark:text-blue-300 hover:underline">${escapeHtml(deal.agent_phone)}</a>` : ''}</div>
-                                <div class="mt-3 inline-flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border px-3 py-2 ${askingWithinTarget ? 'border-emerald-300 bg-emerald-50 dark:border-emerald-500/40 dark:bg-emerald-500/10' : 'border-amber-300 bg-amber-50 dark:border-amber-500/40 dark:bg-amber-500/10'}">
-                                    <span class="text-xs font-semibold uppercase tracking-wide ${askingWithinTarget ? 'text-emerald-700 dark:text-emerald-300' : 'text-amber-700 dark:text-amber-300'}">Max purchase price for ${propertyPct(cardCalculation.target_roi_pct)} ROI</span>
-                                    <span class="text-lg font-bold text-gray-900 dark:text-white">${propertyMoneyPrecise(maxPurchasePrice)}</span>
-                                    <span class="text-xs ${askingWithinTarget ? 'text-emerald-700 dark:text-emerald-300' : 'text-amber-700 dark:text-amber-300'}">${askingWithinTarget ? 'Viable at asking price' : `${propertyMoneyPrecise(amountAboveTarget)} above max`}</span>
-                                </div>
+                                ${hasCalculationInputs ? `
+                                    <div class="mt-3 inline-flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border px-3 py-2 ${askingWithinTarget ? 'border-emerald-300 bg-emerald-50 dark:border-emerald-500/40 dark:bg-emerald-500/10' : 'border-amber-300 bg-amber-50 dark:border-amber-500/40 dark:bg-amber-500/10'}">
+                                        <span class="text-xs font-semibold uppercase tracking-wide ${askingWithinTarget ? 'text-emerald-700 dark:text-emerald-300' : 'text-amber-700 dark:text-amber-300'}">Max purchase price for ${propertyPct(cardCalculation.target_roi_pct)} ROI</span>
+                                        <span class="text-lg font-bold text-gray-900 dark:text-white">${propertyMoneyPrecise(maxPurchasePrice)}</span>
+                                        <span class="text-xs ${askingWithinTarget ? 'text-emerald-700 dark:text-emerald-300' : 'text-amber-700 dark:text-amber-300'}">${askingWithinTarget ? 'Viable at asking price' : `${propertyMoneyPrecise(amountAboveTarget)} above max`}</span>
+                                    </div>
+                                ` : `
+                                    <button type="button" onclick="openPropertyDealAnalysis('${escapeHtml(deal.id)}')" class="mt-3 inline-flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-gray-300 bg-gray-100 px-3 py-2 text-left dark:border-white/20 dark:bg-white/10">
+                                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-300">Needs analysis</span>
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">Add an achievable rent to calculate the maximum purchase price</span>
+                                    </button>
+                                `}
                                 ${deal.market_history?.note ? `<div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Market: ${escapeHtml(deal.market_history.note)}</div>` : ''}
                                 ${deal.listing_status_note ? `<div class="text-xs ${listingStatus === 'live' ? 'text-emerald-700 dark:text-emerald-300' : 'text-red-700 dark:text-red-300'} mt-2">Current status: ${escapeHtml(deal.listing_status_note)}</div>` : ''}
                                 ${analysis.room_rent_note ? `<div class="text-sm text-gray-500 dark:text-gray-400 mt-2">${escapeHtml(analysis.room_rent_note)}</div>` : ''}
