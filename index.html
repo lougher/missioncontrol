@@ -1252,13 +1252,16 @@
             </div>
 
             <div id="property-hmo-panel" class="hidden">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Total Leads</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="property-total">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Tracked listings.</div></div></div>
-                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Active</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-amber-600 dark:text-amber-300" id="property-outstanding">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Current opportunities.</div></div></div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Unique Leads</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight dark:text-white" id="property-total">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Cross-portal duplicates excluded.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Available to Review</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-amber-600 dark:text-amber-300" id="property-outstanding">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Live, active opportunities.</div></div></div>
                 <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Good Finds</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-emerald-600 dark:text-emerald-300" id="property-reviewed">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Pinned opportunities.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Off Market</h3></div><div class="p-5"><div class="text-3xl font-semibold tracking-tight text-red-600 dark:text-red-300" id="property-off-market">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Sold STC or unavailable.</div></div></div>
             </div>
 
-            <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-6 gap-3">
+            <div id="property-refresh-meta" class="text-xs text-gray-500 dark:text-gray-400 mb-4">Checking listing freshness...</div>
+
+            <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-8 gap-3">
                 <input id="property-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search address, price, source">
                 <select id="property-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
                     <option value="active" selected>Active properties</option>
@@ -1271,6 +1274,16 @@
                     <option value="target">20%+ target</option>
                     <option value="watchlist">15%+ watchlist</option>
                     <option value="below">Below 15%</option>
+                </select>
+                <select id="property-availability-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                    <option value="available" selected>Available listings</option>
+                    <option value="all">All listing statuses</option>
+                    <option value="sold">Sold STC / offer</option>
+                    <option value="unavailable">Unavailable / unknown</option>
+                </select>
+                <select id="property-duplicate-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
+                    <option value="primary" selected>Hide duplicates</option>
+                    <option value="all">Include duplicates</option>
                 </select>
                 <select id="property-source-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none">
                     <option value="all" selected>All sources</option>

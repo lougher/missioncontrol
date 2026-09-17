@@ -322,7 +322,7 @@ const server = http.createServer((req, res) => {
         }
         const db = syncPropertyDealsFromTracker();
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ deals: db.deals || [] }));
+        res.end(JSON.stringify({ meta: db.meta || {}, deals: db.deals || [] }));
     } else if (req.url === '/api/openrent-leads') {
         if (req.method !== 'GET') {
             res.writeHead(405, { 'Content-Type': 'application/json' });
@@ -2149,9 +2149,12 @@ function updateYtJobsTalentStatus(id, status) {
 function readPropertyDealsDb() {
     try {
         const parsed = JSON.parse(fs.readFileSync(PROPERTY_DEALS_DB_FILE, 'utf8'));
-        return { deals: Array.isArray(parsed.deals) ? parsed.deals : [] };
+        return {
+            meta: parsed.meta && typeof parsed.meta === 'object' ? parsed.meta : {},
+            deals: Array.isArray(parsed.deals) ? parsed.deals : []
+        };
     } catch {
-        return { deals: [] };
+        return { meta: {}, deals: [] };
     }
 }
 
@@ -2231,6 +2234,7 @@ function updateOpenRentLead(id, payload = {}) {
 
 function writePropertyDealsDb(db) {
     fs.writeFileSync(PROPERTY_DEALS_DB_FILE, JSON.stringify({
+        meta: db.meta && typeof db.meta === 'object' ? db.meta : {},
         deals: Array.isArray(db.deals) ? db.deals : []
     }, null, 2) + '\n');
 }
@@ -2258,7 +2262,18 @@ function syncPropertyDealsFromTracker() {
     for (const item of readPropertyTrackerSeen()) {
         const id = String(item.id || item.url || '').trim();
         const key = listingKey(item);
-        if (!id || existingById.has(id) || (key && existingListingKeys.has(key))) continue;
+        if (!id) continue;
+        const existing = existingById.get(id);
+        if (existing) {
+            for (const field of ['duplicate_of', 'listing_portal', 'agent_phone']) {
+                if (item[field] !== undefined && existing[field] !== item[field]) {
+                    existing[field] = item[field];
+                    changed = true;
+                }
+            }
+            continue;
+        }
+        if (key && existingListingKeys.has(key)) continue;
         const deal = {
             id,
             url: String(item.url || '').trim(),

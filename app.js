@@ -5722,9 +5722,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const propertyTotal = document.getElementById('property-total');
     const propertyOutstanding = document.getElementById('property-outstanding');
     const propertyReviewed = document.getElementById('property-reviewed');
+    const propertyOffMarket = document.getElementById('property-off-market');
+    const propertyRefreshMeta = document.getElementById('property-refresh-meta');
     const propertySearch = document.getElementById('property-search');
     const propertyStatusFilter = document.getElementById('property-status-filter');
     const propertyRoiFilter = document.getElementById('property-roi-filter');
+    const propertyAvailabilityFilter = document.getElementById('property-availability-filter');
+    const propertyDuplicateFilter = document.getElementById('property-duplicate-filter');
     const propertySourceFilter = document.getElementById('property-source-filter');
     const propertySort = document.getElementById('property-sort');
     const propertyAnalysisModal = document.getElementById('property-analysis-modal');
@@ -5733,11 +5737,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const propertyAnalysisModalBody = document.getElementById('property-analysis-modal-body');
     const propertyAnalysisModalClose = document.getElementById('property-analysis-modal-close');
     let propertyDeals = [];
+    let propertyDealMeta = {};
+
+    function propertyListingStatusLabel(status) {
+        return ({
+            live: 'Live', sold_stc: 'Sold STC', under_offer: 'Under Offer',
+            unavailable: 'Unavailable', unknown: 'Status unconfirmed'
+        })[status] || 'Status unconfirmed';
+    }
+
+    function propertyListingStatusClass(status) {
+        if (status === 'live') return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300';
+        if (status === 'sold_stc' || status === 'under_offer') return 'bg-purple-100 text-purple-700 dark:bg-purple-500/20 dark:text-purple-300';
+        if (status === 'unavailable') return 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300';
+        return 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+    }
 
     function filteredPropertyDeals() {
         const search = (propertySearch?.value || '').toLowerCase().trim();
         const status = propertyStatusFilter?.value || 'active';
         const roiFilter = propertyRoiFilter?.value || 'all';
+        const availability = propertyAvailabilityFilter?.value || 'available';
+        const duplicateFilter = propertyDuplicateFilter?.value || 'primary';
         const source = propertySourceFilter?.value || 'all';
         const sort = propertySort?.value || 'roi-desc';
         return propertyDeals.filter(deal => {
@@ -5752,6 +5773,10 @@ document.addEventListener("DOMContentLoaded", () => {
             if (roiFilter === 'target' && roi < 20) return false;
             if (roiFilter === 'watchlist' && roi < 15) return false;
             if (roiFilter === 'below' && roi >= 15) return false;
+            if (duplicateFilter === 'primary' && deal.duplicate_of) return false;
+            if (availability === 'available' && !['live', 'unknown'].includes(deal.listing_status || 'unknown')) return false;
+            if (availability === 'sold' && !['sold_stc', 'under_offer'].includes(deal.listing_status)) return false;
+            if (availability === 'unavailable' && !['unavailable', 'unknown'].includes(deal.listing_status || 'unknown')) return false;
             if (source !== 'all' && deal.source !== source) return false;
             return true;
         }).sort((a, b) => {
@@ -5776,12 +5801,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderPropertyDeals() {
         if (!propertyList) return;
-        const total = propertyDeals.length;
-        const reviewed = propertyDeals.filter(deal => deal.deal_status === 'good').length;
-        const outstanding = propertyDeals.filter(deal => (deal.deal_status || 'active') !== 'not_interested').length;
+        const primaryDeals = propertyDeals.filter(deal => !deal.duplicate_of);
+        const total = primaryDeals.length;
+        const reviewed = primaryDeals.filter(deal => deal.deal_status === 'good').length;
+        const outstanding = primaryDeals.filter(deal => (deal.deal_status || 'active') !== 'not_interested' && deal.listing_status === 'live').length;
+        const offMarket = primaryDeals.filter(deal => ['sold_stc', 'under_offer', 'unavailable'].includes(deal.listing_status)).length;
         if (propertyTotal) propertyTotal.innerText = total;
         if (propertyOutstanding) propertyOutstanding.innerText = outstanding;
         if (propertyReviewed) propertyReviewed.innerText = reviewed;
+        if (propertyOffMarket) propertyOffMarket.innerText = offMarket;
+        if (propertyRefreshMeta) {
+            const refreshed = propertyDealMeta.listings_refreshed_at
+                ? new Date(propertyDealMeta.listings_refreshed_at).toLocaleString('en-GB')
+                : 'Not checked yet';
+            const summary = propertyDealMeta.listings_refresh_summary || {};
+            propertyRefreshMeta.innerText = `Listing status checked ${refreshed} · ${Number(summary.live || 0)} live · ${Number(summary.sold_stc || 0)} Sold STC · ${Number(summary.under_offer || 0)} under offer · ${Number(summary.unavailable || 0)} unavailable · ${Number(summary.price_changes || 0)} price changes`;
+        }
 
         const deals = filteredPropertyDeals();
         if (!deals.length) {
@@ -5801,6 +5836,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const tagOptions = [['research', 'Research'], ['called', 'Called'], ['viewing_organised', 'Viewing Organised'], ['offer_made', 'Offer Made']];
             const activeTags = Array.isArray(deal.tags) ? deal.tags : [];
             const analysis = deal.analysis || {};
+            const listingStatus = deal.listing_status || 'unknown';
             const roi = typeof analysis.roi === 'number' ? analysis.roi : null;
             const cardCalculation = calculatePropertySheet(getPropertySheetInputs(deal));
             const maxPurchasePrice = cardCalculation.target_purchase_price;
@@ -5823,17 +5859,22 @@ document.addEventListener("DOMContentLoaded", () => {
                                     <button type="button" onclick="openPropertyDealAnalysis('${escapeHtml(deal.id)}')" class="text-left text-lg font-semibold dark:text-white hover:text-blue-600 dark:hover:text-blue-300">${escapeHtml(deal.address || 'Address unknown')}</button>
                                     <span class="text-xs px-2.5 py-1 rounded-full ${statusClass}">${statusLabel}</span>
                                     <span class="text-xs px-2.5 py-1 rounded-full ${roiClass}">ROI ${roi === null ? '-' : `${roi}%`}</span>
+                                    <span class="text-xs px-2.5 py-1 rounded-full ${propertyListingStatusClass(listingStatus)}">${propertyListingStatusLabel(listingStatus)}</span>
                                     ${deal.market_history?.price_reduced ? '<span class="text-xs px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-500/20 dark:text-purple-300">Reduced</span>' : ''}
+                                    ${deal.duplicate_of ? '<span class="text-xs px-2.5 py-1 rounded-full bg-gray-200 text-gray-600 dark:bg-white/10 dark:text-gray-300">Duplicate listing</span>' : ''}
                                 </div>
-                                <div class="text-sm text-gray-600 dark:text-gray-300">${escapeHtml(deal.price || 'Price unknown')} · ${Number(deal.bedrooms || 0) || '-'} bed · ${escapeHtml(deal.source || 'Unknown agent')}${deal.agent_phone ? ` · <a href="tel:${escapeHtml(deal.agent_phone.replace(/\s+/g, ''))}" class="text-blue-600 dark:text-blue-300 hover:underline">${escapeHtml(deal.agent_phone)}</a>` : ''}</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-300">${escapeHtml(deal.price || 'Price unknown')}${deal.previous_price && deal.previous_price !== deal.price ? ` <span class="text-xs text-emerald-700 dark:text-emerald-300">(was ${escapeHtml(deal.previous_price)})</span>` : ''} · ${Number(deal.bedrooms || 0) || '-'} bed · ${escapeHtml(deal.source || 'Unknown agent')}${deal.agent_phone ? ` · <a href="tel:${escapeHtml(deal.agent_phone.replace(/\s+/g, ''))}" class="text-blue-600 dark:text-blue-300 hover:underline">${escapeHtml(deal.agent_phone)}</a>` : ''}</div>
                                 <div class="mt-3 inline-flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border px-3 py-2 ${askingWithinTarget ? 'border-emerald-300 bg-emerald-50 dark:border-emerald-500/40 dark:bg-emerald-500/10' : 'border-amber-300 bg-amber-50 dark:border-amber-500/40 dark:bg-amber-500/10'}">
                                     <span class="text-xs font-semibold uppercase tracking-wide ${askingWithinTarget ? 'text-emerald-700 dark:text-emerald-300' : 'text-amber-700 dark:text-amber-300'}">Max purchase price for ${propertyPct(cardCalculation.target_roi_pct)} ROI</span>
                                     <span class="text-lg font-bold text-gray-900 dark:text-white">${propertyMoneyPrecise(maxPurchasePrice)}</span>
                                     <span class="text-xs ${askingWithinTarget ? 'text-emerald-700 dark:text-emerald-300' : 'text-amber-700 dark:text-amber-300'}">${askingWithinTarget ? 'Viable at asking price' : `${propertyMoneyPrecise(amountAboveTarget)} above max`}</span>
                                 </div>
                                 ${deal.market_history?.note ? `<div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Market: ${escapeHtml(deal.market_history.note)}</div>` : ''}
+                                ${deal.listing_status_note ? `<div class="text-xs ${listingStatus === 'live' ? 'text-emerald-700 dark:text-emerald-300' : 'text-red-700 dark:text-red-300'} mt-2">Current status: ${escapeHtml(deal.listing_status_note)}</div>` : ''}
                                 ${analysis.room_rent_note ? `<div class="text-sm text-gray-500 dark:text-gray-400 mt-2">${escapeHtml(analysis.room_rent_note)}</div>` : ''}
                                 ${analysis.rent_source ? `<div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Rent basis: ${escapeHtml(analysis.rent_source)} · ${escapeHtml(analysis.tenant_type || 'professional assumed')}</div>` : ''}
+                                ${deal.hmo_relevance ? `<div class="mt-3 rounded-lg border border-blue-100 dark:border-blue-500/20 bg-blue-50/70 dark:bg-blue-500/10 px-3 py-2 text-sm text-gray-700 dark:text-gray-200"><span class="font-semibold">Why HMO-relevant:</span> ${escapeHtml(deal.hmo_relevance)}</div>` : ''}
+                                ${deal.next_due_diligence_question ? `<div class="mt-2 text-sm text-gray-700 dark:text-gray-200"><span class="font-semibold">Next check:</span> ${escapeHtml(deal.next_due_diligence_question)}</div>` : ''}
                                 <div class="flex flex-wrap gap-1.5 mt-3">${tagOptions.map(([tag, label]) => `<button type="button" onclick="togglePropertyDealTag('${escapeHtml(deal.id)}','${tag}')" class="text-xs px-2.5 py-1 rounded-full border ${activeTags.includes(tag) ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-300 text-gray-600 dark:border-white/20 dark:text-gray-300'}">${label}</button>`).join('')}</div>
                                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Found ${escapeHtml(deal.found || 'unknown')}</div>
                             </div>
@@ -5857,6 +5898,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || 'Property deals request failed');
             propertyDeals = Array.isArray(data.deals) ? data.deals : [];
+            propertyDealMeta = data.meta || {};
             renderPropertySourceOptions();
             renderPropertyDeals();
         } catch (e) {
@@ -6282,8 +6324,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (propertyAnalysisModal) propertyAnalysisModal.addEventListener('click', e => { if (e.target === propertyAnalysisModal) closePropertyAnalysisModal(); });
 
     if (refreshPropertyBtn) refreshPropertyBtn.addEventListener('click', () => loadPropertyDeals());
-    [propertySearch, propertyStatusFilter, propertyRoiFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('input', renderPropertyDeals));
-    [propertyStatusFilter, propertyRoiFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('change', renderPropertyDeals));
+    [propertySearch, propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('input', renderPropertyDeals));
+    [propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('change', renderPropertyDeals));
     switchPropertyTab(localStorage.getItem('property-tab') === 'hmo' ? 'hmo' : 'openrent');
 
     // === YTJobs Logic ===
