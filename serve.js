@@ -2202,7 +2202,7 @@ function updateOpenRentLead(id, payload = {}) {
         if (payload.contact.phone !== undefined) lead.contact.phone = String(payload.contact.phone || '').trim().slice(0, 80);
     }
     const contacted = ['sent', 'called', 'answered', 'voicemail', 'replied'];
-    if (Object.entries(lead.outreach).some(([field, value]) => field.endsWith('_status') && contacted.includes(value))) {
+    if (Object.entries(payload).some(([field, value]) => field.endsWith('_status') && contacted.includes(value))) {
         lead.outreach.last_contacted_at = new Date().toISOString();
         if (lead.outreach.status === 'not_contacted') lead.outreach.status = 'contacted';
     }
