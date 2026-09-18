@@ -5463,8 +5463,22 @@ document.addEventListener("DOMContentLoaded", () => {
         })[type] || 'Unknown landlord type';
     }
 
+    function isOpenRentStudio(lead) {
+        const label = `${lead.title || ''} ${lead.property_type || ''}`;
+        return Number(lead.bedrooms || 0) === 0 || /\bstudio\b/i.test(label);
+    }
+
     function calculateOpenRentSuitability(lead) {
         const text = `${lead.title || ''} ${lead.summary || ''} ${lead.description || ''}`.toLowerCase();
+        if (isOpenRentStudio(lead)) {
+            return {
+                score: 0,
+                label: 'low',
+                reasons: [],
+                flags: ['Studio apartment - automatically disqualified as too small'],
+                preliminary: false
+            };
+        }
         const reasons = ['Entire-property listing'];
         const flags = [];
         let score = 2;
@@ -5565,6 +5579,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         openRentList.innerHTML = leads.map(lead => {
             const stage = lead.outreach?.status || 'not_contacted';
+            const studio = isOpenRentStudio(lead);
             const score = Number(lead.suitability?.score || 0);
             const fit = lead.suitability?.label || 'low';
             const fitClass = fit === 'high' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300' : fit === 'medium' ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300' : 'bg-gray-200 text-gray-600 dark:bg-white/10 dark:text-gray-300';
@@ -5593,6 +5608,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="min-w-0 flex-1">
                             <div class="flex flex-wrap items-center gap-2">
                                 <a href="${escapeHtml(lead.url || '#')}" target="_blank" rel="noopener" class="text-lg font-semibold dark:text-white hover:text-blue-600 dark:hover:text-blue-300">${escapeHtml(lead.title || 'OpenRent property')}</a>
+                                ${studio ? '<span class="text-xs px-2.5 py-1 rounded-full bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300">Studio - too small</span>' : ''}
                                 ${landlordBadge}
                                 <span class="text-xs px-2.5 py-1 rounded-full ${fitClass}">${escapeHtml(fit)} fit · ${score}/10</span>
                                 <span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">${escapeHtml(openRentStageLabel(stage))}</span>
@@ -5613,7 +5629,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             ${lead.disqualification_reason ? `<div class="mt-3 text-sm text-red-700 dark:text-red-300"><span class="font-semibold">Disqualified:</span> ${escapeHtml(lead.disqualification_reason)}</div>` : ''}
                         </div>
                         <div class="flex flex-col gap-2 xl:w-48 shrink-0">
-                            <select onchange="this.value === 'disqualified' ? disqualifyOpenRentLead('${escapeHtml(lead.id)}') : updateOpenRentLead('${escapeHtml(lead.id)}', { status: this.value, disqualification_reason: '' })" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-xs dark:text-white">
+                            <select ${studio ? 'disabled title="Studios are automatically disqualified"' : ''} onchange="this.value === 'disqualified' ? disqualifyOpenRentLead('${escapeHtml(lead.id)}') : updateOpenRentLead('${escapeHtml(lead.id)}', { status: this.value, disqualification_reason: '' })" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-xs dark:text-white disabled:opacity-60">
                                 ${['not_contacted','researching','ready_to_contact','contacted','follow_up','interested','not_interested','converted','disqualified'].map(value => `<option value="${value}" ${stage === value ? 'selected' : ''}>${escapeHtml(openRentStageLabel(value))}</option>`).join('')}
                             </select>
                             <select onchange="setOpenRentLandlordType('${escapeHtml(lead.id)}', this.value)" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-xs dark:text-white">
@@ -5625,9 +5641,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             ${phone ? `<a href="tel:${escapeHtml(phone.replace(/\s+/g, ''))}" class="text-center text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Call landlord</a><button onclick="updateOpenRentLead('${escapeHtml(lead.id)}', { phone_status: 'called' })" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Mark called</button>` : ''}
                             <button onclick="editOpenRentContact('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Add contact details</button>
                             <button onclick="editOpenRentNotes('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Edit notes</button>
-                            ${stage === 'disqualified'
+                            ${stage === 'disqualified' && !studio
                                 ? `<button onclick="restoreOpenRentLead('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-emerald-300 text-emerald-700 dark:text-emerald-300">Restore lead</button>`
-                                : `<button onclick="disqualifyOpenRentLead('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-red-300 text-red-700 dark:text-red-300">Disqualify</button>`}
+                                : !studio ? `<button onclick="disqualifyOpenRentLead('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-red-300 text-red-700 dark:text-red-300">Disqualify</button>` : ''}
                         </div>
                     </div>
                 </article>`;

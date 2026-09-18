@@ -2161,13 +2161,31 @@ function readPropertyDealsDb() {
 function readOpenRentLeads() {
     try {
         const parsed = JSON.parse(fs.readFileSync(OPENRENT_LEADS_FILE, 'utf8'));
-        return {
+        const db = {
             meta: parsed.meta && typeof parsed.meta === 'object' ? parsed.meta : {},
             leads: Array.isArray(parsed.leads) ? parsed.leads : []
         };
+        let changed = false;
+        for (const lead of db.leads) {
+            if (!isOpenRentStudio(lead)) continue;
+            lead.outreach = lead.outreach && typeof lead.outreach === 'object' ? lead.outreach : {};
+            if (lead.outreach.status !== 'disqualified' || lead.disqualification_reason !== 'Studio apartment - too small') {
+                lead.outreach.status = 'disqualified';
+                lead.disqualification_reason = 'Studio apartment - too small';
+                lead.updated_at = new Date().toISOString();
+                changed = true;
+            }
+        }
+        if (changed) writeOpenRentLeads(db);
+        return db;
     } catch {
         return { meta: {}, leads: [] };
     }
+}
+
+function isOpenRentStudio(lead = {}) {
+    const label = `${lead.title || ''} ${lead.property_type || ''}`;
+    return Number(lead.bedrooms || 0) === 0 || /\bstudio\b/i.test(label);
 }
 
 function writeOpenRentLeads(db) {
@@ -2192,6 +2210,9 @@ function updateOpenRentLead(id, payload = {}) {
     lead.outreach = lead.outreach && typeof lead.outreach === 'object' ? lead.outreach : {};
     if (payload.status !== undefined) {
         if (!allowedStatuses.includes(payload.status)) throw new Error('Invalid OpenRent lead status');
+        if (isOpenRentStudio(lead) && payload.status !== 'disqualified') {
+            throw new Error('Studio apartments are automatically disqualified as too small');
+        }
         if (payload.status === 'disqualified' && !String(payload.disqualification_reason || lead.disqualification_reason || '').trim()) {
             throw new Error('A disqualification reason is required');
         }
