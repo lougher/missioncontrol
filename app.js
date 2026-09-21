@@ -53,7 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (targetId === 'view-business-ideas') loadBusinessIdeas(true);
         if (targetId === 'view-ytjobs') loadYtJobs(true);
         if (targetId === 'view-people') loadPeople(true);
-        if (targetId === 'view-property') loadOpenRentLeads(true);
+        if (targetId === 'view-property') {
+            const activePropertyTab = localStorage.getItem('property-tab') || 'openrent';
+            if (activePropertyTab === 'gumtree') loadGumtreeLeads(true);
+            else if (activePropertyTab === 'hmo') loadPropertyDeals(true);
+            else loadOpenRentLeads(true);
+        }
     }
 
     if (contextSwitcher) {
@@ -5418,6 +5423,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // === OpenRent Leads Logic ===
     const propertyTabs = document.querySelectorAll('[data-property-tab]');
     const propertyOpenRentPanel = document.getElementById('property-openrent-panel');
+    const propertyGumtreePanel = document.getElementById('property-gumtree-panel');
     const propertyHmoPanel = document.getElementById('property-hmo-panel');
     const openRentList = document.getElementById('openrent-list');
     const openRentMeta = document.getElementById('openrent-meta');
@@ -5431,9 +5437,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function switchPropertyTab(tabName) {
         const isOpenRent = tabName === 'openrent';
+        const isGumtree = tabName === 'gumtree';
+        const isHmo = tabName === 'hmo';
         propertyOpenRentPanel?.classList.toggle('hidden', !isOpenRent);
-        propertyHmoPanel?.classList.toggle('hidden', isOpenRent);
-        refreshPropertyBtn?.classList.toggle('hidden', isOpenRent);
+        propertyGumtreePanel?.classList.toggle('hidden', !isGumtree);
+        propertyHmoPanel?.classList.toggle('hidden', !isHmo);
+        refreshPropertyBtn?.classList.toggle('hidden', !isHmo);
         propertyTabs.forEach(tab => {
             const active = tab.dataset.propertyTab === tabName;
             tab.setAttribute('aria-selected', String(active));
@@ -5445,6 +5454,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         localStorage.setItem('property-tab', tabName);
         if (isOpenRent) loadOpenRentLeads(true);
+        else if (isGumtree) loadGumtreeLeads(true);
         else loadPropertyDeals(true);
     }
 
@@ -5731,6 +5741,134 @@ document.addEventListener("DOMContentLoaded", () => {
 
     propertyTabs.forEach(tab => tab.addEventListener('click', () => switchPropertyTab(tab.dataset.propertyTab)));
     [openRentSearch, openRentStatusFilter, openRentFitFilter, openRentLandlordFilter, openRentSort].forEach(control => control?.addEventListener(control === openRentSearch ? 'input' : 'change', renderOpenRentLeads));
+
+    // === Gumtree Leads Logic ===
+    const gumtreeList = document.getElementById('gumtree-list');
+    const gumtreeMeta = document.getElementById('gumtree-meta');
+    const gumtreeSearch = document.getElementById('gumtree-search');
+    const gumtreeStatusFilter = document.getElementById('gumtree-status-filter');
+    const gumtreeFitFilter = document.getElementById('gumtree-fit-filter');
+    const gumtreeLandlordFilter = document.getElementById('gumtree-landlord-filter');
+    const gumtreeSort = document.getElementById('gumtree-sort');
+    let gumtreeLeads = [];
+    let gumtreeLeadMeta = {};
+
+    function isGumtreeStudio(lead) {
+        return /\bstudio\b/i.test(`${lead.title || ''} ${lead.property_type || ''}`);
+    }
+
+    function calculateGumtreeSuitability(lead) {
+        if (isGumtreeStudio(lead)) return { score: 0, label: 'low', reasons: [], flags: ['Studio apartment - automatically disqualified as too small'], preliminary: false };
+        const text = `${lead.title || ''} ${lead.summary || ''} ${lead.description || ''}`.toLowerCase();
+        const reasons = ['Entire-property listing'];
+        const flags = [];
+        let score = 2;
+        const landlordType = lead.landlord?.type || 'unknown';
+        if (landlordType === 'direct_landlord') { score += 3; reasons.push('Gumtree Standard private account'); }
+        else if (landlordType === 'suspected_agent') { score -= 3; flags.push('Trade account - may be a letting agent'); }
+        else if (landlordType === 'letting_agent') { score -= 5; flags.push('Advertised by a letting agent'); }
+        const bedrooms = Number(lead.bedrooms || 0);
+        if (bedrooms >= 1 && bedrooms <= 3) { score += 2; reasons.push(`${bedrooms}-bed whole property`); }
+        if (String(lead.furnished || '').toLowerCase().startsWith('furnished')) { score += 2; reasons.push('Advertised furnished'); }
+        if (['city centre', 'city center', 'cardiff bay', 'cardiff central', 'principality', 'utilita arena', 'pontcanna'].some(term => text.includes(term))) { score += 2; reasons.push('Central or visitor-demand location cues'); }
+        if (/\b(?:0|1|2|3|4|5|6|7) days?\b|\bhours?\b/i.test(lead.last_updated || '')) { score += 1; reasons.push('Listed within the last week'); }
+        if (['no sublet', 'no subletting', 'strictly no airbnb', 'no airbnb', 'no short term', 'no short-term'].some(term => text.includes(term))) { score -= 5; flags.push('Listing wording may prohibit short stays or subletting'); }
+        if (text.includes('12 months') || text.includes('minimum term of 12')) flags.push('Standard long-term tenancy wording');
+        score = Math.max(0, Math.min(10, score));
+        return { score, label: score >= 8 ? 'high' : score >= 5 ? 'medium' : 'low', reasons, flags, preliminary: true };
+    }
+
+    function filteredGumtreeLeads() {
+        const search = (gumtreeSearch?.value || '').trim().toLowerCase();
+        const status = gumtreeStatusFilter?.value || 'all';
+        const fit = gumtreeFitFilter?.value || 'all';
+        const landlordFilter = gumtreeLandlordFilter?.value || 'all';
+        const sort = gumtreeSort?.value || 'fit';
+        return gumtreeLeads.filter(lead => {
+            const stage = lead.outreach?.status || 'not_contacted';
+            const landlordType = lead.landlord?.type || 'unknown';
+            const haystack = `${lead.title || ''} ${lead.address || ''} ${lead.postcode || ''} ${lead.landlord?.name || ''} ${lead.landlord?.type_reason || ''} ${lead.disqualification_reason || ''}`.toLowerCase();
+            if (search && !haystack.includes(search)) return false;
+            if (status !== 'all' && stage !== status) return false;
+            if (fit !== 'all' && lead.suitability?.label !== fit) return false;
+            if (landlordFilter === 'non_agent' && ['letting_agent', 'suspected_agent'].includes(landlordType)) return false;
+            if (!['all', 'non_agent'].includes(landlordFilter) && landlordType !== landlordFilter) return false;
+            return true;
+        }).sort((a, b) => {
+            if (sort === 'fit') return Number(b.suitability?.score || 0) - Number(a.suitability?.score || 0) || Number(a.rank || 0) - Number(b.rank || 0);
+            if (sort === 'newest') return Number(a.rank || 0) - Number(b.rank || 0);
+            if (sort === 'rent-low') return Number(a.monthly_rent || 0) - Number(b.monthly_rent || 0);
+            if (sort === 'rent-high') return Number(b.monthly_rent || 0) - Number(a.monthly_rent || 0);
+            return 0;
+        });
+    }
+
+    function renderGumtreeLeads() {
+        if (!gumtreeList) return;
+        const setText = (id, value) => { const el = document.getElementById(id); if (el) el.innerText = value; };
+        setText('gumtree-total', gumtreeLeads.length);
+        setText('gumtree-private', gumtreeLeads.filter(lead => lead.landlord?.type === 'direct_landlord').length);
+        setText('gumtree-new', gumtreeLeads.filter(lead => (lead.outreach?.status || 'not_contacted') === 'not_contacted').length);
+        setText('gumtree-contacted', gumtreeLeads.filter(lead => ['contacted', 'follow_up', 'interested', 'converted'].includes(lead.outreach?.status)).length);
+        setText('gumtree-disqualified', gumtreeLeads.filter(lead => lead.outreach?.status === 'disqualified').length);
+        if (gumtreeMeta) {
+            const fetched = gumtreeLeadMeta.fetched_at ? new Date(gumtreeLeadMeta.fetched_at).toLocaleString() : 'unknown';
+            gumtreeMeta.innerText = `${gumtreeLeadMeta.count || gumtreeLeads.length} whole-property leads from ${gumtreeLeadMeta.total_search_results || '-'} results · ${gumtreeLeadMeta.private_landlord_count || 0} private accounts · ${gumtreeLeadMeta.agent_or_trade_count || 0} agent/trade accounts · ${gumtreeLeadMeta.excluded_rooms || 0} rooms excluded · sourced ${fetched}. Private account status is a strong prospecting signal, not proof of ownership.`;
+        }
+        const leads = filteredGumtreeLeads();
+        if (!leads.length) {
+            gumtreeList.innerHTML = '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No Gumtree leads match these filters.</div>';
+            return;
+        }
+        gumtreeList.innerHTML = leads.map(lead => {
+            const stage = lead.outreach?.status || 'not_contacted';
+            const studio = isGumtreeStudio(lead);
+            const score = Number(lead.suitability?.score || 0);
+            const fit = lead.suitability?.label || 'low';
+            const fitClass = fit === 'high' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300' : fit === 'medium' ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300' : 'bg-gray-200 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+            const landlordType = lead.landlord?.type || 'unknown';
+            const landlordTypeReason = lead.landlord?.type_reason || '';
+            const landlordBadge = landlordType === 'letting_agent' ? '<span class="text-xs px-2.5 py-1 rounded-full bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300">Letting agent</span>' : landlordType === 'suspected_agent' ? '<span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">Trade / possible agent</span>' : landlordType === 'direct_landlord' ? '<span class="text-xs px-2.5 py-1 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300">Private account</span>' : '';
+            const cardClass = stage === 'disqualified' ? 'bg-red-50/60 dark:bg-red-500/5 border-red-300 dark:border-red-500/30' : ['letting_agent', 'suspected_agent'].includes(landlordType) ? 'bg-amber-50/60 dark:bg-amber-500/5 border-amber-300 dark:border-amber-500/30' : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10';
+            const email = lead.contact?.email || '';
+            const phone = lead.contact?.phone || '';
+            const messageSent = ['sent', 'replied'].includes(lead.outreach?.gumtree_status);
+            const reasons = Array.isArray(lead.suitability?.reasons) ? lead.suitability.reasons.slice(0, 4) : [];
+            const flags = Array.isArray(lead.suitability?.flags) ? lead.suitability.flags : [];
+            return `<article class="${cardClass} border rounded-xl p-5"><div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5"><div class="min-w-0 flex-1"><div class="flex flex-wrap items-center gap-2"><a href="${escapeHtml(lead.url || '#')}" target="_blank" rel="noopener" class="text-lg font-semibold dark:text-white hover:text-blue-600 dark:hover:text-blue-300">${escapeHtml(lead.title || 'Gumtree property')}</a>${studio ? '<span class="text-xs px-2.5 py-1 rounded-full bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300">Studio - too small</span>' : ''}${landlordBadge}<span class="text-xs px-2.5 py-1 rounded-full ${fitClass}">${escapeHtml(fit)} fit · ${score}/10</span><span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">${escapeHtml(openRentStageLabel(stage))}</span></div><div class="text-sm text-gray-600 dark:text-gray-300 mt-2">${escapeHtml(lead.price_display || '-')} · ${Number(lead.bedrooms || 0)} bed · ${escapeHtml(lead.furnished || 'Furnishing unknown')} · ${escapeHtml(lead.address || lead.postcode || 'Cardiff')} · Listed ${escapeHtml(lead.last_updated || 'unknown')}</div><div class="text-sm text-gray-700 dark:text-gray-200 mt-3"><span class="font-medium">Advertiser:</span> ${escapeHtml(lead.landlord?.name || 'Name not shown')} ${lead.landlord?.posting_for ? `· posting for ${escapeHtml(lead.landlord.posting_for)}` : ''}</div>${landlordTypeReason ? `<div class="mt-2 text-xs ${landlordType === 'direct_landlord' ? 'text-violet-700 dark:text-violet-300' : landlordType === 'letting_agent' ? 'text-red-700 dark:text-red-300' : 'text-amber-700 dark:text-amber-300'}"><span class="font-semibold">Advertiser evidence:</span> ${escapeHtml(landlordTypeReason)}</div>` : ''}<div class="flex flex-wrap gap-2 mt-3 text-xs">${reasons.map(reason => `<span class="px-2 py-1 rounded bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10">${escapeHtml(reason)}</span>`).join('')}${flags.map(flag => `<span class="px-2 py-1 rounded bg-red-50 text-red-700 dark:bg-red-500/10 dark:text-red-300 border border-red-100 dark:border-red-500/20">${escapeHtml(flag)}</span>`).join('')}</div><div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs"><div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="font-semibold">Email</div><div class="mt-1 text-gray-500">${email ? escapeHtml(email) : lead.landlord?.email_available ? 'Available through Gumtree' : 'Not available'}</div></div><div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="font-semibold">Gumtree</div><div class="mt-1 ${messageSent ? 'text-emerald-600' : 'text-gray-500'}">${messageSent ? escapeHtml(lead.outreach.gumtree_status) : 'Message not sent'}</div></div><div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="font-semibold">Phone</div><div class="mt-1 text-gray-500">${phone ? escapeHtml(phone) : lead.landlord?.phone_available ? 'Available through Gumtree' : 'Not available'}</div></div></div>${lead.notes ? `<div class="mt-3 text-sm text-gray-600 dark:text-gray-300"><span class="font-medium">Notes:</span> ${escapeHtml(lead.notes)}</div>` : ''}${lead.disqualification_reason ? `<div class="mt-3 text-sm text-red-700 dark:text-red-300"><span class="font-semibold">Disqualified:</span> ${escapeHtml(lead.disqualification_reason)}</div>` : ''}</div><div class="flex flex-col gap-2 xl:w-48 shrink-0"><select ${studio ? 'disabled title="Studios are automatically disqualified"' : ''} onchange="this.value === 'disqualified' ? disqualifyGumtreeLead('${escapeHtml(lead.id)}') : updateGumtreeLead('${escapeHtml(lead.id)}', { status: this.value, disqualification_reason: '' })" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-xs dark:text-white disabled:opacity-60">${['not_contacted','researching','ready_to_contact','contacted','follow_up','interested','not_interested','converted','disqualified'].map(value => `<option value="${value}" ${stage === value ? 'selected' : ''}>${escapeHtml(openRentStageLabel(value))}</option>`).join('')}</select><select onchange="setGumtreeLandlordType('${escapeHtml(lead.id)}', this.value)" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-xs dark:text-white">${['unknown','direct_landlord','suspected_agent','letting_agent'].map(value => `<option value="${value}" ${landlordType === value ? 'selected' : ''}>${escapeHtml(openRentLandlordTypeLabel(value).replace('Direct landlord', 'Private landlord'))}</option>`).join('')}</select><a href="${escapeHtml(lead.enquiry_url || lead.url || '#')}" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded bg-emerald-600 text-white hover:bg-emerald-700">Open enquiry</a><button onclick="updateGumtreeLead('${escapeHtml(lead.id)}', { gumtree_status: '${messageSent ? 'replied' : 'sent'}' })" class="text-xs px-3 py-2 rounded border border-emerald-300 text-emerald-700 dark:text-emerald-300">${messageSent ? 'Mark reply received' : 'Mark message sent'}</button>${email ? `<a href="mailto:${escapeHtml(email)}" class="text-center text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Email advertiser</a>` : ''}${phone ? `<a href="tel:${escapeHtml(phone.replace(/\s+/g, ''))}" class="text-center text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Call advertiser</a>` : ''}<button onclick="editGumtreeContact('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Add contact details</button><button onclick="editGumtreeNotes('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Edit notes</button>${stage === 'disqualified' && !studio ? `<button onclick="restoreGumtreeLead('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-emerald-300 text-emerald-700 dark:text-emerald-300">Restore lead</button>` : !studio ? `<button onclick="disqualifyGumtreeLead('${escapeHtml(lead.id)}')" class="text-xs px-3 py-2 rounded border border-red-300 text-red-700 dark:text-red-300">Disqualify</button>` : ''}</div></div></article>`;
+        }).join('');
+    }
+
+    async function loadGumtreeLeads(silent = false) {
+        if (!gumtreeList) return;
+        if (!silent) gumtreeList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading Gumtree leads...</div>';
+        try {
+            const res = await fetch('/api/gumtree-leads');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Gumtree lead request failed');
+            gumtreeLeads = Array.isArray(data.leads) ? data.leads.map(lead => ({ ...lead, suitability: calculateGumtreeSuitability(lead) })) : [];
+            gumtreeLeadMeta = data.meta || {};
+            renderGumtreeLeads();
+        } catch (error) {
+            console.error(error);
+            gumtreeList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-lg p-6 text-red-600 dark:text-red-300">Failed to load Gumtree leads.</div>';
+        }
+    }
+
+    window.updateGumtreeLead = async (id, payload) => {
+        try {
+            const res = await fetch(`/api/gumtree-leads/${encodeURIComponent(id)}/workflow`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const data = await res.json();
+            if (!res.ok || !data.lead) throw new Error(data.error || 'Gumtree update failed');
+            await loadGumtreeLeads(true);
+        } catch (error) { console.error(error); alert('Could not update the Gumtree lead.'); }
+    };
+    window.editGumtreeContact = async id => { const lead = gumtreeLeads.find(item => item.id === id); if (!lead) return; const email = prompt('Advertiser email (leave blank if unavailable)', lead.contact?.email || ''); if (email === null) return; const phone = prompt('Advertiser phone (leave blank if unavailable)', lead.contact?.phone || ''); if (phone === null) return; await window.updateGumtreeLead(id, { contact: { email, phone } }); };
+    window.editGumtreeNotes = async id => { const lead = gumtreeLeads.find(item => item.id === id); if (!lead) return; const notes = prompt('Lead notes', lead.notes || ''); if (notes !== null) await window.updateGumtreeLead(id, { notes }); };
+    window.setGumtreeLandlordType = async (id, landlordType) => { const lead = gumtreeLeads.find(item => item.id === id); if (!lead) return; let reason = ''; if (['letting_agent', 'suspected_agent'].includes(landlordType)) { reason = prompt('Evidence for this advertiser flag', lead.landlord?.type_reason || ''); if (reason === null || !reason.trim()) { renderGumtreeLeads(); return; } } await window.updateGumtreeLead(id, { landlord_type: landlordType, landlord_type_reason: reason }); };
+    window.disqualifyGumtreeLead = async id => { const lead = gumtreeLeads.find(item => item.id === id); if (!lead) return; const reason = prompt('Why is this listing unsuitable?', lead.disqualification_reason || ''); if (reason === null || !reason.trim()) { renderGumtreeLeads(); return; } await window.updateGumtreeLead(id, { status: 'disqualified', disqualification_reason: reason }); };
+    window.restoreGumtreeLead = async id => window.updateGumtreeLead(id, { status: 'not_contacted', disqualification_reason: '' });
+    [gumtreeSearch, gumtreeStatusFilter, gumtreeFitFilter, gumtreeLandlordFilter, gumtreeSort].forEach(control => control?.addEventListener(control === gumtreeSearch ? 'input' : 'change', renderGumtreeLeads));
 
     // === Property Deals Logic ===
     const refreshPropertyBtn = document.getElementById('refresh-property-btn');
@@ -6350,7 +6488,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (refreshPropertyBtn) refreshPropertyBtn.addEventListener('click', () => loadPropertyDeals());
     [propertySearch, propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('input', renderPropertyDeals));
     [propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('change', renderPropertyDeals));
-    switchPropertyTab(localStorage.getItem('property-tab') === 'hmo' ? 'hmo' : 'openrent');
+    switchPropertyTab(['openrent', 'gumtree', 'hmo'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
 
     // === YTJobs Logic ===
     const refreshYtJobsBtn = document.getElementById('refresh-ytjobs-btn');
@@ -7117,6 +7255,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (activeView.id === 'view-linkedin-jobs') loadLinkedInJobs(true);
         else if (activeView.id === 'view-property') {
             if (propertyOpenRentPanel && !propertyOpenRentPanel.classList.contains('hidden')) loadOpenRentLeads(true);
+            else if (propertyGumtreePanel && !propertyGumtreePanel.classList.contains('hidden')) loadGumtreeLeads(true);
             else loadPropertyDeals(true);
         }
         else if (activeView.id === 'view-analytics') loadAnalyticsData(true);
@@ -7159,6 +7298,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadLinkedInJobs(true);
     loadPropertyDeals(true);
     loadOpenRentLeads(true);
+    loadGumtreeLeads(true);
     loadAnalyticsData();
     loadPeople(true);
     switchView(initialView);

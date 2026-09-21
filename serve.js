@@ -68,6 +68,7 @@ const YTJOBS_TALENT_FILE = path.join(__dirname, 'ytjobs_talking_head_editor_shor
 const PROPERTY_DEALS_DB_FILE = path.join(__dirname, 'property_deals.json');
 const PROPERTY_TRACKER_STATE_FILE = path.join(WORKSPACE_DIR, 'property-deals', 'cardiff-hmo-tracker-state.json');
 const OPENRENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'openrent-leads.json');
+const GUMTREE_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'gumtree-leads.json');
 const DUMMY_CALENDAR_JOBS = [
     { id: 'dummy-youtube-planning', name: 'YouTube Planning', hour: 8, minute: 0, calendarTag: 'YouTube' },
     { id: 'dummy-lunch-check-in', name: 'Lunch Check-In', hour: 13, minute: 0, calendarTag: 'Check-In' },
@@ -346,6 +347,31 @@ const server = http.createServer((req, res) => {
             } catch (err) {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update OpenRent lead' }));
+            }
+        });
+    } else if (req.url === '/api/gumtree-leads') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readGumtreeLeads();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/gumtree-leads\/[^/]+\/workflow$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const payload = JSON.parse(body || '{}');
+                const lead = updateGumtreeLead(id, payload);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, lead }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update Gumtree lead' }));
             }
         });
     } else if (req.url.match(/^\/api\/property-deals\/[^/]+\/reviewed$/)) {
@@ -2250,6 +2276,92 @@ function updateOpenRentLead(id, payload = {}) {
     }
     lead.updated_at = new Date().toISOString();
     writeOpenRentLeads(db);
+    return lead;
+}
+
+function isGumtreeStudio(lead = {}) {
+    const label = `${lead.title || ''} ${lead.property_type || ''}`;
+    return /\bstudio\b/i.test(label);
+}
+
+function readGumtreeLeads() {
+    try {
+        const parsed = JSON.parse(fs.readFileSync(GUMTREE_LEADS_FILE, 'utf8'));
+        const db = {
+            meta: parsed.meta && typeof parsed.meta === 'object' ? parsed.meta : {},
+            leads: Array.isArray(parsed.leads) ? parsed.leads : []
+        };
+        let changed = false;
+        for (const lead of db.leads) {
+            if (!isGumtreeStudio(lead)) continue;
+            lead.outreach = lead.outreach && typeof lead.outreach === 'object' ? lead.outreach : {};
+            if (lead.outreach.status !== 'disqualified' || lead.disqualification_reason !== 'Studio apartment - too small') {
+                lead.outreach.status = 'disqualified';
+                lead.disqualification_reason = 'Studio apartment - too small';
+                lead.updated_at = new Date().toISOString();
+                changed = true;
+            }
+        }
+        if (changed) writeGumtreeLeads(db);
+        return db;
+    } catch {
+        return { meta: {}, leads: [] };
+    }
+}
+
+function writeGumtreeLeads(db) {
+    fs.mkdirSync(path.dirname(GUMTREE_LEADS_FILE), { recursive: true });
+    const tempFile = `${GUMTREE_LEADS_FILE}.tmp`;
+    fs.writeFileSync(tempFile, JSON.stringify({ meta: db.meta || {}, leads: db.leads || [] }, null, 2) + '\n');
+    fs.renameSync(tempFile, GUMTREE_LEADS_FILE);
+}
+
+function updateGumtreeLead(id, payload = {}) {
+    const db = readGumtreeLeads();
+    const lead = db.leads.find(item => item.id === id);
+    if (!lead) throw new Error('Gumtree lead not found');
+    const allowedStatuses = ['not_contacted', 'researching', 'ready_to_contact', 'contacted', 'follow_up', 'interested', 'not_interested', 'converted', 'disqualified'];
+    const allowedLandlordTypes = ['unknown', 'direct_landlord', 'suspected_agent', 'letting_agent'];
+    const allowedChannelStatuses = {
+        email_status: ['not_available', 'not_sent', 'sent', 'replied'],
+        gumtree_status: ['not_sent', 'sent', 'replied'],
+        phone_status: ['not_available', 'not_called', 'called', 'answered', 'voicemail']
+    };
+    lead.outreach = lead.outreach && typeof lead.outreach === 'object' ? lead.outreach : {};
+    if (payload.status !== undefined) {
+        if (!allowedStatuses.includes(payload.status)) throw new Error('Invalid Gumtree lead status');
+        if (isGumtreeStudio(lead) && payload.status !== 'disqualified') throw new Error('Studio apartments are automatically disqualified as too small');
+        if (payload.status === 'disqualified' && !String(payload.disqualification_reason || lead.disqualification_reason || '').trim()) throw new Error('A disqualification reason is required');
+        lead.outreach.status = payload.status;
+    }
+    for (const [field, values] of Object.entries(allowedChannelStatuses)) {
+        if (payload[field] === undefined) continue;
+        if (!values.includes(payload[field])) throw new Error(`Invalid ${field}`);
+        lead.outreach[field] = payload[field];
+    }
+    if (payload.notes !== undefined) lead.notes = String(payload.notes || '').trim().slice(0, 4000);
+    if (payload.disqualification_reason !== undefined) lead.disqualification_reason = String(payload.disqualification_reason || '').trim().slice(0, 1000);
+    if (payload.landlord_type !== undefined) {
+        if (!allowedLandlordTypes.includes(payload.landlord_type)) throw new Error('Invalid landlord type');
+        lead.landlord = lead.landlord && typeof lead.landlord === 'object' ? lead.landlord : {};
+        lead.landlord.type = payload.landlord_type;
+        lead.landlord.type_reason = ['letting_agent', 'suspected_agent'].includes(payload.landlord_type)
+            ? String(payload.landlord_type_reason || lead.landlord.type_reason || '').trim().slice(0, 1000)
+            : payload.landlord_type === 'direct_landlord' ? 'Manually confirmed as a direct landlord.' : '';
+        if (['letting_agent', 'suspected_agent'].includes(payload.landlord_type) && !lead.landlord.type_reason) throw new Error('Evidence is required for an agent flag');
+    }
+    if (payload.contact && typeof payload.contact === 'object') {
+        lead.contact = lead.contact && typeof lead.contact === 'object' ? lead.contact : {};
+        if (payload.contact.email !== undefined) lead.contact.email = String(payload.contact.email || '').trim().slice(0, 320);
+        if (payload.contact.phone !== undefined) lead.contact.phone = String(payload.contact.phone || '').trim().slice(0, 80);
+    }
+    const contacted = ['sent', 'called', 'answered', 'voicemail', 'replied'];
+    if (Object.entries(payload).some(([field, value]) => field.endsWith('_status') && contacted.includes(value))) {
+        lead.outreach.last_contacted_at = new Date().toISOString();
+        if (lead.outreach.status === 'not_contacted') lead.outreach.status = 'contacted';
+    }
+    lead.updated_at = new Date().toISOString();
+    writeGumtreeLeads(db);
     return lead;
 }
 

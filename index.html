@@ -1248,6 +1248,7 @@
 
             <div class="flex gap-2 border-b border-gray-200 dark:border-white/10 mb-6" role="tablist" aria-label="Property sections">
                 <button id="property-tab-openrent" data-property-tab="openrent" class="px-4 py-2.5 text-sm font-medium border-b-2 border-blue-600 text-blue-600 dark:text-blue-300" role="tab" aria-selected="true">OpenRent</button>
+                <button id="property-tab-gumtree" data-property-tab="gumtree" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Gumtree</button>
                 <button id="property-tab-hmo" data-property-tab="hmo" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">HMO Deals</button>
             </div>
 
@@ -1410,6 +1411,42 @@
                 <div id="openrent-list" class="space-y-3">
                     <div class="text-sm text-gray-500 dark:text-gray-400">Loading OpenRent leads...</div>
                 </div>
+            </div>
+
+            <div id="property-gumtree-panel" class="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Total Leads</div><div id="gumtree-total" class="text-3xl font-semibold mt-2 dark:text-white">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Private Accounts</div><div id="gumtree-private" class="text-3xl font-semibold mt-2 text-violet-600 dark:text-violet-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Not Contacted</div><div id="gumtree-new" class="text-3xl font-semibold mt-2 text-amber-600 dark:text-amber-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Contacted</div><div id="gumtree-contacted" class="text-3xl font-semibold mt-2 text-blue-600 dark:text-blue-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Disqualified</div><div id="gumtree-disqualified" class="text-3xl font-semibold mt-2 text-red-600 dark:text-red-300">0</div></div>
+                </div>
+
+                <div class="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-100 dark:border-emerald-500/20 rounded-xl p-4 mb-6 text-sm text-emerald-900 dark:text-emerald-100">
+                    <div class="font-semibold">Cardiff Gumtree landlord prospects</div>
+                    <div id="gumtree-meta" class="mt-1 text-emerald-800/80 dark:text-emerald-100/70">Loading sourcing details...</div>
+                </div>
+
+                <details class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl mb-6 group">
+                    <summary class="cursor-pointer list-none p-4 flex items-center justify-between gap-4">
+                        <div><div class="font-semibold dark:text-white">How Gumtree fit scoring works</div><div class="text-sm text-gray-500 dark:text-gray-400 mt-1">Private accounts are prioritised over trade advertisers. Confirm ownership before pitching. The score is not a revenue forecast.</div></div>
+                        <span class="text-sm text-blue-600 dark:text-blue-300 group-open:hidden">Show criteria</span><span class="text-sm text-blue-600 dark:text-blue-300 hidden group-open:inline">Hide criteria</span>
+                    </summary>
+                    <div class="border-t border-gray-200 dark:border-white/10 p-4 grid grid-cols-1 lg:grid-cols-3 gap-4 text-sm">
+                        <div class="rounded-lg bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 p-4"><div class="font-semibold dark:text-white mb-3">Points added</div><ul class="space-y-2 text-gray-600 dark:text-gray-300"><li><span class="font-medium text-emerald-600 dark:text-emerald-300">+3</span> Gumtree Standard private account</li><li><span class="font-medium">+2</span> Entire home or apartment</li><li><span class="font-medium">+2</span> One to three bedrooms</li><li><span class="font-medium">+2</span> Furnished</li><li><span class="font-medium">+2</span> Central or visitor-demand location</li><li><span class="font-medium">+1</span> Listed within the last week</li></ul></div>
+                        <div class="rounded-lg bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 p-4"><div class="font-semibold dark:text-white mb-3">Deductions and exclusions</div><ul class="space-y-2 text-gray-600 dark:text-gray-300"><li><span class="font-medium text-red-600 dark:text-red-300">Excluded</span> Rooms, house shares and non-residential adverts</li><li><span class="font-medium text-red-600 dark:text-red-300">Auto-disqualify</span> Studio apartments</li><li><span class="font-medium text-red-600 dark:text-red-300">-5</span> Confirmed letting agent</li><li><span class="font-medium text-amber-600 dark:text-amber-300">-3</span> Gumtree Pro/trade account</li><li><span class="font-medium text-red-600 dark:text-red-300">-5</span> Explicit no-Airbnb or no-subletting wording</li></ul></div>
+                        <div class="rounded-lg bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 p-4"><div class="font-semibold dark:text-white mb-3">Fit bands</div><div class="space-y-3 text-gray-600 dark:text-gray-300"><div><span class="inline-block text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300 mr-2">High fit</span> 8-10</div><div><span class="inline-block text-xs px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 mr-2">Medium fit</span> 5-7</div><div><span class="inline-block text-xs px-2.5 py-1 rounded-full bg-gray-200 text-gray-600 dark:bg-white/10 dark:text-gray-300 mr-2">Low fit</span> 0-4</div><p class="pt-1 text-xs text-gray-500 dark:text-gray-400">Confirm ownership or management authority before pitching, then validate Airbnb revenue, costs, planning, lease, mortgage and insurance constraints.</p></div></div>
+                    </div>
+                </details>
+
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-6 gap-3">
+                    <input id="gumtree-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search property, advertiser or postcode">
+                    <select id="gumtree-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All stages</option><option value="not_contacted" selected>Not contacted</option><option value="researching">Researching</option><option value="ready_to_contact">Ready to contact</option><option value="contacted">Contacted</option><option value="follow_up">Follow up</option><option value="interested">Interested</option><option value="not_interested">Not interested</option><option value="converted">Converted</option><option value="disqualified">Disqualified</option></select>
+                    <select id="gumtree-landlord-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All advertiser types</option><option value="non_agent">Exclude agents/trade</option><option value="direct_landlord" selected>Private accounts</option><option value="suspected_agent">Trade / possible agents</option><option value="letting_agent">Confirmed agents</option><option value="unknown">Unknown type</option></select>
+                    <select id="gumtree-fit-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All suitability</option><option value="high">High suitability</option><option value="medium">Medium suitability</option><option value="low">Low suitability</option></select>
+                    <select id="gumtree-sort" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="fit" selected>Suitability high to low</option><option value="newest">Newest first</option><option value="rent-low">Rent low to high</option><option value="rent-high">Rent high to low</option></select>
+                </div>
+                <div id="gumtree-list" class="space-y-3"><div class="text-sm text-gray-500 dark:text-gray-400">Loading Gumtree leads...</div></div>
             </div>
         </div>
 
