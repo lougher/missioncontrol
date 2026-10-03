@@ -69,6 +69,7 @@ const PROPERTY_DEALS_DB_FILE = path.join(__dirname, 'property_deals.json');
 const PROPERTY_TRACKER_STATE_FILE = path.join(WORKSPACE_DIR, 'property-deals', 'cardiff-hmo-tracker-state.json');
 const OPENRENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'openrent-leads.json');
 const GUMTREE_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'gumtree-leads.json');
+const LONDON_APARTMENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'london-apartment-leads.json');
 const DUMMY_CALENDAR_JOBS = [
     { id: 'dummy-youtube-planning', name: 'YouTube Planning', hour: 8, minute: 0, calendarTag: 'YouTube' },
     { id: 'dummy-lunch-check-in', name: 'Lunch Check-In', hour: 13, minute: 0, calendarTag: 'Check-In' },
@@ -357,6 +358,34 @@ const server = http.createServer((req, res) => {
         const db = readGumtreeLeads();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(db));
+    } else if (req.url === '/api/london-apartment-leads') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = JSON.parse(fs.readFileSync(LONDON_APARTMENT_LEADS_FILE, 'utf8'));
+        res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/london-apartment-leads\/[^/]+\/workflow$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const db = JSON.parse(fs.readFileSync(LONDON_APARTMENT_LEADS_FILE, 'utf8'));
+                const lead = (db.leads || []).find(item => item.id === id);
+                if (!lead) throw new Error('London apartment lead not found');
+                const { status } = JSON.parse(body || '{}');
+                if (!['active', 'good_find', 'not_interested'].includes(status)) throw new Error('Invalid apartment status');
+                lead.status = status;
+                lead.updated_at = new Date().toISOString();
+                fs.writeFileSync(LONDON_APARTMENT_LEADS_FILE, JSON.stringify(db, null, 2) + '\n');
+                res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ success: true, lead }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ success: false, error: err.message }));
+            }
+        });
     } else if (req.url.match(/^\/api\/gumtree-leads\/[^/]+\/workflow$/)) {
         if (req.method !== 'POST') {
             res.writeHead(405, { 'Content-Type': 'application/json' });

@@ -1249,6 +1249,7 @@
             <div class="flex gap-2 border-b border-gray-200 dark:border-white/10 mb-6" role="tablist" aria-label="Property sections">
                 <button id="property-tab-openrent" data-property-tab="openrent" class="px-4 py-2.5 text-sm font-medium border-b-2 border-blue-600 text-blue-600 dark:text-blue-300" role="tab" aria-selected="true">OpenRent</button>
                 <button id="property-tab-gumtree" data-property-tab="gumtree" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Gumtree</button>
+                <button id="property-tab-london-apartment" data-property-tab="london-apartment" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">London Apartment</button>
                 <button id="property-tab-hmo" data-property-tab="hmo" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">HMO Deals</button>
             </div>
 
@@ -1447,6 +1448,11 @@
                     <select id="gumtree-sort" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="fit" selected>Suitability high to low</option><option value="newest">Newest first</option><option value="rent-low">Rent low to high</option><option value="rent-high">Rent high to low</option></select>
                 </div>
                 <div id="gumtree-list" class="space-y-3"><div class="text-sm text-gray-500 dark:text-gray-400">Loading Gumtree leads...</div></div>
+            </div>
+            <div id="property-london-apartment-panel" class="hidden">
+                <div class="bg-violet-50 dark:bg-violet-500/10 border border-violet-100 dark:border-violet-500/20 rounded-xl p-5 mb-6 text-sm text-violet-900 dark:text-violet-100"><div class="font-semibold">London Apartment search - Bond Street</div><div id="london-apartment-meta" class="mt-1">Loading search criteria...</div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 mb-6"><div class="font-semibold dark:text-white mb-3">Commutable areas - rank is based on typical station-to-station travel time</div><div id="london-apartment-areas" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm"></div></div>
+                <div class="flex flex-wrap gap-x-4 gap-y-2 items-center justify-between mb-3"><div class="font-semibold dark:text-white">Current suitable listings</div><div class="flex gap-4"><a class="text-sm text-blue-600 dark:text-blue-300 hover:underline" target="_blank" rel="noopener" href="https://www.rightmove.co.uk/property-to-rent/find.html?locationIdentifier=REGION%5E87490&maxPrice=1100&minBedrooms=1&maxBedrooms=1&sortType=6">Open Rightmove search</a><a class="text-sm text-blue-600 dark:text-blue-300 hover:underline" target="_blank" rel="noopener" href="https://www.openrent.co.uk/properties-to-rent/london?term=London">OpenRent search</a></div></div><div id="london-apartment-list" class="space-y-3 text-sm text-gray-500">Loading listings...</div>
             </div>
         </div>
 

@@ -5424,6 +5424,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const propertyTabs = document.querySelectorAll('[data-property-tab]');
     const propertyOpenRentPanel = document.getElementById('property-openrent-panel');
     const propertyGumtreePanel = document.getElementById('property-gumtree-panel');
+    const propertyLondonApartmentPanel = document.getElementById('property-london-apartment-panel');
     const propertyHmoPanel = document.getElementById('property-hmo-panel');
     const openRentList = document.getElementById('openrent-list');
     const openRentMeta = document.getElementById('openrent-meta');
@@ -5438,9 +5439,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function switchPropertyTab(tabName) {
         const isOpenRent = tabName === 'openrent';
         const isGumtree = tabName === 'gumtree';
+        const isLondonApartment = tabName === 'london-apartment';
         const isHmo = tabName === 'hmo';
         propertyOpenRentPanel?.classList.toggle('hidden', !isOpenRent);
         propertyGumtreePanel?.classList.toggle('hidden', !isGumtree);
+        propertyLondonApartmentPanel?.classList.toggle('hidden', !isLondonApartment);
         propertyHmoPanel?.classList.toggle('hidden', !isHmo);
         refreshPropertyBtn?.classList.toggle('hidden', !isHmo);
         propertyTabs.forEach(tab => {
@@ -5455,6 +5458,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('property-tab', tabName);
         if (isOpenRent) loadOpenRentLeads(true);
         else if (isGumtree) loadGumtreeLeads(true);
+        else if (isLondonApartment) loadLondonApartmentLeads();
         else loadPropertyDeals(true);
     }
 
@@ -5465,6 +5469,31 @@ document.addEventListener("DOMContentLoaded", () => {
             not_interested: 'Not interested', converted: 'Converted', disqualified: 'Disqualified'
         })[status] || 'Not contacted';
     }
+
+    // === London Apartment search ===
+    const londonApartmentList = document.getElementById('london-apartment-list');
+    const londonApartmentMeta = document.getElementById('london-apartment-meta');
+    const londonApartmentAreas = document.getElementById('london-apartment-areas');
+    let londonApartmentLeads = [];
+
+    async function loadLondonApartmentLeads() {
+        if (!londonApartmentList) return;
+        try {
+            const res = await fetch('/api/london-apartment-leads');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'London apartment search failed');
+            londonApartmentLeads = Array.isArray(data.leads) ? data.leads : [];
+            const meta = data.meta || {};
+            if (londonApartmentMeta) londonApartmentMeta.innerText = `Budget: up to £${Number(meta.budget_pcm || 1100).toLocaleString('en-GB')} pcm · one-bedroom whole homes only · no studios, rooms or flat shares · commute estimates are station-to-station and should be checked for the actual address and work hours.`;
+            if (londonApartmentAreas) londonApartmentAreas.innerHTML = (data.areas || []).sort((a, b) => a.priority - b.priority).map(area => `<div class="rounded-lg border border-gray-200 dark:border-white/10 p-3 bg-white dark:bg-[#171717]"><div class="flex justify-between gap-3"><span class="font-medium dark:text-white">${escapeHtml(area.name)}</span><span class="text-violet-700 dark:text-violet-300 font-semibold">~${escapeHtml(area.typical_minutes)} min</span></div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${escapeHtml(area.route)}</div></div>`).join('');
+            const sorted = [...londonApartmentLeads].filter(lead => lead.status !== 'not_interested').sort((a, b) => (a.commute_minutes || 999) - (b.commute_minutes || 999));
+            londonApartmentList.innerHTML = sorted.length ? sorted.map(lead => `<article class="border border-gray-200 dark:border-white/10 rounded-xl p-5 bg-white dark:bg-[#171717]"><div class="flex justify-between gap-4"><div><a href="${escapeHtml(lead.url)}" target="_blank" rel="noopener" class="font-semibold text-lg dark:text-white hover:text-blue-600">${escapeHtml(lead.title)}</a><div class="text-sm text-gray-600 dark:text-gray-300 mt-1">${escapeHtml(lead.price_display)} · 1 bed · ${escapeHtml(lead.area)} · ~${escapeHtml(lead.commute_minutes)} min to Bond Street</div></div><span class="text-xs rounded-full px-2 py-1 h-fit bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300">${escapeHtml(lead.source)}</span></div><div class="mt-3 flex gap-2"><button onclick="updateLondonApartmentLead('${escapeHtml(lead.id)}','good_find')" class="text-xs px-3 py-2 rounded border border-emerald-300 text-emerald-700 dark:text-emerald-300">${lead.status === 'good_find' ? 'Pinned good find' : 'Pin good find'}</button><button onclick="updateLondonApartmentLead('${escapeHtml(lead.id)}','not_interested')" class="text-xs px-3 py-2 rounded border border-red-300 text-red-700 dark:text-red-300">Not interested</button></div></article>`).join('') : '<div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/10 p-5 text-amber-900 dark:text-amber-100"><div class="font-semibold">No qualifying listings at the moment</div><p class="mt-1">The live Rightmove and OpenRent searches currently have no one-bedroom, non-studio whole homes at or below £1,100 pcm in the target commute ring. The area guide above is ready for the next refresh.</p></div>';
+        } catch (error) { console.error(error); londonApartmentList.innerHTML = '<div class="text-red-600">Could not load London apartment search.</div>'; }
+    }
+
+    window.updateLondonApartmentLead = async (id, status) => {
+        try { const r = await fetch(`/api/london-apartment-leads/${encodeURIComponent(id)}/workflow`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) }); if (!r.ok) throw new Error(); await loadLondonApartmentLeads(); } catch { alert('Could not update this listing.'); }
+    };
 
     function openRentLandlordTypeLabel(type) {
         return ({
@@ -6488,7 +6517,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (refreshPropertyBtn) refreshPropertyBtn.addEventListener('click', () => loadPropertyDeals());
     [propertySearch, propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('input', renderPropertyDeals));
     [propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('change', renderPropertyDeals));
-    switchPropertyTab(['openrent', 'gumtree', 'hmo'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
+    switchPropertyTab(['openrent', 'gumtree', 'london-apartment', 'hmo'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
 
     // === YTJobs Logic ===
     const refreshYtJobsBtn = document.getElementById('refresh-ytjobs-btn');
@@ -7256,6 +7285,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (activeView.id === 'view-property') {
             if (propertyOpenRentPanel && !propertyOpenRentPanel.classList.contains('hidden')) loadOpenRentLeads(true);
             else if (propertyGumtreePanel && !propertyGumtreePanel.classList.contains('hidden')) loadGumtreeLeads(true);
+            else if (propertyLondonApartmentPanel && !propertyLondonApartmentPanel.classList.contains('hidden')) loadLondonApartmentLeads();
             else loadPropertyDeals(true);
         }
         else if (activeView.id === 'view-analytics') loadAnalyticsData(true);
