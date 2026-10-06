@@ -2168,7 +2168,7 @@ function readAiJobsDb() {
             selection_note: parsed.selection_note || '',
             profile_note: parsed.profile_note || '',
             companies: Array.isArray(parsed.companies) ? parsed.companies : [],
-            jobs: Array.isArray(parsed.jobs) ? parsed.jobs.filter(job => !requiresNonEnglishLanguage(job)) : [],
+            jobs: Array.isArray(parsed.jobs) ? parsed.jobs.filter(job => !requiresNonEnglishLanguage(job) && !isExcludedAiJobType(job)) : [],
             job_boards: Array.isArray(parsed.job_boards) ? parsed.job_boards : []
         };
     } catch {
@@ -2177,6 +2177,7 @@ function readAiJobsDb() {
 }
 
 const NON_ENGLISH_LANGUAGE_PATTERN = /\b(?:arabic|cantonese|chinese|danish|dutch|finnish|flemish|french|german|greek|hebrew|hindi|italian|japanese|korean|mandarin|norwegian|polish|portuguese|russian|spanish|swedish|turkish|welsh)\b/i;
+const EXCLUDED_AI_JOB_TYPE_PATTERN = /\bcustomer success\b|\b(?:director|manager)\b/i;
 
 function requiresNonEnglishLanguage(job = {}) {
     const requirementText = [
@@ -2187,6 +2188,10 @@ function requiresNonEnglishLanguage(job = {}) {
         job.description
     ].filter(Boolean).join(' ');
     return NON_ENGLISH_LANGUAGE_PATTERN.test(requirementText);
+}
+
+function isExcludedAiJobType(job = {}) {
+    return EXCLUDED_AI_JOB_TYPE_PATTERN.test(String(job.title || ''));
 }
 
 function writeAiJobsDb(db) {

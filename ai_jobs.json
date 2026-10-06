@@ -1,101 +1,653 @@
 {
   "searched_at": "2026-10-06T11:35:00+01:00",
-  "company_audit_note": "All 50 employer career sites were rechecked on 6 October 2026. Companies without a listed role had no suitable live English-only sales vacancy found in London, Reading or UK-remote at the time of the audit.",
   "selection_note": "50 leading AI product, infrastructure and enterprise-software employers with a London or Reading presence. This is a practical target list, not a claim of objective global ranking.",
-  "profile_note": "Sales roles scored for roughly five years of B2B SaaS experience, especially Account Executive, Mid-Market Account Executive and software-sales roles. Roles were checked on employer career systems rather than LinkedIn. Roles requiring a language other than English are excluded.",
+  "profile_note": "Sales roles scored for roughly five years of B2B SaaS experience, especially Account Executive, Mid-Market Account Executive and software-sales roles. Roles were checked on employer career systems rather than LinkedIn. Roles requiring a language other than English, Customer Success roles, Director roles and Manager roles are excluded.",
   "companies": [
-    {"id":"openai","name":"OpenAI","office":"London","category":"Foundation models","careers_url":"https://openai.com/careers/search/"},
-    {"id":"anthropic","name":"Anthropic","office":"London","category":"Foundation models","careers_url":"https://www.anthropic.com/careers/jobs"},
-    {"id":"google-deepmind","name":"Google DeepMind","office":"London","category":"AI research","careers_url":"https://deepmind.google/careers/jobs/"},
-    {"id":"microsoft","name":"Microsoft","office":"London and Reading","category":"AI platform","careers_url":"https://jobs.careers.microsoft.com/global/en/search?q=sales&lc=London%2C%20United%20Kingdom"},
-    {"id":"aws","name":"Amazon Web Services","office":"London","category":"AI cloud","careers_url":"https://www.amazon.jobs/en/search?base_query=sales&loc_query=London%2C%20UK"},
-    {"id":"nvidia","name":"NVIDIA","office":"London and Reading","category":"AI infrastructure","careers_url":"https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite"},
-    {"id":"meta","name":"Meta","office":"London","category":"AI platform","careers_url":"https://www.metacareers.com/jobs/?offices[0]=London%2C%20UK"},
-    {"id":"apple","name":"Apple","office":"London","category":"Applied AI","careers_url":"https://jobs.apple.com/en-gb/search?location=london-LDN"},
-    {"id":"salesforce","name":"Salesforce","office":"London","category":"Enterprise AI","careers_url":"https://careers.salesforce.com/en/jobs/?search=sales&location=London%2C%20United%20Kingdom"},
-    {"id":"databricks","name":"Databricks","office":"London","category":"Data and AI","careers_url":"https://www.databricks.com/company/careers/open-positions?department=Sales&location=London"},
-    {"id":"snowflake","name":"Snowflake","office":"London","category":"Data and AI","careers_url":"https://careers.snowflake.com/us/en/search-results?keywords=sales&location=London%2C%20UK"},
-    {"id":"palantir","name":"Palantir","office":"London","category":"Enterprise AI","careers_url":"https://www.palantir.com/careers/"},
-    {"id":"scale-ai","name":"Scale AI","office":"London","category":"AI data","careers_url":"https://scale.com/careers"},
-    {"id":"cohere","name":"Cohere","office":"London","category":"Foundation models","careers_url":"https://cohere.com/careers"},
-    {"id":"mistral-ai","name":"Mistral AI","office":"London","category":"Foundation models","careers_url":"https://mistral.ai/careers"},
-    {"id":"hugging-face","name":"Hugging Face","office":"London / UK remote","category":"Open-source AI","careers_url":"https://apply.workable.com/huggingface/"},
-    {"id":"elevenlabs","name":"ElevenLabs","office":"London","category":"Voice AI","careers_url":"https://elevenlabs.io/careers"},
-    {"id":"synthesia","name":"Synthesia","office":"London","category":"Video AI","careers_url":"https://www.synthesia.io/careers"},
-    {"id":"faculty","name":"Faculty","office":"London","category":"Applied AI","careers_url":"https://faculty.ai/careers"},
-    {"id":"quantexa","name":"Quantexa","office":"London","category":"Decision intelligence","careers_url":"https://www.quantexa.com/careers/jobs/"},
-    {"id":"darktrace","name":"Darktrace","office":"London","category":"Cyber AI","careers_url":"https://careers.darktrace.com/"},
-    {"id":"wayve","name":"Wayve","office":"London","category":"Autonomous driving","careers_url":"https://wayve.ai/careers/"},
-    {"id":"isomorphic-labs","name":"Isomorphic Labs","office":"London","category":"Drug discovery AI","careers_url":"https://www.isomorphiclabs.com/careers"},
-    {"id":"benevolentai","name":"BenevolentAI","office":"London","category":"Drug discovery AI","careers_url":"https://www.benevolent.com/careers"},
-    {"id":"stability-ai","name":"Stability AI","office":"London","category":"Generative AI","careers_url":"https://stability.ai/careers"},
-    {"id":"tractable","name":"Tractable","office":"London","category":"Computer vision","careers_url":"https://tractable.ai/careers"},
-    {"id":"polyai","name":"PolyAI","office":"London","category":"Conversational AI","careers_url":"https://poly.ai/careers/"},
-    {"id":"luminance","name":"Luminance","office":"London","category":"Legal AI","careers_url":"https://www.luminance.com/careers.html"},
-    {"id":"signal-ai","name":"Signal AI","office":"London","category":"Decision intelligence","careers_url":"https://signal-ai.com/careers/"},
-    {"id":"patsnap","name":"Patsnap","office":"London","category":"Innovation intelligence","careers_url":"https://www.patsnap.com/careers/"},
-    {"id":"thought-machine","name":"Thought Machine","office":"London","category":"AI-enabled fintech","careers_url":"https://www.thoughtmachine.net/careers"},
-    {"id":"seldon","name":"Seldon","office":"London","category":"MLOps","careers_url":"https://www.seldon.io/careers"},
-    {"id":"physicsx","name":"PhysicsX","office":"London","category":"Engineering AI","careers_url":"https://www.physicsx.ai/careers"},
-    {"id":"robin-ai","name":"Robin AI","office":"London","category":"Legal AI","careers_url":"https://www.robinai.com/careers"},
-    {"id":"beamery","name":"Beamery","office":"London","category":"Talent AI","careers_url":"https://beamery.com/careers"},
-    {"id":"glean","name":"Glean","office":"London","category":"Enterprise search AI","careers_url":"https://www.glean.com/careers"},
-    {"id":"writer","name":"Writer","office":"London","category":"Enterprise generative AI","careers_url":"https://writer.com/company/careers/"},
-    {"id":"harvey","name":"Harvey","office":"London","category":"Legal AI","careers_url":"https://www.harvey.ai/careers"},
-    {"id":"perplexity","name":"Perplexity","office":"London","category":"AI search","careers_url":"https://www.perplexity.ai/hub/careers"},
-    {"id":"dataiku","name":"Dataiku","office":"London","category":"Enterprise AI","careers_url":"https://www.dataiku.com/careers/"},
-    {"id":"uipath","name":"UiPath","office":"London","category":"Automation AI","careers_url":"https://careers.uipath.com/careers/jobs"},
-    {"id":"celonis","name":"Celonis","office":"London","category":"Process intelligence","careers_url":"https://www.celonis.com/careers/jobs/"},
-    {"id":"automation-anywhere","name":"Automation Anywhere","office":"London","category":"Automation AI","careers_url":"https://www.automationanywhere.com/company/careers"},
-    {"id":"c3-ai","name":"C3 AI","office":"London","category":"Enterprise AI","careers_url":"https://c3.ai/careers/"},
-    {"id":"ibm","name":"IBM","office":"London","category":"Enterprise AI","careers_url":"https://www.ibm.com/careers/search?field_keyword_08[0]=Sales&field_location[0]=United%20Kingdom"},
-    {"id":"oracle","name":"Oracle","office":"London and Reading","category":"Enterprise AI","careers_url":"https://careers.oracle.com/jobs/#en/sites/jobsearch/requisitions?keyword=sales&location=United+Kingdom"},
-    {"id":"adobe","name":"Adobe","office":"London and Reading","category":"Creative AI","careers_url":"https://careers.adobe.com/us/en/search-results?keywords=sales&location=London%2C%20UK"},
-    {"id":"sap","name":"SAP","office":"London","category":"Enterprise AI","careers_url":"https://jobs.sap.com/search/?q=sales&locationsearch=London"},
-    {"id":"servicenow","name":"ServiceNow","office":"London","category":"Enterprise AI","careers_url":"https://careers.servicenow.com/jobs/?search=sales&location=London"},
-    {"id":"sas","name":"SAS","office":"London","category":"Analytics and AI","careers_url":"https://globalcareers-sas.icims.com/jobs/search?searchLocation=135--United+Kingdom"}
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "office": "London",
+      "category": "Foundation models",
+      "careers_url": "https://openai.com/careers/search/"
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic",
+      "office": "London",
+      "category": "Foundation models",
+      "careers_url": "https://www.anthropic.com/careers/jobs"
+    },
+    {
+      "id": "google-deepmind",
+      "name": "Google DeepMind",
+      "office": "London",
+      "category": "AI research",
+      "careers_url": "https://deepmind.google/careers/jobs/"
+    },
+    {
+      "id": "microsoft",
+      "name": "Microsoft",
+      "office": "London and Reading",
+      "category": "AI platform",
+      "careers_url": "https://jobs.careers.microsoft.com/global/en/search?q=sales&lc=London%2C%20United%20Kingdom"
+    },
+    {
+      "id": "aws",
+      "name": "Amazon Web Services",
+      "office": "London",
+      "category": "AI cloud",
+      "careers_url": "https://www.amazon.jobs/en/search?base_query=sales&loc_query=London%2C%20UK"
+    },
+    {
+      "id": "nvidia",
+      "name": "NVIDIA",
+      "office": "London and Reading",
+      "category": "AI infrastructure",
+      "careers_url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite"
+    },
+    {
+      "id": "meta",
+      "name": "Meta",
+      "office": "London",
+      "category": "AI platform",
+      "careers_url": "https://www.metacareers.com/jobs/?offices[0]=London%2C%20UK"
+    },
+    {
+      "id": "apple",
+      "name": "Apple",
+      "office": "London",
+      "category": "Applied AI",
+      "careers_url": "https://jobs.apple.com/en-gb/search?location=london-LDN"
+    },
+    {
+      "id": "salesforce",
+      "name": "Salesforce",
+      "office": "London",
+      "category": "Enterprise AI",
+      "careers_url": "https://careers.salesforce.com/en/jobs/?search=sales&location=London%2C%20United%20Kingdom"
+    },
+    {
+      "id": "databricks",
+      "name": "Databricks",
+      "office": "London",
+      "category": "Data and AI",
+      "careers_url": "https://www.databricks.com/company/careers/open-positions?department=Sales&location=London"
+    },
+    {
+      "id": "snowflake",
+      "name": "Snowflake",
+      "office": "London",
+      "category": "Data and AI",
+      "careers_url": "https://careers.snowflake.com/us/en/search-results?keywords=sales&location=London%2C%20UK"
+    },
+    {
+      "id": "palantir",
+      "name": "Palantir",
+      "office": "London",
+      "category": "Enterprise AI",
+      "careers_url": "https://www.palantir.com/careers/"
+    },
+    {
+      "id": "scale-ai",
+      "name": "Scale AI",
+      "office": "London",
+      "category": "AI data",
+      "careers_url": "https://scale.com/careers"
+    },
+    {
+      "id": "cohere",
+      "name": "Cohere",
+      "office": "London",
+      "category": "Foundation models",
+      "careers_url": "https://cohere.com/careers"
+    },
+    {
+      "id": "mistral-ai",
+      "name": "Mistral AI",
+      "office": "London",
+      "category": "Foundation models",
+      "careers_url": "https://mistral.ai/careers"
+    },
+    {
+      "id": "hugging-face",
+      "name": "Hugging Face",
+      "office": "London / UK remote",
+      "category": "Open-source AI",
+      "careers_url": "https://apply.workable.com/huggingface/"
+    },
+    {
+      "id": "elevenlabs",
+      "name": "ElevenLabs",
+      "office": "London",
+      "category": "Voice AI",
+      "careers_url": "https://elevenlabs.io/careers"
+    },
+    {
+      "id": "synthesia",
+      "name": "Synthesia",
+      "office": "London",
+      "category": "Video AI",
+      "careers_url": "https://www.synthesia.io/careers"
+    },
+    {
+      "id": "faculty",
+      "name": "Faculty",
+      "office": "London",
+      "category": "Applied AI",
+      "careers_url": "https://faculty.ai/careers"
+    },
+    {
+      "id": "quantexa",
+      "name": "Quantexa",
+      "office": "London",
+      "category": "Decision intelligence",
+      "careers_url": "https://www.quantexa.com/careers/jobs/"
+    },
+    {
+      "id": "darktrace",
+      "name": "Darktrace",
+      "office": "London",
+      "category": "Cyber AI",
+      "careers_url": "https://careers.darktrace.com/"
+    },
+    {
+      "id": "wayve",
+      "name": "Wayve",
+      "office": "London",
+      "category": "Autonomous driving",
+      "careers_url": "https://wayve.ai/careers/"
+    },
+    {
+      "id": "isomorphic-labs",
+      "name": "Isomorphic Labs",
+      "office": "London",
+      "category": "Drug discovery AI",
+      "careers_url": "https://www.isomorphiclabs.com/careers"
+    },
+    {
+      "id": "benevolentai",
+      "name": "BenevolentAI",
+      "office": "London",
+      "category": "Drug discovery AI",
+      "careers_url": "https://www.benevolent.com/careers"
+    },
+    {
+      "id": "stability-ai",
+      "name": "Stability AI",
+      "office": "London",
+      "category": "Generative AI",
+      "careers_url": "https://stability.ai/careers"
+    },
+    {
+      "id": "tractable",
+      "name": "Tractable",
+      "office": "London",
+      "category": "Computer vision",
+      "careers_url": "https://tractable.ai/careers"
+    },
+    {
+      "id": "polyai",
+      "name": "PolyAI",
+      "office": "London",
+      "category": "Conversational AI",
+      "careers_url": "https://poly.ai/careers/"
+    },
+    {
+      "id": "luminance",
+      "name": "Luminance",
+      "office": "London",
+      "category": "Legal AI",
+      "careers_url": "https://www.luminance.com/careers.html"
+    },
+    {
+      "id": "signal-ai",
+      "name": "Signal AI",
+      "office": "London",
+      "category": "Decision intelligence",
+      "careers_url": "https://signal-ai.com/careers/"
+    },
+    {
+      "id": "patsnap",
+      "name": "Patsnap",
+      "office": "London",
+      "category": "Innovation intelligence",
+      "careers_url": "https://www.patsnap.com/careers/"
+    },
+    {
+      "id": "thought-machine",
+      "name": "Thought Machine",
+      "office": "London",
+      "category": "AI-enabled fintech",
+      "careers_url": "https://www.thoughtmachine.net/careers"
+    },
+    {
+      "id": "seldon",
+      "name": "Seldon",
+      "office": "London",
+      "category": "MLOps",
+      "careers_url": "https://www.seldon.io/careers"
+    },
+    {
+      "id": "physicsx",
+      "name": "PhysicsX",
+      "office": "London",
+      "category": "Engineering AI",
+      "careers_url": "https://www.physicsx.ai/careers"
+    },
+    {
+      "id": "robin-ai",
+      "name": "Robin AI",
+      "office": "London",
+      "category": "Legal AI",
+      "careers_url": "https://www.robinai.com/careers"
+    },
+    {
+      "id": "beamery",
+      "name": "Beamery",
+      "office": "London",
+      "category": "Talent AI",
+      "careers_url": "https://beamery.com/careers"
+    },
+    {
+      "id": "glean",
+      "name": "Glean",
+      "office": "London",
+      "category": "Enterprise search AI",
+      "careers_url": "https://www.glean.com/careers"
+    },
+    {
+      "id": "writer",
+      "name": "Writer",
+      "office": "London",
+      "category": "Enterprise generative AI",
+      "careers_url": "https://writer.com/company/careers/"
+    },
+    {
+      "id": "harvey",
+      "name": "Harvey",
+      "office": "London",
+      "category": "Legal AI",
+      "careers_url": "https://www.harvey.ai/careers"
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "office": "London",
+      "category": "AI search",
+      "careers_url": "https://www.perplexity.ai/hub/careers"
+    },
+    {
+      "id": "dataiku",
+      "name": "Dataiku",
+      "office": "London",
+      "category": "Enterprise AI",
+      "careers_url": "https://www.dataiku.com/careers/"
+    },
+    {
+      "id": "uipath",
+      "name": "UiPath",
+      "office": "London",
+      "category": "Automation AI",
+      "careers_url": "https://careers.uipath.com/careers/jobs"
+    },
+    {
+      "id": "celonis",
+      "name": "Celonis",
+      "office": "London",
+      "category": "Process intelligence",
+      "careers_url": "https://www.celonis.com/careers/jobs/"
+    },
+    {
+      "id": "automation-anywhere",
+      "name": "Automation Anywhere",
+      "office": "London",
+      "category": "Automation AI",
+      "careers_url": "https://www.automationanywhere.com/company/careers"
+    },
+    {
+      "id": "c3-ai",
+      "name": "C3 AI",
+      "office": "London",
+      "category": "Enterprise AI",
+      "careers_url": "https://c3.ai/careers/"
+    },
+    {
+      "id": "ibm",
+      "name": "IBM",
+      "office": "London",
+      "category": "Enterprise AI",
+      "careers_url": "https://www.ibm.com/careers/search?field_keyword_08[0]=Sales&field_location[0]=United%20Kingdom"
+    },
+    {
+      "id": "oracle",
+      "name": "Oracle",
+      "office": "London and Reading",
+      "category": "Enterprise AI",
+      "careers_url": "https://careers.oracle.com/jobs/#en/sites/jobsearch/requisitions?keyword=sales&location=United+Kingdom"
+    },
+    {
+      "id": "adobe",
+      "name": "Adobe",
+      "office": "London and Reading",
+      "category": "Creative AI",
+      "careers_url": "https://careers.adobe.com/us/en/search-results?keywords=sales&location=London%2C%20UK"
+    },
+    {
+      "id": "sap",
+      "name": "SAP",
+      "office": "London",
+      "category": "Enterprise AI",
+      "careers_url": "https://jobs.sap.com/search/?q=sales&locationsearch=London"
+    },
+    {
+      "id": "servicenow",
+      "name": "ServiceNow",
+      "office": "London",
+      "category": "Enterprise AI",
+      "careers_url": "https://careers.servicenow.com/jobs/?search=sales&location=London"
+    },
+    {
+      "id": "sas",
+      "name": "SAS",
+      "office": "London",
+      "category": "Analytics and AI",
+      "careers_url": "https://globalcareers-sas.icims.com/jobs/search?searchLocation=135--United+Kingdom"
+    }
   ],
   "jobs": [
-    {"id":"anthropic-energy-ae","company":"Anthropic","title":"Enterprise Account Executive - Energy & Utilities","location":"London, UK","workplace":"Office","fit_score":78,"status":"new","url":"https://job-boards.greenhouse.io/anthropic/jobs/5225003008","fit_note":"Direct enterprise AE match; industry specialism may be a stretch."},
-    {"id":"anthropic-insurance-ae","company":"Anthropic","title":"Enterprise Account Executive, Insurance","location":"London, UK","workplace":"Office","fit_score":78,"status":"new","url":"https://job-boards.greenhouse.io/anthropic/jobs/5391289008","fit_note":"Strong title and SaaS fit; insurance experience may be preferred."},
-    {"id":"anthropic-manufacturing-ae","company":"Anthropic","title":"Enterprise Account Executive, Manufacturing","location":"London, UK","workplace":"Office","fit_score":76,"status":"interested","url":"https://job-boards.greenhouse.io/anthropic/jobs/5237973008","fit_note":"Enterprise closing experience transfers; vertical experience may be required.","updated_at":"2026-10-06T09:42:28.746Z"},
-    {"id":"anthropic-retail-ae","company":"Anthropic","title":"Enterprise Account Executive - Retail","location":"London, UK","workplace":"Office","fit_score":80,"status":"new","url":"https://job-boards.greenhouse.io/anthropic/jobs/5218573008","fit_note":"Good enterprise AE match with relevant large-customer experience."},
-    {"id":"cohere-senior-ae","company":"Cohere","title":"Senior Account Executive","location":"United Kingdom","workplace":"Remote","fit_score":86,"status":"new","url":"https://jobs.ashbyhq.com/cohere/bdcdc6d1-2379-40fe-bfb6-d61768043b37","fit_note":"Excellent closing-role match and UK-wide location."},
-    {"id":"scale-sales-enablement","company":"Scale AI","title":"Sales Enablement Lead","location":"London, UK / Dubai","workplace":"Office","fit_score":62,"status":"new","url":"https://job-boards.greenhouse.io/scaleai/jobs/4717574005","fit_note":"Commercially relevant but enablement leadership is adjacent to quota-carrying AE work."},
-    {"id":"quantexa-sales-director","company":"Quantexa","title":"Sales Director, Insurance - UK","location":"London","workplace":"Hybrid","fit_score":60,"status":"new","url":"https://jobs.ashbyhq.com/quantexa/8e747d55-07f7-4099-a525-ea05b639905a","fit_note":"Relevant sales motion but likely above current level and insurance-specific."},
-    {"id":"wayve-partnership-manager","company":"Wayve","title":"Strategic Partnership Manager, Global Fleet Operation","location":"London, UK","workplace":"Hybrid","fit_score":72,"status":"new","url":"https://jobs.ashbyhq.com/wayve/9bda4980-82a9-4cf2-bcb6-474229571a5b","fit_note":"Good stakeholder and partnership overlap, though not a conventional AE role."},
-    {"id":"glean-strategic-ae","company":"Glean","title":"Strategic Account Executive, UKI","location":"London, UK","workplace":"Office","fit_score":80,"status":"new","url":"https://job-boards.greenhouse.io/gleanwork/jobs/4702767005","fit_note":"Strong enterprise SaaS alignment; strategic segment may expect more tenure."},
-    {"id":"writer-enterprise-ae","company":"Writer","title":"Enterprise Account Executive (UK)","location":"London, UK","workplace":"Hybrid","fit_score":83,"status":"new","url":"https://jobs.ashbyhq.com/writer/2b11f0e2-7f66-495f-9da2-0740495c2a0b","fit_note":"Direct enterprise SaaS closing match in generative AI."},
-    {"id":"databricks-digital-natives-ae","company":"Databricks","title":"Digital Natives Account Executive","location":"London, UK","workplace":"Hybrid","fit_score":88,"status":"new","url":"https://databricks.com/company/careers/open-positions/job?gh_jid=8737153002","fit_note":"Excellent new-business SaaS AE fit in a high-growth customer segment."},
-    {"id":"databricks-startup-core-ae","company":"Databricks","title":"Startup Core Account Executive","location":"London, UK","workplace":"Hybrid","fit_score":88,"status":"new","url":"https://databricks.com/company/careers/open-positions/job?gh_jid=8855874002","fit_note":"Excellent fit for commercial closing and entrepreneurial background."},
-    {"id":"databricks-enterprise-utilities","company":"Databricks","title":"Enterprise Account Executive - Utilities","location":"London, UK","workplace":"Hybrid","fit_score":76,"status":"new","url":"https://databricks.com/company/careers/open-positions/job?gh_jid=8737171002","fit_note":"Strong role family; vertical and enterprise tenure may be a stretch."},
-    {"id":"databricks-public-sector-remote","company":"Databricks","title":"Enterprise Account Executive - Public Sector","location":"Remote - United Kingdom","workplace":"Remote","fit_score":76,"status":"new","url":"https://databricks.com/company/careers/open-positions/job?gh_jid=8206138002","fit_note":"Remote UK enterprise AE role; public-sector experience may be required."},
-    {"id":"databricks-strategic-banking","company":"Databricks","title":"Strategic Account Executive - Banking","location":"London, UK","workplace":"Hybrid","fit_score":70,"status":"new","url":"https://databricks.com/company/careers/open-positions/job?gh_jid=8845180002","fit_note":"Relevant enterprise selling, but strategic banking specialism is a stretch."},
-    {"id":"harvey-enterprise-ae","company":"Harvey","title":"Account Executive, Enterprise, EMEA","location":"London","workplace":"Office","fit_score":84,"status":"new","url":"https://jobs.ashbyhq.com/harvey/787fe815-2f6d-4a9a-8c1e-6205bd105389","fit_note":"Strong enterprise SaaS closing fit in a fast-growing AI company."},
-    {"id":"harvey-midmarket-ae","company":"Harvey","title":"Account Executive, Mid Market, EMEA","location":"London","workplace":"Office","fit_score":95,"status":"new","url":"https://jobs.ashbyhq.com/harvey/1207bcdf-6186-4f54-ac4d-d0575ed6459a","fit_note":"Closest match to previous mid-market AE experience."},
-    {"id":"harvey-smb-ae","company":"Harvey","title":"Account Executive, SMB, EMEA","location":"London","workplace":"Office","fit_score":86,"status":"new","url":"https://jobs.ashbyhq.com/harvey/80de9204-db5f-4ed9-95f6-014d33994a75","fit_note":"Direct full-cycle closing fit, slightly below previous segment."},
-    {"id":"elevenlabs-sales-development-lead","company":"ElevenLabs","title":"Sales Development Lead - Europe","location":"London","workplace":"Office","fit_score":70,"status":"new","url":"https://jobs.ashbyhq.com/elevenlabs/bb4f0758-f039-46c7-9a3f-71c145824298","fit_note":"Relevant music-adjacent AI company; people-lead remit may be a stretch."},
-    {"id":"nvidia-regional-sales-manager-consumer","company":"NVIDIA","title":"Regional Sales Manager, Consumer - Northern Europe","location":"Reading, UK","workplace":"Office","fit_score":55,"status":"new","url":"https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/UK-Reading/Regional-Sales-Manager--Consumer---Northern-Europe_JR2025304","fit_note":"English-only Reading role, but it asks for eight-plus years in consumer sales and three-plus years managing a team."},
-    {"id":"signal-ai-senior-csm","company":"Signal AI","title":"Senior Customer Success Manager","location":"London","workplace":"Hybrid","fit_score":78,"status":"new","url":"https://jobs.ashbyhq.com/signal-ai/eac20908-de18-4538-b547-dd93c7d47203","fit_note":"Strong enterprise SaaS and commercial account-growth overlap, with renewals, upsell and cross-sell ownership."},
-    {"id":"uipath-global-account-manager-fs","company":"UiPath","title":"Global Account Manager, Financial Services","location":"London","workplace":"Hybrid","fit_score":62,"status":"new","url":"https://jobs.ashbyhq.com/uipath/3b82228f-686a-43f5-bed7-732729309ebe","fit_note":"Relevant enterprise account work, but the role asks for eight-plus years and financial-services experience."},
-    {"id":"uipath-senior-ae-fs","company":"UiPath","title":"Senior Account Executive - Financial Services","location":"London","workplace":"Hybrid","fit_score":57,"status":"new","url":"https://jobs.ashbyhq.com/uipath/cdfd3f39-03d6-40e2-ac55-fda803426e0c","fit_note":"Direct enterprise software-sales role, but it asks for ten-plus years and financial-services depth."},
-    {"id":"servicenow-enterprise-ae-higher-education","company":"ServiceNow","title":"Enterprise Account Executive - Higher Education UK South","location":"Staines, UK","workplace":"Office","fit_score":68,"status":"new","url":"https://jobs.smartrecruiters.com/ServiceNow/744000152395931-enterprise-account-exec-higher-education-uk-south-","fit_note":"Relevant software AE role near London, though it asks for seven-plus years and public-sector or higher-education experience."},
-    {"id":"sas-jmp-inside-sales-account-representative","company":"SAS","title":"JMP Inside Sales Account Representative","location":"London or Marlow, UK","workplace":"Hybrid","fit_score":94,"status":"new","url":"https://global-sas.icims.com/jobs/42580/jmp-inside-sales-account-representative/job","fit_note":"Excellent match: five years of software sales, full-cycle new business, prospecting and account growth. English is required; another language is only preferred."},
-    {"id":"sas-senior-associate-ae-life-sciences","company":"SAS","title":"Senior Associate Account Executive - Life Sciences","location":"London or Marlow, UK","workplace":"Hybrid","fit_score":90,"status":"new","url":"https://global-sas.icims.com/jobs/42566/senior-associate-account-executive---life-sciences/job","fit_note":"Strong SaaS AE match with two to three years requested, hybrid working and English as the only required language."},
-    {"id":"anthropic-sales-manager-nonprofit-emea","company":"Anthropic","title":"Sales Manager, Nonprofit, EMEA","location":"London, UK","workplace":"Hybrid","fit_score":56,"status":"new","url":"https://job-boards.greenhouse.io/anthropic/jobs/5221916008","fit_note":"English is required and another language is only preferred, but the role asks for eight-plus years and nonprofit or EdTech sector experience."}
+    {
+      "id": "anthropic-energy-ae",
+      "company": "Anthropic",
+      "title": "Enterprise Account Executive - Energy & Utilities",
+      "location": "London, UK",
+      "workplace": "Office",
+      "fit_score": 78,
+      "status": "new",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5225003008",
+      "fit_note": "Direct enterprise AE match; industry specialism may be a stretch."
+    },
+    {
+      "id": "anthropic-insurance-ae",
+      "company": "Anthropic",
+      "title": "Enterprise Account Executive, Insurance",
+      "location": "London, UK",
+      "workplace": "Office",
+      "fit_score": 78,
+      "status": "new",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5391289008",
+      "fit_note": "Strong title and SaaS fit; insurance experience may be preferred."
+    },
+    {
+      "id": "anthropic-manufacturing-ae",
+      "company": "Anthropic",
+      "title": "Enterprise Account Executive, Manufacturing",
+      "location": "London, UK",
+      "workplace": "Office",
+      "fit_score": 76,
+      "status": "interested",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5237973008",
+      "fit_note": "Enterprise closing experience transfers; vertical experience may be required.",
+      "updated_at": "2026-10-06T09:42:28.746Z"
+    },
+    {
+      "id": "anthropic-retail-ae",
+      "company": "Anthropic",
+      "title": "Enterprise Account Executive - Retail",
+      "location": "London, UK",
+      "workplace": "Office",
+      "fit_score": 80,
+      "status": "new",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5218573008",
+      "fit_note": "Good enterprise AE match with relevant large-customer experience."
+    },
+    {
+      "id": "cohere-senior-ae",
+      "company": "Cohere",
+      "title": "Senior Account Executive",
+      "location": "United Kingdom",
+      "workplace": "Remote",
+      "fit_score": 86,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/cohere/bdcdc6d1-2379-40fe-bfb6-d61768043b37",
+      "fit_note": "Excellent closing-role match and UK-wide location."
+    },
+    {
+      "id": "scale-sales-enablement",
+      "company": "Scale AI",
+      "title": "Sales Enablement Lead",
+      "location": "London, UK / Dubai",
+      "workplace": "Office",
+      "fit_score": 62,
+      "status": "new",
+      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4717574005",
+      "fit_note": "Commercially relevant but enablement leadership is adjacent to quota-carrying AE work."
+    },
+    {
+      "id": "glean-strategic-ae",
+      "company": "Glean",
+      "title": "Strategic Account Executive, UKI",
+      "location": "London, UK",
+      "workplace": "Office",
+      "fit_score": 80,
+      "status": "new",
+      "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4702767005",
+      "fit_note": "Strong enterprise SaaS alignment; strategic segment may expect more tenure."
+    },
+    {
+      "id": "writer-enterprise-ae",
+      "company": "Writer",
+      "title": "Enterprise Account Executive (UK)",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 83,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/writer/2b11f0e2-7f66-495f-9da2-0740495c2a0b",
+      "fit_note": "Direct enterprise SaaS closing match in generative AI."
+    },
+    {
+      "id": "databricks-digital-natives-ae",
+      "company": "Databricks",
+      "title": "Digital Natives Account Executive",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 88,
+      "status": "new",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8737153002",
+      "fit_note": "Excellent new-business SaaS AE fit in a high-growth customer segment."
+    },
+    {
+      "id": "databricks-startup-core-ae",
+      "company": "Databricks",
+      "title": "Startup Core Account Executive",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 88,
+      "status": "new",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8855874002",
+      "fit_note": "Excellent fit for commercial closing and entrepreneurial background."
+    },
+    {
+      "id": "databricks-enterprise-utilities",
+      "company": "Databricks",
+      "title": "Enterprise Account Executive - Utilities",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 76,
+      "status": "new",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8737171002",
+      "fit_note": "Strong role family; vertical and enterprise tenure may be a stretch."
+    },
+    {
+      "id": "databricks-public-sector-remote",
+      "company": "Databricks",
+      "title": "Enterprise Account Executive - Public Sector",
+      "location": "Remote - United Kingdom",
+      "workplace": "Remote",
+      "fit_score": 76,
+      "status": "new",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8206138002",
+      "fit_note": "Remote UK enterprise AE role; public-sector experience may be required."
+    },
+    {
+      "id": "databricks-strategic-banking",
+      "company": "Databricks",
+      "title": "Strategic Account Executive - Banking",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 70,
+      "status": "new",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8845180002",
+      "fit_note": "Relevant enterprise selling, but strategic banking specialism is a stretch."
+    },
+    {
+      "id": "harvey-enterprise-ae",
+      "company": "Harvey",
+      "title": "Account Executive, Enterprise, EMEA",
+      "location": "London",
+      "workplace": "Office",
+      "fit_score": 84,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/harvey/787fe815-2f6d-4a9a-8c1e-6205bd105389",
+      "fit_note": "Strong enterprise SaaS closing fit in a fast-growing AI company."
+    },
+    {
+      "id": "harvey-midmarket-ae",
+      "company": "Harvey",
+      "title": "Account Executive, Mid Market, EMEA",
+      "location": "London",
+      "workplace": "Office",
+      "fit_score": 95,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/harvey/1207bcdf-6186-4f54-ac4d-d0575ed6459a",
+      "fit_note": "Closest match to previous mid-market AE experience."
+    },
+    {
+      "id": "harvey-smb-ae",
+      "company": "Harvey",
+      "title": "Account Executive, SMB, EMEA",
+      "location": "London",
+      "workplace": "Office",
+      "fit_score": 86,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/harvey/80de9204-db5f-4ed9-95f6-014d33994a75",
+      "fit_note": "Direct full-cycle closing fit, slightly below previous segment."
+    },
+    {
+      "id": "elevenlabs-sales-development-lead",
+      "company": "ElevenLabs",
+      "title": "Sales Development Lead - Europe",
+      "location": "London",
+      "workplace": "Office",
+      "fit_score": 70,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/elevenlabs/bb4f0758-f039-46c7-9a3f-71c145824298",
+      "fit_note": "Relevant music-adjacent AI company; people-lead remit may be a stretch."
+    },
+    {
+      "id": "uipath-senior-ae-fs",
+      "company": "UiPath",
+      "title": "Senior Account Executive - Financial Services",
+      "location": "London",
+      "workplace": "Hybrid",
+      "fit_score": 57,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/uipath/cdfd3f39-03d6-40e2-ac55-fda803426e0c",
+      "fit_note": "Direct enterprise software-sales role, but it asks for ten-plus years and financial-services depth."
+    },
+    {
+      "id": "servicenow-enterprise-ae-higher-education",
+      "company": "ServiceNow",
+      "title": "Enterprise Account Executive - Higher Education UK South",
+      "location": "Staines, UK",
+      "workplace": "Office",
+      "fit_score": 68,
+      "status": "new",
+      "url": "https://jobs.smartrecruiters.com/ServiceNow/744000152395931-enterprise-account-exec-higher-education-uk-south-",
+      "fit_note": "Relevant software AE role near London, though it asks for seven-plus years and public-sector or higher-education experience."
+    },
+    {
+      "id": "sas-jmp-inside-sales-account-representative",
+      "company": "SAS",
+      "title": "JMP Inside Sales Account Representative",
+      "location": "London or Marlow, UK",
+      "workplace": "Hybrid",
+      "fit_score": 94,
+      "status": "new",
+      "url": "https://global-sas.icims.com/jobs/42580/jmp-inside-sales-account-representative/job",
+      "fit_note": "Excellent match: five years of software sales, full-cycle new business, prospecting and account growth. English is required; another language is only preferred."
+    },
+    {
+      "id": "sas-senior-associate-ae-life-sciences",
+      "company": "SAS",
+      "title": "Senior Associate Account Executive - Life Sciences",
+      "location": "London or Marlow, UK",
+      "workplace": "Hybrid",
+      "fit_score": 90,
+      "status": "new",
+      "url": "https://global-sas.icims.com/jobs/42566/senior-associate-account-executive---life-sciences/job",
+      "fit_note": "Strong SaaS AE match with two to three years requested, hybrid working and English as the only required language."
+    }
   ],
   "job_boards": [
-    {"name":"Welcome to the Jungle (Otta)","url":"https://www.welcometothejungle.com/en/jobs","focus":"Curated UK tech and start-up roles with useful culture and remote filters."},
-    {"name":"Wellfound","url":"https://wellfound.com/jobs","focus":"Start-up jobs, including early-stage AI companies and direct founder hiring."},
-    {"name":"Cord","url":"https://cord.co/jobs","focus":"UK technology roles with direct conversations rather than mass applications."},
-    {"name":"RepVue Jobs","url":"https://www.repvue.com/jobs","focus":"Sales roles plus employer quota-attainment and compensation insight."},
-    {"name":"Work in Startups","url":"https://workinstartups.com/","focus":"UK start-up vacancies, often posted outside major aggregators."},
-    {"name":"UK Startup Jobs","url":"https://www.ukstartupjobs.com/","focus":"Sales and commercial roles at UK start-ups and scale-ups."},
-    {"name":"AI Jobs","url":"https://aijobs.net/","focus":"AI and machine-learning employers, including commercial and go-to-market roles."},
-    {"name":"CWJobs","url":"https://www.cwjobs.co.uk/jobs/technology-sales","focus":"Established UK technology job board with sales and account-management searches."},
-    {"name":"Technojobs","url":"https://www.technojobs.co.uk/","focus":"UK technology vacancies across software vendors and consultancies."},
-    {"name":"JobServe","url":"https://www.jobserve.com/gb/en/Job-Search/","focus":"Long-running UK technology board with direct-employer and recruiter listings."},
-    {"name":"SaaS Jobs","url":"https://www.saasjobs.com/","focus":"Roles at software-as-a-service companies, including sales and customer success."},
-    {"name":"Music Business Worldwide Jobs","url":"https://www.musicbusinessworldwide.com/jobs/","focus":"Useful for the parallel goal of moving into music-tech and commercial music roles."}
+    {
+      "name": "Welcome to the Jungle (Otta)",
+      "url": "https://www.welcometothejungle.com/en/jobs",
+      "focus": "Curated UK tech and start-up roles with useful culture and remote filters."
+    },
+    {
+      "name": "Wellfound",
+      "url": "https://wellfound.com/jobs",
+      "focus": "Start-up jobs, including early-stage AI companies and direct founder hiring."
+    },
+    {
+      "name": "Cord",
+      "url": "https://cord.co/jobs",
+      "focus": "UK technology roles with direct conversations rather than mass applications."
+    },
+    {
+      "name": "RepVue Jobs",
+      "url": "https://www.repvue.com/jobs",
+      "focus": "Sales roles plus employer quota-attainment and compensation insight."
+    },
+    {
+      "name": "Work in Startups",
+      "url": "https://workinstartups.com/",
+      "focus": "UK start-up vacancies, often posted outside major aggregators."
+    },
+    {
+      "name": "UK Startup Jobs",
+      "url": "https://www.ukstartupjobs.com/",
+      "focus": "Sales and commercial roles at UK start-ups and scale-ups."
+    },
+    {
+      "name": "AI Jobs",
+      "url": "https://aijobs.net/",
+      "focus": "AI and machine-learning employers, including commercial and go-to-market roles."
+    },
+    {
+      "name": "CWJobs",
+      "url": "https://www.cwjobs.co.uk/jobs/technology-sales",
+      "focus": "Established UK technology job board with sales and account-management searches."
+    },
+    {
+      "name": "Technojobs",
+      "url": "https://www.technojobs.co.uk/",
+      "focus": "UK technology vacancies across software vendors and consultancies."
+    },
+    {
+      "name": "JobServe",
+      "url": "https://www.jobserve.com/gb/en/Job-Search/",
+      "focus": "Long-running UK technology board with direct-employer and recruiter listings."
+    },
+    {
+      "name": "SaaS Jobs",
+      "url": "https://www.saasjobs.com/",
+      "focus": "Roles at software-as-a-service companies, including sales and customer success."
+    },
+    {
+      "name": "Music Business Worldwide Jobs",
+      "url": "https://www.musicbusinessworldwide.com/jobs/",
+      "focus": "Useful for the parallel goal of moving into music-tech and commercial music roles."
+    }
   ]
 }
