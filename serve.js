@@ -2164,6 +2164,7 @@ function readAiJobsDb() {
         const parsed = JSON.parse(fs.readFileSync(AI_JOBS_DB_FILE, 'utf8'));
         return {
             searched_at: parsed.searched_at || '',
+            company_audit_note: parsed.company_audit_note || '',
             selection_note: parsed.selection_note || '',
             profile_note: parsed.profile_note || '',
             companies: Array.isArray(parsed.companies) ? parsed.companies : [],
@@ -2171,7 +2172,7 @@ function readAiJobsDb() {
             job_boards: Array.isArray(parsed.job_boards) ? parsed.job_boards : []
         };
     } catch {
-        return { searched_at: '', selection_note: '', profile_note: '', companies: [], jobs: [], job_boards: [] };
+        return { searched_at: '', company_audit_note: '', selection_note: '', profile_note: '', companies: [], jobs: [], job_boards: [] };
     }
 }
 
@@ -2191,6 +2192,7 @@ function requiresNonEnglishLanguage(job = {}) {
 function writeAiJobsDb(db) {
     fs.writeFileSync(AI_JOBS_DB_FILE, JSON.stringify({
         searched_at: db.searched_at || '',
+        company_audit_note: db.company_audit_note || '',
         selection_note: db.selection_note || '',
         profile_note: db.profile_note || '',
         companies: Array.isArray(db.companies) ? db.companies : [],

@@ -6916,7 +6916,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (aiJobsApplied) aiJobsApplied.innerText = aiJobs.filter(job => job.status === 'applied').length;
         if (aiJobsScanMeta) {
             const checked = aiJobsMeta.searched_at ? new Date(aiJobsMeta.searched_at).toLocaleString() : 'Not checked yet';
-            aiJobsScanMeta.innerText = `Employer career sites checked ${checked} · ${aiJobs.length} relevant live roles found.`;
+            aiJobsScanMeta.innerText = `${aiCompanies.length}/${aiCompanies.length} employer career sites checked ${checked} · ${aiJobs.length} relevant live roles found.`;
         }
 
         const jobs = filteredAiJobs();
@@ -6943,7 +6943,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (aiCompaniesList) aiCompaniesList.innerHTML = aiCompanies.map(company => {
             const liveCount = aiJobs.filter(job => job.company === company.name).length;
-            return `<a href="${escapeHtml(company.careers_url)}" target="_blank" rel="noopener" class="block bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 hover:border-indigo-400 transition-colors"><div class="flex items-start justify-between gap-3"><div><div class="font-medium dark:text-white">${escapeHtml(company.name)}</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${escapeHtml(company.category)} · ${escapeHtml(company.office)}</div></div><span class="text-xs px-2 py-1 rounded-full ${liveCount ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300' : 'bg-gray-100 text-gray-500 dark:bg-white/10 dark:text-gray-400'}">${liveCount ? `${liveCount} found` : 'Check careers'}</span></div></a>`;
+            return `<a href="${escapeHtml(company.careers_url)}" target="_blank" rel="noopener" class="block bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 hover:border-indigo-400 transition-colors"><div class="flex items-start justify-between gap-3"><div><div class="font-medium dark:text-white">${escapeHtml(company.name)}</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${escapeHtml(company.category)} · ${escapeHtml(company.office)}</div></div><span class="text-xs px-2 py-1 rounded-full ${liveCount ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300' : 'bg-gray-100 text-gray-500 dark:bg-white/10 dark:text-gray-400'}">${liveCount ? `${liveCount} found` : 'Checked · none found'}</span></div></a>`;
         }).join('');
 
         if (aiJobBoardsList) aiJobBoardsList.innerHTML = aiJobBoards.map(board => `<a href="${escapeHtml(board.url)}" target="_blank" rel="noopener" class="block bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 hover:border-indigo-400 transition-colors"><div class="font-medium dark:text-white">${escapeHtml(board.name)}</div><p class="text-xs text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">${escapeHtml(board.focus)}</p></a>`).join('');
