@@ -2167,12 +2167,25 @@ function readAiJobsDb() {
             selection_note: parsed.selection_note || '',
             profile_note: parsed.profile_note || '',
             companies: Array.isArray(parsed.companies) ? parsed.companies : [],
-            jobs: Array.isArray(parsed.jobs) ? parsed.jobs : [],
+            jobs: Array.isArray(parsed.jobs) ? parsed.jobs.filter(job => !requiresNonEnglishLanguage(job)) : [],
             job_boards: Array.isArray(parsed.job_boards) ? parsed.job_boards : []
         };
     } catch {
         return { searched_at: '', selection_note: '', profile_note: '', companies: [], jobs: [], job_boards: [] };
     }
+}
+
+const NON_ENGLISH_LANGUAGE_PATTERN = /\b(?:arabic|cantonese|chinese|danish|dutch|finnish|flemish|french|german|greek|hebrew|hindi|italian|japanese|korean|mandarin|norwegian|polish|portuguese|russian|spanish|swedish|turkish|welsh)\b/i;
+
+function requiresNonEnglishLanguage(job = {}) {
+    const requirementText = [
+        job.title,
+        job.fit_note,
+        job.language_requirement,
+        job.requirements,
+        job.description
+    ].filter(Boolean).join(' ');
+    return NON_ENGLISH_LANGUAGE_PATTERN.test(requirementText);
 }
 
 function writeAiJobsDb(db) {
