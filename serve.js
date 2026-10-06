@@ -65,6 +65,7 @@ const MLX_TTS_SCRIPT = path.join(WORKSPACE_DIR, 'scripts', 'mlx-tts-kokoro.sh');
 const LINKEDIN_JOBS_DB_FILE = path.join(__dirname, 'linkedin_jobs_db.json');
 const YTJOBS_DB_FILE = path.join(__dirname, 'ytjobs_jobs.json');
 const YTJOBS_TALENT_FILE = path.join(__dirname, 'ytjobs_talking_head_editor_shortlist.json');
+const AI_JOBS_DB_FILE = path.join(__dirname, 'ai_jobs.json');
 const PROPERTY_DEALS_DB_FILE = path.join(__dirname, 'property_deals.json');
 const PROPERTY_TRACKER_STATE_FILE = path.join(WORKSPACE_DIR, 'property-deals', 'cardiff-hmo-tracker-state.json');
 const OPENRENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'openrent-leads.json');
@@ -193,7 +194,7 @@ function writeJournalSections(doc) {
 const server = http.createServer((req, res) => {
     res.on('error', (err) => console.error('Response error:', err));
     const requestPath = req.url.split('?')[0];
-    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read') {
+    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/jobs' || requestPath === '/jobs/ai' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read') {
         serveFile(res, path.join(__dirname, 'index.html'), 'text/html');
     } else if (requestPath === '/styles.css') {
         serveFile(res, path.join(__dirname, 'styles.css'), 'text/css');
@@ -258,6 +259,31 @@ const server = http.createServer((req, res) => {
         const db = readYtJobsDb();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(db));
+    } else if (req.url === '/api/ai-jobs') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readAiJobsDb();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/ai-jobs\/[^/]+\/status$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const { status } = JSON.parse(body || '{}');
+                const job = updateAiJobStatus(id, status);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, job }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update AI job status' }));
+            }
+        });
     } else if (req.url === '/api/ytjobs-talents') {
         if (req.method !== 'GET') {
             res.writeHead(405, { 'Content-Type': 'application/json' });
@@ -2130,6 +2156,45 @@ function updateYtJobStatus(id, status) {
     job.status = normalizeYtJobStatus(status);
     job.updated_at = new Date().toISOString();
     writeYtJobsDb(db);
+    return job;
+}
+
+function readAiJobsDb() {
+    try {
+        const parsed = JSON.parse(fs.readFileSync(AI_JOBS_DB_FILE, 'utf8'));
+        return {
+            searched_at: parsed.searched_at || '',
+            selection_note: parsed.selection_note || '',
+            profile_note: parsed.profile_note || '',
+            companies: Array.isArray(parsed.companies) ? parsed.companies : [],
+            jobs: Array.isArray(parsed.jobs) ? parsed.jobs : [],
+            job_boards: Array.isArray(parsed.job_boards) ? parsed.job_boards : []
+        };
+    } catch {
+        return { searched_at: '', selection_note: '', profile_note: '', companies: [], jobs: [], job_boards: [] };
+    }
+}
+
+function writeAiJobsDb(db) {
+    fs.writeFileSync(AI_JOBS_DB_FILE, JSON.stringify({
+        searched_at: db.searched_at || '',
+        selection_note: db.selection_note || '',
+        profile_note: db.profile_note || '',
+        companies: Array.isArray(db.companies) ? db.companies : [],
+        jobs: Array.isArray(db.jobs) ? db.jobs : [],
+        job_boards: Array.isArray(db.job_boards) ? db.job_boards : []
+    }, null, 2) + '\n');
+}
+
+function updateAiJobStatus(id, status) {
+    const allowed = new Set(['new', 'interested', 'applied', 'not_interested']);
+    if (!allowed.has(status)) throw new Error('Invalid AI job status');
+    const db = readAiJobsDb();
+    const job = db.jobs.find(item => item.id === id);
+    if (!job) throw new Error('AI job not found');
+    job.status = status;
+    job.updated_at = new Date().toISOString();
+    writeAiJobsDb(db);
     return job;
 }
 

@@ -51,7 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
         if (targetId === 'view-business-ideas') loadBusinessIdeas(true);
-        if (targetId === 'view-ytjobs') loadYtJobs(true);
+        if (targetId === 'view-jobs') {
+            if ((localStorage.getItem('jobs-tab') || 'ytjobs') === 'ai') loadAiJobs(true);
+            else loadYtJobs(true);
+        }
         if (targetId === 'view-people') loadPeople(true);
         if (targetId === 'view-property') {
             const activePropertyTab = localStorage.getItem('property-tab') || 'openrent';
@@ -5484,10 +5487,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!res.ok) throw new Error(data.error || 'London apartment search failed');
             londonApartmentLeads = Array.isArray(data.leads) ? data.leads : [];
             const meta = data.meta || {};
-            if (londonApartmentMeta) londonApartmentMeta.innerText = `Budget: up to £${Number(meta.budget_pcm || 1100).toLocaleString('en-GB')} pcm · one-bedroom whole homes only · no studios, rooms or flat shares · commute estimates are station-to-station and should be checked for the actual address and work hours.`;
-            if (londonApartmentAreas) londonApartmentAreas.innerHTML = (data.areas || []).sort((a, b) => a.priority - b.priority).map(area => `<div class="rounded-lg border border-gray-200 dark:border-white/10 p-3 bg-white dark:bg-[#171717]"><div class="flex justify-between gap-3"><span class="font-medium dark:text-white">${escapeHtml(area.name)}</span><span class="text-violet-700 dark:text-violet-300 font-semibold">~${escapeHtml(area.typical_minutes)} min</span></div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${escapeHtml(area.route)}</div></div>`).join('');
+            const destination = meta.destination || 'Jil Sander, New Bond Street';
+            if (londonApartmentMeta) londonApartmentMeta.innerText = `Destination: ${destination} · Budget: up to £${Number(meta.budget_pcm || 1100).toLocaleString('en-GB')} pcm · one-bedroom or self-contained studio whole homes only · no rooms or flat shares · up to ${Number(meta.max_commute_minutes || 60)} minutes · commute estimates should be checked for the actual address and work hours.`;
+            if (londonApartmentAreas) londonApartmentAreas.innerHTML = (data.areas || []).sort((a, b) => (a.typical_minutes - b.typical_minutes) || (a.priority - b.priority)).map(area => `<div class="rounded-lg border border-gray-200 dark:border-white/10 p-3 bg-white dark:bg-[#171717]"><div class="flex justify-between gap-3"><span class="font-medium dark:text-white">${escapeHtml(area.name)}</span><span class="text-violet-700 dark:text-violet-300 font-semibold">~${escapeHtml(area.typical_minutes)} min</span></div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${escapeHtml(area.route)}</div></div>`).join('');
             const sorted = [...londonApartmentLeads].filter(lead => lead.status !== 'not_interested').sort((a, b) => (a.commute_minutes || 999) - (b.commute_minutes || 999));
-            londonApartmentList.innerHTML = sorted.length ? sorted.map(lead => `<article class="border border-gray-200 dark:border-white/10 rounded-xl p-5 bg-white dark:bg-[#171717]"><div class="flex justify-between gap-4"><div><a href="${escapeHtml(lead.url)}" target="_blank" rel="noopener" class="font-semibold text-lg dark:text-white hover:text-blue-600">${escapeHtml(lead.title)}</a><div class="text-sm text-gray-600 dark:text-gray-300 mt-1">${escapeHtml(lead.price_display)} · 1 bed · ${escapeHtml(lead.area)} · ~${escapeHtml(lead.commute_minutes)} min to Bond Street</div></div><span class="text-xs rounded-full px-2 py-1 h-fit bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300">${escapeHtml(lead.source)}</span></div><div class="mt-3 flex gap-2"><button onclick="updateLondonApartmentLead('${escapeHtml(lead.id)}','good_find')" class="text-xs px-3 py-2 rounded border border-emerald-300 text-emerald-700 dark:text-emerald-300">${lead.status === 'good_find' ? 'Pinned good find' : 'Pin good find'}</button><button onclick="updateLondonApartmentLead('${escapeHtml(lead.id)}','not_interested')" class="text-xs px-3 py-2 rounded border border-red-300 text-red-700 dark:text-red-300">Not interested</button></div></article>`).join('') : '<div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/10 p-5 text-amber-900 dark:text-amber-100"><div class="font-semibold">No qualifying listings at the moment</div><p class="mt-1">The live Rightmove and OpenRent searches currently have no one-bedroom, non-studio whole homes at or below £1,100 pcm in the target commute ring. The area guide above is ready for the next refresh.</p></div>';
+            londonApartmentList.innerHTML = sorted.length ? sorted.map(lead => `<article class="border border-gray-200 dark:border-white/10 rounded-xl p-5 bg-white dark:bg-[#171717]"><div class="flex justify-between gap-4"><div><a href="${escapeHtml(lead.url)}" target="_blank" rel="noopener" class="font-semibold text-lg dark:text-white hover:text-blue-600">${escapeHtml(lead.title)}</a><div class="text-sm text-gray-600 dark:text-gray-300 mt-1">${escapeHtml(lead.price_display)} · ${escapeHtml(lead.property_type || '1 bed')} · ${escapeHtml(lead.area)} · ~${escapeHtml(lead.commute_minutes)} min to ${escapeHtml(destination)}</div></div><span class="text-xs rounded-full px-2 py-1 h-fit bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300">${escapeHtml(lead.source)}</span></div>${lead.fit_note ? `<p class="mt-3 text-sm text-gray-600 dark:text-gray-300">${escapeHtml(lead.fit_note)}</p>` : ''}<div class="mt-3 flex gap-2"><button onclick="updateLondonApartmentLead('${escapeHtml(lead.id)}','good_find')" class="text-xs px-3 py-2 rounded border border-emerald-300 text-emerald-700 dark:text-emerald-300">${lead.status === 'good_find' ? 'Pinned good find' : 'Pin good find'}</button><button onclick="updateLondonApartmentLead('${escapeHtml(lead.id)}','not_interested')" class="text-xs px-3 py-2 rounded border border-red-300 text-red-700 dark:text-red-300">Not interested</button></div></article>`).join('') : '<div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/10 p-5 text-amber-900 dark:text-amber-100"><div class="font-semibold">No qualifying listings at the moment</div><p class="mt-1">The live Rightmove and OpenRent searches currently have no one-bed or self-contained studio homes at or below £1,100 pcm in the target commute ring. The area guide above is ready for the next refresh.</p></div>';
         } catch (error) { console.error(error); londonApartmentList.innerHTML = '<div class="text-red-600">Could not load London apartment search.</div>'; }
     }
 
@@ -6839,6 +6843,153 @@ document.addEventListener("DOMContentLoaded", () => {
     [ytJobsTalentSearch, ytJobsTalentLocationFilter, ytJobsTalentStatusFilter, ytJobsTalentSort].forEach(el => el?.addEventListener('input', renderYtJobsTalents));
     [ytJobsTalentLocationFilter, ytJobsTalentStatusFilter, ytJobsTalentSort].forEach(el => el?.addEventListener('change', renderYtJobsTalents));
 
+    // === Jobs section and AI Jobs Logic ===
+    const jobsYtJobsTab = document.getElementById('jobs-ytjobs-tab');
+    const jobsAiTab = document.getElementById('jobs-ai-tab');
+    const jobsYtJobsPanel = document.getElementById('jobs-ytjobs-panel');
+    const jobsAiPanel = document.getElementById('jobs-ai-panel');
+    const refreshAiJobsBtn = document.getElementById('refresh-ai-jobs-btn');
+    const aiJobsScanMeta = document.getElementById('ai-jobs-scan-meta');
+    const aiJobsCompanyTotal = document.getElementById('ai-jobs-company-total');
+    const aiJobsTotal = document.getElementById('ai-jobs-total');
+    const aiJobsStrong = document.getElementById('ai-jobs-strong');
+    const aiJobsApplied = document.getElementById('ai-jobs-applied');
+    const aiJobsSearch = document.getElementById('ai-jobs-search');
+    const aiJobsFitFilter = document.getElementById('ai-jobs-fit-filter');
+    const aiJobsWorkplaceFilter = document.getElementById('ai-jobs-workplace-filter');
+    const aiJobsStatusFilter = document.getElementById('ai-jobs-status-filter');
+    const aiJobsList = document.getElementById('ai-jobs-list');
+    const aiCompaniesList = document.getElementById('ai-companies-list');
+    const aiJobBoardsList = document.getElementById('ai-job-boards-list');
+    let aiJobs = [];
+    let aiCompanies = [];
+    let aiJobBoards = [];
+    let aiJobsMeta = {};
+
+    function setJobsTab(tab) {
+        const activeTab = tab === 'ai' ? 'ai' : 'ytjobs';
+        localStorage.setItem('jobs-tab', activeTab);
+        jobsYtJobsPanel?.classList.toggle('hidden', activeTab !== 'ytjobs');
+        jobsAiPanel?.classList.toggle('hidden', activeTab !== 'ai');
+        [jobsYtJobsTab, jobsAiTab].forEach(button => {
+            if (!button) return;
+            const selected = (button === jobsAiTab) === (activeTab === 'ai');
+            button.classList.toggle('bg-white', selected);
+            button.classList.toggle('dark:bg-[#171717]', selected);
+            button.classList.toggle('shadow-sm', selected);
+            button.classList.toggle('dark:text-white', selected);
+            button.classList.toggle('text-gray-600', !selected);
+            button.classList.toggle('dark:text-gray-300', !selected);
+        });
+        if (activeTab === 'ai') loadAiJobs(true);
+        else loadYtJobs(true);
+    }
+
+    function aiJobFitClass(score) {
+        if (Number(score) >= 80) return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300';
+        if (Number(score) >= 70) return 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300';
+        return 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+    }
+
+    function filteredAiJobs() {
+        const search = (aiJobsSearch?.value || '').toLowerCase().trim();
+        const minimumFit = Number(aiJobsFitFilter?.value === 'all' ? 0 : aiJobsFitFilter?.value || 0);
+        const workplace = aiJobsWorkplaceFilter?.value || 'all';
+        const status = aiJobsStatusFilter?.value || 'active';
+        return aiJobs.filter(job => {
+            const jobStatus = job.status || 'new';
+            const haystack = `${job.title || ''} ${job.company || ''} ${job.location || ''} ${job.fit_note || ''}`.toLowerCase();
+            if (search && !haystack.includes(search)) return false;
+            if (Number(job.fit_score || 0) < minimumFit) return false;
+            if (workplace !== 'all' && job.workplace !== workplace) return false;
+            if (status === 'active' && jobStatus === 'not_interested') return false;
+            if (status !== 'active' && status !== 'all' && jobStatus !== status) return false;
+            return true;
+        }).sort((a, b) => Number(b.fit_score || 0) - Number(a.fit_score || 0) || String(a.company || '').localeCompare(String(b.company || '')));
+    }
+
+    function renderAiJobs() {
+        if (!aiJobsList) return;
+        if (aiJobsCompanyTotal) aiJobsCompanyTotal.innerText = aiCompanies.length;
+        if (aiJobsTotal) aiJobsTotal.innerText = aiJobs.length;
+        if (aiJobsStrong) aiJobsStrong.innerText = aiJobs.filter(job => Number(job.fit_score || 0) >= 80).length;
+        if (aiJobsApplied) aiJobsApplied.innerText = aiJobs.filter(job => job.status === 'applied').length;
+        if (aiJobsScanMeta) {
+            const checked = aiJobsMeta.searched_at ? new Date(aiJobsMeta.searched_at).toLocaleString() : 'Not checked yet';
+            aiJobsScanMeta.innerText = `Employer career sites checked ${checked} · ${aiJobs.length} relevant live roles found.`;
+        }
+
+        const jobs = filteredAiJobs();
+        aiJobsList.innerHTML = jobs.length ? jobs.map(job => `
+            <article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 ${job.status === 'not_interested' ? 'opacity-60' : ''}">
+                <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                    <div class="min-w-0 flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <h3 class="text-lg font-semibold dark:text-white">${escapeHtml(job.title || 'Untitled role')}</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full ${aiJobFitClass(job.fit_score)}">${Number(job.fit_score || 0)}% fit</span>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300">${escapeHtml(job.workplace || 'Unspecified')}</span>
+                        </div>
+                        <div class="text-sm text-gray-700 dark:text-gray-200">${escapeHtml(job.company || 'Unknown company')} · ${escapeHtml(job.location || 'Location not stated')}</div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-3">${escapeHtml(job.fit_note || '')}</p>
+                    </div>
+                    <div class="flex flex-wrap lg:flex-col gap-2 lg:items-end">
+                        <button type="button" onclick="updateAiJobStatus('${escapeHtml(job.id)}','interested')" class="text-xs px-3 py-1.5 rounded ${job.status === 'interested' ? 'bg-emerald-600 text-white' : 'border border-emerald-500 text-emerald-700 dark:text-emerald-300'}">Interested</button>
+                        <button type="button" onclick="updateAiJobStatus('${escapeHtml(job.id)}','applied')" class="text-xs px-3 py-1.5 rounded ${job.status === 'applied' ? 'bg-blue-600 text-white' : 'border border-blue-500 text-blue-700 dark:text-blue-300'}">Applied</button>
+                        <button type="button" onclick="updateAiJobStatus('${escapeHtml(job.id)}','not_interested')" class="text-xs px-3 py-1.5 rounded border border-gray-300 text-gray-600 dark:border-white/20 dark:text-gray-300">${job.status === 'not_interested' ? 'Restore' : 'Not interested'}</button>
+                        <a href="${escapeHtml(job.url || '#')}" target="_blank" rel="noopener" class="text-xs px-3 py-1.5 rounded bg-black text-white dark:bg-white dark:text-black">Open employer role</a>
+                    </div>
+                </div>
+            </article>`).join('') : '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No AI sales roles match the current filters.</div>';
+
+        if (aiCompaniesList) aiCompaniesList.innerHTML = aiCompanies.map(company => {
+            const liveCount = aiJobs.filter(job => job.company === company.name).length;
+            return `<a href="${escapeHtml(company.careers_url)}" target="_blank" rel="noopener" class="block bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 hover:border-indigo-400 transition-colors"><div class="flex items-start justify-between gap-3"><div><div class="font-medium dark:text-white">${escapeHtml(company.name)}</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${escapeHtml(company.category)} · ${escapeHtml(company.office)}</div></div><span class="text-xs px-2 py-1 rounded-full ${liveCount ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300' : 'bg-gray-100 text-gray-500 dark:bg-white/10 dark:text-gray-400'}">${liveCount ? `${liveCount} found` : 'Check careers'}</span></div></a>`;
+        }).join('');
+
+        if (aiJobBoardsList) aiJobBoardsList.innerHTML = aiJobBoards.map(board => `<a href="${escapeHtml(board.url)}" target="_blank" rel="noopener" class="block bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 hover:border-indigo-400 transition-colors"><div class="font-medium dark:text-white">${escapeHtml(board.name)}</div><p class="text-xs text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">${escapeHtml(board.focus)}</p></a>`).join('');
+    }
+
+    async function loadAiJobs(silent = false) {
+        if (!aiJobsList) return;
+        if (!silent) aiJobsList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading AI sales roles...</div>';
+        try {
+            const res = await fetch('/api/ai-jobs');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'AI Jobs request failed');
+            aiJobs = Array.isArray(data.jobs) ? data.jobs : [];
+            aiCompanies = Array.isArray(data.companies) ? data.companies : [];
+            aiJobBoards = Array.isArray(data.job_boards) ? data.job_boards : [];
+            aiJobsMeta = data || {};
+            renderAiJobs();
+        } catch (e) {
+            console.error(e);
+            aiJobsList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-lg p-6 text-red-600 dark:text-red-300">Failed to load AI Jobs.</div>';
+        }
+    }
+
+    window.updateAiJobStatus = async (id, status) => {
+        const current = aiJobs.find(job => job.id === id);
+        const nextStatus = status === 'not_interested' && current?.status === 'not_interested' ? 'new' : status;
+        try {
+            const res = await fetch(`/api/ai-jobs/${encodeURIComponent(id)}/status`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: nextStatus }) });
+            const data = await res.json();
+            if (!res.ok || !data.job) throw new Error(data.error || 'Status update failed');
+            const index = aiJobs.findIndex(job => job.id === id);
+            if (index !== -1) aiJobs[index] = data.job;
+            renderAiJobs();
+        } catch (e) {
+            console.error(e);
+            alert('Could not update AI job status.');
+        }
+    };
+
+    jobsYtJobsTab?.addEventListener('click', () => setJobsTab('ytjobs'));
+    jobsAiTab?.addEventListener('click', () => setJobsTab('ai'));
+    refreshAiJobsBtn?.addEventListener('click', () => loadAiJobs());
+    [aiJobsSearch, aiJobsFitFilter, aiJobsWorkplaceFilter, aiJobsStatusFilter].forEach(el => el?.addEventListener('input', renderAiJobs));
+    [aiJobsFitFilter, aiJobsWorkplaceFilter, aiJobsStatusFilter].forEach(el => el?.addEventListener('change', renderAiJobs));
+    setJobsTab(location.pathname === '/jobs/ai' ? 'ai' : (localStorage.getItem('jobs-tab') || 'ytjobs'));
+
     // === LinkedIn Jobs Logic ===
     const refreshLinkedInJobsBtn = document.getElementById('refresh-linkedin-jobs-btn');
     const checkAgentMailJobsBtn = document.getElementById('check-agentmail-jobs-btn');
@@ -7280,7 +7431,10 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (activeView.id === 'view-goals') loadGoals(true);
         else if (activeView.id === 'view-business-ideas') loadBusinessIdeas(true);
         else if (activeView.id === 'view-health') loadHealthData(true);
-        else if (activeView.id === 'view-ytjobs') loadYtJobs(true);
+        else if (activeView.id === 'view-jobs') {
+            if ((localStorage.getItem('jobs-tab') || 'ytjobs') === 'ai') loadAiJobs(true);
+            else loadYtJobs(true);
+        }
         else if (activeView.id === 'view-linkedin-jobs') loadLinkedInJobs(true);
         else if (activeView.id === 'view-property') {
             if (propertyOpenRentPanel && !propertyOpenRentPanel.classList.contains('hidden')) loadOpenRentLeads(true);
@@ -7295,8 +7449,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initial Load
     const initialView = location.pathname === '/linkedin-jobs' || location.pathname === '/jobs/linkedin'
         ? 'view-linkedin-jobs'
-        : location.pathname === '/ytjobs' || location.pathname === '/jobs/youtube'
-            ? 'view-ytjobs'
+        : ['/jobs', '/jobs/ai', '/ytjobs', '/jobs/youtube'].includes(location.pathname)
+            ? 'view-jobs'
         : location.pathname === '/property'
             ? 'view-property'
         : location.pathname === '/people'
@@ -7305,7 +7459,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ? 'view-read'
             : 'view-goals';
 
-    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/ytjobs', '/jobs/youtube', '/property', '/people', '/read'].includes(location.pathname)) {
+    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/jobs', '/jobs/ai', '/ytjobs', '/jobs/youtube', '/property', '/people', '/read'].includes(location.pathname)) {
         contextSwitcher.value = 'lifeos';
         navMissionControl?.classList.add('hidden');
         navLifeOs?.classList.remove('hidden');
