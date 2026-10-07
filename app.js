@@ -7272,7 +7272,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const filtered = socialPeople.filter(person => {
             const haystack = [person.Name, person.Relationship, person['Role/Tags'], person.Company, person['LinkedIn Status'], person['Met Status'], person['Event Name'], person['Event Role'], person.Location, person['How We Met'], person.Notes, person['Interaction History']].join(' ').toLowerCase();
             return (!query || haystack.includes(query)) && (!relationship || person.Relationship === relationship) && (!linkedinStatus || person['LinkedIn Status'] === linkedinStatus) && (!metStatus || (person['Met Status'] || 'Unknown') === metStatus) && (!timing || person._timing === timing);
-        }).sort((a, b) => a.Name.localeCompare(b.Name));
+        }).sort((a, b) => String(b['Date Added'] || '').localeCompare(String(a['Date Added'] || '')) || Number(b._index) - Number(a._index));
         document.getElementById('people-result-count').innerText = `${filtered.length} ${filtered.length === 1 ? 'person' : 'people'}`;
         peopleListEl.innerHTML = filtered.length ? filtered.map(person => `
             <article class="people-person-row p-5 flex flex-col lg:flex-row lg:items-center gap-4">
