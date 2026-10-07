@@ -1284,7 +1284,7 @@
             <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                 <div>
                     <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Property</h1>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Property sourcing, serviced accommodation leads and local networking events.</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Property sourcing, land planning-uplift opportunities, serviced accommodation leads and local networking events.</p>
                 </div>
                 <button id="refresh-property-btn" class="hidden text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Properties</button>
             </header>
@@ -1294,6 +1294,7 @@
                 <button id="property-tab-gumtree" data-property-tab="gumtree" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Gumtree</button>
                 <button id="property-tab-london-apartment" data-property-tab="london-apartment" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">London Apartment</button>
                 <button id="property-tab-hmo" data-property-tab="hmo" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">HMO Deals</button>
+                <button id="property-tab-land-deals" data-property-tab="land-deals" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Land Deals</button>
                 <button id="property-tab-events" data-property-tab="events" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Property Events</button>
             </div>
 
@@ -1355,6 +1356,40 @@
                     <div id="property-analysis-modal-body" class="p-6 overflow-y-auto space-y-5"></div>
                 </div>
             </div>
+            </div>
+
+            <div id="property-land-deals-panel" class="hidden">
+                <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Total sites</div><div id="land-deals-total" class="text-3xl font-semibold mt-2 dark:text-white">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Researching</div><div id="land-deals-researching" class="text-3xl font-semibold mt-2 text-amber-600 dark:text-amber-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Ready / contacted</div><div id="land-deals-contacted" class="text-3xl font-semibold mt-2 text-blue-600 dark:text-blue-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Owner interested</div><div id="land-deals-interested" class="text-3xl font-semibold mt-2 text-emerald-600 dark:text-emerald-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Controlled / planning</div><div id="land-deals-controlled" class="text-3xl font-semibold mt-2 text-violet-600 dark:text-violet-300">0</div></div>
+                </div>
+
+                <div class="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-100 dark:border-emerald-500/20 rounded-xl p-4 mb-6 text-sm text-emerald-900 dark:text-emerald-100">
+                    <div class="font-semibold">Cardiff planning-uplift pipeline</div>
+                    <div id="land-deals-meta" class="mt-1 text-emerald-800/80 dark:text-emerald-100/70">Loading land-deal research...</div>
+                </div>
+
+                <details class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl mb-6 group">
+                    <summary class="cursor-pointer list-none p-4 flex items-center justify-between gap-4"><div><div class="font-semibold dark:text-white">Evidence standard</div><div class="text-sm text-gray-500 dark:text-gray-400 mt-1">These are owner-enquiry prospects, not consented plots or valuations.</div></div><span class="text-sm text-blue-600 dark:text-blue-300 group-open:hidden">Show checks</span><span class="text-sm text-blue-600 dark:text-blue-300 hidden group-open:inline">Hide checks</span></summary>
+                    <div class="border-t border-gray-200 dark:border-white/10 p-4 grid grid-cols-1 lg:grid-cols-3 gap-4 text-sm text-gray-600 dark:text-gray-300">
+                        <div class="rounded-lg bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 p-4"><div class="font-semibold dark:text-white mb-2">Title and control</div><p>Verify proprietor, correspondence address, title plan, restrictions, covenants, charges, easements and access rights. No owner details are currently verified.</p></div>
+                        <div class="rounded-lg bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 p-4"><div class="font-semibold dark:text-white mb-2">Planning and access</div><p>Check adopted policy, planning history, conservation, TPOs, flood/drainage, ecology, contamination, access, visibility, parking, turning, refuse, levels and neighbour amenity.</p></div>
+                        <div class="rounded-lg bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 p-4"><div class="font-semibold dark:text-white mb-2">Outreach rule</div><p>Mapping and aerial observations are screening evidence only. Draft site-specific enquiries without promising planning or value, and send nothing without Phil's explicit approval.</p></div>
+                    </div>
+                </details>
+
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-6 gap-3">
+                    <input id="land-deals-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search address, title or opportunity">
+                    <select id="land-deals-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="active" selected>Active pipeline</option><option value="all">All stages</option><option value="owner_details_needed">Owner details needed</option><option value="ready_to_contact">Ready to contact</option><option value="contacted">Contacted</option><option value="owner_interested">Owner interested</option><option value="planning">In planning</option><option value="not_pursuing">Not pursuing</option></select>
+                    <select id="land-deals-priority-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All priorities</option><option value="top3">Priority 1-3</option><option value="top5">Priority 1-5</option><option value="lower">Priority 6-10</option></select>
+                    <select id="land-deals-sort" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="priority" selected>Priority</option><option value="area">Largest title</option><option value="distance">Nearest first</option><option value="updated">Recently updated</option></select>
+                    <button id="land-deals-reset-filters" class="rounded-lg border border-gray-300 dark:border-white/20 px-3 py-2 text-sm dark:text-gray-300 hover:bg-white dark:hover:bg-white/5">Reset filters</button>
+                </div>
+
+                <div id="land-deals-list" class="space-y-4"><div class="text-sm text-gray-500 dark:text-gray-400">Loading land deals...</div></div>
             </div>
 
             <div id="property-openrent-panel">

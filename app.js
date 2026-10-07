@@ -5429,6 +5429,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const propertyGumtreePanel = document.getElementById('property-gumtree-panel');
     const propertyLondonApartmentPanel = document.getElementById('property-london-apartment-panel');
     const propertyHmoPanel = document.getElementById('property-hmo-panel');
+    const propertyLandDealsPanel = document.getElementById('property-land-deals-panel');
     const propertyEventsPanel = document.getElementById('property-events-panel');
     const openRentList = document.getElementById('openrent-list');
     const openRentMeta = document.getElementById('openrent-meta');
@@ -5445,11 +5446,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const isGumtree = tabName === 'gumtree';
         const isLondonApartment = tabName === 'london-apartment';
         const isHmo = tabName === 'hmo';
+        const isLandDeals = tabName === 'land-deals';
         const isEvents = tabName === 'events';
         propertyOpenRentPanel?.classList.toggle('hidden', !isOpenRent);
         propertyGumtreePanel?.classList.toggle('hidden', !isGumtree);
         propertyLondonApartmentPanel?.classList.toggle('hidden', !isLondonApartment);
         propertyHmoPanel?.classList.toggle('hidden', !isHmo);
+        propertyLandDealsPanel?.classList.toggle('hidden', !isLandDeals);
         propertyEventsPanel?.classList.toggle('hidden', !isEvents);
         refreshPropertyBtn?.classList.toggle('hidden', !isHmo);
         propertyTabs.forEach(tab => {
@@ -5466,6 +5469,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (isGumtree) loadGumtreeLeads(true);
         else if (isLondonApartment) loadLondonApartmentLeads();
         else if (isHmo) loadPropertyDeals(true);
+        else if (isLandDeals) loadLandDeals(true);
     }
 
     function openRentStageLabel(status) {
@@ -5501,6 +5505,160 @@ document.addEventListener("DOMContentLoaded", () => {
     window.updateLondonApartmentLead = async (id, status) => {
         try { const r = await fetch(`/api/london-apartment-leads/${encodeURIComponent(id)}/workflow`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) }); if (!r.ok) throw new Error(); await loadLondonApartmentLeads(); } catch { alert('Could not update this listing.'); }
     };
+
+    // === Land planning-uplift deals ===
+    const landDealsList = document.getElementById('land-deals-list');
+    const landDealsMeta = document.getElementById('land-deals-meta');
+    const landDealsSearch = document.getElementById('land-deals-search');
+    const landDealsStatusFilter = document.getElementById('land-deals-status-filter');
+    const landDealsPriorityFilter = document.getElementById('land-deals-priority-filter');
+    const landDealsSort = document.getElementById('land-deals-sort');
+    const landDealsResetFilters = document.getElementById('land-deals-reset-filters');
+    let landDeals = [];
+    let landDealsMetaData = {};
+
+    const landDealStages = [
+        'new_lead', 'desk_research', 'site_visit', 'owner_details_needed', 'ready_to_contact',
+        'contacted', 'follow_up', 'owner_interested', 'appraisal', 'heads_of_terms', 'legals',
+        'option_agreed', 'planning', 'consented', 'marketed', 'sold', 'not_pursuing'
+    ];
+
+    function landDealStageLabel(status) {
+        return ({
+            new_lead: 'New lead', desk_research: 'Desk research', site_visit: 'Site visit',
+            owner_details_needed: 'Owner details needed', ready_to_contact: 'Ready to contact',
+            contacted: 'Contacted', follow_up: 'Follow up', owner_interested: 'Owner interested',
+            appraisal: 'Appraisal', heads_of_terms: 'Heads of terms', legals: 'Legals',
+            option_agreed: 'Option agreed', planning: 'In planning', consented: 'Consented',
+            marketed: 'Marketed', sold: 'Sold', not_pursuing: 'Not pursuing'
+        })[status] || 'New lead';
+    }
+
+    function landDealStageClass(status) {
+        if (['owner_interested', 'appraisal', 'heads_of_terms'].includes(status)) return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300';
+        if (['legals', 'option_agreed', 'planning', 'consented', 'marketed', 'sold'].includes(status)) return 'bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300';
+        if (['ready_to_contact', 'contacted', 'follow_up'].includes(status)) return 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300';
+        if (status === 'not_pursuing') return 'bg-gray-200 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+        return 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300';
+    }
+
+    function filteredLandDeals() {
+        const search = (landDealsSearch?.value || '').trim().toLowerCase();
+        const status = landDealsStatusFilter?.value || 'active';
+        const priority = landDealsPriorityFilter?.value || 'all';
+        const sort = landDealsSort?.value || 'priority';
+        return landDeals.filter(deal => {
+            const haystack = `${deal.address || ''} ${deal.title_reference || ''} ${deal.opportunity_type || ''} ${deal.headline || ''} ${deal.observed || ''} ${deal.potential || ''}`.toLowerCase();
+            if (search && !haystack.includes(search)) return false;
+            if (status === 'active' && ['not_pursuing', 'sold'].includes(deal.status)) return false;
+            if (!['active', 'all'].includes(status) && deal.status !== status) return false;
+            const rank = Number(deal.priority || 999);
+            if (priority === 'top3' && rank > 3) return false;
+            if (priority === 'top5' && rank > 5) return false;
+            if (priority === 'lower' && rank < 6) return false;
+            return true;
+        }).sort((a, b) => {
+            if (sort === 'area') return Number(b.title_area_ha || 0) - Number(a.title_area_ha || 0);
+            if (sort === 'distance') return Number(a.distance_miles || 999) - Number(b.distance_miles || 999);
+            if (sort === 'updated') return String(b.updated_at || '').localeCompare(String(a.updated_at || ''));
+            return Number(a.priority || 999) - Number(b.priority || 999);
+        });
+    }
+
+    function renderLandDeals() {
+        if (!landDealsList) return;
+        const setText = (id, value) => { const el = document.getElementById(id); if (el) el.innerText = value; };
+        setText('land-deals-total', landDeals.length);
+        setText('land-deals-researching', landDeals.filter(deal => ['new_lead', 'desk_research', 'site_visit', 'owner_details_needed'].includes(deal.status)).length);
+        setText('land-deals-contacted', landDeals.filter(deal => ['ready_to_contact', 'contacted', 'follow_up'].includes(deal.status)).length);
+        setText('land-deals-interested', landDeals.filter(deal => ['owner_interested', 'appraisal', 'heads_of_terms'].includes(deal.status)).length);
+        setText('land-deals-controlled', landDeals.filter(deal => ['legals', 'option_agreed', 'planning', 'consented', 'marketed', 'sold'].includes(deal.status)).length);
+        if (landDealsMeta) landDealsMeta.innerText = `${landDealsMetaData.count || landDeals.length} preliminary prospects · research checked ${landDealsMetaData.research_date || 'unknown'} · no owners verified and no letters sent. Priority ranks owner-enquiry usefulness, not planning probability or valuation.`;
+        const deals = filteredLandDeals();
+        if (!deals.length) {
+            landDealsList.innerHTML = '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-8 text-gray-500">No land deals match these filters.</div>';
+            return;
+        }
+        landDealsList.innerHTML = deals.map(deal => {
+            const constraints = Array.isArray(deal.constraints) ? deal.constraints : [];
+            const evidence = Array.isArray(deal.evidence) ? deal.evidence : [];
+            const owner = deal.ownership || {};
+            const letterStatus = deal.outreach?.letter_status || 'not_drafted';
+            return `<article class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">
+                    <div class="min-w-0 flex-1">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-gray-900 text-white dark:bg-white dark:text-gray-900">#${escapeHtml(deal.priority)}</span>
+                            <a href="${escapeHtml(deal.map_url || '#')}" target="_blank" rel="noopener" class="text-lg font-semibold dark:text-white hover:text-blue-600 dark:hover:text-blue-300">${escapeHtml(deal.address || 'Land prospect')}</a>
+                            <span class="text-xs px-2.5 py-1 rounded-full ${landDealStageClass(deal.status)}">${escapeHtml(landDealStageLabel(deal.status))}</span>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">Preliminary</span>
+                        </div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300 mt-2">${escapeHtml(deal.opportunity_type || '-')} · ${Number(deal.title_area_ha || 0).toFixed(2)} ha total title · ${Number(deal.distance_miles || 0).toFixed(2)} miles from CF24 3QZ · Title ${escapeHtml(deal.title_reference || 'not obtained')}</div>
+                        <div class="mt-3 font-medium text-gray-900 dark:text-white">${escapeHtml(deal.headline || '')}</div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4 text-sm">
+                            <div class="rounded-lg border border-gray-200 dark:border-white/10 p-4"><div class="text-xs uppercase tracking-wide text-gray-400 font-semibold">Observed</div><p class="mt-2 text-gray-600 dark:text-gray-300">${escapeHtml(deal.observed || '-')}</p></div>
+                            <div class="rounded-lg border border-gray-200 dark:border-white/10 p-4"><div class="text-xs uppercase tracking-wide text-gray-400 font-semibold">Potential to test</div><p class="mt-2 text-gray-600 dark:text-gray-300">${escapeHtml(deal.potential || '-')}</p></div>
+                        </div>
+                        <details class="mt-3 rounded-lg border border-gray-200 dark:border-white/10"><summary class="cursor-pointer p-3 text-sm font-medium dark:text-white">Constraints, evidence and outreach details</summary><div class="border-t border-gray-200 dark:border-white/10 p-4 text-sm space-y-4">
+                            <div><div class="font-semibold dark:text-white">Main constraints</div><ul class="mt-2 list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-300">${constraints.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul></div>
+                            <div><div class="font-semibold dark:text-white">Planning caution</div><p class="mt-1 text-gray-600 dark:text-gray-300">${escapeHtml(deal.planning_note || 'Planning status not established.')}</p></div>
+                            <div><div class="font-semibold dark:text-white">Owner/contact</div><p class="mt-1 text-gray-600 dark:text-gray-300">${owner.verified ? 'Verified' : 'Not verified'} · ${escapeHtml(owner.owner_name || 'Owner name not obtained')} · ${escapeHtml(owner.correspondence_address || 'Correspondence address not obtained')}</p></div>
+                            <div class="flex flex-wrap gap-3">${evidence.map(item => `<a href="${escapeHtml(item.url || '#')}" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-300 hover:underline">${escapeHtml(item.label || 'Evidence')}</a>`).join('')}<a href="${escapeHtml(deal.google_maps_url || '#')}" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-300 hover:underline">Google Maps</a></div>
+                        </div></details>
+                        <div class="mt-4 rounded-lg bg-amber-50 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/20 p-4 text-sm"><div class="font-semibold text-amber-900 dark:text-amber-100">Next action</div><p class="mt-1 text-amber-800 dark:text-amber-200">${escapeHtml(deal.next_action || 'Set the next action.')}</p></div>
+                        ${deal.notes ? `<div class="mt-3 text-sm text-gray-600 dark:text-gray-300"><span class="font-semibold">Notes:</span> ${escapeHtml(deal.notes)}</div>` : ''}
+                    </div>
+                    <div class="flex flex-col gap-2 xl:w-52 shrink-0">
+                        <select onchange="updateLandDeal('${escapeHtml(deal.id)}', { status: this.value })" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-xs dark:text-white">${landDealStages.map(value => `<option value="${value}" ${deal.status === value ? 'selected' : ''}>${escapeHtml(landDealStageLabel(value))}</option>`).join('')}</select>
+                        <select onchange="updateLandDeal('${escapeHtml(deal.id)}', { letter_status: this.value })" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-xs dark:text-white"><option value="not_drafted" ${letterStatus === 'not_drafted' ? 'selected' : ''}>Letter not drafted</option><option value="drafted" ${letterStatus === 'drafted' ? 'selected' : ''}>Letter drafted</option><option value="approved" ${letterStatus === 'approved' ? 'selected' : ''}>Letter approved</option><option value="sent" ${letterStatus === 'sent' ? 'selected' : ''}>Letter sent</option><option value="replied" ${letterStatus === 'replied' ? 'selected' : ''}>Owner replied</option></select>
+                        <a href="${escapeHtml(deal.map_url || '#')}" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Open LandInsight</a>
+                        <button onclick="editLandDealOwner('${escapeHtml(deal.id)}')" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Edit owner/contact</button>
+                        <button onclick="editLandDealNextAction('${escapeHtml(deal.id)}')" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Edit next action</button>
+                        <button onclick="editLandDealNotes('${escapeHtml(deal.id)}')" class="text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-300">Edit notes</button>
+                    </div>
+                </div>
+            </article>`;
+        }).join('');
+    }
+
+    async function loadLandDeals(silent = false) {
+        if (!landDealsList) return;
+        if (!silent) landDealsList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading land deals...</div>';
+        try {
+            const res = await fetch('/api/land-deals');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Land deals request failed');
+            landDeals = Array.isArray(data.deals) ? data.deals : [];
+            landDealsMetaData = data.meta || {};
+            renderLandDeals();
+        } catch (error) {
+            console.error(error);
+            landDealsList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-xl p-6 text-red-600 dark:text-red-300">Failed to load land deals.</div>';
+        }
+    }
+
+    window.updateLandDeal = async (id, payload) => {
+        try {
+            const res = await fetch(`/api/land-deals/${encodeURIComponent(id)}/workflow`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const data = await res.json();
+            if (!res.ok || !data.deal) throw new Error(data.error || 'Land deal update failed');
+            await loadLandDeals(true);
+        } catch (error) { console.error(error); alert('Could not update the land deal.'); }
+    };
+
+    window.editLandDealOwner = async id => {
+        const deal = landDeals.find(item => item.id === id); if (!deal) return;
+        const ownerName = prompt('Registered owner name', deal.ownership?.owner_name || ''); if (ownerName === null) return;
+        const correspondenceAddress = prompt('Owner correspondence address', deal.ownership?.correspondence_address || ''); if (correspondenceAddress === null) return;
+        const phone = prompt('Owner phone (optional)', deal.ownership?.phone || ''); if (phone === null) return;
+        const email = prompt('Owner email (optional)', deal.ownership?.email || ''); if (email === null) return;
+        await window.updateLandDeal(id, { owner: { owner_name: ownerName, correspondence_address: correspondenceAddress, phone, email, verified: Boolean(ownerName.trim() && correspondenceAddress.trim()) } });
+    };
+    window.editLandDealNextAction = async id => { const deal = landDeals.find(item => item.id === id); if (!deal) return; const value = prompt('Next action', deal.next_action || ''); if (value !== null) await window.updateLandDeal(id, { next_action: value }); };
+    window.editLandDealNotes = async id => { const deal = landDeals.find(item => item.id === id); if (!deal) return; const value = prompt('Deal notes', deal.notes || ''); if (value !== null) await window.updateLandDeal(id, { notes: value }); };
+
+    [landDealsSearch, landDealsStatusFilter, landDealsPriorityFilter, landDealsSort].forEach(control => control?.addEventListener(control === landDealsSearch ? 'input' : 'change', renderLandDeals));
+    landDealsResetFilters?.addEventListener('click', () => { if (landDealsSearch) landDealsSearch.value = ''; if (landDealsStatusFilter) landDealsStatusFilter.value = 'active'; if (landDealsPriorityFilter) landDealsPriorityFilter.value = 'all'; if (landDealsSort) landDealsSort.value = 'priority'; renderLandDeals(); });
 
     function openRentLandlordTypeLabel(type) {
         return ({
@@ -6524,7 +6682,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (refreshPropertyBtn) refreshPropertyBtn.addEventListener('click', () => loadPropertyDeals());
     [propertySearch, propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('input', renderPropertyDeals));
     [propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('change', renderPropertyDeals));
-    switchPropertyTab(['openrent', 'gumtree', 'london-apartment', 'hmo', 'events'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
+    switchPropertyTab(['openrent', 'gumtree', 'london-apartment', 'hmo', 'land-deals', 'events'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
 
     // === YTJobs Logic ===
     const refreshYtJobsBtn = document.getElementById('refresh-ytjobs-btn');
@@ -7459,6 +7617,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (propertyOpenRentPanel && !propertyOpenRentPanel.classList.contains('hidden')) loadOpenRentLeads(true);
             else if (propertyGumtreePanel && !propertyGumtreePanel.classList.contains('hidden')) loadGumtreeLeads(true);
             else if (propertyLondonApartmentPanel && !propertyLondonApartmentPanel.classList.contains('hidden')) loadLondonApartmentLeads();
+            else if (propertyLandDealsPanel && !propertyLandDealsPanel.classList.contains('hidden')) loadLandDeals(true);
             else loadPropertyDeals(true);
         }
         else if (activeView.id === 'view-analytics') loadAnalyticsData(true);

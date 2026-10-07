@@ -71,6 +71,7 @@ const PROPERTY_TRACKER_STATE_FILE = path.join(WORKSPACE_DIR, 'property-deals', '
 const OPENRENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'openrent-leads.json');
 const GUMTREE_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'gumtree-leads.json');
 const LONDON_APARTMENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'london-apartment-leads.json');
+const LAND_DEALS_FILE = path.join(WORKSPACE_DIR, 'property-deals', 'land-deals.json');
 const DUMMY_CALENDAR_JOBS = [
     { id: 'dummy-youtube-planning', name: 'YouTube Planning', hour: 8, minute: 0, calendarTag: 'YouTube' },
     { id: 'dummy-lunch-check-in', name: 'Lunch Check-In', hour: 13, minute: 0, calendarTag: 'Check-In' },
@@ -351,6 +352,30 @@ const server = http.createServer((req, res) => {
         const db = syncPropertyDealsFromTracker();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ meta: db.meta || {}, deals: db.deals || [] }));
+    } else if (req.url === '/api/land-deals') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readLandDeals();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/land-deals\/[^/]+\/workflow$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, body => {
+            try {
+                const deal = updateLandDeal(id, JSON.parse(body || '{}'));
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, deal }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update land deal' }));
+            }
+        });
     } else if (req.url === '/api/openrent-leads') {
         if (req.method !== 'GET') {
             res.writeHead(405, { 'Content-Type': 'application/json' });
@@ -2296,6 +2321,61 @@ function readPropertyDealsDb() {
     } catch {
         return { meta: {}, deals: [] };
     }
+}
+
+const LAND_DEAL_STATUSES = [
+    'new_lead', 'desk_research', 'site_visit', 'owner_details_needed', 'ready_to_contact',
+    'contacted', 'follow_up', 'owner_interested', 'appraisal', 'heads_of_terms', 'legals',
+    'option_agreed', 'planning', 'consented', 'marketed', 'sold', 'not_pursuing'
+];
+const LAND_DEAL_LETTER_STATUSES = ['not_drafted', 'drafted', 'approved', 'sent', 'replied'];
+
+function readLandDeals() {
+    const parsed = readJsonFile(LAND_DEALS_FILE, { meta: {}, deals: [] });
+    return {
+        meta: parsed.meta && typeof parsed.meta === 'object' ? parsed.meta : {},
+        deals: Array.isArray(parsed.deals) ? parsed.deals : []
+    };
+}
+
+function writeLandDeals(db) {
+    fs.mkdirSync(path.dirname(LAND_DEALS_FILE), { recursive: true });
+    const tempFile = `${LAND_DEALS_FILE}.tmp`;
+    const deals = Array.isArray(db.deals) ? db.deals : [];
+    fs.writeFileSync(tempFile, JSON.stringify({ meta: { ...(db.meta || {}), count: deals.length }, deals }, null, 2) + '\n');
+    fs.renameSync(tempFile, LAND_DEALS_FILE);
+}
+
+function updateLandDeal(id, payload = {}) {
+    const db = readLandDeals();
+    const deal = db.deals.find(item => String(item.id) === String(id));
+    if (!deal) throw new Error('Land deal not found');
+    if (payload.status !== undefined) {
+        if (!LAND_DEAL_STATUSES.includes(payload.status)) throw new Error('Invalid land-deal status');
+        deal.status = payload.status;
+    }
+    if (payload.letter_status !== undefined) {
+        if (!LAND_DEAL_LETTER_STATUSES.includes(payload.letter_status)) throw new Error('Invalid letter status');
+        deal.outreach = deal.outreach && typeof deal.outreach === 'object' ? deal.outreach : {};
+        deal.outreach.letter_status = payload.letter_status;
+        if (payload.letter_status === 'sent') {
+            deal.outreach.last_contacted_at = deal.outreach.last_contacted_at || new Date().toISOString();
+            if (['new_lead', 'desk_research', 'site_visit', 'owner_details_needed', 'ready_to_contact'].includes(deal.status)) deal.status = 'contacted';
+        }
+        if (payload.letter_status === 'replied' && ['new_lead', 'desk_research', 'site_visit', 'owner_details_needed', 'ready_to_contact', 'contacted'].includes(deal.status)) deal.status = 'follow_up';
+    }
+    if (payload.notes !== undefined) deal.notes = String(payload.notes || '').trim().slice(0, 6000);
+    if (payload.next_action !== undefined) deal.next_action = String(payload.next_action || '').trim().slice(0, 3000);
+    if (payload.owner && typeof payload.owner === 'object') {
+        deal.ownership = deal.ownership && typeof deal.ownership === 'object' ? deal.ownership : {};
+        for (const field of ['owner_name', 'correspondence_address', 'phone', 'email']) {
+            if (payload.owner[field] !== undefined) deal.ownership[field] = String(payload.owner[field] || '').trim().slice(0, field === 'correspondence_address' ? 1000 : 320);
+        }
+        if (payload.owner.verified !== undefined) deal.ownership.verified = Boolean(payload.owner.verified);
+    }
+    deal.updated_at = new Date().toISOString();
+    writeLandDeals(db);
+    return deal;
 }
 
 function readOpenRentLeads() {
