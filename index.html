@@ -1294,16 +1294,17 @@
             <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                 <div>
                     <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Property</h1>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Property sourcing and serviced accommodation lead management.</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Property sourcing, serviced accommodation leads and local networking events.</p>
                 </div>
                 <button id="refresh-property-btn" class="hidden text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Properties</button>
             </header>
 
-            <div class="flex gap-2 border-b border-gray-200 dark:border-white/10 mb-6" role="tablist" aria-label="Property sections">
-                <button id="property-tab-openrent" data-property-tab="openrent" class="px-4 py-2.5 text-sm font-medium border-b-2 border-blue-600 text-blue-600 dark:text-blue-300" role="tab" aria-selected="true">OpenRent</button>
-                <button id="property-tab-gumtree" data-property-tab="gumtree" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Gumtree</button>
-                <button id="property-tab-london-apartment" data-property-tab="london-apartment" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">London Apartment</button>
-                <button id="property-tab-hmo" data-property-tab="hmo" class="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">HMO Deals</button>
+            <div class="flex gap-2 border-b border-gray-200 dark:border-white/10 mb-6 overflow-x-auto" role="tablist" aria-label="Property sections">
+                <button id="property-tab-openrent" data-property-tab="openrent" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-blue-600 text-blue-600 dark:text-blue-300" role="tab" aria-selected="true">OpenRent</button>
+                <button id="property-tab-gumtree" data-property-tab="gumtree" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Gumtree</button>
+                <button id="property-tab-london-apartment" data-property-tab="london-apartment" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">London Apartment</button>
+                <button id="property-tab-hmo" data-property-tab="hmo" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">HMO Deals</button>
+                <button id="property-tab-events" data-property-tab="events" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Property Events</button>
             </div>
 
             <div id="property-hmo-panel" class="hidden">
@@ -1506,6 +1507,61 @@
                 <div class="bg-violet-50 dark:bg-violet-500/10 border border-violet-100 dark:border-violet-500/20 rounded-xl p-5 mb-6 text-sm text-violet-900 dark:text-violet-100"><div class="font-semibold">London Apartment search - Jil Sander, New Bond Street</div><div id="london-apartment-meta" class="mt-1">Loading search criteria...</div></div>
                 <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 mb-6"><div class="font-semibold dark:text-white mb-3">Commutable areas - rank is based on typical station-to-station travel time</div><div id="london-apartment-areas" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm"></div></div>
                 <div class="flex flex-wrap gap-x-4 gap-y-2 items-center justify-between mb-3"><div class="font-semibold dark:text-white">Current suitable listings</div><div class="flex gap-4"><a class="text-sm text-blue-600 dark:text-blue-300 hover:underline" target="_blank" rel="noopener" href="https://www.rightmove.co.uk/property-to-rent/find.html?locationIdentifier=REGION%5E87490&maxPrice=1100&minBedrooms=1&maxBedrooms=1&sortType=6">Open Rightmove search</a><a class="text-sm text-blue-600 dark:text-blue-300 hover:underline" target="_blank" rel="noopener" href="https://www.openrent.co.uk/properties-to-rent/london?term=London">OpenRent search</a></div></div><div id="london-apartment-list" class="space-y-3 text-sm text-gray-500">Loading listings...</div>
+            </div>
+
+            <div id="property-events-panel" class="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Confirmed upcoming</div><div class="text-3xl font-semibold mt-2 text-emerald-600 dark:text-emerald-300">3</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Including one event tonight.</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Groups tracked</div><div class="text-3xl font-semibold mt-2 dark:text-white">5</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Across Cardiff, Newport and RCT.</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Last checked</div><div class="text-2xl font-semibold mt-2 dark:text-white">7 Oct 2026</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Dates checked against organiser pages.</div></div>
+                </div>
+
+                <div class="bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 rounded-xl p-4 mb-6 text-sm text-blue-900 dark:text-blue-100">
+                    <div class="font-semibold">South Wales property networking calendar</div>
+                    <p class="mt-1 text-blue-800/80 dark:text-blue-100/70">Confirmed dates appear first. The two landlord forums have not yet published their next meeting, so their official update pages are linked instead of showing an estimated date.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <article class="bg-white dark:bg-[#171717] border border-emerald-200 dark:border-emerald-500/30 rounded-xl p-5">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                            <div><div class="flex flex-wrap items-center gap-2"><h2 class="text-lg font-semibold dark:text-white">South Wales Property Meet - Newport</h2><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">Tonight</span></div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Property networking and speakers in Newport.</p></div>
+                            <a href="https://www.eventbrite.co.uk/e/south-wales-property-meet-october-tickets-1999700072748" target="_blank" rel="noopener" class="text-sm font-medium text-blue-600 dark:text-blue-300 hover:underline shrink-0">View event</a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-sm"><div><div class="text-xs uppercase tracking-wide text-gray-400">Date</div><div class="font-medium dark:text-white mt-1"><time datetime="2026-10-07T18:30:00+01:00">Wednesday 7 October 2026</time></div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Time</div><div class="font-medium dark:text-white mt-1">18:30-21:00</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Venue</div><div class="font-medium dark:text-white mt-1">Coldra Court Hotel, Langstone, Newport, NP18 2LX</div></div></div>
+                    </article>
+
+                    <article class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                            <div><div class="flex flex-wrap items-center gap-2"><h2 class="text-lg font-semibold dark:text-white">PIN Cardiff</h2><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300">Confirmed</span></div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Takes place on the second Tuesday of every month.</p></div>
+                            <a href="https://propertyinvestorsnetwork.co.uk/meetings/cardiff/" target="_blank" rel="noopener" class="text-sm font-medium text-blue-600 dark:text-blue-300 hover:underline shrink-0">View event</a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-sm"><div><div class="text-xs uppercase tracking-wide text-gray-400">Next date</div><div class="font-medium dark:text-white mt-1"><time datetime="2026-10-13T18:00:00+01:00">Tuesday 13 October 2026</time></div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Time</div><div class="font-medium dark:text-white mt-1">18:00-21:00</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Venue</div><div class="font-medium dark:text-white mt-1">Future Inn Cardiff, Hemingway Road, Cardiff, CF10 4AU</div></div></div>
+                    </article>
+
+                    <article class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-5">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                            <div><div class="flex flex-wrap items-center gap-2"><h2 class="text-lg font-semibold dark:text-white">Property &amp; Poppadoms - Cardiff</h2><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300">Confirmed</span></div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Informal property networking over a curry.</p></div>
+                            <a href="https://www.eventbrite.co.uk/e/eiddo-poppadomau-caerdydd-property-poppadoms-cardiff-tickets-1277467923949" target="_blank" rel="noopener" class="text-sm font-medium text-blue-600 dark:text-blue-300 hover:underline shrink-0">View event</a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-sm"><div><div class="text-xs uppercase tracking-wide text-gray-400">Next date</div><div class="font-medium dark:text-white mt-1"><time datetime="2026-11-03T18:30:00Z">Tuesday 3 November 2026</time></div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Time</div><div class="font-medium dark:text-white mt-1">18:30-21:30</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Venue</div><div class="font-medium dark:text-white mt-1">Mowgli's Indian Restaurant, 13 Penlline Road, Cardiff, CF14 2AA</div></div></div>
+                    </article>
+
+                    <article class="bg-white dark:bg-[#171717] border border-amber-200 dark:border-amber-500/30 rounded-xl p-5">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                            <div><div class="flex flex-wrap items-center gap-2"><h2 class="text-lg font-semibold dark:text-white">Cardiff Landlord Forum</h2><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">Awaiting next date</span></div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">The forum normally meets every two months, but no future meeting is currently published.</p></div>
+                            <a href="https://www.nrla.org.uk/events/meetings" target="_blank" rel="noopener" class="text-sm font-medium text-blue-600 dark:text-blue-300 hover:underline shrink-0">Check organiser</a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-sm"><div><div class="text-xs uppercase tracking-wide text-gray-400">Next date</div><div class="font-medium text-amber-700 dark:text-amber-300 mt-1">To be announced</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Typical frequency</div><div class="font-medium dark:text-white mt-1">Bi-monthly</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Usual area</div><div class="font-medium dark:text-white mt-1">Cardiff</div></div></div>
+                    </article>
+
+                    <article class="bg-white dark:bg-[#171717] border border-amber-200 dark:border-amber-500/30 rounded-xl p-5">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                            <div><div class="flex flex-wrap items-center gap-2"><h2 class="text-lg font-semibold dark:text-white">RCT Landlord Forum</h2><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">Awaiting next date</span></div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">The council page still shows the September meeting and has not yet published the next one.</p></div>
+                            <a href="https://www.rctcbc.gov.uk/EN/Business/InformationforLandlords/LandlordForum.aspx" target="_blank" rel="noopener" class="text-sm font-medium text-blue-600 dark:text-blue-300 hover:underline shrink-0">Check council page</a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-sm"><div><div class="text-xs uppercase tracking-wide text-gray-400">Next date</div><div class="font-medium text-amber-700 dark:text-amber-300 mt-1">To be announced</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Latest published meeting</div><div class="font-medium dark:text-white mt-1">29 September 2026, 18:00-20:00</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Latest venue</div><div class="font-medium dark:text-white mt-1">Pontypridd Rugby Club, CF37 1HA</div></div></div>
+                    </article>
+                </div>
             </div>
         </div>
 

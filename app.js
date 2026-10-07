@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const activePropertyTab = localStorage.getItem('property-tab') || 'openrent';
             if (activePropertyTab === 'gumtree') loadGumtreeLeads(true);
             else if (activePropertyTab === 'hmo') loadPropertyDeals(true);
-            else loadOpenRentLeads(true);
+            else if (activePropertyTab === 'openrent') loadOpenRentLeads(true);
         }
     }
 
@@ -5429,6 +5429,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const propertyGumtreePanel = document.getElementById('property-gumtree-panel');
     const propertyLondonApartmentPanel = document.getElementById('property-london-apartment-panel');
     const propertyHmoPanel = document.getElementById('property-hmo-panel');
+    const propertyEventsPanel = document.getElementById('property-events-panel');
     const openRentList = document.getElementById('openrent-list');
     const openRentMeta = document.getElementById('openrent-meta');
     const openRentSearch = document.getElementById('openrent-search');
@@ -5444,10 +5445,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const isGumtree = tabName === 'gumtree';
         const isLondonApartment = tabName === 'london-apartment';
         const isHmo = tabName === 'hmo';
+        const isEvents = tabName === 'events';
         propertyOpenRentPanel?.classList.toggle('hidden', !isOpenRent);
         propertyGumtreePanel?.classList.toggle('hidden', !isGumtree);
         propertyLondonApartmentPanel?.classList.toggle('hidden', !isLondonApartment);
         propertyHmoPanel?.classList.toggle('hidden', !isHmo);
+        propertyEventsPanel?.classList.toggle('hidden', !isEvents);
         refreshPropertyBtn?.classList.toggle('hidden', !isHmo);
         propertyTabs.forEach(tab => {
             const active = tab.dataset.propertyTab === tabName;
@@ -5462,7 +5465,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isOpenRent) loadOpenRentLeads(true);
         else if (isGumtree) loadGumtreeLeads(true);
         else if (isLondonApartment) loadLondonApartmentLeads();
-        else loadPropertyDeals(true);
+        else if (isHmo) loadPropertyDeals(true);
     }
 
     function openRentStageLabel(status) {
@@ -6521,7 +6524,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (refreshPropertyBtn) refreshPropertyBtn.addEventListener('click', () => loadPropertyDeals());
     [propertySearch, propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('input', renderPropertyDeals));
     [propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('change', renderPropertyDeals));
-    switchPropertyTab(['openrent', 'gumtree', 'london-apartment', 'hmo'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
+    switchPropertyTab(['openrent', 'gumtree', 'london-apartment', 'hmo', 'events'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
 
     // === YTJobs Logic ===
     const refreshYtJobsBtn = document.getElementById('refresh-ytjobs-btn');
