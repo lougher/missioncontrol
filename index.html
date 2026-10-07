@@ -492,6 +492,7 @@
                     <div class="flex flex-col sm:flex-row gap-2">
                         <input id="people-search" type="search" class="people-input sm:w-72" placeholder="Search names, notes or tags">
                         <select id="people-relationship-filter" class="people-input sm:w-44"><option value="">All relationships</option><option>Close friend</option><option>Friend</option><option>Family</option><option>Professional</option><option>Acquaintance</option></select>
+                        <select id="people-linkedin-filter" class="people-input sm:w-44"><option value="">Any LinkedIn status</option><option>Yes</option><option>No</option><option>Pending</option><option>Instagram only</option><option>Unknown</option></select>
                         <select id="people-due-filter" class="people-input sm:w-36"><option value="">Any timing</option><option value="due">Due now</option><option value="upcoming">Upcoming</option><option value="later">Later</option></select>
                     </div>
                 </div>
@@ -2254,6 +2255,11 @@
                     <label class="people-label">Relationship<select id="people-relationship" class="people-input mt-1.5"><option>Friend</option><option>Close friend</option><option>Family</option><option>Professional</option><option>Acquaintance</option></select></label>
                     <label class="people-label">Contact rhythm<select id="people-cadence" class="people-input mt-1.5"><option value="14">Every 2 weeks</option><option value="30" selected>Every month</option><option value="60">Every 2 months</option><option value="90">Every 3 months</option><option value="180">Every 6 months</option><option value="365">Yearly</option></select></label>
                     <label class="people-label">Role / tags<input id="people-tags" class="people-input mt-1.5" placeholder="Founder, music, Cardiff"></label>
+                    <label class="people-label">Company<input id="people-company" class="people-input mt-1.5" placeholder="Company or organisation"></label>
+                    <label class="people-label">LinkedIn connection<select id="people-linkedin-status" class="people-input mt-1.5"><option>Unknown</option><option>Yes</option><option>No</option><option>Pending</option><option>Instagram only</option></select></label>
+                    <label class="people-label">Event name<input id="people-event-name" class="people-input mt-1.5" placeholder="PIN Cardiff"></label>
+                    <label class="people-label">Event date<input id="people-event-date" type="date" class="people-input mt-1.5"></label>
+                    <label class="people-label">Event role<select id="people-event-role" class="people-input mt-1.5"><option value="">Not specified</option><option>Host</option><option>Team</option><option>Speaker</option><option>Connection</option></select></label>
                     <label class="people-label">Link or contact<input id="people-contact" class="people-input mt-1.5" placeholder="Phone, email, LinkedIn or Instagram"></label>
                     <label class="people-label">Where they live<input id="people-location" class="people-input mt-1.5" placeholder="Cardiff"></label>
                     <label class="people-label">How you met<input id="people-met" class="people-input mt-1.5" placeholder="SaaS event in London"></label>

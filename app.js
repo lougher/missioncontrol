@@ -7232,6 +7232,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const peopleQueueEl = document.getElementById('people-queue');
     const peopleSearchEl = document.getElementById('people-search');
     const peopleRelationshipFilterEl = document.getElementById('people-relationship-filter');
+    const peopleLinkedinFilterEl = document.getElementById('people-linkedin-filter');
     const peopleDueFilterEl = document.getElementById('people-due-filter');
     const peopleModal = document.getElementById('people-modal');
     const peopleContactModal = document.getElementById('people-contact-modal');
@@ -7264,17 +7265,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!peopleListEl) return;
         const query = String(peopleSearchEl?.value || '').trim().toLowerCase();
         const relationship = peopleRelationshipFilterEl?.value || '';
+        const linkedinStatus = peopleLinkedinFilterEl?.value || '';
         const timing = peopleDueFilterEl?.value || '';
         const filtered = socialPeople.filter(person => {
-            const haystack = [person.Name, person.Relationship, person['Role/Tags'], person.Location, person['How We Met'], person.Notes, person['Interaction History']].join(' ').toLowerCase();
-            return (!query || haystack.includes(query)) && (!relationship || person.Relationship === relationship) && (!timing || person._timing === timing);
+            const haystack = [person.Name, person.Relationship, person['Role/Tags'], person.Company, person['LinkedIn Status'], person['Event Name'], person['Event Role'], person.Location, person['How We Met'], person.Notes, person['Interaction History']].join(' ').toLowerCase();
+            return (!query || haystack.includes(query)) && (!relationship || person.Relationship === relationship) && (!linkedinStatus || person['LinkedIn Status'] === linkedinStatus) && (!timing || person._timing === timing);
         }).sort((a, b) => a.Name.localeCompare(b.Name));
         document.getElementById('people-result-count').innerText = `${filtered.length} ${filtered.length === 1 ? 'person' : 'people'}`;
         peopleListEl.innerHTML = filtered.length ? filtered.map(person => `
             <article class="people-person-row p-5 flex flex-col lg:flex-row lg:items-center gap-4">
                 <div class="flex items-start gap-4 min-w-0 flex-1">
                     <div class="h-12 w-12 shrink-0 rounded-full bg-gradient-to-br from-violet-100 to-fuchsia-100 dark:from-violet-500/20 dark:to-fuchsia-500/20 text-violet-700 dark:text-violet-200 flex items-center justify-center text-sm font-semibold">${escapeHtml(peopleInitials(person.Name))}</div>
-                    <div class="min-w-0"><div class="flex items-center gap-2 flex-wrap"><button data-people-action="edit" data-index="${person._index}" class="font-semibold text-left dark:text-white hover:underline">${escapeHtml(person.Name)}</button><span class="text-[11px] rounded-full px-2 py-0.5 bg-violet-50 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300">${escapeHtml(person.Relationship || 'Friend')}</span></div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1 truncate">${escapeHtml([person['Role/Tags'], person.Location].filter(Boolean).join(' · ') || 'No tags yet')}</p>${peopleLatestNote(person) ? `<p class="text-xs text-gray-500 dark:text-gray-400 mt-2 line-clamp-1">Last note: ${escapeHtml(peopleLatestNote(person))}</p>` : ''}</div>
+                    <div class="min-w-0"><div class="flex items-center gap-2 flex-wrap"><button data-people-action="edit" data-index="${person._index}" class="font-semibold text-left dark:text-white hover:underline">${escapeHtml(person.Name)}</button><span class="text-[11px] rounded-full px-2 py-0.5 bg-violet-50 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300">${escapeHtml(person.Relationship || 'Friend')}</span>${person['LinkedIn Status'] ? `<span class="text-[11px] rounded-full px-2 py-0.5 ${person['LinkedIn Status'] === 'Yes' ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300' : 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300'}">LinkedIn: ${escapeHtml(person['LinkedIn Status'])}</span>` : ''}</div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1 truncate">${escapeHtml([person.Company, person['Role/Tags'], person.Location].filter(Boolean).join(' · ') || 'No company or tags yet')}</p>${person['Event Name'] ? `<p class="text-xs text-gray-400 dark:text-gray-500 mt-1">${escapeHtml([person['Event Name'], peopleDate(person['Event Date']), person['Event Role']].filter(Boolean).join(' · '))}</p>` : ''}${peopleLatestNote(person) ? `<p class="text-xs text-gray-500 dark:text-gray-400 mt-2 line-clamp-1">Note: ${escapeHtml(peopleLatestNote(person))}</p>` : ''}</div>
                 </div>
                 <div class="grid grid-cols-2 sm:flex sm:items-center gap-3 lg:justify-end">
                     <div class="text-xs"><div class="text-gray-400">Last contact</div><div class="mt-0.5 font-medium dark:text-gray-200">${peopleDate(person['Last Contacted'])}</div></div>
@@ -7322,6 +7324,11 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('people-relationship').value = person?.Relationship || 'Friend';
         document.getElementById('people-cadence').value = person?.['Catch-up Every Days'] || '30';
         document.getElementById('people-tags').value = person?.['Role/Tags'] || '';
+        document.getElementById('people-company').value = person?.Company || '';
+        document.getElementById('people-linkedin-status').value = person?.['LinkedIn Status'] || 'Unknown';
+        document.getElementById('people-event-name').value = person?.['Event Name'] || '';
+        document.getElementById('people-event-date').value = person?.['Event Date'] || '';
+        document.getElementById('people-event-role').value = person?.['Event Role'] || '';
         document.getElementById('people-contact').value = person?.['Link/Contact'] || '';
         document.getElementById('people-location').value = person?.Location || '';
         document.getElementById('people-met').value = person?.['How We Met'] || '';
@@ -7355,7 +7362,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('people-contact-cancel')?.addEventListener('click', closePeopleContact);
     peopleModal?.addEventListener('click', event => { if (event.target === peopleModal) setPeopleModal(false); });
     peopleContactModal?.addEventListener('click', event => { if (event.target === peopleContactModal) closePeopleContact(); });
-    [peopleSearchEl, peopleRelationshipFilterEl, peopleDueFilterEl].forEach(el => el?.addEventListener('input', renderPeopleList));
+    [peopleSearchEl, peopleRelationshipFilterEl, peopleLinkedinFilterEl, peopleDueFilterEl].forEach(el => el?.addEventListener('input', renderPeopleList));
 
     [peopleListEl, peopleQueueEl].forEach(container => container?.addEventListener('click', event => {
         const button = event.target.closest('[data-people-action]');
@@ -7373,6 +7380,11 @@ document.addEventListener("DOMContentLoaded", () => {
             Relationship: document.getElementById('people-relationship').value,
             'Catch-up Every Days': document.getElementById('people-cadence').value,
             'Role/Tags': document.getElementById('people-tags').value,
+            Company: document.getElementById('people-company').value,
+            'LinkedIn Status': document.getElementById('people-linkedin-status').value,
+            'Event Name': document.getElementById('people-event-name').value,
+            'Event Date': document.getElementById('people-event-date').value,
+            'Event Role': document.getElementById('people-event-role').value,
             'Link/Contact': document.getElementById('people-contact').value,
             Location: document.getElementById('people-location').value,
             'How We Met': document.getElementById('people-met').value,
