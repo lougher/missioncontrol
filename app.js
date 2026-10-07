@@ -5584,6 +5584,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const evidence = Array.isArray(deal.evidence) ? deal.evidence : [];
             const owner = deal.ownership || {};
             const letterStatus = deal.outreach?.letter_status || 'not_drafted';
+            const titleArea = Number(deal.title_area_ha || 0);
+            const titleAreaLabel = titleArea > 0 ? `${titleArea.toFixed(2)} ha total title` : 'Title area not obtained';
+            const financial = deal.financial && typeof deal.financial === 'object' ? deal.financial : null;
             return `<article class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-5">
                 <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">
                     <div class="min-w-0 flex-1">
@@ -5593,8 +5596,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             <span class="text-xs px-2.5 py-1 rounded-full ${landDealStageClass(deal.status)}">${escapeHtml(landDealStageLabel(deal.status))}</span>
                             <span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">Preliminary</span>
                         </div>
-                        <div class="text-sm text-gray-600 dark:text-gray-300 mt-2">${escapeHtml(deal.opportunity_type || '-')} · ${Number(deal.title_area_ha || 0).toFixed(2)} ha total title · ${Number(deal.distance_miles || 0).toFixed(2)} miles from CF24 3QZ · Title ${escapeHtml(deal.title_reference || 'not obtained')}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300 mt-2">${escapeHtml(deal.opportunity_type || '-')} · ${escapeHtml(titleAreaLabel)} · ${Number(deal.distance_miles || 0).toFixed(2)} miles from CF24 3QZ · Title ${escapeHtml(deal.title_reference || 'not obtained')}</div>
                         <div class="mt-3 font-medium text-gray-900 dark:text-white">${escapeHtml(deal.headline || '')}</div>
+                        ${financial ? `<div class="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-3 text-sm"><div class="rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 p-3"><div class="text-xs uppercase tracking-wide text-red-500">Asking price</div><div class="font-semibold text-red-700 dark:text-red-300 mt-1">£${Number(financial.asking_price_gbp || 0).toLocaleString('en-GB')}</div></div><div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">Stated units</div><div class="font-semibold dark:text-white mt-1">${escapeHtml(financial.stated_units || '-')} unverified</div></div><div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">Land / stated unit</div><div class="font-semibold dark:text-white mt-1">£${Number(financial.price_per_unit_ex_vat || 0).toLocaleString('en-GB')}</div></div><div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">VAT position</div><div class="font-semibold dark:text-white mt-1">${escapeHtml(financial.vat_basis || 'Unconfirmed')}</div></div></div>` : ''}
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4 text-sm">
                             <div class="rounded-lg border border-gray-200 dark:border-white/10 p-4"><div class="text-xs uppercase tracking-wide text-gray-400 font-semibold">Observed</div><p class="mt-2 text-gray-600 dark:text-gray-300">${escapeHtml(deal.observed || '-')}</p></div>
                             <div class="rounded-lg border border-gray-200 dark:border-white/10 p-4"><div class="text-xs uppercase tracking-wide text-gray-400 font-semibold">Potential to test</div><p class="mt-2 text-gray-600 dark:text-gray-300">${escapeHtml(deal.potential || '-')}</p></div>
