@@ -3235,7 +3235,7 @@ function writeCsvObjects(filePath, headers, items) {
 }
 
 const PEOPLE_HEADERS = [
-    'Name', 'Relationship', 'Role/Tags', 'Company', 'LinkedIn Status', 'Event Name',
+    'Name', 'Relationship', 'Role/Tags', 'Company', 'LinkedIn Status', 'Met Status', 'Event Name',
     'Event Date', 'Event Role', 'Link/Contact', 'Location', 'How We Met',
     'Source', 'Notes', 'Date Added', 'Last Contacted', 'Catch-up Every Days',
     'Next Contact', 'Birthday', 'Status', 'Interaction History'
