@@ -22,6 +22,8 @@ const INSTAGRAM_IDEAS_FILE = path.join(__dirname, 'instagram_ideas.json');
 const INSTAGRAM_ACCOUNTS_FILE = path.join(__dirname, 'instagram_accounts.json');
 const TIKTOK_VIDEOS_CSV = path.join(__dirname, 'tiktok_videos_pipeline.csv');
 const TIKTOK_VIDEOS_PRIORITY_FILE = path.join(__dirname, 'tiktok_videos_priorities.json');
+const TIKTOK_IDEAS_FILE = path.join(__dirname, 'tiktok_ideas.json');
+const TIKTOK_ACCOUNTS_FILE = path.join(__dirname, 'tiktok_accounts.json');
 const YOUTUBE_COMPETITOR_DIR = path.join(YOUTUBE_REFERENCES_DIR, 'Competitor_Analysis');
 const YOUTUBE_COMPETITORS_DIR = path.join(YOUTUBE_REFERENCES_DIR, 'Competitors');
 const YOUTUBE_COMPETITORS_FILE = path.join(YOUTUBE_COMPETITORS_DIR, 'competitors.json');
@@ -1771,6 +1773,10 @@ const server = http.createServer((req, res) => {
         const videos = items.map(item => ({ ...item, prioritySlot: slotByTitle.get(normaliseTitle(item['Video Title'])) || '' }));
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ videos }));
+    } else if (req.url.startsWith('/api/tiktok/ideas')) {
+        handleTikTokIdeas(req, res);
+    } else if (req.url.startsWith('/api/tiktok/accounts')) {
+        handleTikTokAccounts(req, res);
     } else if (req.url === '/api/instagram/ideas') {
         if (req.method === 'GET') {
             const ideas = readJsonFile(INSTAGRAM_IDEAS_FILE, { items: [] });
@@ -3507,6 +3513,91 @@ function ensureInstagramReelsFile() {
 function ensureTikTokVideosFile() {
     const headers = ['Video Title', 'Format', 'Core Idea', 'Hook', 'Inspo', 'Production Notes', 'Status'];
     if (!fs.existsSync(TIKTOK_VIDEOS_CSV)) writeCsvObjects(TIKTOK_VIDEOS_CSV, headers, []);
+}
+
+function ensureTikTokIdeasFile() {
+    if (fs.existsSync(TIKTOK_IDEAS_FILE)) return;
+    ensureTikTokVideosFile();
+    const { items } = readCsvObjects(TIKTOK_VIDEOS_CSV);
+    const migrated = items.map((row, index) => ({
+        id: `tiktok-idea-${Date.now()}-${index}`,
+        title: String(row['Video Title'] || '').trim(),
+        hook: String(row.Hook || '').trim(),
+        coreIdea: String(row['Core Idea'] || '').trim(),
+        inspo: String(row.Inspo || '').trim(),
+        notes: String(row['Production Notes'] || '').trim(),
+        createdAt: new Date().toISOString()
+    })).filter(item => item.title);
+    fs.writeFileSync(TIKTOK_IDEAS_FILE, JSON.stringify({ items: migrated }, null, 2) + '\n');
+    if (migrated.length) writeCsvObjects(TIKTOK_VIDEOS_CSV, ['Video Title', 'Format', 'Core Idea', 'Hook', 'Inspo', 'Production Notes', 'Status'], []);
+}
+
+function writeTikTokCollection(res, filePath, items, payload = {}) {
+    fs.writeFile(filePath, JSON.stringify({ items }, null, 2) + '\n', (err) => {
+        res.writeHead(err ? 500 : 200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: !err, items, ...payload }));
+    });
+}
+
+function handleTikTokIdeas(req, res) {
+    ensureTikTokIdeasFile();
+    const match = req.url.match(/^\/api\/tiktok\/ideas(?:\/([^/]+))?(?:\/(promote))?$/);
+    const id = match && match[1] ? decodeURIComponent(match[1]) : null;
+    const action = match && match[2];
+    if (!match) { res.writeHead(404); return res.end(); }
+    if (!id && req.method === 'GET') {
+        const data = readJsonFile(TIKTOK_IDEAS_FILE, { items: [] });
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ items: Array.isArray(data.items) ? data.items : [] }));
+    }
+    if (!id && req.method === 'POST') return readBody(req, body => {
+        try {
+            const incoming = JSON.parse(body || '{}');
+            const data = readJsonFile(TIKTOK_IDEAS_FILE, { items: [] });
+            const item = { id: `tiktok-idea-${Date.now()}`, title: String(incoming.title || '').trim(), hook: String(incoming.hook || '').trim(), coreIdea: String(incoming.coreIdea || '').trim(), inspo: String(incoming.inspo || '').trim(), notes: String(incoming.notes || '').trim(), createdAt: new Date().toISOString() };
+            if (!item.title) throw new Error('Title is required');
+            writeTikTokCollection(res, TIKTOK_IDEAS_FILE, [item, ...(data.items || [])], { item });
+        } catch (error) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ success: false, error: error.message || 'Invalid JSON' })); }
+    });
+    const data = readJsonFile(TIKTOK_IDEAS_FILE, { items: [] });
+    const items = Array.isArray(data.items) ? data.items : [];
+    const target = items.find(item => item.id === id);
+    if (!target) { res.writeHead(404, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ success: false, error: 'Idea not found' })); }
+    if (action === 'promote' && req.method === 'POST') {
+        ensureTikTokVideosFile();
+        const existing = readCsvObjects(TIKTOK_VIDEOS_CSV);
+        if (existing.items.some(row => normaliseTitle(row['Video Title']) === normaliseTitle(target.title))) { res.writeHead(409, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ success: false, error: 'This idea is already in the pipeline' })); }
+        const row = { 'Video Title': target.title, Hook: target.hook, 'Core Idea': target.coreIdea, Inspo: target.inspo, 'Production Notes': target.notes, Status: 'Idea' };
+        writeCsvObjects(TIKTOK_VIDEOS_CSV, existing.headers, [...existing.items, row]);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ success: true, row }));
+    }
+    if ((req.method === 'PUT' || req.method === 'POST') && !action) return readBody(req, body => {
+        try {
+            const incoming = JSON.parse(body || '{}');
+            target.title = String(incoming.title || '').trim(); target.hook = String(incoming.hook || '').trim(); target.coreIdea = String(incoming.coreIdea || '').trim(); target.inspo = String(incoming.inspo || '').trim(); target.notes = String(incoming.notes || '').trim(); target.updatedAt = new Date().toISOString();
+            if (!target.title) throw new Error('Title is required');
+            writeTikTokCollection(res, TIKTOK_IDEAS_FILE, items, { item: target });
+        } catch (error) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ success: false, error: error.message || 'Invalid JSON' })); }
+    });
+    if (req.method === 'DELETE') return writeTikTokCollection(res, TIKTOK_IDEAS_FILE, items.filter(item => item.id !== id));
+    res.writeHead(405, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Method not allowed' }));
+}
+
+function handleTikTokAccounts(req, res) {
+    if (!fs.existsSync(TIKTOK_ACCOUNTS_FILE)) fs.writeFileSync(TIKTOK_ACCOUNTS_FILE, JSON.stringify({ items: [] }, null, 2) + '\n');
+    const match = req.url.match(/^\/api\/tiktok\/accounts(?:\/([^/]+))?$/);
+    const id = match && match[1] ? decodeURIComponent(match[1]) : null;
+    if (!match) { res.writeHead(404); return res.end(); }
+    if (!id && req.method === 'GET') { const data = readJsonFile(TIKTOK_ACCOUNTS_FILE, { items: [] }); res.writeHead(200, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ items: data.items || [] })); }
+    if (!id && req.method === 'POST') return readBody(req, body => {
+        try { const incoming = JSON.parse(body || '{}'); const data = readJsonFile(TIKTOK_ACCOUNTS_FILE, { items: [] }); const handle = String(incoming.handle || '').trim(); if (!handle) throw new Error('Handle is required'); const item = { id: `tiktok-account-${Date.now()}`, handle, url: String(incoming.url || '').trim(), niche: String(incoming.niche || '').trim(), notes: String(incoming.notes || '').trim(), createdAt: new Date().toISOString() }; writeTikTokCollection(res, TIKTOK_ACCOUNTS_FILE, [item, ...(data.items || [])], { item }); } catch (error) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ success: false, error: error.message || 'Invalid JSON' })); }
+    });
+    const data = readJsonFile(TIKTOK_ACCOUNTS_FILE, { items: [] }); const items = Array.isArray(data.items) ? data.items : []; const target = items.find(item => item.id === id);
+    if (!target) { res.writeHead(404, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ success: false, error: 'Account not found' })); }
+    if ((req.method === 'PUT' || req.method === 'POST')) return readBody(req, body => { try { const incoming = JSON.parse(body || '{}'); target.handle = String(incoming.handle || '').trim(); target.url = String(incoming.url || '').trim(); target.niche = String(incoming.niche || '').trim(); target.notes = String(incoming.notes || '').trim(); if (!target.handle) throw new Error('Handle is required'); writeTikTokCollection(res, TIKTOK_ACCOUNTS_FILE, items, { item: target }); } catch (error) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ success: false, error: error.message || 'Invalid JSON' })); } });
+    if (req.method === 'DELETE') return writeTikTokCollection(res, TIKTOK_ACCOUNTS_FILE, items.filter(item => item.id !== id));
+    res.writeHead(405, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Method not allowed' }));
 }
 
 function handleCsvAddPost(req, res, filePath, priorityFile = null, maxPrioritySlot = 3) {

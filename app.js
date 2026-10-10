@@ -2826,6 +2826,96 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshTikTokBtn?.addEventListener('click', () => loadTikTokVideos());
     tiktokAddVideoBtn?.addEventListener('click', openTikTokAddModal);
 
+    // TikTok follows the same capture -> select -> publish workflow as Instagram.
+    const tiktokSections = ['pipeline', 'ideas', 'accounts'];
+    const tiktokIdeasContainer = document.getElementById('tiktok-ideas-container');
+    const tiktokAccountsContainer = document.getElementById('tiktok-accounts-container');
+    const tiktokIdeaForm = document.getElementById('tiktok-idea-form');
+    const tiktokAccountForm = document.getElementById('tiktok-account-form');
+    let currentTikTokIdeas = [];
+    let currentTikTokAccounts = [];
+
+    function setTikTokSection(section) {
+        tiktokSections.forEach(name => {
+            document.getElementById(`tiktok-${name}-section`)?.classList.toggle('hidden', name !== section);
+            const tab = document.querySelector(`[data-tiktok-section="${name}"]`);
+            tab?.classList.toggle('border-black', name === section);
+            tab?.classList.toggle('dark:border-white', name === section);
+            tab?.classList.toggle('dark:text-white', name === section);
+            tab?.classList.toggle('border-transparent', name !== section);
+            tab?.classList.toggle('text-gray-500', name !== section);
+            tab?.classList.toggle('dark:text-gray-400', name !== section);
+        });
+        if (section === 'ideas') loadTikTokIdeas();
+        if (section === 'accounts') loadTikTokAccounts();
+        if (section === 'pipeline') loadTikTokVideos(true);
+    }
+
+    async function loadTikTokIdeas() {
+        if (!tiktokIdeasContainer) return;
+        try {
+            const res = await fetch('/api/tiktok/ideas');
+            const data = await res.json();
+            currentTikTokIdeas = Array.isArray(data.items) ? data.items : [];
+            if (!currentTikTokIdeas.length) { tiktokIdeasContainer.innerHTML = '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No rough ideas yet. Add one above.</div>'; return; }
+            tiktokIdeasContainer.innerHTML = currentTikTokIdeas.map(item => `<article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="flex flex-col gap-3 md:flex-row md:justify-between"><div><h3 class="font-semibold dark:text-white">${escapeHtml(item.title)}</h3>${item.hook ? `<p class="text-sm text-gray-600 dark:text-gray-300 mt-2"><span class="font-medium">Hook:</span> ${escapeHtml(item.hook)}</p>` : ''}${item.coreIdea ? `<p class="text-sm text-gray-500 dark:text-gray-400 mt-2">${escapeHtml(item.coreIdea)}</p>` : ''}${item.notes ? `<p class="text-xs text-gray-500 dark:text-gray-400 mt-2">${escapeHtml(item.notes)}</p>` : ''}</div><div class="flex gap-2 flex-wrap md:justify-end md:items-start"><button data-tiktok-idea="promote" data-id="${item.id}" class="text-xs bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 rounded-full">Add to pipeline</button><button data-tiktok-idea="edit" data-id="${item.id}" class="text-xs px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/10">Edit</button><button data-tiktok-idea="delete" data-id="${item.id}" class="text-xs px-3 py-1.5 rounded-full border border-red-200 text-red-600">Delete</button></div></div></article>`).join('');
+            tiktokIdeasContainer.querySelectorAll('[data-tiktok-idea]').forEach(button => button.addEventListener('click', () => handleTikTokIdea(button.dataset.tiktokIdea, button.dataset.id)));
+        } catch (error) { console.error(error); tiktokIdeasContainer.innerHTML = '<div class="text-red-500 p-5">TikTok ideas failed to load.</div>'; }
+    }
+
+    async function handleTikTokIdea(action, id) {
+        const item = currentTikTokIdeas.find(idea => idea.id === id);
+        if (!item) return;
+        if (action === 'promote') {
+            const res = await fetch(`/api/tiktok/ideas/${encodeURIComponent(id)}/promote`, { method: 'POST' });
+            if (!res.ok) { const data = await res.json().catch(() => ({})); return alert(data.error || 'Could not add this idea to the pipeline.'); }
+            alert('Added to the TikTok pipeline. The original stays in Ideas.');
+            return loadTikTokVideos(true);
+        }
+        if (action === 'delete') { if (!confirm(`Delete this TikTok idea?\n\n${item.title}`)) return; await fetch(`/api/tiktok/ideas/${encodeURIComponent(id)}`, { method: 'DELETE' }); return loadTikTokIdeas(); }
+        const title = prompt('Video title / angle', item.title); if (title === null) return;
+        const hook = prompt('First-frame hook', item.hook || ''); if (hook === null) return;
+        const coreIdea = prompt('Core idea', item.coreIdea || ''); if (coreIdea === null) return;
+        const notes = prompt('Notes / CTA', item.notes || ''); if (notes === null) return;
+        const res = await fetch(`/api/tiktok/ideas/${encodeURIComponent(id)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title, hook, coreIdea, notes, inspo: item.inspo || '' }) });
+        if (!res.ok) return alert('Could not update the TikTok idea.');
+        loadTikTokIdeas();
+    }
+
+    tiktokIdeaForm?.addEventListener('submit', async event => {
+        event.preventDefault(); const form = new FormData(event.currentTarget);
+        const res = await fetch('/api/tiktok/ideas', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(form.entries())) });
+        if (!res.ok) return alert('Could not save the TikTok idea.');
+        event.currentTarget.reset(); loadTikTokIdeas();
+    });
+
+    async function loadTikTokAccounts() {
+        if (!tiktokAccountsContainer) return;
+        try {
+            const res = await fetch('/api/tiktok/accounts'); const data = await res.json(); currentTikTokAccounts = Array.isArray(data.items) ? data.items : [];
+            if (!currentTikTokAccounts.length) { tiktokAccountsContainer.innerHTML = '<div class="md:col-span-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No inspiration accounts saved yet.</div>'; return; }
+            tiktokAccountsContainer.innerHTML = currentTikTokAccounts.map(item => `<article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="flex justify-between gap-3"><div><h3 class="font-semibold dark:text-white">${item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener" class="hover:underline">${escapeHtml(item.handle)}</a>` : escapeHtml(item.handle)}</h3>${item.niche ? `<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${escapeHtml(item.niche)}</p>` : ''}${item.notes ? `<p class="text-xs text-gray-500 dark:text-gray-400 mt-2">${escapeHtml(item.notes)}</p>` : ''}</div><div class="flex gap-2"><button data-tiktok-account="edit" data-id="${item.id}" class="text-xs px-2 py-1 border border-gray-200 dark:border-white/10 rounded">Edit</button><button data-tiktok-account="delete" data-id="${item.id}" class="text-xs px-2 py-1 border border-red-200 text-red-600 rounded">Delete</button></div></div></article>`).join('');
+            tiktokAccountsContainer.querySelectorAll('[data-tiktok-account]').forEach(button => button.addEventListener('click', () => handleTikTokAccount(button.dataset.tiktokAccount, button.dataset.id)));
+        } catch (error) { console.error(error); tiktokAccountsContainer.innerHTML = '<div class="text-red-500 p-5">TikTok accounts failed to load.</div>'; }
+    }
+
+    async function handleTikTokAccount(action, id) {
+        const item = currentTikTokAccounts.find(account => account.id === id); if (!item) return;
+        if (action === 'delete') { if (!confirm(`Delete ${item.handle}?`)) return; await fetch(`/api/tiktok/accounts/${encodeURIComponent(id)}`, { method: 'DELETE' }); return loadTikTokAccounts(); }
+        const handle = prompt('TikTok handle', item.handle); if (handle === null) return;
+        const url = prompt('Profile URL', item.url || ''); if (url === null) return;
+        const niche = prompt('Why follow / niche', item.niche || ''); if (niche === null) return;
+        const notes = prompt('Notes', item.notes || ''); if (notes === null) return;
+        const res = await fetch(`/api/tiktok/accounts/${encodeURIComponent(id)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ handle, url, niche, notes }) });
+        if (!res.ok) return alert('Could not update the account.'); loadTikTokAccounts();
+    }
+
+    tiktokAccountForm?.addEventListener('submit', async event => {
+        event.preventDefault(); const res = await fetch('/api/tiktok/accounts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(event.currentTarget).entries())) });
+        if (!res.ok) return alert('Could not save the TikTok account.'); event.currentTarget.reset(); loadTikTokAccounts();
+    });
+    document.querySelectorAll('[data-tiktok-section]').forEach(tab => tab.addEventListener('click', () => setTikTokSection(tab.dataset.tiktokSection)));
+
     async function loadYouTubePageAnalytics(silent = false) {
         if (!youtubePageAnalyticsTable) return;
         if (youtubePageRefreshAnalyticsBtn && !silent) youtubePageRefreshAnalyticsBtn.innerText = 'Loading...';
