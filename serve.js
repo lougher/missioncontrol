@@ -3581,13 +3581,23 @@ function handleTikTokIdeas(req, res) {
     const target = items.find(item => item.id === id);
     if (!target) { res.writeHead(404, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ success: false, error: 'Idea not found' })); }
     if (action === 'promote' && req.method === 'POST') {
-        ensureTikTokVideosFile();
-        const existing = readCsvObjects(TIKTOK_VIDEOS_CSV);
-        if (existing.items.some(row => normaliseTitle(row['Video Title']) === normaliseTitle(target.title))) { res.writeHead(409, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ success: false, error: 'This idea is already in the pipeline' })); }
-        const row = { 'Video Title': target.title, Script: target.script, 'Visual Elements': target.visualElements, Status: 'Idea' };
-        writeCsvObjects(TIKTOK_VIDEOS_CSV, existing.headers, [...existing.items, row]);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({ success: true, row }));
+        try {
+            ensureTikTokVideosFile();
+            const existing = readCsvObjects(TIKTOK_VIDEOS_CSV);
+            const matchingRow = existing.items.find(row => normaliseTitle(row['Video Title']) === normaliseTitle(target.title));
+            if (matchingRow && (matchingRow.Script !== target.script || matchingRow['Visual Elements'] !== target.visualElements)) {
+                res.writeHead(409, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({ success: false, error: 'A video with this title is already in the pipeline with different content' }));
+            }
+            const row = matchingRow || { 'Video Title': target.title, Script: target.script, 'Visual Elements': target.visualElements, Status: 'Idea' };
+            if (!matchingRow) writeCsvObjects(TIKTOK_VIDEOS_CSV, existing.headers, [...existing.items, row]);
+            fs.writeFileSync(TIKTOK_IDEAS_FILE, JSON.stringify({ items: items.filter(item => item.id !== id) }, null, 2) + '\n');
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ success: true, row }));
+        } catch (error) {
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ success: false, error: 'Could not move this idea to the pipeline' }));
+        }
     }
     if ((req.method === 'PUT' || req.method === 'POST') && !action) return readBody(req, body => {
         try {

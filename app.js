@@ -2912,7 +2912,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (action === 'promote') {
             const res = await fetch(`/api/tiktok/ideas/${encodeURIComponent(id)}/promote`, { method: 'POST' });
             if (!res.ok) { const data = await res.json().catch(() => ({})); return alert(data.error || 'Could not add this idea to the pipeline.'); }
-            alert('Added to the TikTok pipeline. The original stays in Ideas.');
+            await loadTikTokIdeas();
             return loadTikTokVideos(true);
         }
         if (action === 'delete') { if (!confirm(`Delete this TikTok idea?\n\n${item.title}`)) return; await fetch(`/api/tiktok/ideas/${encodeURIComponent(id)}`, { method: 'DELETE' }); return loadTikTokIdeas(); }
