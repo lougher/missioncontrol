@@ -2839,12 +2839,15 @@ document.addEventListener("DOMContentLoaded", () => {
         tiktokSections.forEach(name => {
             document.getElementById(`tiktok-${name}-section`)?.classList.toggle('hidden', name !== section);
             const tab = document.querySelector(`[data-tiktok-section="${name}"]`);
-            tab?.classList.toggle('border-black', name === section);
-            tab?.classList.toggle('dark:border-white', name === section);
+            tab?.classList.toggle('bg-black', name === section);
+            tab?.classList.toggle('text-white', name === section);
+            tab?.classList.toggle('dark:bg-white', name === section);
+            tab?.classList.toggle('dark:text-black', name === section);
             tab?.classList.toggle('dark:text-white', name === section);
-            tab?.classList.toggle('border-transparent', name !== section);
             tab?.classList.toggle('text-gray-500', name !== section);
+            tab?.classList.toggle('text-gray-600', name !== section);
             tab?.classList.toggle('dark:text-gray-400', name !== section);
+            tab?.classList.toggle('dark:text-gray-300', name !== section);
         });
         if (section === 'ideas') loadTikTokIdeas();
         if (section === 'accounts') loadTikTokAccounts();
