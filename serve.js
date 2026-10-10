@@ -3520,8 +3520,18 @@ function ensureInstagramReelsFile() {
 }
 
 function ensureTikTokVideosFile() {
-    const headers = ['Video Title', 'Format', 'Core Idea', 'Hook', 'Inspo', 'Production Notes', 'Status'];
-    if (!fs.existsSync(TIKTOK_VIDEOS_CSV)) writeCsvObjects(TIKTOK_VIDEOS_CSV, headers, []);
+    const headers = ['Video Title', 'Script', 'Visual Elements', 'Status'];
+    if (!fs.existsSync(TIKTOK_VIDEOS_CSV)) return writeCsvObjects(TIKTOK_VIDEOS_CSV, headers, []);
+    const existing = readCsvObjects(TIKTOK_VIDEOS_CSV);
+    if (!existing.headers.includes('Script') || !existing.headers.includes('Visual Elements')) {
+        const migrated = existing.items.map(row => ({
+            'Video Title': row['Video Title'] || '',
+            Script: row.Script || row.Hook || row['Core Idea'] || '',
+            'Visual Elements': row['Visual Elements'] || row['Production Notes'] || row.Inspo || '',
+            Status: row.Status || 'Idea'
+        }));
+        writeCsvObjects(TIKTOK_VIDEOS_CSV, headers, migrated);
+    }
 }
 
 function ensureTikTokIdeasFile() {
@@ -3531,14 +3541,12 @@ function ensureTikTokIdeasFile() {
     const migrated = items.map((row, index) => ({
         id: `tiktok-idea-${Date.now()}-${index}`,
         title: String(row['Video Title'] || '').trim(),
-        hook: String(row.Hook || '').trim(),
-        coreIdea: String(row['Core Idea'] || '').trim(),
-        inspo: String(row.Inspo || '').trim(),
-        notes: String(row['Production Notes'] || '').trim(),
+        script: String(row.Script || '').trim(),
+        visualElements: String(row['Visual Elements'] || '').trim(),
         createdAt: new Date().toISOString()
     })).filter(item => item.title);
     fs.writeFileSync(TIKTOK_IDEAS_FILE, JSON.stringify({ items: migrated }, null, 2) + '\n');
-    if (migrated.length) writeCsvObjects(TIKTOK_VIDEOS_CSV, ['Video Title', 'Format', 'Core Idea', 'Hook', 'Inspo', 'Production Notes', 'Status'], []);
+    if (migrated.length) writeCsvObjects(TIKTOK_VIDEOS_CSV, ['Video Title', 'Script', 'Visual Elements', 'Status'], []);
 }
 
 function writeTikTokCollection(res, filePath, items, payload = {}) {
@@ -3563,7 +3571,7 @@ function handleTikTokIdeas(req, res) {
         try {
             const incoming = JSON.parse(body || '{}');
             const data = readJsonFile(TIKTOK_IDEAS_FILE, { items: [] });
-            const item = { id: `tiktok-idea-${Date.now()}`, title: String(incoming.title || '').trim(), hook: String(incoming.hook || '').trim(), coreIdea: String(incoming.coreIdea || '').trim(), inspo: String(incoming.inspo || '').trim(), notes: String(incoming.notes || '').trim(), createdAt: new Date().toISOString() };
+            const item = { id: `tiktok-idea-${Date.now()}`, title: String(incoming.title || '').trim(), script: String(incoming.script || '').trim(), visualElements: String(incoming.visualElements || '').trim(), createdAt: new Date().toISOString() };
             if (!item.title) throw new Error('Title is required');
             writeTikTokCollection(res, TIKTOK_IDEAS_FILE, [item, ...(data.items || [])], { item });
         } catch (error) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ success: false, error: error.message || 'Invalid JSON' })); }
@@ -3576,7 +3584,7 @@ function handleTikTokIdeas(req, res) {
         ensureTikTokVideosFile();
         const existing = readCsvObjects(TIKTOK_VIDEOS_CSV);
         if (existing.items.some(row => normaliseTitle(row['Video Title']) === normaliseTitle(target.title))) { res.writeHead(409, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ success: false, error: 'This idea is already in the pipeline' })); }
-        const row = { 'Video Title': target.title, Hook: target.hook, 'Core Idea': target.coreIdea, Inspo: target.inspo, 'Production Notes': target.notes, Status: 'Idea' };
+        const row = { 'Video Title': target.title, Script: target.script, 'Visual Elements': target.visualElements, Status: 'Idea' };
         writeCsvObjects(TIKTOK_VIDEOS_CSV, existing.headers, [...existing.items, row]);
         res.writeHead(200, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ success: true, row }));
@@ -3584,7 +3592,7 @@ function handleTikTokIdeas(req, res) {
     if ((req.method === 'PUT' || req.method === 'POST') && !action) return readBody(req, body => {
         try {
             const incoming = JSON.parse(body || '{}');
-            target.title = String(incoming.title || '').trim(); target.hook = String(incoming.hook || '').trim(); target.coreIdea = String(incoming.coreIdea || '').trim(); target.inspo = String(incoming.inspo || '').trim(); target.notes = String(incoming.notes || '').trim(); target.updatedAt = new Date().toISOString();
+            target.title = String(incoming.title || '').trim(); target.script = String(incoming.script || '').trim(); target.visualElements = String(incoming.visualElements || '').trim(); target.updatedAt = new Date().toISOString();
             if (!target.title) throw new Error('Title is required');
             writeTikTokCollection(res, TIKTOK_IDEAS_FILE, items, { item: target });
         } catch (error) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ success: false, error: error.message || 'Invalid JSON' })); }

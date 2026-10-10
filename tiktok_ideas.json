@@ -1,184 +1,24 @@
 {
   "items": [
-    {
-      "id": "tiktok-idea-1791614152429-0",
-      "title": "Not every landlord should switch to Airbnb",
-      "hook": "Before you put your rental on Airbnb, ask yourself these three questions.",
-      "coreIdea": "An honest filter for property type, location, availability and appetite for short-term letting. Builds trust by explaining when a traditional let may be the better fit.",
-      "inspo": "",
-      "notes": "Belief: Lougher & Co advises on suitability, not just selling management. CTA: DM \"SUITABLE\" for a property suitability checklist.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-1",
-      "title": "The Airbnb income number that can mislead landlords",
-      "hook": "A higher nightly rate does not automatically mean more profit.",
-      "coreIdea": "Explain that revenue must be weighed against occupancy, cleaning, utilities, maintenance, platform fees and management time.",
-      "inspo": "",
-      "notes": "Belief: proper comparison is net outcome and effort, not a screenshot of nightly price. CTA: save this before comparing options.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-2",
-      "title": "Can a normal two-bed flat work on Airbnb?",
-      "hook": "You do not need a penthouse for Airbnb to work, but you do need these things.",
-      "coreIdea": "Walk through location demand, sleeping layout, building rules, local permissions and guest appeal.",
-      "inspo": "",
-      "notes": "Belief: suitability is assessed systematically. CTA: comment \"2 BED\" for a checklist.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-3",
-      "title": "What actually happens when a guest locks themselves out at 11pm",
-      "hook": "This is the part of Airbnb nobody mentions when they say, “I will manage it myself.”",
-      "coreIdea": "Explain the operational response: guest communication, access procedures, escalation and protecting the review.",
-      "inspo": "",
-      "notes": "Objection: self-management is easy. CTA: ask landlords which task they least want at night.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-4",
-      "title": "The “guests will trash my property” objection",
-      "hook": "The biggest fear landlords have about Airbnb is usually damage. Here is how good operators reduce the risk.",
-      "coreIdea": "Cover screening, house rules, deposits or platform protections where applicable, inspections, cleaning checks and fast issue handling.",
-      "inspo": "",
-      "notes": "Belief: risk is managed by systems, not wishful thinking. CTA: DM \"PROTECT\" for a turnover checklist.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-5",
-      "title": "Why a full Airbnb calendar can still be underperforming",
-      "hook": "A fully booked calendar can be a warning sign, not a win.",
-      "coreIdea": "Explain pricing strategy, minimum stays, demand signals and why maximising occupancy is not identical to maximising returns.",
-      "inspo": "",
-      "notes": "Belief: dynamic management matters after listing goes live. CTA: save for your next pricing review.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-6",
-      "title": "The hidden cost of managing Airbnb yourself",
-      "hook": "Most landlords only count the money they might save by self-managing. They forget to price their own time.",
-      "coreIdea": "List guest messages, cleaner coordination, pricing, maintenance, review management and emergency cover.",
-      "inspo": "",
-      "notes": "Objection: management fees are just a cost. CTA: comment \"TIME\" for a self-management task list.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-7",
-      "title": "Traditional let or Airbnb: start with this, not the rent",
-      "hook": "Do not choose between a traditional let and Airbnb based on rent alone.",
-      "coreIdea": "Set out the decision factors: goals, availability, property fit, risk tolerance, building and local rules, and desired involvement.",
-      "inspo": "",
-      "notes": "Belief: the best strategy is property and owner specific. CTA: DM \"COMPARE\" for the decision framework.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-8",
-      "title": "The first 48 hours after a guest checks out",
-      "hook": "A great guest stay is won or lost before the next guest arrives.",
-      "coreIdea": "Show the turnover process: inspections, cleaning standard, linen, supplies, maintenance spotting and listing-quality checks.",
-      "inspo": "",
-      "notes": "Proof/process video. CTA: follow for behind-the-scenes management systems.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-9",
-      "title": "Why “just put it on Airbnb” is bad advice",
-      "hook": "Uploading photos is the easy bit. Operating a short-term rental is the business.",
-      "coreIdea": "Break down pricing, positioning, operations, compliance, guest experience and review compounding.",
-      "inspo": "",
-      "notes": "Belief: management is a system, not merely a listing service. CTA: share with a landlord considering Airbnb.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-10",
-      "title": "Your Airbnb photos are not just decoration",
-      "hook": "The difference between average and great Airbnb photography is not what most landlords think.",
-      "coreIdea": "Explain expectation-setting, showing usable spaces, light, layout, amenities and matching the right guest to the property.",
-      "inspo": "",
-      "notes": "Belief: better presentation reduces mismatch and supports pricing. CTA: comment \"PHOTOS\" for a pre-shoot checklist.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-11",
-      "title": "The question to ask before buying furniture for an Airbnb",
-      "hook": "Before you buy one cushion for an Airbnb, decide who the guest is.",
-      "coreIdea": "Show how guest type drives bed layout, workspace, parking, storage, amenities and furnishing decisions.",
-      "inspo": "",
-      "notes": "Belief: design follows demand, not personal taste. CTA: save before furnishing a property.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-12",
-      "title": "Why reviews are an operating system, not a vanity metric",
-      "hook": "A bad review is rarely just a bad review. It is a clue that a system failed.",
-      "coreIdea": "Show how feedback identifies issues in check-in, cleanliness, communication, maintenance or expectation setting.",
-      "inspo": "",
-      "notes": "Belief: strong operators use reviews to improve the system. CTA: follow for practical hosting insights.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-13",
-      "title": "What Lougher & Co actually manages for a landlord",
-      "hook": "When a landlord says, “What does management actually include?”, this is what we mean.",
-      "coreIdea": "Natural founder-led explanation of the journey from listing setup through pricing, guests, cleaning coordination, maintenance and reporting.",
-      "inspo": "",
-      "notes": "Offer clarity. CTA: DM \"MANAGE\" for a service breakdown.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-14",
-      "title": "The seasonality mistake that catches landlords out",
-      "hook": "The same Airbnb strategy does not work every month of the year.",
-      "coreIdea": "Discuss planning for demand changes, local events, pricing, minimum stays and cash-flow expectations without predicting results.",
-      "inspo": "",
-      "notes": "Objection: Airbnb income is always the same. CTA: save for annual planning.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-15",
-      "title": "Why local knowledge beats generic Airbnb advice",
-      "hook": "A strategy that works in one city can be completely wrong two hours away.",
-      "coreIdea": "Explain local demand drivers, property type, transport, events, local rules and guest profiles.",
-      "inspo": "",
-      "notes": "Belief: management should be tailored, not templated. CTA: ask viewers to comment their area.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-16",
-      "title": "Three signs your rental may be leaving money on the table",
-      "hook": "If your rental has these three signs, it may be worth reviewing the strategy.",
-      "coreIdea": "Use questions about location demand, unused availability, underused rooms or amenities, and owner capacity to operate.",
-      "inspo": "",
-      "notes": "Attention plus qualification. CTA: DM \"REVIEW\" to discuss suitability.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-17",
-      "title": "The Airbnb myth: more bookings always means more money",
-      "hook": "More bookings can mean more work, more turnover and not necessarily a better result.",
-      "coreIdea": "Explain that the target is the right mix of stay length, price, guest fit and operational load.",
-      "inspo": "",
-      "notes": "Belief: optimise the whole model, not one headline metric. CTA: comment \"BOOKINGS\" for a planning template.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-18",
-      "title": "What I would check before turning this long-term let into Airbnb",
-      "hook": "If this were my property, I would check these five things before changing strategy.",
-      "coreIdea": "A founder walkthrough framework: permissions, demand, numbers, layout, operations and fallback plan.",
-      "inspo": "",
-      "notes": "Authority through decision-making. CTA: save this for a property review.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    },
-    {
-      "id": "tiktok-idea-1791614152429-19",
-      "title": "The landlord freedom test",
-      "hook": "If your Airbnb needs you to answer messages all day, you have not built freedom. You have built another job.",
-      "coreIdea": "Tie the promise of management to systems, handovers, clear communication and accountability.",
-      "inspo": "",
-      "notes": "Belief: landlords pay for implementation and operational certainty, not information. CTA: DM \"FREEDOM\" for a management conversation.",
-      "createdAt": "2026-10-10T06:35:52.429Z"
-    }
+    {"id":"tiktok-idea-1","title":"Not every landlord should switch to Airbnb","script":"Not every landlord should put their property on Airbnb. Ask three things: is there genuine local demand, do the lease and rules allow it, and do you want the work involved? If one answer is no, a traditional let may be better. Airbnb is a business model, not a magic upgrade. Save this before switching.","visualElements":"Close-up talking head outside a rental. On-screen title: ‘Not every landlord should switch to Airbnb’. Cut to three numbered cards: Demand, Rules, Operations. End on a calm exterior shot.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-2","title":"The Airbnb income number that misleads landlords","script":"A high nightly rate can be the most misleading number in Airbnb. £180 a night is not automatically better than £120. You must account for occupancy, cleaning, utilities, maintenance, fees and your time. Compare the net outcome after the property has actually been run, not one impressive screenshot.","visualElements":"Talking head with title: ‘£180 a night can still be a bad deal’. Overlay a simple calculator: rate minus occupancy, cleaning, utilities and fees. Use B-roll of cleaning and a guest-ready room.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-3","title":"Can a normal two-bed flat work on Airbnb?","script":"You do not need a penthouse for Airbnb to work. A normal two-bed can be great, but it needs real demand, a useful layout, clear building rules and something that suits the guest. The answer is in the demand and the detail, not whether it looks like a five-star hotel.","visualElements":"Film in a tidy two-bed flat. Title: ‘Can a normal 2-bed work on Airbnb?’ Show bedroom, desk, parking or transport, and building exterior. Overlay: Demand, Layout, Rules, Guest fit.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-4","title":"What happens when a guest locks themselves out at 11pm","script":"This is what people forget when they say, ‘I’ll just manage it myself.’ A guest locks themselves out at 11pm. You need to reply quickly, restore access, know who can help if the lock fails, and still protect the guest experience. Without a system, one late-night problem becomes a bad review.","visualElements":"Start at a front door in low light, holding a phone. Title: ‘Guest locked out at 11pm’. Show a blurred mock message, keypad and three overlays: Reply, Restore access, Escalate.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-5","title":"How good operators reduce the risk of guest damage","script":"The biggest Airbnb fear is usually damage. No property is zero-risk, but good operators do not rely on hope. They use clear rules, sensible guest screening, documented checks, high cleaning standards and fast action. The point is not eliminating every problem. It is catching problems early.","visualElements":"Talking head in a living room. Title: ‘Guests will trash my property?’ Cut to house rules, a cleaner checklist, inspection photos and a room check. Finish on a clean wide property shot.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-6","title":"Why a full Airbnb calendar can still underperform","script":"A fully booked Airbnb calendar can be a warning sign. If every night is taken at too cheap a rate, you may be leaving money on the table. The goal is the right mix of price, stay length, guest type and workload. A busy calendar looks great. A commercially sensible one is better.","visualElements":"Open on a generic full calendar on a phone. Title: ‘Fully booked can be a warning sign’. Use a simple graphic: Cheap and full versus right price and profitable. Show linen turnover B-roll.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-7","title":"The hidden cost of managing Airbnb yourself","script":"Most landlords only calculate what they might save by self-managing. They do not calculate the work: messages, cleaners, pricing, check-ins, maintenance, reviews and holiday emergencies. You can self-manage, but price your time honestly. If it needs you available all day, it is not passive income. It is another job.","visualElements":"Phil at a desk. Title: ‘The hidden cost of self-managing’. Rapid B-roll of phone notifications, cleaning rota, laptop calendar, keys and a maintenance call. End by closing the laptop.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-8","title":"Traditional let or Airbnb? Start with this","script":"Do not choose between a traditional let and Airbnb based on rent alone. Start with your goals, the rules, local demand, running costs and how involved you want to be. For some landlords, a long-term let is right. For others, short stays fit better. The property should decide the strategy, not a TikTok video.","visualElements":"Split screen labelled Traditional let and Airbnb, with Phil in the middle. Add five text overlays: Goals, Rules, Demand, Costs, Time. Cut between exterior and guest-ready interior.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-9","title":"The first 48 hours after a guest checks out","script":"A great Airbnb stay is often won before the next guest arrives. We are not just changing sheets. We inspect, spot maintenance issues, restock essentials, check the clean and make sure the next guest walks into what they expected. Turnover is the system that protects the review, property and next booking.","visualElements":"Open a property door after checkout. Use B-roll of inspection checklist, making beds, restocking coffee, checking light bulbs and final room photos. Title: ‘What happens after checkout?’","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-10","title":"Why ‘just put it on Airbnb’ is bad advice","script":"‘Just put it on Airbnb’ is bad advice. Uploading photos is easy. The real work is market research, pricing, preparing the property, handling guests, cleaning, maintenance and standards. A listing is not a business model. The operation behind it is what makes it work.","visualElements":"Start tapping Publish on a mock listing. Title: ‘Uploading is the easy bit’. Fast cuts: pricing calendar, photographer, linen, guest message and maintenance kit. End talking head: ‘The operation is the business.’","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-11","title":"What great Airbnb photos actually do","script":"Great Airbnb photos are not decoration. They set expectations: layout, light, workspace, sleep, parking and the real experience. When photos tell the truth well, you attract the right guests and avoid disappointed ones. The best photos do not make a tiny room look huge. They make the right guest feel confident.","visualElements":"Phone with a listing photo grid. Title: ‘Photos are not decoration’. Show photographer framing rooms, then finished photos full-screen. B-roll of desk, bed, parking and local view.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-12","title":"The question to ask before furnishing an Airbnb","script":"Before you buy one cushion, decide who the guest is. Contractors, families, couples and business travellers need different things. The guest should drive beds, workspace, storage, dining and the welcome pack. Furnishing for your own taste is expensive. Furnishing for demand is a strategy.","visualElements":"Film in a property or furniture shop. Title: ‘Before you buy furniture…’. Show four overlays: Contractor, Family, Couple, Business traveller. Cut to workspace, twin beds, storage and dining table.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-13","title":"Why Airbnb reviews are an operating system","script":"A bad Airbnb review is rarely just a bad review. It is usually a clue. Maybe check-in was confusing, the clean was not good enough or a small maintenance issue was missed. Good operators ask what part of the system allowed that experience, then fix it before the next guest.","visualElements":"Talking head with a blurred one-star review behind him. Title: ‘A bad review is a system failure’. Overlay: Check-in, Clean, Maintenance, Expectations. Show a checklist being updated.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-14","title":"What Lougher & Co actually manages","script":"When a landlord asks what Airbnb management includes, here is the short version. We help assess the property, set it up properly, manage pricing, handle guests, coordinate cleaning and maintenance, and protect the small details that drive reviews. You own the property. We run the operation, so it does not take over your life.","visualElements":"Talk to camera in a polished property. Title: ‘What we actually manage’. Use a five-stage timeline with B-roll: Assess, Set up, Price, Guests, Operations. Finish on the property exterior with subtle branding.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-15","title":"The seasonality mistake landlords make","script":"The same Airbnb strategy does not work every month. Demand changes with events, holidays, business travel and the market. If you use the same price and expectations all year, you are managing on autopilot. Good short-stay management means planning ahead, not panicking when the calendar changes. Airbnb is not a fixed monthly number.","visualElements":"Calendar changing from summer to winter. Title: ‘Airbnb is not the same every month’. Show Phil reviewing a blurred pricing calendar, seasonal local B-roll and overlays: Plan, Price, Adapt.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-16","title":"Why local knowledge beats generic Airbnb advice","script":"Generic Airbnb advice can be dangerously confident. What works in one city can be wrong two hours away. Demand might come from hospitals, contractors, events, universities or tourism. The right property, guest and price depend on what is actually happening around it. Before copying someone else’s model, understand your own postcode.","visualElements":"Film outside a recognisable local landmark or using a local map. Title: ‘Your postcode changes the strategy’. Add map pins for transport, hospital, city centre, venue and business park.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-17","title":"Three signs your rental may need a strategy review","script":"Your rental may be worth a strategy review if it is in an area with short-stay demand, has features guests value like parking or a workspace, and you have flexibility in how it is let and managed. That does not mean Airbnb is automatically right. It means you should review the numbers rather than assume the current setup is best.","visualElements":"Title: ‘3 signs your rental needs a review’. Phil counts three points on fingers. Use B-roll of parking, workspace, extra bedroom and transport. End text: ‘Review numbers, not assumptions.’","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-18","title":"More bookings does not always mean more money","script":"More bookings does not always mean more money. Ten one-night stays can mean more cleaning, more check-ins, more issues and more workload than two well-priced longer stays. The target is not simply full occupancy. It is the right mix of revenue, guest fit and work for that property.","visualElements":"Whiteboard or phone note: ‘10 one-night stays’ versus ‘2 longer stays’. Title: ‘More bookings ≠ more money’. Show rapid turnover B-roll, then a calm guest-ready room. Keep a small footer: ‘It depends on the property.’","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-19","title":"What I would check before switching a long-term let to Airbnb","script":"If this was my long-term rental, I would check five things before moving it to Airbnb: permissions and lease, genuine demand, honest numbers after every cost, whether the layout works for the guest, and who runs it when something goes wrong. If you cannot answer all five, do not rush the switch.","visualElements":"Walking property tour. Title: ‘Check these 5 things first’. Match numbered overlays with lease paperwork, map, calculator, bedroom layout, phone and keys. End at the front door with a save prompt.","createdAt":"2026-10-10T10:00:00.000Z"},
+    {"id":"tiktok-idea-20","title":"The landlord freedom test","script":"Here is the landlord freedom test. If your Airbnb needs you answering messages all day, coordinating cleaners, changing prices at night and fixing problems on holiday, you have built another job. Good management is not just tasks being done. It is a system, accountability and a good guest experience when you are not thinking about the property.","visualElements":"Close talking head. Title: ‘Freedom or another job?’ Cut between notifications, cleaning calendar and suitcase. Then switch to calm B-roll of a guest-ready property and operations checklist. End with Phil walking away from the property.","createdAt":"2026-10-10T10:00:00.000Z"}
   ]
 }
