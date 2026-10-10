@@ -20,6 +20,8 @@ const INSTAGRAM_REELS_CSV = path.join(__dirname, 'instagram_reels_pipeline.csv')
 const INSTAGRAM_REELS_PRIORITY_FILE = path.join(__dirname, 'instagram_reels_priorities.json');
 const INSTAGRAM_IDEAS_FILE = path.join(__dirname, 'instagram_ideas.json');
 const INSTAGRAM_ACCOUNTS_FILE = path.join(__dirname, 'instagram_accounts.json');
+const TIKTOK_VIDEOS_CSV = path.join(__dirname, 'tiktok_videos_pipeline.csv');
+const TIKTOK_VIDEOS_PRIORITY_FILE = path.join(__dirname, 'tiktok_videos_priorities.json');
 const YOUTUBE_COMPETITOR_DIR = path.join(YOUTUBE_REFERENCES_DIR, 'Competitor_Analysis');
 const YOUTUBE_COMPETITORS_DIR = path.join(YOUTUBE_REFERENCES_DIR, 'Competitors');
 const YOUTUBE_COMPETITORS_FILE = path.join(YOUTUBE_COMPETITORS_DIR, 'competitors.json');
@@ -1747,6 +1749,28 @@ const server = http.createServer((req, res) => {
         }));
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ reels }));
+    } else if (req.url === '/api/tiktok/videos/add' && req.method === 'POST') {
+        ensureTikTokVideosFile();
+        handleCsvAddPost(req, res, TIKTOK_VIDEOS_CSV, TIKTOK_VIDEOS_PRIORITY_FILE);
+    } else if (req.url === '/api/tiktok/videos/update' && req.method === 'POST') {
+        ensureTikTokVideosFile();
+        handleCsvUpdatePost(req, res, TIKTOK_VIDEOS_CSV, TIKTOK_VIDEOS_PRIORITY_FILE);
+    } else if (req.url === '/api/tiktok/videos/status' && req.method === 'POST') {
+        ensureTikTokVideosFile();
+        handleCsvStatusPost(req, res, TIKTOK_VIDEOS_CSV);
+    } else if (req.url === '/api/tiktok/videos/delete' && req.method === 'POST') {
+        ensureTikTokVideosFile();
+        handleCsvDeletePost(req, res, TIKTOK_VIDEOS_CSV);
+    } else if (req.url === '/api/tiktok/videos/priority' && req.method === 'POST') {
+        handlePriorityPost(req, res, TIKTOK_VIDEOS_PRIORITY_FILE);
+    } else if (req.url === '/api/tiktok/videos') {
+        ensureTikTokVideosFile();
+        const { items } = readCsvObjects(TIKTOK_VIDEOS_CSV);
+        const priorityAssignments = readJsonFile(TIKTOK_VIDEOS_PRIORITY_FILE, { assignments: {} }).assignments || {};
+        const slotByTitle = new Map(Object.entries(priorityAssignments).map(([slot, key]) => [key, slot]));
+        const videos = items.map(item => ({ ...item, prioritySlot: slotByTitle.get(normaliseTitle(item['Video Title'])) || '' }));
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ videos }));
     } else if (req.url === '/api/instagram/ideas') {
         if (req.method === 'GET') {
             const ideas = readJsonFile(INSTAGRAM_IDEAS_FILE, { items: [] });
@@ -3478,6 +3502,11 @@ function ensureInstagramReelsFile() {
         return;
     }
     writeCsvObjects(INSTAGRAM_REELS_CSV, headers, []);
+}
+
+function ensureTikTokVideosFile() {
+    const headers = ['Video Title', 'Format', 'Core Idea', 'Hook', 'Inspo', 'Production Notes', 'Status'];
+    if (!fs.existsSync(TIKTOK_VIDEOS_CSV)) writeCsvObjects(TIKTOK_VIDEOS_CSV, headers, []);
 }
 
 function handleCsvAddPost(req, res, filePath, priorityFile = null, maxPrioritySlot = 3) {

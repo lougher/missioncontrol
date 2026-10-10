@@ -141,6 +141,10 @@
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" ry="5" stroke-width="2"></rect><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.5 7.5h.01M8 12a4 4 0 108 0 4 4 0 00-8 0z"></path></svg>
                 <span class="sidebar-text text-sm whitespace-nowrap">Instagram</span>
             </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-tiktok" title="TikTok">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4v9.5a3.5 3.5 0 1 1-2-3.16V7.5c1.2 1.4 2.8 2.25 5 2.5V7c-1.42-.2-2.5-1.3-3-3Z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">TikTok</span>
+            </a>
         </nav>
 
         <!-- Bottom Toggles (Sidebar & Theme) -->
@@ -2135,6 +2139,18 @@
                     <!-- Populated by JS -->
                 </div>
             </section>
+        </div>
+
+        <!-- ================= VIEW: TIKTOK ================= -->
+        <div id="view-tiktok" class="view-section max-w-5xl w-full mx-auto px-8 py-12 hidden">
+            <header class="mb-10 flex justify-between items-end"><div><h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">TikTok</h1><p class="text-sm text-gray-500 dark:text-gray-400">Plan TikTok video ideas from a rough hook through publishing and review.</p></div><button id="refresh-tiktok-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">Refresh Data</button></header>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Total Ideas</h3></div><div class="p-5"><div id="tt-total" class="text-3xl font-semibold tracking-tight dark:text-white">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">All ideas in the pipeline.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">In Progress</h3></div><div class="p-5"><div id="tt-progress" class="text-3xl font-semibold tracking-tight dark:text-white">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Being filmed, edited, or scheduled.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Published</h3></div><div class="p-5"><div id="tt-published" class="text-3xl font-semibold tracking-tight dark:text-white">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Videos already posted.</div></div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden"><div class="px-5 py-3 border-b border-gray-200 dark:border-white/10 bg-white/60 dark:bg-[#171717]/60"><h3 class="text-sm font-semibold dark:text-white">Completion</h3></div><div class="p-5"><div id="tt-completion" class="text-3xl font-semibold tracking-tight dark:text-white">0%</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Share published.</div></div></div>
+            </div>
+            <section><div class="flex flex-col gap-4 mb-4 lg:flex-row lg:items-center lg:justify-between"><div><h2 class="text-lg font-medium tracking-tight dark:text-white">TikTok Video Planner</h2><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Capture a strong hook, core idea, inspiration, and production notes.</div></div><button type="button" id="tiktok-add-video-btn" class="text-xs bg-black text-white dark:bg-white dark:text-black px-3 py-2 rounded-full hover:opacity-85 transition-opacity w-fit">+ Add TikTok Idea</button></div><div id="tiktok-videos-container" class="space-y-4"></div></section>
         </div>
 
     </main>

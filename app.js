@@ -2748,6 +2748,84 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
     };
 
+    // === TikTok video planner ===
+    const tiktokVideosContainer = document.getElementById('tiktok-videos-container');
+    const refreshTikTokBtn = document.getElementById('refresh-tiktok-btn');
+    const tiktokAddVideoBtn = document.getElementById('tiktok-add-video-btn');
+    const tiktokMetric = (id) => document.getElementById(id);
+    let currentTikTokVideos = [];
+    const tiktokDone = (status) => ['published', 'done'].includes(String(status || '').trim().toLowerCase());
+    const tiktokActive = (status) => ['ready to film', 'filmed', 'editing', 'scheduled'].includes(String(status || '').trim().toLowerCase());
+
+    async function loadTikTokVideos(silent = false) {
+        if (!tiktokVideosContainer) return;
+        if (!silent && refreshTikTokBtn) refreshTikTokBtn.innerText = 'Loading...';
+        try {
+            const res = await fetch('/api/tiktok/videos');
+            if (!res.ok) throw new Error(`TikTok request failed: ${res.status}`);
+            const data = await res.json();
+            currentTikTokVideos = Array.isArray(data.videos) ? data.videos : [];
+            const published = currentTikTokVideos.filter(video => tiktokDone(video.Status)).length;
+            const active = currentTikTokVideos.filter(video => tiktokActive(video.Status)).length;
+            if (tiktokMetric('tt-total')) tiktokMetric('tt-total').innerText = currentTikTokVideos.length;
+            if (tiktokMetric('tt-progress')) tiktokMetric('tt-progress').innerText = active;
+            if (tiktokMetric('tt-published')) tiktokMetric('tt-published').innerText = published;
+            if (tiktokMetric('tt-completion')) tiktokMetric('tt-completion').innerText = `${currentTikTokVideos.length ? Math.round((published / currentTikTokVideos.length) * 100) : 0}%`;
+            if (!currentTikTokVideos.length) {
+                tiktokVideosContainer.innerHTML = '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No TikTok ideas yet. Add the first one above.</div>';
+                return;
+            }
+            tiktokVideosContainer.innerHTML = [...currentTikTokVideos].reverse().map((video, index) => {
+                const title = escapeHtml(video['Video Title'] || 'Untitled TikTok');
+                const status = String(video.Status || 'Idea');
+                const done = tiktokDone(status);
+                const statusClass = done ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300' : tiktokActive(status) ? 'bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300' : 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-400';
+                return `<article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden ${done ? 'opacity-75' : ''}"><div class="px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3"><div class="min-w-0"><h3 class="text-lg font-semibold dark:text-white ${done ? 'line-through text-gray-400 dark:text-gray-500' : ''}">${title}</h3><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${escapeHtml(video.Hook || video['Core Idea'] || 'No hook or core idea set yet.')}</p></div><div class="flex items-center gap-2 flex-wrap md:justify-end"><span class="text-xs px-2.5 py-1 rounded-full ${statusClass}">${escapeHtml(status)}</span><button data-tiktok-action="status" data-title="${title}" class="text-xs px-2.5 py-1 rounded-full border border-gray-200 dark:border-white/10 hover:bg-gray-100 dark:hover:bg-white/10">${done ? 'Mark as Idea' : 'Mark as Done'}</button><button data-tiktok-action="edit" data-title="${title}" class="text-xs px-2.5 py-1 rounded-full border border-gray-200 dark:border-white/10 hover:bg-gray-100 dark:hover:bg-white/10">Edit</button><button data-tiktok-action="delete" data-title="${title}" class="text-xs px-2.5 py-1 rounded-full border border-red-200 text-red-600 hover:bg-red-50 dark:border-red-500/20 dark:text-red-300">Delete</button></div></div></article>`;
+            }).join('');
+            tiktokVideosContainer.querySelectorAll('[data-tiktok-action]').forEach(button => button.addEventListener('click', () => handleTikTokAction(button.dataset.tiktokAction, button.dataset.title)));
+        } catch (err) {
+            console.error(err);
+            tiktokVideosContainer.innerHTML = '<div class="bg-gray-50 dark:bg-white/5 border border-red-200 dark:border-red-500/20 rounded-lg p-8 text-red-500">TikTok ideas failed to load.</div>';
+        } finally {
+            if (!silent && refreshTikTokBtn) refreshTikTokBtn.innerText = 'Refresh Data';
+        }
+    }
+
+    async function handleTikTokAction(action, title) {
+        const video = currentTikTokVideos.find(item => item['Video Title'] === title);
+        if (!video) return;
+        if (action === 'delete') {
+            if (!confirm(`Permanently delete this TikTok idea?\n\n${title}`)) return;
+            await fetch('/api/tiktok/videos/delete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title }) });
+        } else if (action === 'status') {
+            await fetch('/api/tiktok/videos/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title, status: tiktokDone(video.Status) ? 'Idea' : 'Done' }) });
+        } else if (action === 'edit') {
+            const newTitle = prompt('TikTok title', video['Video Title'] || '');
+            if (newTitle === null) return;
+            const coreIdea = prompt('Core idea', video['Core Idea'] || '');
+            if (coreIdea === null) return;
+            const hook = prompt('Hook', video.Hook || '');
+            if (hook === null) return;
+            const res = await fetch('/api/tiktok/videos/update', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title, row: { ...video, 'Video Title': newTitle.trim(), 'Core Idea': coreIdea.trim(), Hook: hook.trim() } }) });
+            if (!res.ok) return alert('Could not update the TikTok idea.');
+        }
+        loadTikTokVideos(true);
+    }
+
+    function openTikTokAddModal() {
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4';
+        modal.innerHTML = `<div class="w-full max-w-2xl rounded-2xl bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 shadow-2xl"><form class="p-6 space-y-4"><div class="flex items-start justify-between gap-4 border-b border-gray-200 dark:border-white/10 pb-4"><div><h2 class="text-xl font-semibold dark:text-white">Add TikTok Idea</h2><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Capture the concept while it is fresh.</p></div><button type="button" data-close class="text-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/10">Close</button></div><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Video title *</span><input name="title" required class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white" /></label><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Hook</span><textarea name="hook" rows="3" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white"></textarea></label><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Core idea</span><textarea name="core" rows="4" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white"></textarea></label><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Inspiration / notes</span><textarea name="inspo" rows="3" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white"></textarea></label><div class="flex justify-end gap-2"><button type="button" data-close class="text-sm px-4 py-2 rounded-full border border-gray-200 dark:border-white/10">Cancel</button><button class="text-sm bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-full">Add to planner</button></div></form></div>`;
+        document.body.appendChild(modal);
+        const close = () => modal.remove();
+        modal.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click', close));
+        modal.querySelector('form').addEventListener('submit', async event => { event.preventDefault(); const form = new FormData(event.currentTarget); const res = await fetch('/api/tiktok/videos/add', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ row: { 'Video Title': String(form.get('title') || '').trim(), Hook: String(form.get('hook') || '').trim(), 'Core Idea': String(form.get('core') || '').trim(), Inspo: String(form.get('inspo') || '').trim(), Status: 'Idea' } }) }); if (!res.ok) return alert('Could not add the TikTok idea.'); close(); loadTikTokVideos(true); });
+        modal.querySelector('input[name="title"]')?.focus();
+    }
+
+    refreshTikTokBtn?.addEventListener('click', () => loadTikTokVideos());
+    tiktokAddVideoBtn?.addEventListener('click', openTikTokAddModal);
+
     async function loadYouTubePageAnalytics(silent = false) {
         if (!youtubePageAnalyticsTable) return;
         if (youtubePageRefreshAnalyticsBtn && !silent) youtubePageRefreshAnalyticsBtn.innerText = 'Loading...';
@@ -7602,6 +7680,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (activeView.id === 'view-calendar') loadCalendar(true);
         else if (activeView.id === 'view-youtube') loadYouTubeData(true);
         else if (activeView.id === 'view-instagram') loadInstagramReelsData(true);
+        else if (activeView.id === 'view-tiktok') loadTikTokVideos(true);
         else if (activeView.id === 'view-memory') loadMemoryIndex(true);
         else if (activeView.id === 'view-cron') loadCronJobs(true);
         else if (activeView.id === 'view-news') loadNews(true);
@@ -7649,6 +7728,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadFleet();
     loadYouTubeData();
     loadInstagramReelsData(true);
+    loadTikTokVideos(true);
     loadMemoryIndex(true);
     loadCronJobs();
     loadCalendar(true);
