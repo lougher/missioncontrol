@@ -6367,7 +6367,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? new Date(propertyDealMeta.listings_refreshed_at).toLocaleString('en-GB')
                 : 'Not checked yet';
             const summary = propertyDealMeta.listings_refresh_summary || {};
-            propertyRefreshMeta.innerText = `Listing status checked ${refreshed} · ${Number(summary.live || 0)} live · ${Number(summary.sold_stc || 0)} Sold STC · ${Number(summary.under_offer || 0)} under offer · ${Number(summary.unavailable || 0)} unavailable · ${Number(summary.price_changes || 0)} price changes`;
+            const admissionThreshold = Number(propertyDealMeta.new_deal_min_roi_pct || 0);
+            const admissionRule = admissionThreshold ? ` · New automated deals require recalculated ROI >${admissionThreshold}%` : '';
+            propertyRefreshMeta.innerText = `Listing status checked ${refreshed} · ${Number(summary.live || 0)} live · ${Number(summary.sold_stc || 0)} Sold STC · ${Number(summary.under_offer || 0)} under offer · ${Number(summary.unavailable || 0)} unavailable · ${Number(summary.price_changes || 0)} price changes${admissionRule}`;
         }
 
         const deals = filteredPropertyDeals();

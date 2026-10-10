@@ -2630,6 +2630,9 @@ function syncPropertyDealsFromTracker() {
             }
             continue;
         }
+        const roi = Number(item.analysis?.roi);
+        const eligibleForDashboard = item.eligible_for_dashboard === true && Number.isFinite(roi) && roi > 10;
+        if (!eligibleForDashboard) continue;
         if (key && existingListingKeys.has(key)) continue;
         const deal = {
             id,
@@ -2642,6 +2645,12 @@ function syncPropertyDealsFromTracker() {
             status: 'outstanding',
             reviewed: false,
             reviewed_at: null,
+            admission_source: String(item.admission_source || 'tracker-sync'),
+            analysis: item.analysis && typeof item.analysis === 'object' ? item.analysis : undefined,
+            investment_inputs: item.investment_inputs && typeof item.investment_inputs === 'object' ? item.investment_inputs : undefined,
+            why_hmo_relevant: String(item.why_hmo_relevant || '').trim(),
+            next_due_diligence_question: String(item.next_due_diligence_question || '').trim(),
+            risk_flags: Array.isArray(item.risk_flags) ? item.risk_flags : [],
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         };
