@@ -2846,7 +2846,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tiktokSections = ['pipeline', 'ideas', 'accounts'];
     const tiktokIdeasContainer = document.getElementById('tiktok-ideas-container');
     const tiktokAccountsContainer = document.getElementById('tiktok-accounts-container');
-    const tiktokIdeaForm = document.getElementById('tiktok-idea-form');
+    const tiktokNewIdeaBtn = document.getElementById('tiktok-new-idea-btn');
     const tiktokAccountForm = document.getElementById('tiktok-account-form');
     let currentTikTokIdeas = [];
     let currentTikTokAccounts = [];
@@ -2882,10 +2882,12 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) { console.error(error); tiktokIdeasContainer.innerHTML = '<div class="text-red-500 p-5">TikTok ideas failed to load.</div>'; }
     }
 
-    function openTikTokIdeaEditor(item) {
+    function openTikTokIdeaEditor(item = null) {
+        const isNewIdea = !item;
+        const idea = item || { title: '', hook: '', coreIdea: '', notes: '', inspo: '' };
         const modal = document.createElement('div');
         modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4';
-        modal.innerHTML = `<div class="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 shadow-2xl"><form class="p-6 space-y-4"><div class="flex items-start justify-between gap-4 border-b border-gray-200 dark:border-white/10 pb-4"><div><h2 class="text-xl font-semibold dark:text-white">TikTok idea details</h2><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Review and edit every part of this video idea in one place.</p></div><button type="button" data-close class="text-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/10">Close</button></div><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Video title / angle *</span><input name="title" required value="${escapeHtml(item.title || '')}" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white" /></label><label class="block"><span class="text-xs font-semibold dark:text-gray-300">First-frame hook</span><textarea name="hook" rows="3" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white">${escapeHtml(item.hook || '')}</textarea></label><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Core idea</span><textarea name="coreIdea" rows="5" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white">${escapeHtml(item.coreIdea || '')}</textarea></label><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Notes, CTA or objection to address</span><textarea name="notes" rows="5" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white">${escapeHtml(item.notes || '')}</textarea></label><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Inspiration</span><textarea name="inspo" rows="3" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white">${escapeHtml(item.inspo || '')}</textarea></label><div class="flex justify-end gap-2 pt-2"><button type="button" data-close class="text-sm px-4 py-2 rounded-full border border-gray-200 dark:border-white/10">Cancel</button><button class="text-sm bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-full">Save changes</button></div></form></div>`;
+        modal.innerHTML = `<div class="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 shadow-2xl"><form class="p-6 space-y-4"><div class="flex items-start justify-between gap-4 border-b border-gray-200 dark:border-white/10 pb-4"><div><h2 class="text-xl font-semibold dark:text-white">${isNewIdea ? 'New TikTok idea' : 'TikTok idea details'}</h2><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${isNewIdea ? 'Capture the idea while it is fresh.' : 'Review and edit every part of this video idea in one place.'}</p></div><button type="button" data-close class="text-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/10">Close</button></div><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Video title / angle *</span><input name="title" required value="${escapeHtml(idea.title || '')}" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white" /></label><label class="block"><span class="text-xs font-semibold dark:text-gray-300">First-frame hook</span><textarea name="hook" rows="3" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white">${escapeHtml(idea.hook || '')}</textarea></label><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Core idea</span><textarea name="coreIdea" rows="5" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white">${escapeHtml(idea.coreIdea || '')}</textarea></label><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Notes, CTA or objection to address</span><textarea name="notes" rows="5" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white">${escapeHtml(idea.notes || '')}</textarea></label><label class="block"><span class="text-xs font-semibold dark:text-gray-300">Inspiration</span><textarea name="inspo" rows="3" class="mt-1 w-full rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm dark:text-white">${escapeHtml(idea.inspo || '')}</textarea></label><div class="flex justify-end gap-2 pt-2"><button type="button" data-close class="text-sm px-4 py-2 rounded-full border border-gray-200 dark:border-white/10">Cancel</button><button class="text-sm bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-full">${isNewIdea ? 'Create idea' : 'Save changes'}</button></div></form></div>`;
         document.body.appendChild(modal);
         const close = () => modal.remove();
         modal.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click', close));
@@ -2895,8 +2897,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const form = new FormData(event.currentTarget);
             const payload = Object.fromEntries(form.entries());
             if (!String(payload.title || '').trim()) return alert('A video title is required.');
-            const res = await fetch(`/api/tiktok/ideas/${encodeURIComponent(item.id)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-            if (!res.ok) return alert('Could not update the TikTok idea.');
+            const endpoint = isNewIdea ? '/api/tiktok/ideas' : `/api/tiktok/ideas/${encodeURIComponent(item.id)}`;
+            const res = await fetch(endpoint, { method: isNewIdea ? 'POST' : 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            if (!res.ok) return alert(`Could not ${isNewIdea ? 'create' : 'update'} the TikTok idea.`);
             close();
             loadTikTokIdeas();
         });
@@ -2916,12 +2919,7 @@ document.addEventListener("DOMContentLoaded", () => {
         openTikTokIdeaEditor(item);
     }
 
-    tiktokIdeaForm?.addEventListener('submit', async event => {
-        event.preventDefault(); const form = new FormData(event.currentTarget);
-        const res = await fetch('/api/tiktok/ideas', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(form.entries())) });
-        if (!res.ok) return alert('Could not save the TikTok idea.');
-        event.currentTarget.reset(); loadTikTokIdeas();
-    });
+    tiktokNewIdeaBtn?.addEventListener('click', () => openTikTokIdeaEditor());
 
     async function loadTikTokAccounts() {
         if (!tiktokAccountsContainer) return;
