@@ -70,6 +70,7 @@ const LINKEDIN_JOBS_DB_FILE = path.join(__dirname, 'linkedin_jobs_db.json');
 const YTJOBS_DB_FILE = path.join(__dirname, 'ytjobs_jobs.json');
 const YTJOBS_TALENT_FILE = path.join(__dirname, 'ytjobs_talking_head_editor_shortlist.json');
 const AI_JOBS_DB_FILE = path.join(__dirname, 'ai_jobs.json');
+const DJ_GIGS_DB_FILE = path.join(__dirname, 'dj_gigs.json');
 const PROPERTY_DEALS_DB_FILE = path.join(__dirname, 'property_deals.json');
 const PROPERTY_TRACKER_STATE_FILE = path.join(WORKSPACE_DIR, 'property-deals', 'cardiff-hmo-tracker-state.json');
 const OPENRENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'openrent-leads.json');
@@ -199,7 +200,7 @@ function writeJournalSections(doc) {
 const server = http.createServer((req, res) => {
     res.on('error', (err) => console.error('Response error:', err));
     const requestPath = req.url.split('?')[0];
-    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/jobs' || requestPath === '/jobs/ai' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read') {
+    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/jobs' || requestPath === '/jobs/ai' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read' || requestPath === '/djing') {
         serveFile(res, path.join(__dirname, 'index.html'), 'text/html');
     } else if (requestPath === '/styles.css') {
         serveFile(res, path.join(__dirname, 'styles.css'), 'text/css');
@@ -287,6 +288,31 @@ const server = http.createServer((req, res) => {
             } catch (err) {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update AI job status' }));
+            }
+        });
+    } else if (req.url === '/api/dj-gigs') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readDjGigsDb();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/dj-gigs\/[^/]+\/status$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const { status } = JSON.parse(body || '{}');
+                const opportunity = updateDjGigStatus(id, status);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, opportunity }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update DJ opportunity status' }));
             }
         });
     } else if (req.url === '/api/ytjobs-talents') {
@@ -2271,6 +2297,41 @@ function updateAiJobStatus(id, status) {
     job.updated_at = new Date().toISOString();
     writeAiJobsDb(db);
     return job;
+}
+
+function readDjGigsDb() {
+    try {
+        const parsed = JSON.parse(fs.readFileSync(DJ_GIGS_DB_FILE, 'utf8'));
+        return {
+            searched_at: parsed.searched_at || '',
+            selection_note: parsed.selection_note || '',
+            safety_note: parsed.safety_note || '',
+            opportunities: Array.isArray(parsed.opportunities) ? parsed.opportunities : []
+        };
+    } catch {
+        return { searched_at: '', selection_note: '', safety_note: '', opportunities: [] };
+    }
+}
+
+function writeDjGigsDb(db) {
+    fs.writeFileSync(DJ_GIGS_DB_FILE, JSON.stringify({
+        searched_at: db.searched_at || '',
+        selection_note: db.selection_note || '',
+        safety_note: db.safety_note || '',
+        opportunities: Array.isArray(db.opportunities) ? db.opportunities : []
+    }, null, 2) + '\n');
+}
+
+function updateDjGigStatus(id, status) {
+    const allowed = new Set(['new', 'interested', 'contacted', 'booked', 'not_interested']);
+    if (!allowed.has(status)) throw new Error('Invalid DJ opportunity status');
+    const db = readDjGigsDb();
+    const opportunity = db.opportunities.find(item => item.id === id);
+    if (!opportunity) throw new Error('DJ opportunity not found');
+    opportunity.status = status;
+    opportunity.updated_at = new Date().toISOString();
+    writeDjGigsDb(db);
+    return opportunity;
 }
 
 function getYtJobsTalentId(talent) {

@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             else loadYtJobs(true);
         }
         if (targetId === 'view-people') loadPeople(true);
+        if (targetId === 'view-djing') loadDjGigs(true);
         if (targetId === 'view-property') {
             const activePropertyTab = localStorage.getItem('property-tab') || 'openrent';
             if (activePropertyTab === 'gumtree') loadGumtreeLeads(true);
@@ -7212,6 +7213,122 @@ document.addEventListener("DOMContentLoaded", () => {
     [ytJobsTalentSearch, ytJobsTalentLocationFilter, ytJobsTalentStatusFilter, ytJobsTalentSort].forEach(el => el?.addEventListener('input', renderYtJobsTalents));
     [ytJobsTalentLocationFilter, ytJobsTalentStatusFilter, ytJobsTalentSort].forEach(el => el?.addEventListener('change', renderYtJobsTalents));
 
+    // === DJing opportunities ===
+    const djGigsList = document.getElementById('dj-gigs-list');
+    const djGigsSearch = document.getElementById('dj-gigs-search');
+    const djGigsAreaFilter = document.getElementById('dj-gigs-area-filter');
+    const djGigsTypeFilter = document.getElementById('dj-gigs-type-filter');
+    const djGigsEquipmentFilter = document.getElementById('dj-gigs-equipment-filter');
+    const djGigsStatusFilter = document.getElementById('dj-gigs-status-filter');
+    const djGigsScanMeta = document.getElementById('dj-gigs-scan-meta');
+    const refreshDjGigsBtn = document.getElementById('refresh-dj-gigs-btn');
+    const copyDjPitchBtn = document.getElementById('copy-dj-pitch-btn');
+    let djGigs = [];
+    let djGigsMeta = {};
+
+    function djGigFitClass(score) {
+        if (Number(score) >= 90) return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300';
+        if (Number(score) >= 70) return 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300';
+        return 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+    }
+
+    function djGigEvidenceClass(status) {
+        if (status === 'Active') return 'bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-500/20 dark:text-fuchsia-300';
+        if (status === 'Recurring') return 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300';
+        return 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+    }
+
+    function djGigEquipmentGroup(value) {
+        const text = String(value || '').toLowerCase();
+        if (text.startsWith('confirmed')) return 'confirmed';
+        if (text.includes('available')) return 'available';
+        return 'unknown';
+    }
+
+    function filteredDjGigs() {
+        const search = (djGigsSearch?.value || '').toLowerCase().trim();
+        const area = djGigsAreaFilter?.value || 'all';
+        const type = djGigsTypeFilter?.value || 'all';
+        const equipment = djGigsEquipmentFilter?.value || 'all';
+        const status = djGigsStatusFilter?.value || 'active';
+        return djGigs.filter(item => {
+            const itemStatus = item.status || 'new';
+            const haystack = [item.venue, item.area, item.postcode, item.genres, item.opportunity, item.equipment, item.next_action].join(' ').toLowerCase();
+            if (search && !haystack.includes(search)) return false;
+            if (area !== 'all' && item.area_tier !== area) return false;
+            if (type !== 'all' && item.opportunity_type !== type) return false;
+            if (equipment !== 'all' && djGigEquipmentGroup(item.equipment_status) !== equipment) return false;
+            if (status === 'active' && itemStatus === 'not_interested') return false;
+            if (status !== 'active' && status !== 'all' && itemStatus !== status) return false;
+            return true;
+        }).sort((a, b) => Number(b.fit_score || 0) - Number(a.fit_score || 0) || String(a.venue || '').localeCompare(String(b.venue || '')));
+    }
+
+    function renderDjGigs() {
+        if (!djGigsList) return;
+        document.getElementById('dj-gigs-total').innerText = djGigs.length;
+        document.getElementById('dj-gigs-active').innerText = djGigs.filter(item => item.evidence_status === 'Active').length;
+        document.getElementById('dj-gigs-equipment').innerText = djGigs.filter(item => djGigEquipmentGroup(item.equipment_status) === 'confirmed').length;
+        document.getElementById('dj-gigs-progress').innerText = djGigs.filter(item => ['contacted', 'booked'].includes(item.status)).length;
+        if (djGigsScanMeta) {
+            const checked = djGigsMeta.searched_at ? new Date(djGigsMeta.searched_at).toLocaleString('en-GB') : 'Not checked yet';
+            djGigsScanMeta.innerText = 'Internet scan checked ' + checked + ' · ' + djGigs.length + ' evidence-backed venue routes.';
+        }
+        const items = filteredDjGigs();
+        djGigsList.innerHTML = items.length ? items.map(item => `
+            <article class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-5 ${item.status === 'not_interested' ? 'opacity-60' : ''}">
+                <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">
+                    <div class="min-w-0 flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2"><h2 class="text-lg font-semibold dark:text-white">${escapeHtml(item.venue || 'Unknown venue')}</h2><span class="text-xs px-2.5 py-1 rounded-full ${djGigFitClass(item.fit_score)}">${Number(item.fit_score || 0)} priority</span><span class="text-xs px-2.5 py-1 rounded-full ${djGigEvidenceClass(item.evidence_status)}">${escapeHtml(item.evidence_status || 'Monitor')}</span><span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300">${escapeHtml(item.opportunity_type || '')}</span></div>
+                        <div class="text-sm text-gray-700 dark:text-gray-200">${escapeHtml(item.area || '')} ${item.postcode ? '· ' + escapeHtml(item.postcode) : ''} · ${escapeHtml(item.area_tier || '')}</div>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">${escapeHtml(item.opportunity || '')}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-sm"><div class="rounded-lg bg-gray-50 dark:bg-white/5 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">When</div><div class="font-medium dark:text-white mt-1">${escapeHtml(item.schedule || 'No date published')}</div></div><div class="rounded-lg bg-gray-50 dark:bg-white/5 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">Genre fit</div><div class="font-medium dark:text-white mt-1">${escapeHtml(item.genres || '')}</div></div><div class="rounded-lg bg-gray-50 dark:bg-white/5 p-3 md:col-span-2"><div class="text-xs uppercase tracking-wide text-gray-400">Equipment · ${escapeHtml(item.equipment_status || 'Unknown')}</div><div class="text-sm dark:text-gray-200 mt-1">${escapeHtml(item.equipment || '')}</div></div></div>
+                        <div class="mt-4 border-l-2 border-fuchsia-400 pl-3"><div class="text-xs uppercase tracking-wide text-gray-400">Next action</div><p class="text-sm text-gray-700 dark:text-gray-200 mt-1">${escapeHtml(item.next_action || '')}</p>${item.constraint ? '<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Constraint: ' + escapeHtml(item.constraint) + '</p>' : ''}</div>
+                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-4">Evidence: ${escapeHtml(item.evidence_note || '')}</p>
+                    </div>
+                    <div class="flex flex-wrap xl:flex-col gap-2 xl:items-stretch xl:w-36"><button type="button" onclick="updateDjGigStatus('${escapeHtml(item.id)}','interested')" class="text-xs px-3 py-2 rounded ${item.status === 'interested' ? 'bg-emerald-600 text-white' : 'border border-emerald-500 text-emerald-700 dark:text-emerald-300'}">Interested</button><button type="button" onclick="updateDjGigStatus('${escapeHtml(item.id)}','contacted')" class="text-xs px-3 py-2 rounded ${item.status === 'contacted' ? 'bg-blue-600 text-white' : 'border border-blue-500 text-blue-700 dark:text-blue-300'}">Contacted</button><button type="button" onclick="updateDjGigStatus('${escapeHtml(item.id)}','booked')" class="text-xs px-3 py-2 rounded ${item.status === 'booked' ? 'bg-fuchsia-600 text-white' : 'border border-fuchsia-500 text-fuchsia-700 dark:text-fuchsia-300'}">Booked</button><button type="button" onclick="updateDjGigStatus('${escapeHtml(item.id)}','not_interested')" class="text-xs px-3 py-2 rounded border border-gray-300 text-gray-600 dark:border-white/20 dark:text-gray-300">${item.status === 'not_interested' ? 'Restore' : 'Not for me'}</button><a href="${escapeHtml(item.evidence_url || item.venue_url || '#')}" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded bg-black text-white dark:bg-white dark:text-black">View evidence</a>${item.contact_url ? '<a href="' + escapeHtml(item.contact_url) + '" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded border border-gray-300 dark:border-white/20 dark:text-gray-200">Contact route</a>' : ''}</div>
+                </div>
+            </article>`).join('') : '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No DJ opportunities match the current filters.</div>';
+    }
+
+    async function loadDjGigs(silent = false) {
+        if (!djGigsList) return;
+        if (!silent) djGigsList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading DJ opportunities...</div>';
+        try {
+            const res = await fetch('/api/dj-gigs');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'DJ opportunities request failed');
+            djGigs = Array.isArray(data.opportunities) ? data.opportunities : [];
+            djGigsMeta = data || {};
+            renderDjGigs();
+        } catch (e) {
+            console.error(e);
+            djGigsList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-lg p-6 text-red-600 dark:text-red-300">Failed to load DJ opportunities.</div>';
+        }
+    }
+
+    window.updateDjGigStatus = async (id, status) => {
+        const current = djGigs.find(item => item.id === id);
+        const nextStatus = status === 'not_interested' && current?.status === 'not_interested' ? 'new' : status;
+        try {
+            const res = await fetch('/api/dj-gigs/' + encodeURIComponent(id) + '/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: nextStatus }) });
+            const data = await res.json();
+            if (!res.ok || !data.opportunity) throw new Error(data.error || 'Status update failed');
+            const index = djGigs.findIndex(item => item.id === id);
+            if (index !== -1) djGigs[index] = data.opportunity;
+            renderDjGigs();
+        } catch (e) { console.error(e); alert('Could not update DJ opportunity status.'); }
+    };
+
+    refreshDjGigsBtn?.addEventListener('click', () => loadDjGigs());
+    [djGigsSearch, djGigsAreaFilter, djGigsTypeFilter, djGigsEquipmentFilter, djGigsStatusFilter].forEach(el => el?.addEventListener('input', renderDjGigs));
+    [djGigsAreaFilter, djGigsTypeFilter, djGigsEquipmentFilter, djGigsStatusFilter].forEach(el => el?.addEventListener('change', renderDjGigs));
+    copyDjPitchBtn?.addEventListener('click', async () => {
+        const text = document.getElementById('dj-pitch-template')?.innerText || '';
+        try { await navigator.clipboard.writeText(text); const original = copyDjPitchBtn.innerText; copyDjPitchBtn.innerText = 'Copied'; setTimeout(() => copyDjPitchBtn.innerText = original, 1500); }
+        catch { alert('Could not copy the pitch. Select the text manually instead.'); }
+    });
+
     // === Jobs section and AI Jobs Logic ===
     const jobsYtJobsTab = document.getElementById('jobs-ytjobs-tab');
     const jobsAiTab = document.getElementById('jobs-ai-tab');
@@ -7844,9 +7961,11 @@ document.addEventListener("DOMContentLoaded", () => {
             ? 'view-people'
         : location.pathname === '/read'
             ? 'view-read'
+        : location.pathname === '/djing'
+            ? 'view-djing'
             : 'view-goals';
 
-    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/jobs', '/jobs/ai', '/ytjobs', '/jobs/youtube', '/property', '/people', '/read'].includes(location.pathname)) {
+    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/jobs', '/jobs/ai', '/ytjobs', '/jobs/youtube', '/property', '/people', '/read', '/djing'].includes(location.pathname)) {
         contextSwitcher.value = 'lifeos';
         navMissionControl?.classList.add('hidden');
         navLifeOs?.classList.remove('hidden');

@@ -128,6 +128,10 @@
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 11l9-8 9 8M5 10v10h14V10M9 20v-6h6v6"></path></svg>
                 <span class="sidebar-text text-sm whitespace-nowrap">Property</span>
             </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-djing" title="DJing">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 18V5l10-2v13M9 9l10-2M6 21a3 3 0 100-6 3 3 0 000 6zm10-2a3 3 0 100-6 3 3 0 000 6z"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">DJing</span>
+            </a>
             <div class="sidebar-section-title text-xs font-semibold text-gray-500 mb-2 px-3 mt-4 whitespace-nowrap">Creator</div>
             <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-analytics" title="Analytics">
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3v18m-4-8v8m8-12v12m4-16v16M5 21h14"></path></svg>
@@ -1234,6 +1238,49 @@
                     <div id="ai-job-boards-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
                 </section>
             </div>
+        </div>
+
+        <!-- ================= VIEW: DJING ================= -->
+        <div id="view-djing" class="view-section max-w-6xl w-full min-w-0 mx-auto px-4 sm:px-8 py-8 sm:py-12 overflow-x-hidden hidden">
+            <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div>
+                    <div class="text-xs font-semibold uppercase tracking-[0.18em] text-fuchsia-600 dark:text-fuchsia-300 mb-2">House DJ gig pipeline</div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">DJing</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 max-w-3xl break-words">Evidence-backed London venues where an emerging house DJ can register for open decks, pitch a warm-up set or build a promoter relationship.</p>
+                    <p id="dj-gigs-scan-meta" class="text-xs text-gray-400 dark:text-gray-500 mt-2">Loading venue research...</p>
+                </div>
+                <button id="refresh-dj-gigs-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh View</button>
+            </header>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">Venues tracked</div><div id="dj-gigs-total" class="text-3xl font-semibold tracking-tight dark:text-white mt-2">0</div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">Active routes</div><div id="dj-gigs-active" class="text-3xl font-semibold tracking-tight text-emerald-600 dark:text-emerald-300 mt-2">0</div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">Equipment confirmed</div><div id="dj-gigs-equipment" class="text-3xl font-semibold tracking-tight text-blue-600 dark:text-blue-300 mt-2">0</div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">Contacted / booked</div><div id="dj-gigs-progress" class="text-3xl font-semibold tracking-tight text-fuchsia-600 dark:text-fuchsia-300 mt-2">0</div></div>
+            </div>
+
+            <div class="bg-fuchsia-50 dark:bg-fuchsia-500/10 border border-fuchsia-100 dark:border-fuchsia-500/20 rounded-xl p-4 mb-6 text-sm text-fuchsia-900 dark:text-fuchsia-100">
+                <div class="font-semibold">Search decision</div>
+                <p class="mt-1 text-fuchsia-800/80 dark:text-fuchsia-100/70">The strongest live routes are concentrated in Shoreditch and Hackney, so the scan widens slightly beyond Central London. Exact equipment is shown only when the venue or organiser publishes it. Nothing has been contacted on your behalf.</p>
+            </div>
+
+            <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-6 gap-3">
+                <input id="dj-gigs-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search venue, area, genre or equipment">
+                <select id="dj-gigs-area-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All areas</option><option>Central</option><option>Near central</option><option>Wider east London</option></select>
+                <select id="dj-gigs-type-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All routes</option><option>Open decks</option><option>Vinyl open decks</option><option>Direct pitch</option><option>Promoter route</option><option>Monitor</option></select>
+                <select id="dj-gigs-equipment-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">Any equipment evidence</option><option value="confirmed">Confirmed setup</option><option value="available">Setup available</option><option value="unknown">Unknown</option></select>
+                <select id="dj-gigs-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="active">Active pipeline</option><option value="new">New</option><option value="interested">Interested</option><option value="contacted">Contacted</option><option value="booked">Booked</option><option value="not_interested">Not for me</option><option value="all">All statuses</option></select>
+            </div>
+
+            <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-5 mb-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                    <div><h2 class="font-semibold dark:text-white">Starter outreach</h2><p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Tailor the first line to the venue and link one strong 30-minute house mix.</p></div>
+                    <button id="copy-dj-pitch-btn" type="button" class="text-xs px-3 py-2 rounded bg-black text-white dark:bg-white dark:text-black">Copy pitch template</button>
+                </div>
+                <p id="dj-pitch-template" class="text-sm text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">Hi [name/team], I’m a London-based house DJ looking to build more live experience. I like the sound of [venue/night] and would be happy to play a no-fee warm-up or quieter trial set that fits your crowd. Here is a short mix: [link]. I can bring a Rekordbox USB and headphones, and I’m flexible on dates. Would an opening slot or open-decks opportunity be useful?</p>
+            </div>
+
+            <div id="dj-gigs-list" class="space-y-4"><div class="text-sm text-gray-500 dark:text-gray-400">Loading DJ opportunities...</div></div>
         </div>
 
         <!-- ================= VIEW: LINKEDIN JOBS ================= -->
