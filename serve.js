@@ -71,6 +71,7 @@ const YTJOBS_DB_FILE = path.join(__dirname, 'ytjobs_jobs.json');
 const YTJOBS_TALENT_FILE = path.join(__dirname, 'ytjobs_talking_head_editor_shortlist.json');
 const AI_JOBS_DB_FILE = path.join(__dirname, 'ai_jobs.json');
 const DJ_GIGS_DB_FILE = path.join(__dirname, 'dj_gigs.json');
+const NETWORKING_EVENTS_DB_FILE = path.join(__dirname, 'networking_events.json');
 const PROPERTY_DEALS_DB_FILE = path.join(__dirname, 'property_deals.json');
 const PROPERTY_TRACKER_STATE_FILE = path.join(WORKSPACE_DIR, 'property-deals', 'cardiff-hmo-tracker-state.json');
 const OPENRENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'openrent-leads.json');
@@ -200,7 +201,7 @@ function writeJournalSections(doc) {
 const server = http.createServer((req, res) => {
     res.on('error', (err) => console.error('Response error:', err));
     const requestPath = req.url.split('?')[0];
-    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/jobs' || requestPath === '/jobs/ai' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read' || requestPath === '/djing') {
+    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/jobs' || requestPath === '/jobs/ai' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read' || requestPath === '/djing' || requestPath === '/networking') {
         serveFile(res, path.join(__dirname, 'index.html'), 'text/html');
     } else if (requestPath === '/styles.css') {
         serveFile(res, path.join(__dirname, 'styles.css'), 'text/css');
@@ -313,6 +314,31 @@ const server = http.createServer((req, res) => {
             } catch (err) {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update DJ opportunity status' }));
+            }
+        });
+    } else if (req.url === '/api/networking-events') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readNetworkingEventsDb();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/networking-events\/[^/]+\/status$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const { status } = JSON.parse(body || '{}');
+                const event = updateNetworkingEventStatus(id, status);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, event }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update networking event status' }));
             }
         });
     } else if (req.url === '/api/ytjobs-talents') {
@@ -2332,6 +2358,41 @@ function updateDjGigStatus(id, status) {
     opportunity.updated_at = new Date().toISOString();
     writeDjGigsDb(db);
     return opportunity;
+}
+
+function readNetworkingEventsDb() {
+    try {
+        const parsed = JSON.parse(fs.readFileSync(NETWORKING_EVENTS_DB_FILE, 'utf8'));
+        return {
+            searched_at: parsed.searched_at || '',
+            search_scope: parsed.search_scope || '',
+            notes: Array.isArray(parsed.notes) ? parsed.notes : [],
+            events: Array.isArray(parsed.events) ? parsed.events : []
+        };
+    } catch {
+        return { searched_at: '', search_scope: '', notes: [], events: [] };
+    }
+}
+
+function writeNetworkingEventsDb(db) {
+    fs.writeFileSync(NETWORKING_EVENTS_DB_FILE, JSON.stringify({
+        searched_at: db.searched_at || '',
+        search_scope: db.search_scope || '',
+        notes: Array.isArray(db.notes) ? db.notes : [],
+        events: Array.isArray(db.events) ? db.events : []
+    }, null, 2) + '\n');
+}
+
+function updateNetworkingEventStatus(id, status) {
+    const allowed = new Set(['new', 'interested', 'booked', 'attended', 'not_interested']);
+    if (!allowed.has(status)) throw new Error('Invalid networking event status');
+    const db = readNetworkingEventsDb();
+    const event = db.events.find(item => item.id === id);
+    if (!event) throw new Error('Networking event not found');
+    event.status = status;
+    event.updated_at = new Date().toISOString();
+    writeNetworkingEventsDb(db);
+    return event;
 }
 
 function getYtJobsTalentId(talent) {

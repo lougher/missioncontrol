@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             else loadYtJobs(true);
         }
         if (targetId === 'view-people') loadPeople(true);
+        if (targetId === 'view-networking') loadNetworkingEvents(true);
         if (targetId === 'view-djing') loadDjGigs(true);
         if (targetId === 'view-property') {
             const activePropertyTab = localStorage.getItem('property-tab') || 'openrent';
@@ -5631,7 +5632,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const propertyLondonApartmentPanel = document.getElementById('property-london-apartment-panel');
     const propertyHmoPanel = document.getElementById('property-hmo-panel');
     const propertyLandDealsPanel = document.getElementById('property-land-deals-panel');
-    const propertyEventsPanel = document.getElementById('property-events-panel');
     const openRentList = document.getElementById('openrent-list');
     const openRentMeta = document.getElementById('openrent-meta');
     const openRentSearch = document.getElementById('openrent-search');
@@ -5643,18 +5643,17 @@ document.addEventListener("DOMContentLoaded", () => {
     let openRentLeadMeta = {};
 
     function switchPropertyTab(tabName) {
+        if (tabName === 'events') tabName = 'openrent';
         const isOpenRent = tabName === 'openrent';
         const isGumtree = tabName === 'gumtree';
         const isLondonApartment = tabName === 'london-apartment';
         const isHmo = tabName === 'hmo';
         const isLandDeals = tabName === 'land-deals';
-        const isEvents = tabName === 'events';
         propertyOpenRentPanel?.classList.toggle('hidden', !isOpenRent);
         propertyGumtreePanel?.classList.toggle('hidden', !isGumtree);
         propertyLondonApartmentPanel?.classList.toggle('hidden', !isLondonApartment);
         propertyHmoPanel?.classList.toggle('hidden', !isHmo);
         propertyLandDealsPanel?.classList.toggle('hidden', !isLandDeals);
-        propertyEventsPanel?.classList.toggle('hidden', !isEvents);
         refreshPropertyBtn?.classList.toggle('hidden', !isHmo);
         propertyTabs.forEach(tab => {
             const active = tab.dataset.propertyTab === tabName;
@@ -6891,7 +6890,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (refreshPropertyBtn) refreshPropertyBtn.addEventListener('click', () => loadPropertyDeals());
     [propertySearch, propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('input', renderPropertyDeals));
     [propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('change', renderPropertyDeals));
-    switchPropertyTab(['openrent', 'gumtree', 'london-apartment', 'hmo', 'land-deals', 'events'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
+    switchPropertyTab(['openrent', 'gumtree', 'london-apartment', 'hmo', 'land-deals'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
 
     // === YTJobs Logic ===
     const refreshYtJobsBtn = document.getElementById('refresh-ytjobs-btn');
@@ -7212,6 +7211,161 @@ document.addEventListener("DOMContentLoaded", () => {
     [ytJobsRoleFilter, ytJobsStatusFilter, ytJobsSort].forEach(el => el?.addEventListener('change', renderYtJobs));
     [ytJobsTalentSearch, ytJobsTalentLocationFilter, ytJobsTalentStatusFilter, ytJobsTalentSort].forEach(el => el?.addEventListener('input', renderYtJobsTalents));
     [ytJobsTalentLocationFilter, ytJobsTalentStatusFilter, ytJobsTalentSort].forEach(el => el?.addEventListener('change', renderYtJobsTalents));
+
+    // === Networking events ===
+    const networkingList = document.getElementById('networking-list');
+    const networkingSearch = document.getElementById('networking-search');
+    const networkingCategoryFilter = document.getElementById('networking-category-filter');
+    const networkingRegionFilter = document.getElementById('networking-region-filter');
+    const networkingPriceFilter = document.getElementById('networking-price-filter');
+    const networkingStatusFilter = document.getElementById('networking-status-filter');
+    const networkingSort = document.getElementById('networking-sort');
+    const networkingScanMeta = document.getElementById('networking-scan-meta');
+    const refreshNetworkingBtn = document.getElementById('refresh-networking-btn');
+    let networkingEvents = [];
+    let networkingMeta = {};
+
+    function networkingDateValue(event) {
+        if (!event.start_date) return Number.POSITIVE_INFINITY;
+        const parsed = new Date(event.start_date + 'T12:00:00');
+        return Number.isNaN(parsed.getTime()) ? Number.POSITIVE_INFINITY : parsed.getTime();
+    }
+
+    function networkingDateLabel(event) {
+        if (!event.start_date) return 'Awaiting next date';
+        const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+        const start = new Date(event.start_date + 'T12:00:00').toLocaleDateString('en-GB', options);
+        const end = event.end_date && event.end_date !== event.start_date
+            ? new Date(event.end_date + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+            : '';
+        return end ? start + ' - ' + end : start;
+    }
+
+    function networkingDateStatus(event) {
+        if (event.date_status === 'confirmed') return ['Confirmed', 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300'];
+        if (event.date_status === 'recurring_schedule') return ['Reconfirm date', 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300'];
+        return ['Tracking next date', 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300'];
+    }
+
+    function networkingStatusLabel(status) {
+        return ({ new: 'New', interested: 'Interested', booked: 'Booked', attended: 'Attended', not_interested: 'Not for me' })[status] || 'New';
+    }
+
+    function populateNetworkingCategories() {
+        if (!networkingCategoryFilter) return;
+        const selected = networkingCategoryFilter.value || 'all';
+        const categories = [...new Set(networkingEvents.map(event => event.category).filter(Boolean))].sort();
+        networkingCategoryFilter.innerHTML = '<option value="all">All interests</option>' + categories.map(category => '<option value="' + escapeHtml(category) + '">' + escapeHtml(category) + '</option>').join('');
+        networkingCategoryFilter.value = categories.includes(selected) ? selected : 'all';
+    }
+
+    function filteredNetworkingEvents() {
+        const search = (networkingSearch?.value || '').toLowerCase().trim();
+        const category = networkingCategoryFilter?.value || 'all';
+        const region = networkingRegionFilter?.value || 'London';
+        const price = networkingPriceFilter?.value || 'all';
+        const status = networkingStatusFilter?.value || 'active';
+        const sort = networkingSort?.value || 'date';
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        return networkingEvents.filter(event => {
+            const eventStatus = event.status || 'new';
+            const haystack = [event.title, event.organiser, event.description, event.category, event.area, event.city, event.region, event.venue, ...(event.topics || [])].join(' ').toLowerCase();
+            if (search && !haystack.includes(search)) return false;
+            if (category !== 'all' && event.category !== category) return false;
+            if (region !== 'all' && event.region !== region) return false;
+            if (price === 'free' && !['free', 'free_or_paid'].includes(event.price_type)) return false;
+            if (price === 'paid' && event.price_type !== 'paid') return false;
+            if (price === 'unknown' && event.price_type !== 'unknown') return false;
+            if (status === 'active' && eventStatus === 'not_interested') return false;
+            if (status !== 'active' && status !== 'all' && eventStatus !== status) return false;
+            if (status === 'active' && event.end_date) {
+                const end = new Date(event.end_date + 'T23:59:59');
+                if (!Number.isNaN(end.getTime()) && end < today) return false;
+            }
+            return true;
+        }).sort((a, b) => sort === 'priority'
+            ? Number(b.priority || 0) - Number(a.priority || 0) || networkingDateValue(a) - networkingDateValue(b)
+            : networkingDateValue(a) - networkingDateValue(b) || Number(b.priority || 0) - Number(a.priority || 0));
+    }
+
+    function renderNetworkingEvents() {
+        if (!networkingList) return;
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const upcoming = networkingEvents.filter(event => event.start_date && networkingDateValue(event) >= today.getTime()).length;
+        document.getElementById('networking-upcoming').innerText = upcoming;
+        document.getElementById('networking-london').innerText = networkingEvents.filter(event => event.region === 'London' && event.start_date).length;
+        document.getElementById('networking-planned').innerText = networkingEvents.filter(event => ['interested', 'booked'].includes(event.status)).length;
+        document.getElementById('networking-attended').innerText = networkingEvents.filter(event => event.status === 'attended').length;
+        if (networkingScanMeta) {
+            const checked = networkingMeta.searched_at ? new Date(networkingMeta.searched_at).toLocaleString('en-GB') : 'Not checked yet';
+            networkingScanMeta.innerText = 'Research checked ' + checked + ' · ' + upcoming + ' upcoming dated events · ' + networkingEvents.filter(event => !event.start_date).length + ' groups awaiting dates.';
+        }
+        const events = filteredNetworkingEvents();
+        networkingList.innerHTML = events.length ? events.map(event => {
+            const [dateBadge, dateClass] = networkingDateStatus(event);
+            const topics = (event.topics || []).map(topic => '<span class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300">' + escapeHtml(topic) + '</span>').join('');
+            const currentStatus = event.status || 'new';
+            const time = event.start_time ? event.start_time + (event.end_time ? '-' + event.end_time : '') : 'See organiser schedule';
+            return                 '<article class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-5 ' + (currentStatus === 'not_interested' ? 'opacity-60' : '') + '">' +
+                    '<div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">' +
+                        '<div class="min-w-0 flex-1">' +
+                            '<div class="flex flex-wrap items-center gap-2 mb-2"><h2 class="text-lg font-semibold dark:text-white">' + escapeHtml(event.title || 'Untitled event') + '</h2><span class="text-xs px-2.5 py-1 rounded-full ' + dateClass + '">' + dateBadge + '</span><span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300">' + escapeHtml(event.category || '') + '</span><span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300">' + Number(event.priority || 0) + ' fit</span></div>' +
+                            '<div class="text-sm font-medium text-gray-800 dark:text-gray-100">' + escapeHtml(networkingDateLabel(event)) + ' · ' + escapeHtml(time) + '</div>' +
+                            '<div class="text-sm text-gray-500 dark:text-gray-400 mt-1">' + escapeHtml(event.venue || event.area || '') + '</div>' +
+                            '<p class="text-sm text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">' + escapeHtml(event.description || '') + '</p>' +
+                            '<div class="flex flex-wrap gap-2 mt-3">' + topics + '</div>' +
+                            '<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-sm"><div class="rounded-lg bg-gray-50 dark:bg-white/5 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">Organiser</div><div class="font-medium dark:text-white mt-1">' + escapeHtml(event.organiser || '') + '</div></div><div class="rounded-lg bg-gray-50 dark:bg-white/5 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">Price</div><div class="font-medium dark:text-white mt-1">' + escapeHtml(event.price || 'Check organiser') + '</div></div><div class="rounded-lg bg-gray-50 dark:bg-white/5 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">Location</div><div class="font-medium dark:text-white mt-1">' + escapeHtml(event.region || '') + '</div></div></div>' +
+                            '<p class="text-xs text-gray-400 dark:text-gray-500 mt-4">Evidence: ' + escapeHtml(event.evidence_note || '') + '</p>' +
+                        '</div>' +
+                        '<div class="flex flex-wrap xl:flex-col gap-2 xl:items-stretch xl:w-36">' +
+                            '<button type="button" onclick="updateNetworkingEventStatus(\'' + escapeHtml(event.id) + '\',\'interested\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'interested' ? 'bg-emerald-600 text-white' : 'border border-emerald-500 text-emerald-700 dark:text-emerald-300') + '">Interested</button>' +
+                            '<button type="button" onclick="updateNetworkingEventStatus(\'' + escapeHtml(event.id) + '\',\'booked\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'booked' ? 'bg-blue-600 text-white' : 'border border-blue-500 text-blue-700 dark:text-blue-300') + '">Booked</button>' +
+                            '<button type="button" onclick="updateNetworkingEventStatus(\'' + escapeHtml(event.id) + '\',\'attended\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'attended' ? 'bg-fuchsia-600 text-white' : 'border border-fuchsia-500 text-fuchsia-700 dark:text-fuchsia-300') + '">Attended</button>' +
+                            '<button type="button" onclick="updateNetworkingEventStatus(\'' + escapeHtml(event.id) + '\',\'not_interested\')" class="text-xs px-3 py-2 rounded border border-gray-300 text-gray-600 dark:border-white/20 dark:text-gray-300">' + (currentStatus === 'not_interested' ? 'Restore' : 'Not for me') + '</button>' +
+                            '<a href="' + escapeHtml(event.url || '#') + '" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded bg-black text-white dark:bg-white dark:text-black">View event</a>' +
+                            '<div class="text-center text-[11px] text-gray-400 mt-1">' + escapeHtml(networkingStatusLabel(currentStatus)) + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</article>';
+        }).join('') : '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No networking events match the current filters.</div>';
+    }
+
+    async function loadNetworkingEvents(silent = false) {
+        if (!networkingList) return;
+        if (!silent) networkingList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading networking events...</div>';
+        try {
+            const res = await fetch('/api/networking-events');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Networking events request failed');
+            networkingEvents = Array.isArray(data.events) ? data.events : [];
+            networkingMeta = data || {};
+            populateNetworkingCategories();
+            renderNetworkingEvents();
+        } catch (e) {
+            console.error(e);
+            networkingList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-lg p-6 text-red-600 dark:text-red-300">Failed to load networking events.</div>';
+        }
+    }
+
+    window.updateNetworkingEventStatus = async (id, status) => {
+        const current = networkingEvents.find(event => event.id === id);
+        const nextStatus = status === 'not_interested' && current?.status === 'not_interested' ? 'new' : status;
+        try {
+            const res = await fetch('/api/networking-events/' + encodeURIComponent(id) + '/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: nextStatus }) });
+            const data = await res.json();
+            if (!res.ok || !data.event) throw new Error(data.error || 'Status update failed');
+            const index = networkingEvents.findIndex(event => event.id === id);
+            if (index !== -1) networkingEvents[index] = data.event;
+            renderNetworkingEvents();
+        } catch (e) {
+            console.error(e);
+            alert('Could not update networking event status.');
+        }
+    };
+
+    refreshNetworkingBtn?.addEventListener('click', () => loadNetworkingEvents());
+    [networkingSearch, networkingCategoryFilter, networkingRegionFilter, networkingPriceFilter, networkingStatusFilter, networkingSort].forEach(element => element?.addEventListener('input', renderNetworkingEvents));
+    [networkingCategoryFilter, networkingRegionFilter, networkingPriceFilter, networkingStatusFilter, networkingSort].forEach(element => element?.addEventListener('change', renderNetworkingEvents));
 
     // === DJing opportunities ===
     const djGigsList = document.getElementById('dj-gigs-list');
@@ -7948,6 +8102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         else if (activeView.id === 'view-analytics') loadAnalyticsData(true);
         else if (activeView.id === 'view-people') loadPeople(true);
+        else if (activeView.id === 'view-networking') loadNetworkingEvents(true);
     }, 5000);
 
     // Initial Load
@@ -7963,9 +8118,11 @@ document.addEventListener("DOMContentLoaded", () => {
             ? 'view-read'
         : location.pathname === '/djing'
             ? 'view-djing'
+        : location.pathname === '/networking'
+            ? 'view-networking'
             : 'view-goals';
 
-    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/jobs', '/jobs/ai', '/ytjobs', '/jobs/youtube', '/property', '/people', '/read', '/djing'].includes(location.pathname)) {
+    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/jobs', '/jobs/ai', '/ytjobs', '/jobs/youtube', '/property', '/people', '/read', '/djing', '/networking'].includes(location.pathname)) {
         contextSwitcher.value = 'lifeos';
         navMissionControl?.classList.add('hidden');
         navLifeOs?.classList.remove('hidden');

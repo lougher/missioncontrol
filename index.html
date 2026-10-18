@@ -96,6 +96,10 @@
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H2v-2a4 4 0 014-4h3m4 6h-2m1-10a4 4 0 110-8 4 4 0 010 8zm7 1a3 3 0 10-2.83-4"></path></svg>
                 <span class="sidebar-text text-sm whitespace-nowrap">People</span>
             </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-networking" title="Networking">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12a4 4 0 118 0m-8 0a4 4 0 00-4 4v3h16v-3a4 4 0 00-4-4m-8 0h8M9 7a3 3 0 116 0"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Networking</span>
+            </a>
             <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-business-ideas" title="Business Ideas">
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.021 10.607A5 5 0 1116.343 16.25c-.665.62-1.126 1.26-1.343 1.75H9c-.216-.49-.678-1.13-1.343-1.75z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21h6"></path></svg>
                 <span class="sidebar-text text-sm whitespace-nowrap">Business Ideas</span>
@@ -1330,12 +1334,48 @@
             </div>
         </div>
 
+        <!-- ================= VIEW: NETWORKING ================= -->
+        <div id="view-networking" class="view-section max-w-[100vw] sm:max-w-6xl w-full min-w-0 mx-auto px-4 sm:px-8 py-8 sm:py-12 overflow-x-hidden hidden">
+            <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div>
+                    <div class="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300 mb-2">Meet new people consistently</div>
+                    <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Networking</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 max-w-3xl">Upcoming events for founders, startups, technology, sales, marketing, content, wealth and property - with your South Wales property groups in the same place.</p>
+                    <p id="networking-scan-meta" class="text-xs text-gray-400 dark:text-gray-500 mt-2">Loading researched events...</p>
+                </div>
+                <button id="refresh-networking-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh View</button>
+            </header>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Upcoming dated events</div><div id="networking-upcoming" class="text-3xl font-semibold mt-2 dark:text-white">0</div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">London events</div><div id="networking-london" class="text-3xl font-semibold mt-2 text-indigo-600 dark:text-indigo-300">0</div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Interested / booked</div><div id="networking-planned" class="text-3xl font-semibold mt-2 text-emerald-600 dark:text-emerald-300">0</div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Attended</div><div id="networking-attended" class="text-3xl font-semibold mt-2 text-fuchsia-600 dark:text-fuchsia-300">0</div></div>
+            </div>
+
+            <div class="bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 rounded-xl p-4 mb-6 text-sm text-indigo-900 dark:text-indigo-100">
+                <div class="font-semibold">Curated and evidence-led</div>
+                <p class="mt-1 text-indigo-800/80 dark:text-indigo-100/70">This is a broad live scan, not every event in London. Events without enough date or location evidence were excluded. Reconfirm ticket availability before travelling.</p>
+            </div>
+
+            <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-12 gap-3">
+                <input id="networking-search" class="md:col-span-3 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white" placeholder="Search event, organiser, topic or area">
+                <select id="networking-category-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="all">All interests</option></select>
+                <select id="networking-region-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="London" selected>London</option><option value="South Wales">South Wales</option><option value="all">All locations</option></select>
+                <select id="networking-price-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="all">Any price</option><option value="free">Free / low-cost option</option><option value="paid">Paid</option><option value="unknown">Price to check</option></select>
+                <select id="networking-status-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="active" selected>Upcoming / tracked</option><option value="interested">Interested</option><option value="booked">Booked</option><option value="attended">Attended</option><option value="not_interested">Not for me</option><option value="all">All statuses</option></select>
+                <select id="networking-sort" class="md:col-span-1 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="date" selected>Date</option><option value="priority">Fit</option></select>
+            </div>
+
+            <div id="networking-list" class="space-y-4"><div class="text-sm text-gray-500 dark:text-gray-400">Loading networking events...</div></div>
+        </div>
+
         <!-- ================= VIEW: PROPERTY ================= -->
         <div id="view-property" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
             <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                 <div>
                     <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Property</h1>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Property sourcing, land planning-uplift opportunities, serviced accommodation leads and local networking events.</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Property sourcing, land planning-uplift opportunities and serviced accommodation leads.</p>
                 </div>
                 <button id="refresh-property-btn" class="hidden text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh Properties</button>
             </header>
@@ -1346,7 +1386,6 @@
                 <button id="property-tab-london-apartment" data-property-tab="london-apartment" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">London Apartment</button>
                 <button id="property-tab-hmo" data-property-tab="hmo" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">HMO Deals</button>
                 <button id="property-tab-land-deals" data-property-tab="land-deals" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Land Deals</button>
-                <button id="property-tab-events" data-property-tab="events" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Property Events</button>
             </div>
 
             <div id="property-hmo-panel" class="hidden">
@@ -1585,60 +1624,6 @@
                 <div class="flex flex-wrap gap-x-4 gap-y-2 items-center justify-between mb-3"><div class="font-semibold dark:text-white">Apartment candidates - confirm availability before viewing</div><div class="flex gap-4"><a class="text-sm text-blue-600 dark:text-blue-300 hover:underline" target="_blank" rel="noopener" href="https://www.rightmove.co.uk/property-to-rent/London.html?maxPrice=1350&propertyTypes=flat">Browse London on Rightmove</a><a class="text-sm text-blue-600 dark:text-blue-300 hover:underline" target="_blank" rel="noopener" href="https://www.openrent.co.uk/properties-to-rent/london?prices_max=1350&bedrooms_max=1">Browse London on OpenRent</a></div></div><div id="london-apartment-list" class="space-y-3 text-sm text-gray-500">Loading listings...</div>
             </div>
 
-            <div id="property-events-panel" class="hidden">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Confirmed upcoming</div><div class="text-3xl font-semibold mt-2 text-emerald-600 dark:text-emerald-300">3</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Including one event tonight.</div></div>
-                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Groups tracked</div><div class="text-3xl font-semibold mt-2 dark:text-white">5</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Across Cardiff, Newport and RCT.</div></div>
-                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Last checked</div><div class="text-2xl font-semibold mt-2 dark:text-white">7 Oct 2026</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Dates checked against organiser pages.</div></div>
-                </div>
-
-                <div class="bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 rounded-xl p-4 mb-6 text-sm text-blue-900 dark:text-blue-100">
-                    <div class="font-semibold">South Wales property networking calendar</div>
-                    <p class="mt-1 text-blue-800/80 dark:text-blue-100/70">Confirmed dates appear first. The two landlord forums have not yet published their next meeting, so their official update pages are linked instead of showing an estimated date.</p>
-                </div>
-
-                <div class="space-y-4">
-                    <article class="bg-white dark:bg-[#171717] border border-emerald-200 dark:border-emerald-500/30 rounded-xl p-5">
-                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                            <div><div class="flex flex-wrap items-center gap-2"><h2 class="text-lg font-semibold dark:text-white">South Wales Property Meet - Newport</h2><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">Tonight</span></div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Property networking and speakers in Newport.</p></div>
-                            <a href="https://www.eventbrite.co.uk/e/south-wales-property-meet-october-tickets-1999700072748" target="_blank" rel="noopener" class="text-sm font-medium text-blue-600 dark:text-blue-300 hover:underline shrink-0">View event</a>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-sm"><div><div class="text-xs uppercase tracking-wide text-gray-400">Date</div><div class="font-medium dark:text-white mt-1"><time datetime="2026-10-07T18:30:00+01:00">Wednesday 7 October 2026</time></div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Time</div><div class="font-medium dark:text-white mt-1">18:30-21:00</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Venue</div><div class="font-medium dark:text-white mt-1">Coldra Court Hotel, Langstone, Newport, NP18 2LX</div></div></div>
-                    </article>
-
-                    <article class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-5">
-                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                            <div><div class="flex flex-wrap items-center gap-2"><h2 class="text-lg font-semibold dark:text-white">PIN Cardiff</h2><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300">Confirmed</span></div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Takes place on the second Tuesday of every month.</p></div>
-                            <a href="https://propertyinvestorsnetwork.co.uk/meetings/cardiff/" target="_blank" rel="noopener" class="text-sm font-medium text-blue-600 dark:text-blue-300 hover:underline shrink-0">View event</a>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-sm"><div><div class="text-xs uppercase tracking-wide text-gray-400">Next date</div><div class="font-medium dark:text-white mt-1"><time datetime="2026-10-13T18:00:00+01:00">Tuesday 13 October 2026</time></div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Time</div><div class="font-medium dark:text-white mt-1">18:00-21:00</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Venue</div><div class="font-medium dark:text-white mt-1">Future Inn Cardiff, Hemingway Road, Cardiff, CF10 4AU</div></div></div>
-                    </article>
-
-                    <article class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-5">
-                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                            <div><div class="flex flex-wrap items-center gap-2"><h2 class="text-lg font-semibold dark:text-white">Property &amp; Poppadoms - Cardiff</h2><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300">Confirmed</span></div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Informal property networking over a curry.</p></div>
-                            <a href="https://www.eventbrite.co.uk/e/eiddo-poppadomau-caerdydd-property-poppadoms-cardiff-tickets-1277467923949" target="_blank" rel="noopener" class="text-sm font-medium text-blue-600 dark:text-blue-300 hover:underline shrink-0">View event</a>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-sm"><div><div class="text-xs uppercase tracking-wide text-gray-400">Next date</div><div class="font-medium dark:text-white mt-1"><time datetime="2026-11-03T18:30:00Z">Tuesday 3 November 2026</time></div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Time</div><div class="font-medium dark:text-white mt-1">18:30-21:30</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Venue</div><div class="font-medium dark:text-white mt-1">Mowgli's Indian Restaurant, 13 Penlline Road, Cardiff, CF14 2AA</div></div></div>
-                    </article>
-
-                    <article class="bg-white dark:bg-[#171717] border border-amber-200 dark:border-amber-500/30 rounded-xl p-5">
-                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                            <div><div class="flex flex-wrap items-center gap-2"><h2 class="text-lg font-semibold dark:text-white">Cardiff Landlord Forum</h2><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">Awaiting next date</span></div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">The forum normally meets every two months, but no future meeting is currently published.</p></div>
-                            <a href="https://www.nrla.org.uk/events/meetings" target="_blank" rel="noopener" class="text-sm font-medium text-blue-600 dark:text-blue-300 hover:underline shrink-0">Check organiser</a>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-sm"><div><div class="text-xs uppercase tracking-wide text-gray-400">Next date</div><div class="font-medium text-amber-700 dark:text-amber-300 mt-1">To be announced</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Typical frequency</div><div class="font-medium dark:text-white mt-1">Bi-monthly</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Usual area</div><div class="font-medium dark:text-white mt-1">Cardiff</div></div></div>
-                    </article>
-
-                    <article class="bg-white dark:bg-[#171717] border border-amber-200 dark:border-amber-500/30 rounded-xl p-5">
-                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                            <div><div class="flex flex-wrap items-center gap-2"><h2 class="text-lg font-semibold dark:text-white">RCT Landlord Forum</h2><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">Awaiting next date</span></div><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">The council page still shows the September meeting and has not yet published the next one.</p></div>
-                            <a href="https://www.rctcbc.gov.uk/EN/Business/InformationforLandlords/LandlordForum.aspx" target="_blank" rel="noopener" class="text-sm font-medium text-blue-600 dark:text-blue-300 hover:underline shrink-0">Check council page</a>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-sm"><div><div class="text-xs uppercase tracking-wide text-gray-400">Next date</div><div class="font-medium text-amber-700 dark:text-amber-300 mt-1">To be announced</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Latest published meeting</div><div class="font-medium dark:text-white mt-1">29 September 2026, 18:00-20:00</div></div><div><div class="text-xs uppercase tracking-wide text-gray-400">Latest venue</div><div class="font-medium dark:text-white mt-1">Pontypridd Rugby Club, CF37 1HA</div></div></div>
-                    </article>
-                </div>
-            </div>
         </div>
 
         <!-- ================= VIEW: RELEASES ================= -->
