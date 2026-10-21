@@ -479,6 +479,15 @@
                 <button id="people-add-btn" class="inline-flex items-center justify-center gap-2 rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-violet-700 transition-colors">+ Add person</button>
             </header>
 
+            <section class="mb-6">
+                <div class="flex items-end justify-between gap-4 mb-3"><div><h2 class="text-sm font-semibold dark:text-white">New connections</h2><p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Rolling totals based on Date Added</p></div></div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="people-stat-card"><div class="people-stat-label">Past week</div><div id="people-new-week" class="people-stat-value text-emerald-600 dark:text-emerald-300">0</div><div class="people-stat-note">added in the past 7 days</div></div>
+                    <div class="people-stat-card"><div class="people-stat-label">Past month</div><div id="people-new-month" class="people-stat-value text-blue-600 dark:text-blue-300">0</div><div class="people-stat-note">added in the past 30 days</div></div>
+                    <div class="people-stat-card"><div class="people-stat-label">Past year</div><div id="people-new-year" class="people-stat-value text-violet-600 dark:text-violet-300">0</div><div class="people-stat-note">added in the past 12 months</div></div>
+                </div>
+            </section>
+
             <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
                 <div class="people-stat-card"><div class="people-stat-label">People</div><div id="people-total" class="people-stat-value">0</div><div class="people-stat-note">in your circle</div></div>
                 <div class="people-stat-card"><div class="people-stat-label">Due now</div><div id="people-due" class="people-stat-value text-rose-600 dark:text-rose-300">0</div><div class="people-stat-note">worth a message</div></div>

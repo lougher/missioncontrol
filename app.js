@@ -7882,6 +7882,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: date.getFullYear() === new Date().getFullYear() ? undefined : 'numeric' });
     };
 
+    const peopleAddedSince = (person, cutoff, today) => {
+        const value = person['Date Added'];
+        if (!value) return false;
+        const added = new Date(value + 'T12:00:00');
+        return !Number.isNaN(added.getTime()) && added >= cutoff && added <= today;
+    };
     const peopleInitials = name => String(name || '?').trim().split(/\s+/).slice(0, 2).map(part => part[0]).join('').toUpperCase();
     const peopleLatestNote = person => String(person['Interaction History'] || '').split('\n').filter(Boolean)[0]?.replace(/^\d{4}-\d{2}-\d{2}\s*-\s*/, '') || person.Notes || '';
     const peopleTimingLabel = person => person._timing === 'due' ? 'Due now' : person._timing === 'upcoming' ? `Due ${peopleDate(person._nextContact)}` : `Next ${peopleDate(person._nextContact)}`;
@@ -7927,6 +7933,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderPeople() {
         const active = socialPeople.filter(person => person.Status !== 'Archived');
+        const today = new Date();
+        today.setHours(23, 59, 59, 999);
+        const weekCutoff = new Date(today);
+        weekCutoff.setHours(0, 0, 0, 0);
+        weekCutoff.setDate(weekCutoff.getDate() - 6);
+        const monthCutoff = new Date(today);
+        monthCutoff.setHours(0, 0, 0, 0);
+        monthCutoff.setDate(monthCutoff.getDate() - 29);
+        const yearCutoff = new Date(today);
+        yearCutoff.setHours(0, 0, 0, 0);
+        yearCutoff.setFullYear(yearCutoff.getFullYear() - 1);
+        document.getElementById('people-new-week').innerText = active.filter(person => peopleAddedSince(person, weekCutoff, today)).length;
+        document.getElementById('people-new-month').innerText = active.filter(person => peopleAddedSince(person, monthCutoff, today)).length;
+        document.getElementById('people-new-year').innerText = active.filter(person => peopleAddedSince(person, yearCutoff, today)).length;
         document.getElementById('people-total').innerText = active.length;
         document.getElementById('people-due').innerText = active.filter(person => person._timing === 'due').length;
         document.getElementById('people-upcoming').innerText = active.filter(person => person._timing === 'upcoming').length;
