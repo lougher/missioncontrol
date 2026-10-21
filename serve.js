@@ -41,6 +41,7 @@ const RELEASES_FILE = path.join(__dirname, 'releases.md');
 const LEARNINGS_FILE = path.join(WORKSPACE_DIR, 'skills', 'learnings', 'learning_log.md');
 const JOURNAL_FILE = path.join(WORKSPACE_DIR, 'journal.md');
 const GOALS_FILE = path.join(__dirname, 'goals.json');
+const LIFE_DESIGN_FILE = path.join(__dirname, 'life_design.json');
 const DREAMS_FILE = path.join(__dirname, 'dreams.json');
 const BUSINESS_IDEAS_FILE = path.join(__dirname, 'business_ideas.json');
 const CURRENT_WORKOUT_DIR = path.join(WORKSPACE_DIR, 'skills', 'workout-tracker', 'plans', 'jorge-workout-routine');
@@ -201,7 +202,7 @@ function writeJournalSections(doc) {
 const server = http.createServer((req, res) => {
     res.on('error', (err) => console.error('Response error:', err));
     const requestPath = req.url.split('?')[0];
-    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/jobs' || requestPath === '/jobs/ai' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read' || requestPath === '/djing' || requestPath === '/networking') {
+    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/jobs' || requestPath === '/jobs/ai' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read' || requestPath === '/djing' || requestPath === '/networking' || requestPath === '/life-design') {
         serveFile(res, path.join(__dirname, 'index.html'), 'text/html');
     } else if (requestPath === '/styles.css') {
         serveFile(res, path.join(__dirname, 'styles.css'), 'text/css');
@@ -314,6 +315,31 @@ const server = http.createServer((req, res) => {
             } catch (err) {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update DJ opportunity status' }));
+            }
+        });
+    } else if (req.url === '/api/life-design') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readLifeDesign();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/life-design\/outcomes\/[^/]+\/status$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[4]);
+        readBody(req, (body) => {
+            try {
+                const { status } = JSON.parse(body || '{}');
+                const outcome = updateLifeDesignOutcomeStatus(id, status);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, outcome }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update Life Design outcome' }));
             }
         });
     } else if (req.url === '/api/networking-events') {
@@ -2358,6 +2384,31 @@ function updateDjGigStatus(id, status) {
     opportunity.updated_at = new Date().toISOString();
     writeDjGigsDb(db);
     return opportunity;
+}
+
+function readLifeDesign() {
+    try {
+        return JSON.parse(fs.readFileSync(LIFE_DESIGN_FILE, 'utf8'));
+    } catch {
+        return { version: 1, vision: {}, scoreboard: [], phases: [], outcomes: [], global_questions: [] };
+    }
+}
+
+function writeLifeDesign(db) {
+    db.updated_at = new Date().toISOString();
+    fs.writeFileSync(LIFE_DESIGN_FILE, JSON.stringify(db, null, 2) + '\n');
+}
+
+function updateLifeDesignOutcomeStatus(id, status) {
+    const allowed = new Set(['clarifying', 'planned', 'active', 'achieved', 'paused']);
+    if (!allowed.has(status)) throw new Error('Invalid Life Design status');
+    const db = readLifeDesign();
+    const outcome = (db.outcomes || []).find(item => item.id === id);
+    if (!outcome) throw new Error('Life Design outcome not found');
+    outcome.status = status;
+    outcome.updated_at = new Date().toISOString();
+    writeLifeDesign(db);
+    return outcome;
 }
 
 function readNetworkingEventsDb() {

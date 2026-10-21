@@ -92,6 +92,10 @@
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 <span class="sidebar-text text-sm whitespace-nowrap">Goals</span>
             </a>
+            <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-life-design" title="Life Design">
+                <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l7 4v5c0 4.5-2.9 7.8-7 9-4.1-1.2-7-4.5-7-9V7l7-4zm-3 9l2 2 4-4"></path></svg>
+                <span class="sidebar-text text-sm whitespace-nowrap">Life Design</span>
+            </a>
             <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-sidebarHover text-gray-600 dark:text-gray-300 transition-colors" data-target="view-people" title="People">
                 <svg class="w-5 h-5 shrink-0 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H2v-2a4 4 0 014-4h3m4 6h-2m1-10a4 4 0 110-8 4 4 0 010 8zm7 1a3 3 0 10-2.83-4"></path></svg>
                 <span class="sidebar-text text-sm whitespace-nowrap">People</span>
@@ -467,7 +471,63 @@
             </section>
         </div>
 
-        <!-- ================= VIEW: HEALTH & FITNESS ================= -->
+        <!-- ================= VIEW: LIFE DESIGN ================= -->
+        <div id="view-life-design" class="view-section max-w-[100vw] sm:max-w-6xl w-full min-w-0 mx-auto px-4 sm:px-8 py-8 sm:py-12 overflow-x-hidden break-words hidden">
+            <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div>
+                    <div class="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-300 mb-2">Design the outcome, then build backwards</div>
+                    <h1 class="text-3xl font-semibold tracking-tight dark:text-white">Life Design</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 max-w-3xl">Your master blueprint for work, business, wealth, location, relationships and creative reputation. Unknowns stay visible until you define them.</p>
+                    <p id="life-design-updated" class="text-xs text-gray-400 dark:text-gray-500 mt-2">Loading blueprint...</p>
+                </div>
+                <button id="refresh-life-design-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh View</button>
+            </header>
+
+            <section class="rounded-2xl overflow-hidden border border-cyan-200 dark:border-cyan-500/20 bg-gradient-to-br from-cyan-50 via-white to-violet-50 dark:from-cyan-500/10 dark:via-[#171717] dark:to-violet-500/10 p-6 sm:p-8 mb-6">
+                <div class="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">North-star vision</div>
+                <h2 id="life-design-vision-title" class="text-2xl font-semibold dark:text-white mt-2">Loading...</h2>
+                <p id="life-design-vision-statement" class="text-base sm:text-lg text-gray-700 dark:text-gray-200 leading-relaxed mt-3 max-w-4xl"></p>
+            </section>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div class="people-stat-card"><div class="people-stat-label">Life outcomes</div><div id="life-design-outcome-count" class="people-stat-value text-cyan-600 dark:text-cyan-300">0</div><div class="people-stat-note">across the full life portfolio</div></div>
+                <div class="people-stat-card"><div class="people-stat-label">In motion</div><div id="life-design-active-count" class="people-stat-value text-emerald-600 dark:text-emerald-300">0</div><div class="people-stat-note">planned or active outcomes</div></div>
+                <div class="people-stat-card"><div class="people-stat-label">Clarity questions</div><div id="life-design-question-count" class="people-stat-value text-amber-600 dark:text-amber-300">0</div><div class="people-stat-note">decisions still to make</div></div>
+            </div>
+
+            <section class="mb-8">
+                <div class="flex items-end justify-between gap-4 mb-3"><div><h2 class="text-lg font-semibold dark:text-white">Outcome scoreboard</h2><p class="text-xs text-gray-500 dark:text-gray-400 mt-1">The headline numbers that define the destination</p></div></div>
+                <div id="life-design-scoreboard" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-3"></div>
+            </section>
+
+            <section class="mb-8">
+                <div class="mb-3"><h2 class="text-lg font-semibold dark:text-white">Strategic sequence</h2><p class="text-xs text-gray-500 dark:text-gray-400 mt-1">This is a dependency order, not a promise that life will unfold perfectly</p></div>
+                <div id="life-design-phases" class="grid grid-cols-1 lg:grid-cols-5 gap-3"></div>
+            </section>
+
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
+                <div class="rounded-xl border border-emerald-200 dark:border-emerald-500/20 bg-emerald-50 dark:bg-emerald-500/10 p-5"><h2 class="font-semibold text-emerald-900 dark:text-emerald-100">Design principles</h2><div id="life-design-principles" class="mt-3 space-y-2 text-sm text-emerald-900/80 dark:text-emerald-100/80"></div></div>
+                <div class="rounded-xl border border-rose-200 dark:border-rose-500/20 bg-rose-50 dark:bg-rose-500/10 p-5"><h2 class="font-semibold text-rose-900 dark:text-rose-100">Anti-goals</h2><div id="life-design-anti-goals" class="mt-3 space-y-2 text-sm text-rose-900/80 dark:text-rose-100/80"></div></div>
+            </section>
+
+            <section class="mb-8">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-4">
+                    <div><h2 class="text-xl font-semibold dark:text-white">Detailed outcomes</h2><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Open each outcome for metrics, milestones, dependencies, risks and the questions that sharpen it</p></div>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <select id="life-design-domain-filter" class="people-input sm:w-52"><option value="all">All life areas</option></select>
+                        <select id="life-design-status-filter" class="people-input sm:w-40"><option value="all">All statuses</option><option value="clarifying">Clarifying</option><option value="planned">Planned</option><option value="active">Active</option><option value="achieved">Achieved</option><option value="paused">Paused</option></select>
+                    </div>
+                </div>
+                <div id="life-design-outcomes" class="space-y-4"><div class="text-sm text-gray-500 dark:text-gray-400">Loading outcomes...</div></div>
+            </section>
+
+            <section class="rounded-2xl border border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/10 p-5 sm:p-6">
+                <div class="text-xs font-semibold uppercase tracking-[0.16em] text-amber-700 dark:text-amber-300">Clarity backlog</div>
+                <h2 class="text-xl font-semibold text-amber-950 dark:text-amber-100 mt-2">The next questions that unlock the plan</h2>
+                <div id="life-design-global-questions" class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4"></div>
+            </section>
+        </div>
+
         <!-- ================= VIEW: PEOPLE / SOCIAL CRM ================= -->
         <div id="view-people" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
             <header class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
@@ -510,6 +570,7 @@
             </section>
         </div>
 
+        <!-- ================= VIEW: HEALTH & FITNESS ================= -->
         <div id="view-health" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
             <header class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div>

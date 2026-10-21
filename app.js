@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
         if (targetId === 'view-business-ideas') loadBusinessIdeas(true);
+        if (targetId === 'view-life-design') loadLifeDesign(true);
         if (targetId === 'view-jobs') {
             if ((localStorage.getItem('jobs-tab') || 'ytjobs') === 'ai') loadAiJobs(true);
             else loadYtJobs(true);
@@ -7864,6 +7865,124 @@ document.addEventListener("DOMContentLoaded", () => {
     [linkedInJobsSearch, linkedInJobsStatusFilter, linkedInJobsScoreFilter, linkedInJobsLocationFilter].forEach(el => el?.addEventListener('input', renderLinkedInJobs));
     [linkedInJobsStatusFilter, linkedInJobsScoreFilter].forEach(el => el?.addEventListener('change', renderLinkedInJobs));
 
+    // === Life Design ===
+    const lifeDesignOutcomesEl = document.getElementById('life-design-outcomes');
+    const lifeDesignDomainFilter = document.getElementById('life-design-domain-filter');
+    const lifeDesignStatusFilter = document.getElementById('life-design-status-filter');
+    const refreshLifeDesignBtn = document.getElementById('refresh-life-design-btn');
+    let lifeDesignData = { vision: {}, scoreboard: [], phases: [], outcomes: [], global_questions: [] };
+
+    const lifeDesignStatusLabel = status => ({ clarifying: 'Clarifying', planned: 'Planned', active: 'Active', achieved: 'Achieved', paused: 'Paused' })[status] || 'Clarifying';
+    const lifeDesignStatusClass = status => ({
+        clarifying: 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300',
+        planned: 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300',
+        active: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300',
+        achieved: 'bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300',
+        paused: 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300'
+    })[status] || 'bg-amber-100 text-amber-700';
+
+    function lifeDesignList(items, ordered = false) {
+        const list = Array.isArray(items) ? items : [];
+        const tag = ordered ? 'ol' : 'ul';
+        const classes = ordered ? 'list-decimal' : 'list-disc';
+        return '<' + tag + ' class="' + classes + ' pl-5 space-y-1.5 text-sm text-gray-600 dark:text-gray-300">' + list.map(item => '<li>' + escapeHtml(item) + '</li>').join('') + '</' + tag + '>';
+    }
+
+    function populateLifeDesignDomains() {
+        if (!lifeDesignDomainFilter) return;
+        const selected = lifeDesignDomainFilter.value || 'all';
+        const domains = [...new Set((lifeDesignData.outcomes || []).map(item => item.domain).filter(Boolean))].sort();
+        lifeDesignDomainFilter.innerHTML = '<option value="all">All life areas</option>' + domains.map(domain => '<option value="' + escapeHtml(domain) + '">' + escapeHtml(domain) + '</option>').join('');
+        lifeDesignDomainFilter.value = domains.includes(selected) ? selected : 'all';
+    }
+
+    function renderLifeDesignOutcomes() {
+        if (!lifeDesignOutcomesEl) return;
+        const domain = lifeDesignDomainFilter?.value || 'all';
+        const status = lifeDesignStatusFilter?.value || 'all';
+        const outcomes = (lifeDesignData.outcomes || []).filter(item => (domain === 'all' || item.domain === domain) && (status === 'all' || item.status === status)).sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
+        const outcomeMap = new Map((lifeDesignData.outcomes || []).map(item => [item.id, item.title]));
+        lifeDesignOutcomesEl.innerHTML = outcomes.length ? outcomes.map(outcome => {
+            const metrics = (outcome.success_metrics || []).map(metric => '<div class="rounded-lg bg-gray-50 dark:bg-white/5 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">' + escapeHtml(metric.label || '') + '</div><div class="text-sm font-semibold dark:text-white mt-1">' + escapeHtml(metric.target || 'To define') + '</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Now: ' + escapeHtml(metric.baseline || 'To define') + '</div></div>').join('');
+            const dependencies = (outcome.dependencies || []).map(id => outcomeMap.get(id) || id);
+            const options = ['clarifying', 'planned', 'active', 'achieved', 'paused'].map(value => '<option value="' + value + '" ' + (outcome.status === value ? 'selected' : '') + '>' + lifeDesignStatusLabel(value) + '</option>').join('');
+            return '<details class="group rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] overflow-hidden" ' + (Number(outcome.order) === 1 ? 'open' : '') + '>' +
+                '<summary class="cursor-pointer list-none p-5 sm:p-6 flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 hover:bg-gray-50 dark:hover:bg-white/[0.03]">' +
+                    '<div class="min-w-0"><div class="flex flex-wrap items-center gap-2"><span class="h-7 w-7 rounded-full bg-cyan-100 text-cyan-700 dark:bg-cyan-500/20 dark:text-cyan-300 flex items-center justify-center text-xs font-bold">' + Number(outcome.order || 0) + '</span><h3 class="text-lg font-semibold dark:text-white">' + escapeHtml(outcome.title || '') + '</h3><span class="text-xs rounded-full px-2.5 py-1 ' + lifeDesignStatusClass(outcome.status) + '">' + escapeHtml(lifeDesignStatusLabel(outcome.status)) + '</span><span class="text-xs rounded-full px-2.5 py-1 bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300">' + escapeHtml(outcome.domain || '') + '</span></div><p class="text-sm text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">' + escapeHtml(outcome.outcome_statement || '') + '</p></div>' +
+                    '<div class="shrink-0 text-xs text-gray-400 group-open:rotate-180 transition-transform">▼</div>' +
+                '</summary>' +
+                '<div class="border-t border-gray-200 dark:border-white/10 p-5 sm:p-6">' +
+                    '<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-5"><div class="lg:col-span-2 rounded-xl bg-cyan-50 dark:bg-cyan-500/10 p-4"><div class="text-xs font-semibold uppercase tracking-wide text-cyan-700 dark:text-cyan-300">Why this matters</div><p class="text-sm text-cyan-950 dark:text-cyan-100 mt-2">' + escapeHtml(outcome.why || '') + '</p></div><div class="rounded-xl bg-gray-50 dark:bg-white/5 p-4"><label class="text-xs font-semibold uppercase tracking-wide text-gray-500">Stage</label><select data-life-design-status data-outcome-id="' + escapeHtml(outcome.id) + '" class="mt-2 w-full rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white">' + options + '</select><div class="text-xs text-gray-400 mt-2">Target date: ' + escapeHtml(outcome.target_date || 'To define') + '</div></div></div>' +
+                    '<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 mb-5">' + metrics + '</div>' +
+                    '<div class="grid grid-cols-1 lg:grid-cols-2 gap-5">' +
+                        '<div><h4 class="text-sm font-semibold dark:text-white mb-2">Definition of done</h4>' + lifeDesignList(outcome.definition_of_done) + '</div>' +
+                        '<div><h4 class="text-sm font-semibold dark:text-white mb-2">Milestones</h4>' + lifeDesignList(outcome.milestones, true) + '</div>' +
+                        '<div class="rounded-xl border border-emerald-200 dark:border-emerald-500/20 bg-emerald-50 dark:bg-emerald-500/10 p-4"><h4 class="text-sm font-semibold text-emerald-900 dark:text-emerald-100 mb-2">Next actions</h4>' + lifeDesignList(outcome.next_actions) + '</div>' +
+                        '<div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/10 p-4"><h4 class="text-sm font-semibold text-amber-900 dark:text-amber-100 mb-2">Questions to answer</h4>' + lifeDesignList(outcome.open_questions) + '</div>' +
+                        '<div><h4 class="text-sm font-semibold dark:text-white mb-2">Dependencies</h4>' + (dependencies.length ? lifeDesignList(dependencies) : '<p class="text-sm text-gray-500">No hard dependency recorded</p>') + '</div>' +
+                        '<div><h4 class="text-sm font-semibold dark:text-white mb-2">Risks to manage</h4>' + lifeDesignList(outcome.risks) + '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</details>';
+        }).join('') : '<div class="rounded-xl border border-dashed border-gray-300 dark:border-white/10 p-8 text-sm text-gray-500">No outcomes match the current filters.</div>';
+    }
+
+    function renderLifeDesign() {
+        const vision = lifeDesignData.vision || {};
+        const outcomes = lifeDesignData.outcomes || [];
+        document.getElementById('life-design-vision-title').innerText = vision.title || 'Life vision';
+        document.getElementById('life-design-vision-statement').innerText = vision.statement || '';
+        document.getElementById('life-design-outcome-count').innerText = outcomes.length;
+        document.getElementById('life-design-active-count').innerText = outcomes.filter(item => ['planned', 'active', 'achieved'].includes(item.status)).length;
+        document.getElementById('life-design-question-count').innerText = (lifeDesignData.global_questions || []).length + outcomes.reduce((sum, item) => sum + (item.open_questions || []).length, 0);
+        const updated = lifeDesignData.updated_at ? new Date(lifeDesignData.updated_at).toLocaleString('en-GB') : 'Not recorded';
+        document.getElementById('life-design-updated').innerText = 'Blueprint updated ' + updated + ' · ' + outcomes.length + ' connected outcomes';
+        document.getElementById('life-design-scoreboard').innerHTML = (lifeDesignData.scoreboard || []).map(item => '<div class="rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] p-4"><div class="text-xs uppercase tracking-wide text-gray-400">' + escapeHtml(item.label || '') + '</div><div class="text-lg font-semibold dark:text-white mt-2">' + escapeHtml(item.target || '') + '</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Baseline: ' + escapeHtml(item.current || 'To define') + '</div></div>').join('');
+        document.getElementById('life-design-phases').innerHTML = (lifeDesignData.phases || []).sort((a, b) => Number(a.order) - Number(b.order)).map(phase => '<div class="relative rounded-xl border border-cyan-200 dark:border-cyan-500/20 bg-cyan-50/60 dark:bg-cyan-500/10 p-4"><h3 class="text-sm font-semibold text-cyan-950 dark:text-cyan-100">' + escapeHtml(phase.title || '') + '</h3><p class="text-xs text-cyan-900/70 dark:text-cyan-100/70 mt-2 leading-relaxed">' + escapeHtml(phase.description || '') + '</p><div class="text-[11px] text-cyan-700 dark:text-cyan-300 mt-3">' + (phase.outcome_ids || []).length + ' linked outcomes</div></div>').join('');
+        document.getElementById('life-design-principles').innerHTML = (vision.principles || []).map(item => '<div class="flex gap-2"><span>✓</span><span>' + escapeHtml(item) + '</span></div>').join('');
+        document.getElementById('life-design-anti-goals').innerHTML = (vision.anti_goals || []).map(item => '<div class="flex gap-2"><span>×</span><span>' + escapeHtml(item) + '</span></div>').join('');
+        document.getElementById('life-design-global-questions').innerHTML = (lifeDesignData.global_questions || []).map(item => '<div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-white/60 dark:bg-[#171717]/60 p-4"><div class="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-300">' + escapeHtml(item.category || '') + '</div><p class="text-sm text-amber-950 dark:text-amber-100 mt-2">' + escapeHtml(item.question || '') + '</p></div>').join('');
+        populateLifeDesignDomains();
+        renderLifeDesignOutcomes();
+    }
+
+    async function loadLifeDesign(silent = false) {
+        if (!lifeDesignOutcomesEl) return;
+        if (!silent) lifeDesignOutcomesEl.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading Life Design...</div>';
+        try {
+            const res = await fetch('/api/life-design', { cache: 'no-store' });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Could not load Life Design');
+            lifeDesignData = data;
+            renderLifeDesign();
+        } catch (err) {
+            console.error(err);
+            lifeDesignOutcomesEl.innerHTML = '<div class="rounded-xl border border-rose-200 dark:border-rose-500/20 bg-rose-50 dark:bg-rose-500/10 p-6 text-rose-700 dark:text-rose-300">Could not load the Life Design blueprint.</div>';
+        }
+    }
+
+    async function updateLifeDesignStatus(id, status) {
+        try {
+            const res = await fetch('/api/life-design/outcomes/' + encodeURIComponent(id) + '/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
+            const data = await res.json();
+            if (!res.ok || !data.outcome) throw new Error(data.error || 'Status update failed');
+            const index = (lifeDesignData.outcomes || []).findIndex(item => item.id === id);
+            if (index !== -1) lifeDesignData.outcomes[index] = data.outcome;
+            renderLifeDesign();
+        } catch (err) {
+            console.error(err);
+            alert('Could not update the Life Design outcome.');
+        }
+    }
+
+    refreshLifeDesignBtn?.addEventListener('click', () => loadLifeDesign());
+    lifeDesignDomainFilter?.addEventListener('change', renderLifeDesignOutcomes);
+    lifeDesignStatusFilter?.addEventListener('change', renderLifeDesignOutcomes);
+    lifeDesignOutcomesEl?.addEventListener('change', event => {
+        const select = event.target.closest('[data-life-design-status]');
+        if (select) updateLifeDesignStatus(select.dataset.outcomeId, select.value);
+    });
+
     // === People / Social CRM ===
     const peopleListEl = document.getElementById('people-list');
     const peopleQueueEl = document.getElementById('people-queue');
@@ -8107,6 +8226,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (activeView.id === 'view-read') loadReadLibrary(true);
         else if (activeView.id === 'view-goals') loadGoals(true);
         else if (activeView.id === 'view-business-ideas') loadBusinessIdeas(true);
+        else if (activeView.id === 'view-life-design') loadLifeDesign(true);
         else if (activeView.id === 'view-health') loadHealthData(true);
         else if (activeView.id === 'view-jobs') {
             if ((localStorage.getItem('jobs-tab') || 'ytjobs') === 'ai') loadAiJobs(true);
@@ -8140,9 +8260,11 @@ document.addEventListener("DOMContentLoaded", () => {
             ? 'view-djing'
         : location.pathname === '/networking'
             ? 'view-networking'
+        : location.pathname === '/life-design'
+            ? 'view-life-design'
             : 'view-goals';
 
-    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/jobs', '/jobs/ai', '/ytjobs', '/jobs/youtube', '/property', '/people', '/read', '/djing', '/networking'].includes(location.pathname)) {
+    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/jobs', '/jobs/ai', '/ytjobs', '/jobs/youtube', '/property', '/people', '/read', '/djing', '/networking', '/life-design'].includes(location.pathname)) {
         contextSwitcher.value = 'lifeos';
         navMissionControl?.classList.add('hidden');
         navLifeOs?.classList.remove('hidden');

@@ -1,0 +1,674 @@
+{
+  "version": 1,
+  "created_at": "2026-10-21T17:05:00+01:00",
+  "updated_at": "2026-10-21T17:05:00+01:00",
+  "vision": {
+    "title": "Freedom, family, creativity and ownership",
+    "statement": "Build a financially independent life with my wife, split seasonally between Ibiza and the UK, funded by valuable businesses, property projects and a trusted personal brand, with close friendships and time for the things I enjoy.",
+    "principles": [
+      "Freedom is the outcome, not endless work",
+      "Build income first, then convert income into assets, skills and options",
+      "Design the plan with my wife, not around her",
+      "Protect health, relationships and enjoyment while building",
+      "Use clear thresholds before making irreversible moves"
+    ],
+    "anti_goals": [
+      "Being permanently dependent on one employer",
+      "Growing a business that owns all of my time",
+      "Moving countries before income and visa requirements are proven",
+      "Risking all property capital on one poorly understood deal",
+      "Becoming visible online without building a life I actually enjoy"
+    ]
+  },
+  "scoreboard": [
+    {
+      "id": "career-income",
+      "label": "London role",
+      "target": "£60k salary + 100% OTE",
+      "current": "To define",
+      "unit": "career"
+    },
+    {
+      "id": "business-income",
+      "label": "Airbnb income",
+      "target": "£4,000 per month",
+      "current": "To define",
+      "unit": "business"
+    },
+    {
+      "id": "business-exit",
+      "label": "Business exit",
+      "target": "£1,000,000",
+      "current": "To define",
+      "unit": "wealth"
+    },
+    {
+      "id": "youtube-audience",
+      "label": "YouTube",
+      "target": "100,000 subscribers",
+      "current": "To define",
+      "unit": "audience"
+    },
+    {
+      "id": "instagram-audience",
+      "label": "Instagram",
+      "target": "100,000 followers",
+      "current": "To define",
+      "unit": "audience"
+    }
+  ],
+  "phases": [
+    {
+      "id": "stability",
+      "order": 1,
+      "title": "1. Stability and runway",
+      "description": "Secure strong London income, define household numbers and create a disciplined allocation for business building and personal development.",
+      "outcome_ids": [
+        "london-career",
+        "capital-and-capability"
+      ]
+    },
+    {
+      "id": "proof",
+      "order": 2,
+      "title": "2. Prove the engines",
+      "description": "Prove repeatable Airbnb management income, planning-uplift capability, consistent content output and a genuine London network before adding complexity.",
+      "outcome_ids": [
+        "airbnb-income-ibiza",
+        "audience",
+        "friendships"
+      ]
+    },
+    {
+      "id": "mobility",
+      "order": 3,
+      "title": "3. Earn location freedom",
+      "description": "Move to the Ibiza and UK seasonal rhythm only when income, operations, marriage logistics and the digital nomad visa route are ready.",
+      "outcome_ids": [
+        "airbnb-income-ibiza",
+        "seasonal-life"
+      ]
+    },
+    {
+      "id": "scale",
+      "order": 4,
+      "title": "4. Compound capital and enterprise value",
+      "description": "Use property equity and earned capital carefully, build a repeatable property-flip capability and make the Airbnb business valuable without Phil.",
+      "outcome_ids": [
+        "property-capital",
+        "airbnb-exit"
+      ]
+    },
+    {
+      "id": "freedom",
+      "order": 5,
+      "title": "5. Realise the designed life",
+      "description": "Exit the business at the right value, buy the dream home when affordable, preserve the seasonal lifestyle and keep creating.",
+      "outcome_ids": [
+        "airbnb-exit",
+        "property-capital",
+        "seasonal-life",
+        "audience",
+        "friendships"
+      ]
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "london-career",
+      "order": 1,
+      "title": "Secure the right London job",
+      "domain": "Career",
+      "status": "clarifying",
+      "outcome_statement": "Get a new job in London earning £60,000 per year with 100% OTE.",
+      "why": "Create stable cash flow, confidence and investment capacity while building the next chapter.",
+      "definition_of_done": [
+        "Signed employment contract for a suitable London-based role",
+        "Compensation meets the clarified salary and OTE definition",
+        "Role supports the wider business and life plan rather than consuming all available energy"
+      ],
+      "success_metrics": [
+        {
+          "label": "Annual salary",
+          "target": "£60,000",
+          "baseline": "To define"
+        },
+        {
+          "label": "OTE structure",
+          "target": "100% OTE",
+          "baseline": "Clarify meaning"
+        },
+        {
+          "label": "Location",
+          "target": "London",
+          "baseline": "Job search active"
+        }
+      ],
+      "dependencies": [],
+      "milestones": [
+        "Define exact target roles, industries and non-negotiables",
+        "Clarify whether £60k is base salary with £60k variable or £60k total OTE",
+        "Build a target-employer and application pipeline",
+        "Complete interviews and evaluate offers against the life plan",
+        "Accept and start the best-fit role"
+      ],
+      "next_actions": [
+        "Write the compensation definition and role scorecard",
+        "Set the target date for signing an offer",
+        "Review the existing Jobs dashboard against this exact brief"
+      ],
+      "open_questions": [
+        "Does £60k mean base salary, with another £60k variable at 100% OTE?",
+        "What is the latest acceptable start date?",
+        "How many office days per week are acceptable?",
+        "Which role titles and industries are in scope?",
+        "What workload or travel would make a role incompatible with the business plan?"
+      ],
+      "risks": [
+        "Taking a higher-paying job that leaves no energy to build the business",
+        "Optimising for title rather than income, flexibility and learning"
+      ],
+      "target_date": null
+    },
+    {
+      "id": "capital-and-capability",
+      "order": 2,
+      "title": "Convert income into capability and business growth",
+      "domain": "Money & Learning",
+      "status": "clarifying",
+      "outcome_statement": "Use employment income to invest in the Airbnb management business and personal development, including learning to source planning-uplift deals.",
+      "why": "Turn earned income into skills, business assets and future wealth rather than lifestyle inflation.",
+      "definition_of_done": [
+        "A written monthly allocation for household costs, safety, business and learning",
+        "Airbnb investments are tied to measurable commercial outcomes",
+        "A credible planning-uplift learning path is completed and applied to real opportunities"
+      ],
+      "success_metrics": [
+        {
+          "label": "Monthly business investment",
+          "target": "To define",
+          "baseline": "To define"
+        },
+        {
+          "label": "Monthly learning budget",
+          "target": "To define",
+          "baseline": "To define"
+        },
+        {
+          "label": "Emergency runway",
+          "target": "To define",
+          "baseline": "To define"
+        },
+        {
+          "label": "Planning-uplift competence",
+          "target": "Source and appraise real deals",
+          "baseline": "Learning stage"
+        }
+      ],
+      "dependencies": [
+        "london-career"
+      ],
+      "milestones": [
+        "Map household baseline and available monthly surplus",
+        "Set investment rules before the new salary arrives",
+        "Choose planning-uplift education and mentors using evidence, not hype",
+        "Complete a first live deal appraisal",
+        "Build a repeatable sourcing and appraisal process"
+      ],
+      "next_actions": [
+        "Define the monthly money waterfall",
+        "List the exact planning skills to acquire",
+        "Set a maximum learning budget and evidence standard"
+      ],
+      "open_questions": [
+        "How much monthly cash can be invested without stressing household finances?",
+        "What emergency fund must remain untouched?",
+        "Which planning-uplift skills are missing today?",
+        "What evidence would justify paying for a course, mentor or community?"
+      ],
+      "risks": [
+        "Buying education without applying it",
+        "Starving the household buffer to fund speculative growth",
+        "Spreading capital across too many projects"
+      ],
+      "target_date": null
+    },
+    {
+      "id": "airbnb-income-ibiza",
+      "order": 3,
+      "title": "Reach £4,000 monthly business income and qualify for Ibiza",
+      "domain": "Business & Location",
+      "status": "clarifying",
+      "outcome_statement": "Earn £4,000 per month from the Airbnb management business, then move to Ibiza with my wife using the digital nomad visa route.",
+      "why": "Replace dependency on employment with portable income and begin the location-flexible life.",
+      "definition_of_done": [
+        "The £4,000 monthly target is precisely defined and reached for an agreed proof period",
+        "Operations can run reliably while Phil is in Ibiza",
+        "The couple agrees the move, budget and timing",
+        "Professional immigration advice confirms an eligible digital nomad visa route"
+      ],
+      "success_metrics": [
+        {
+          "label": "Monthly income",
+          "target": "£4,000",
+          "baseline": "To define"
+        },
+        {
+          "label": "Proof period",
+          "target": "To define",
+          "baseline": "Not set"
+        },
+        {
+          "label": "Operational dependence on Phil",
+          "target": "To define",
+          "baseline": "To define"
+        },
+        {
+          "label": "Visa readiness",
+          "target": "Eligible and documented",
+          "baseline": "Research required"
+        }
+      ],
+      "dependencies": [
+        "london-career",
+        "capital-and-capability"
+      ],
+      "milestones": [
+        "Define whether £4,000 means revenue, gross profit or personal net income",
+        "Define the customer and property-unit target behind £4,000",
+        "Build repeatable acquisition, onboarding and operations",
+        "Hold the target for the agreed number of months",
+        "Confirm visa, tax, healthcare and household logistics with qualified advisers",
+        "Move only after the readiness gate is met"
+      ],
+      "next_actions": [
+        "Define the £4,000 metric and proof period",
+        "Document the current business baseline",
+        "Calculate how many managed properties and what margin are required"
+      ],
+      "open_questions": [
+        "Is £4,000 revenue, business profit or personal take-home income?",
+        "How many consecutive months prove the income is reliable?",
+        "What does your wife need from the move?",
+        "What visa, tax and social-security advice is required?",
+        "What must operate without you before relocating?"
+      ],
+      "risks": [
+        "Moving on fragile revenue",
+        "Confusing turnover with spendable income",
+        "Visa or tax assumptions proving wrong",
+        "Business operations tying Phil to the phone"
+      ],
+      "target_date": null
+    },
+    {
+      "id": "property-capital",
+      "order": 4,
+      "title": "Turn property equity into flip capital and a dream home",
+      "domain": "Property & Wealth",
+      "status": "clarifying",
+      "outcome_statement": "Sell my current property and use the capital to fund property flips, generating more capital that can eventually help buy our dream home.",
+      "why": "Convert existing equity into an active capital-growth engine and a meaningful family asset.",
+      "definition_of_done": [
+        "The current property sale decision passes a rigorous hold-versus-sell analysis",
+        "Tax, fees, debt repayment and true deployable equity are known",
+        "The first flip meets written buying and risk criteria",
+        "Capital compounds without putting the household’s security at unacceptable risk",
+        "The dream-home fund reaches its defined target"
+      ],
+      "success_metrics": [
+        {
+          "label": "Net deployable equity",
+          "target": "To define",
+          "baseline": "To calculate"
+        },
+        {
+          "label": "Flip profit target",
+          "target": "To define",
+          "baseline": "Not set"
+        },
+        {
+          "label": "Maximum capital at risk per deal",
+          "target": "To define",
+          "baseline": "Not set"
+        },
+        {
+          "label": "Dream-home fund",
+          "target": "To define",
+          "baseline": "Not set"
+        }
+      ],
+      "dependencies": [
+        "capital-and-capability"
+      ],
+      "milestones": [
+        "Complete hold-versus-sell appraisal",
+        "Calculate net proceeds after mortgage, tax and fees",
+        "Define flip buy box and risk rules",
+        "Build the professional team and funding plan",
+        "Complete one controlled first flip",
+        "Repeat only after a full post-project review",
+        "Define the dream home and required deposit or purchase fund"
+      ],
+      "next_actions": [
+        "Commission a current valuation and net-proceeds calculation",
+        "Write the flip buy box before viewing deals",
+        "Define the dream-home number and location criteria"
+      ],
+      "open_questions": [
+        "Which property will be sold and when?",
+        "What are the expected net proceeds after every cost?",
+        "What return and contingency are required for a flip?",
+        "How much capital must never be put at risk?",
+        "What exactly is the dream home, where is it and what will it cost?"
+      ],
+      "risks": [
+        "Selling a strong long-term asset without a better risk-adjusted use for the equity",
+        "Underestimating tax, finance, refurbishment or holding costs",
+        "Concentrating capital in one project"
+      ],
+      "target_date": null
+    },
+    {
+      "id": "airbnb-exit",
+      "order": 5,
+      "title": "Build and sell the Airbnb management business for £1m",
+      "domain": "Business & Wealth",
+      "status": "clarifying",
+      "outcome_statement": "Build the Airbnb management business into a company that can be sold for £1,000,000.",
+      "why": "Create a major liquidity event and prove the ability to build a valuable, transferable company.",
+      "definition_of_done": [
+        "The business produces predictable, documented revenue and profit",
+        "Customer concentration and founder dependence are controlled",
+        "Systems, team, contracts and reporting survive due diligence",
+        "A credible buyer completes a transaction valuing Phil’s proceeds at the clarified £1m target"
+      ],
+      "success_metrics": [
+        {
+          "label": "Target exit value",
+          "target": "£1,000,000",
+          "baseline": "Business baseline to define"
+        },
+        {
+          "label": "Recurring revenue",
+          "target": "To define",
+          "baseline": "To define"
+        },
+        {
+          "label": "Profit or EBITDA",
+          "target": "To define",
+          "baseline": "To define"
+        },
+        {
+          "label": "Founder dependence",
+          "target": "Low enough for acquisition",
+          "baseline": "To define"
+        },
+        {
+          "label": "Customer concentration",
+          "target": "To define",
+          "baseline": "To define"
+        }
+      ],
+      "dependencies": [
+        "airbnb-income-ibiza"
+      ],
+      "milestones": [
+        "Define the likely buyer and valuation method",
+        "Build the £4,000 monthly proof engine",
+        "Choose the scale model and geographic focus",
+        "Systemise sales, onboarding, operations and quality control",
+        "Build management information and clean accounts",
+        "Reduce founder dependence",
+        "Prepare for buyer conversations and due diligence",
+        "Sell only when value and life timing align"
+      ],
+      "next_actions": [
+        "Define whether £1m means headline valuation or net proceeds",
+        "Reverse-engineer revenue and profit required at realistic multiples",
+        "List the business assets a buyer would value"
+      ],
+      "open_questions": [
+        "Does £1m mean sale price, enterprise value or net proceeds after tax?",
+        "Who is the likely buyer?",
+        "What valuation multiple is realistic for this model?",
+        "What revenue, profit and contract base would support that value?",
+        "How many hours per week may the business require from Phil at exit?"
+      ],
+      "risks": [
+        "Building a job rather than a sellable business",
+        "Scaling low-margin or operationally fragile contracts",
+        "Assuming a valuation multiple without comparable evidence"
+      ],
+      "target_date": null
+    },
+    {
+      "id": "seasonal-life",
+      "order": 6,
+      "title": "Live seasonally between Ibiza and the UK",
+      "domain": "Lifestyle & Family",
+      "status": "clarifying",
+      "outcome_statement": "Live in Ibiza during the summer doing things I enjoy, and in London or elsewhere in the UK during the winter while working on property.",
+      "why": "Design the year around climate, creativity, relationships, property and enjoyment rather than a fixed default location.",
+      "definition_of_done": [
+        "A repeatable annual rhythm is agreed with my wife",
+        "Both locations are financially and legally workable",
+        "Summer in Ibiza includes real leisure, music, friendships and health, not remote overwork",
+        "Winter in the UK supports focused property execution",
+        "Housing and travel logistics feel sustainable"
+      ],
+      "success_metrics": [
+        {
+          "label": "Ibiza season",
+          "target": "Summer months to define",
+          "baseline": "Not set"
+        },
+        {
+          "label": "UK season",
+          "target": "Winter months to define",
+          "baseline": "Not set"
+        },
+        {
+          "label": "Annual lifestyle budget",
+          "target": "To define",
+          "baseline": "Not set"
+        },
+        {
+          "label": "Protected enjoyment time",
+          "target": "To define",
+          "baseline": "Not set"
+        }
+      ],
+      "dependencies": [
+        "airbnb-income-ibiza",
+        "property-capital"
+      ],
+      "milestones": [
+        "Design the ideal year month by month",
+        "Agree the rhythm and trade-offs with my wife",
+        "Model housing, travel, tax and business costs",
+        "Run a shorter seasonal trial",
+        "Review energy, relationships, costs and productivity",
+        "Commit to the sustainable long-term version"
+      ],
+      "next_actions": [
+        "Draft the ideal 12-month calendar",
+        "Define what “doing things I enjoy” means in weekly life",
+        "Discuss non-negotiables and concerns with my wife"
+      ],
+      "open_questions": [
+        "Which exact months belong in Ibiza and the UK?",
+        "Where in London or the UK will you live during winter?",
+        "Will you rent, own or use flexible accommodation in each place?",
+        "How will the plan support future family needs?",
+        "What weekly activities make Ibiza life worth designing?"
+      ],
+      "risks": [
+        "Creating two expensive bases without enough use",
+        "Carrying work intensity into the place meant to provide freedom",
+        "Designing the plan without enough shared input"
+      ],
+      "target_date": null
+    },
+    {
+      "id": "friendships",
+      "order": 7,
+      "title": "Build close, successful friendship circles in London and Ibiza",
+      "domain": "Relationships & Community",
+      "status": "clarifying",
+      "outcome_statement": "Create a close group of successful friends in London and Ibiza.",
+      "why": "Freedom and achievement will feel hollow without belonging, fun, mutual support and people to share life with.",
+      "definition_of_done": [
+        "There are trusted friends in both locations, not only a large network",
+        "Relationships include regular shared experiences and mutual support",
+        "Friendships are based on character and connection, not status alone",
+        "The social rhythm respects Phil’s need for quiet recharge time"
+      ],
+      "success_metrics": [
+        {
+          "label": "Close friends in London",
+          "target": "To define",
+          "baseline": "To define"
+        },
+        {
+          "label": "Close friends in Ibiza",
+          "target": "To define",
+          "baseline": "To define"
+        },
+        {
+          "label": "Meaningful social time",
+          "target": "To define",
+          "baseline": "To define"
+        },
+        {
+          "label": "New people met",
+          "target": "Daily aspiration; sustainable target to define",
+          "baseline": "Tracked in Social CRM"
+        }
+      ],
+      "dependencies": [],
+      "milestones": [
+        "Define the qualities of the friendships wanted",
+        "Use networking and interest-based events to meet aligned people",
+        "Follow up consistently through the Social CRM",
+        "Create recurring invitations and shared rituals",
+        "Invest more deeply in reciprocal relationships",
+        "Review whether the circle feels energising, safe and genuine"
+      ],
+      "next_actions": [
+        "Define what “close” and “successful” mean without making friendship transactional",
+        "Set a sustainable weekly meeting and follow-up rhythm",
+        "Choose two recurring London communities to invest in"
+      ],
+      "open_questions": [
+        "How many close friends would feel like enough in each place?",
+        "Which values and qualities matter most?",
+        "What activities naturally create repeated contact?",
+        "How much social time feels energising rather than draining?"
+      ],
+      "risks": [
+        "Mistaking networking volume for friendship",
+        "Choosing people mainly for perceived success",
+        "Overcommitting socially and losing recovery time"
+      ],
+      "target_date": null
+    },
+    {
+      "id": "audience",
+      "order": 8,
+      "title": "Build a trusted 100k audience on YouTube and Instagram",
+      "domain": "Content & Reputation",
+      "status": "clarifying",
+      "outcome_statement": "Become well known through 100,000 YouTube subscribers and 100,000 Instagram followers.",
+      "why": "Build creative fulfilment, reputation, leverage, opportunities and distribution for the businesses and life story.",
+      "definition_of_done": [
+        "YouTube reaches 100,000 genuine subscribers",
+        "Instagram reaches 100,000 genuine followers",
+        "The audience associates Phil with a clear promise and body of work",
+        "Content supports the life and businesses without becoming an empty vanity machine"
+      ],
+      "success_metrics": [
+        {
+          "label": "YouTube subscribers",
+          "target": "100,000",
+          "baseline": "To define"
+        },
+        {
+          "label": "Instagram followers",
+          "target": "100,000",
+          "baseline": "To define"
+        },
+        {
+          "label": "Publishing cadence",
+          "target": "To define",
+          "baseline": "To define"
+        },
+        {
+          "label": "Audience value",
+          "target": "Trust and useful outcomes to define",
+          "baseline": "To define"
+        }
+      ],
+      "dependencies": [],
+      "milestones": [
+        "Define the audience, promise and content pillars",
+        "Choose the relationship between personal brand, Airbnb, property and life design",
+        "Establish a sustainable publishing system",
+        "Reach the first proof milestones",
+        "Double down on formats that create trust and retention",
+        "Build collaborations and distribution",
+        "Reach 100k on each platform without sacrificing credibility"
+      ],
+      "next_actions": [
+        "Record current audience baselines",
+        "Define who the content is for and why they should care",
+        "Choose a 90-day publishing cadence"
+      ],
+      "open_questions": [
+        "What should Phil be well known for?",
+        "Who is the primary audience?",
+        "Is the content business-led, life-design-led, property-led or a deliberate combination?",
+        "What publication pace can be sustained alongside work and business?",
+        "What matters beyond follower count: leads, revenue, opportunities, impact or community?"
+      ],
+      "risks": [
+        "Chasing follower count without a clear audience promise",
+        "Trying to cover too many identities at once",
+        "Burnout from an unrealistic content cadence"
+      ],
+      "target_date": null
+    }
+  ],
+  "global_questions": [
+    {
+      "id": "timeline",
+      "question": "What is the target year for the fully designed life, and what must be true within the next 12 months?",
+      "category": "Timeline"
+    },
+    {
+      "id": "household",
+      "question": "What does your wife want this shared life to look and feel like?",
+      "category": "Family"
+    },
+    {
+      "id": "money-floor",
+      "question": "What monthly household income and cash reserve create genuine safety?",
+      "category": "Money"
+    },
+    {
+      "id": "focus",
+      "question": "Which two outcomes are the priority for the next 90 days?",
+      "category": "Focus"
+    },
+    {
+      "id": "health",
+      "question": "What health, energy and relationship standards must the plan protect?",
+      "category": "Wellbeing"
+    },
+    {
+      "id": "definition-freedom",
+      "question": "How will you know you are free before every financial goal is complete?",
+      "category": "Values"
+    }
+  ]
+}
