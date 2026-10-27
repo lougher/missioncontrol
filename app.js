@@ -5649,7 +5649,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const isGumtree = tabName === 'gumtree';
         const isLondonApartment = tabName === 'london-apartment';
         const isHmo = ['hmo', 'london-hmo'].includes(tabName);
-        const isLandDeals = tabName === 'land-deals';
+        const isLandDeals = ['land-deals', 'london-land-deals'].includes(tabName);
         propertyOpenRentPanel?.classList.toggle('hidden', !isOpenRent);
         propertyGumtreePanel?.classList.toggle('hidden', !isGumtree);
         propertyLondonApartmentPanel?.classList.toggle('hidden', !isLondonApartment);
@@ -5670,7 +5670,14 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (isGumtree) loadGumtreeLeads(true);
         else if (isLondonApartment) loadLondonApartmentLeads();
         else if (isHmo) loadPropertyDeals(true);
-        else if (isLandDeals) loadLandDeals(true);
+        else if (isLandDeals) {
+            landDealsMarket = tabName === 'london-land-deals' ? 'london' : 'cardiff';
+            landDealsSearch.value = '';
+            landDealsStatusFilter.value = 'active';
+            landDealsPriorityFilter.value = 'all';
+            landDealsSort.value = 'priority';
+            loadLandDeals(true);
+        }
     }
 
     function openRentStageLabel(status) {
@@ -5719,6 +5726,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const landDealsResetFilters = document.getElementById('land-deals-reset-filters');
     let landDeals = [];
     let landDealsMetaData = {};
+    let landDealsMarket = 'cardiff';
 
     const landDealStages = [
         'new_lead', 'desk_research', 'site_visit', 'owner_details_needed', 'ready_to_contact',
@@ -5770,13 +5778,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderLandDeals() {
         if (!landDealsList) return;
+        const isLondon = landDealsMarket === 'london';
+        const heading = document.getElementById('land-deals-heading');
+        if (heading) heading.innerText = `${isLondon ? 'London' : 'Cardiff'} planning-uplift pipeline`;
         const setText = (id, value) => { const el = document.getElementById(id); if (el) el.innerText = value; };
         setText('land-deals-total', landDeals.length);
         setText('land-deals-researching', landDeals.filter(deal => ['new_lead', 'desk_research', 'site_visit', 'owner_details_needed'].includes(deal.status)).length);
         setText('land-deals-contacted', landDeals.filter(deal => ['ready_to_contact', 'contacted', 'follow_up'].includes(deal.status)).length);
         setText('land-deals-interested', landDeals.filter(deal => ['owner_interested', 'appraisal', 'heads_of_terms'].includes(deal.status)).length);
         setText('land-deals-controlled', landDeals.filter(deal => ['legals', 'option_agreed', 'planning', 'consented', 'marketed', 'sold'].includes(deal.status)).length);
-        if (landDealsMeta) landDealsMeta.innerText = `${landDealsMetaData.count || landDeals.length} preliminary prospects · research checked ${landDealsMetaData.research_date || 'unknown'} · no owners verified and no letters sent. Priority ranks owner-enquiry usefulness, not planning probability or valuation.`;
+        if (landDealsMeta) landDealsMeta.innerText = `${landDealsMetaData.count || landDeals.length} preliminary prospects · research checked ${landDealsMetaData.research_date || 'unknown'} · ${landDealsMetaData.note || 'Priority ranks owner-enquiry usefulness, not planning probability or valuation.'}`;
         const deals = filteredLandDeals();
         if (!deals.length) {
             landDealsList.innerHTML = '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-8 text-gray-500">No land deals match these filters.</div>';
@@ -5788,7 +5799,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const owner = deal.ownership || {};
             const letterStatus = deal.outreach?.letter_status || 'not_drafted';
             const titleArea = Number(deal.title_area_ha || 0);
-            const titleAreaLabel = titleArea > 0 ? `${titleArea.toFixed(2)} ha total title` : 'Title area not obtained';
+            const titleAreaLabel = Number(deal.title_area_sqm) > 0 ? `${Number(deal.title_area_sqm).toLocaleString('en-GB')} m² total title` : titleArea > 0 ? `about ${titleArea.toFixed(2)} ha total title` : 'Title area not obtained';
             const financial = deal.financial && typeof deal.financial === 'object' ? deal.financial : null;
             return `<article class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-5">
                 <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">
@@ -5799,7 +5810,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <span class="text-xs px-2.5 py-1 rounded-full ${landDealStageClass(deal.status)}">${escapeHtml(landDealStageLabel(deal.status))}</span>
                             <span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">Preliminary</span>
                         </div>
-                        <div class="text-sm text-gray-600 dark:text-gray-300 mt-2">${escapeHtml(deal.opportunity_type || '-')} · ${escapeHtml(titleAreaLabel)} · ${Number(deal.distance_miles || 0).toFixed(2)} miles from CF24 3QZ · Title ${escapeHtml(deal.title_reference || 'not obtained')}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300 mt-2">${escapeHtml(deal.opportunity_type || '-')} · ${escapeHtml(titleAreaLabel)} · ${typeof deal.distance_miles === 'number' ? `${deal.distance_miles.toFixed(2)} straight-line miles from ${escapeHtml(landDealsMetaData.search_centre || 'search centre')}` : 'Distance not verified'} · Title ${escapeHtml(deal.title_reference || 'not obtained')}</div>
                         <div class="mt-3 font-medium text-gray-900 dark:text-white">${escapeHtml(deal.headline || '')}</div>
                         ${financial ? `<div class="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-3 text-sm"><div class="rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 p-3"><div class="text-xs uppercase tracking-wide text-red-500">Asking price</div><div class="font-semibold text-red-700 dark:text-red-300 mt-1">£${Number(financial.asking_price_gbp || 0).toLocaleString('en-GB')}</div></div><div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">Stated units</div><div class="font-semibold dark:text-white mt-1">${escapeHtml(financial.stated_units || '-')} unverified</div></div><div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">Land / stated unit</div><div class="font-semibold dark:text-white mt-1">£${Number(financial.price_per_unit_ex_vat || 0).toLocaleString('en-GB')}</div></div><div class="rounded-lg border border-gray-200 dark:border-white/10 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">VAT position</div><div class="font-semibold dark:text-white mt-1">${escapeHtml(financial.vat_basis || 'Unconfirmed')}</div></div></div>` : ''}
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4 text-sm">
@@ -5832,9 +5843,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!landDealsList) return;
         if (!silent) landDealsList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading land deals...</div>';
         try {
-            const res = await fetch('/api/land-deals');
+            const market = landDealsMarket;
+            const res = await fetch(market === 'london' ? '/api/london-land-deals' : '/api/land-deals');
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || 'Land deals request failed');
+            if (market !== landDealsMarket) return;
             landDeals = Array.isArray(data.deals) ? data.deals : [];
             landDealsMetaData = data.meta || {};
             renderLandDeals();
@@ -5846,10 +5859,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.updateLandDeal = async (id, payload) => {
         try {
-            const res = await fetch(`/api/land-deals/${encodeURIComponent(id)}/workflow`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const market = landDealsMarket;
+            const route = market === 'london' ? 'london-land-deals' : 'land-deals';
+            const res = await fetch(`/api/${route}/${encodeURIComponent(id)}/workflow`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             const data = await res.json();
             if (!res.ok || !data.deal) throw new Error(data.error || 'Land deal update failed');
-            await loadLandDeals(true);
+            if (market === landDealsMarket) await loadLandDeals(true);
         } catch (error) { console.error(error); alert('Could not update the land deal.'); }
     };
 
@@ -6904,7 +6919,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (refreshPropertyBtn) refreshPropertyBtn.addEventListener('click', () => loadPropertyDeals());
     [propertySearch, propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('input', renderPropertyDeals));
     [propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('change', renderPropertyDeals));
-    switchPropertyTab(['openrent', 'gumtree', 'london-apartment', 'hmo', 'london-hmo', 'land-deals'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
+    switchPropertyTab(['openrent', 'gumtree', 'london-apartment', 'hmo', 'london-hmo', 'land-deals', 'london-land-deals'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
 
     // === YTJobs Logic ===
     const refreshYtJobsBtn = document.getElementById('refresh-ytjobs-btn');

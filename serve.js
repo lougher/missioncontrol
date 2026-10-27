@@ -79,6 +79,7 @@ const OPENRENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'openrent
 const GUMTREE_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'gumtree-leads.json');
 const LONDON_APARTMENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'london-apartment-leads.json');
 const LAND_DEALS_FILE = path.join(WORKSPACE_DIR, 'property-deals', 'land-deals.json');
+const LONDON_LAND_DEALS_FILE = path.join(WORKSPACE_DIR, 'property-deals', 'london-land-deals.json');
 const DUMMY_CALENDAR_JOBS = [
     { id: 'dummy-youtube-planning', name: 'YouTube Planning', hour: 8, minute: 0, calendarTag: 'YouTube' },
     { id: 'dummy-lunch-check-in', name: 'Lunch Check-In', hour: 13, minute: 0, calendarTag: 'Check-In' },
@@ -434,23 +435,24 @@ const server = http.createServer((req, res) => {
         const db = syncPropertyDealsFromTracker();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ meta: db.meta || {}, deals: db.deals || [] }));
-    } else if (req.url === '/api/land-deals') {
+    } else if (req.url === '/api/land-deals' || req.url === '/api/london-land-deals') {
         if (req.method !== 'GET') {
             res.writeHead(405, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Method not allowed' }));
         }
-        const db = readLandDeals();
+        const db = readLandDeals(req.url === '/api/london-land-deals' ? 'london' : 'cardiff');
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(db));
-    } else if (req.url.match(/^\/api\/land-deals\/[^/]+\/workflow$/)) {
+    } else if (req.url.match(/^\/api\/(?:london-)?land-deals\/[^/]+\/workflow$/)) {
         if (req.method !== 'POST') {
             res.writeHead(405, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Method not allowed' }));
         }
         const id = decodeURIComponent(req.url.split('/')[3]);
+        const market = req.url.startsWith('/api/london-land-deals/') ? 'london' : 'cardiff';
         readBody(req, body => {
             try {
-                const deal = updateLandDeal(id, JSON.parse(body || '{}'));
+                const deal = updateLandDeal(id, JSON.parse(body || '{}'), market);
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: true, deal }));
             } catch (err) {
@@ -2533,24 +2535,29 @@ const LAND_DEAL_STATUSES = [
 ];
 const LAND_DEAL_LETTER_STATUSES = ['not_drafted', 'drafted', 'approved', 'sent', 'replied'];
 
-function readLandDeals() {
-    const parsed = readJsonFile(LAND_DEALS_FILE, { meta: {}, deals: [] });
+function landDealsFile(market = 'cardiff') {
+    return market === 'london' ? LONDON_LAND_DEALS_FILE : LAND_DEALS_FILE;
+}
+
+function readLandDeals(market = 'cardiff') {
+    const parsed = readJsonFile(landDealsFile(market), { meta: {}, deals: [] });
     return {
         meta: parsed.meta && typeof parsed.meta === 'object' ? parsed.meta : {},
         deals: Array.isArray(parsed.deals) ? parsed.deals : []
     };
 }
 
-function writeLandDeals(db) {
-    fs.mkdirSync(path.dirname(LAND_DEALS_FILE), { recursive: true });
-    const tempFile = `${LAND_DEALS_FILE}.tmp`;
+function writeLandDeals(db, market = 'cardiff') {
+    const file = landDealsFile(market);
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    const tempFile = `${file}.tmp`;
     const deals = Array.isArray(db.deals) ? db.deals : [];
     fs.writeFileSync(tempFile, JSON.stringify({ meta: { ...(db.meta || {}), count: deals.length }, deals }, null, 2) + '\n');
-    fs.renameSync(tempFile, LAND_DEALS_FILE);
+    fs.renameSync(tempFile, file);
 }
 
-function updateLandDeal(id, payload = {}) {
-    const db = readLandDeals();
+function updateLandDeal(id, payload = {}, market = 'cardiff') {
+    const db = readLandDeals(market);
     const deal = db.deals.find(item => String(item.id) === String(id));
     if (!deal) throw new Error('Land deal not found');
     if (payload.status !== undefined) {
@@ -2577,7 +2584,7 @@ function updateLandDeal(id, payload = {}) {
         if (payload.owner.verified !== undefined) deal.ownership.verified = Boolean(payload.owner.verified);
     }
     deal.updated_at = new Date().toISOString();
-    writeLandDeals(db);
+    writeLandDeals(db, market);
     return deal;
 }
 
