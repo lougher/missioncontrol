@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (targetId === 'view-property') {
             const activePropertyTab = localStorage.getItem('property-tab') || 'openrent';
             if (activePropertyTab === 'gumtree') loadGumtreeLeads(true);
-            else if (activePropertyTab === 'hmo') loadPropertyDeals(true);
+            else if (['hmo', 'london-hmo'].includes(activePropertyTab)) loadPropertyDeals(true);
             else if (activePropertyTab === 'openrent') loadOpenRentLeads(true);
         }
     }
@@ -5648,7 +5648,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const isOpenRent = tabName === 'openrent';
         const isGumtree = tabName === 'gumtree';
         const isLondonApartment = tabName === 'london-apartment';
-        const isHmo = tabName === 'hmo';
+        const isHmo = ['hmo', 'london-hmo'].includes(tabName);
         const isLandDeals = tabName === 'land-deals';
         propertyOpenRentPanel?.classList.toggle('hidden', !isOpenRent);
         propertyGumtreePanel?.classList.toggle('hidden', !isGumtree);
@@ -6279,6 +6279,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const propertyReviewed = document.getElementById('property-reviewed');
     const propertyOffMarket = document.getElementById('property-off-market');
     const propertyRefreshMeta = document.getElementById('property-refresh-meta');
+    const propertyHmoMarketNote = document.getElementById('property-hmo-market-note');
     const propertySearch = document.getElementById('property-search');
     const propertyStatusFilter = document.getElementById('property-status-filter');
     const propertyRoiFilter = document.getElementById('property-roi-filter');
@@ -6293,6 +6294,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const propertyAnalysisModalClose = document.getElementById('property-analysis-modal-close');
     let propertyDeals = [];
     let propertyDealMeta = {};
+    let activeHmoMarket = 'cardiff';
+
+    function marketPropertyDeals() {
+        return propertyDeals.filter(deal => (deal.market || 'cardiff') === activeHmoMarket);
+    }
 
     function propertyListingStatusLabel(status) {
         return ({
@@ -6316,7 +6322,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const duplicateFilter = propertyDuplicateFilter?.value || 'primary';
         const source = propertySourceFilter?.value || 'all';
         const sort = propertySort?.value || 'roi-desc';
-        return propertyDeals.filter(deal => {
+        return marketPropertyDeals().filter(deal => {
             const dealStatus = deal.deal_status || 'active';
             const haystack = `${deal.address || ''} ${deal.price || ''} ${deal.source || ''} ${deal.bedrooms || ''} ${(deal.tags || []).join(' ')}`.toLowerCase();
             const roi = Number(deal.analysis?.roi || 0);
@@ -6349,14 +6355,17 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderPropertySourceOptions() {
         if (!propertySourceFilter) return;
         const selected = propertySourceFilter.value || 'all';
-        const sources = [...new Set(propertyDeals.map(deal => deal.source).filter(Boolean))].sort();
+        const sources = [...new Set(marketPropertyDeals().map(deal => deal.source).filter(Boolean))].sort();
         propertySourceFilter.innerHTML = '<option value="all">All sources</option>' + sources.map(source => `<option value="${escapeHtml(source)}">${escapeHtml(source)}</option>`).join('');
         propertySourceFilter.value = sources.includes(selected) ? selected : 'all';
     }
 
     function renderPropertyDeals() {
         if (!propertyList) return;
-        const primaryDeals = propertyDeals.filter(deal => !deal.duplicate_of);
+        const primaryDeals = marketPropertyDeals().filter(deal => !deal.duplicate_of);
+        if (propertyHmoMarketNote) propertyHmoMarketNote.textContent = activeHmoMarket === 'london'
+            ? 'Ealing borough HMO leads, including Acton, Greenford, Perivale and West Ealing. Listed deals are leads, not approved investments. Planning, licence, rent and costs need checking; a Good Deal requires credible net ROI above 20%.'
+            : 'Cardiff HMO leads. New automated additions require recalculated net ROI above 10%; a Good Deal requires credible net ROI above 20%.';
         const total = primaryDeals.length;
         const reviewed = primaryDeals.filter(deal => deal.deal_status === 'good').length;
         const outstanding = primaryDeals.filter(deal => (deal.deal_status || 'active') !== 'not_interested' && deal.listing_status === 'live').length;
@@ -6371,8 +6380,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 : 'Not checked yet';
             const summary = propertyDealMeta.listings_refresh_summary || {};
             const admissionThreshold = Number(propertyDealMeta.new_deal_min_roi_pct || 0);
-            const admissionRule = admissionThreshold ? ` · New automated deals require recalculated ROI >${admissionThreshold}%` : '';
-            propertyRefreshMeta.innerText = `Listing status checked ${refreshed} · ${Number(summary.live || 0)} live · ${Number(summary.sold_stc || 0)} Sold STC · ${Number(summary.under_offer || 0)} under offer · ${Number(summary.unavailable || 0)} unavailable · ${Number(summary.price_changes || 0)} price changes${admissionRule}`;
+            const admissionRule = activeHmoMarket === 'cardiff' && admissionThreshold ? ` · New automated deals require recalculated ROI >${admissionThreshold}%` : '';
+            propertyRefreshMeta.innerText = activeHmoMarket === 'london'
+                ? `Ealing listing leads checked ${propertyDealMeta.london_hmo_checked_at ? new Date(propertyDealMeta.london_hmo_checked_at).toLocaleString('en-GB') : 'not yet'} · Check live availability with the agent${admissionRule}`
+                : `Full listing-status sweep ${refreshed} · ${Number(summary.live || 0)} live · ${Number(summary.sold_stc || 0)} Sold STC · ${Number(summary.under_offer || 0)} under offer · ${Number(summary.unavailable || 0)} unavailable · ${Number(summary.price_changes || 0)} price changes${propertyDealMeta.cardiff_hmo_spot_check_at ? ` · Targeted spot-check ${new Date(propertyDealMeta.cardiff_hmo_spot_check_at).toLocaleString('en-GB')}` : ''}${admissionRule}`;
         }
 
         const deals = filteredPropertyDeals();
@@ -6439,6 +6450,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 ${analysis.room_rent_note ? `<div class="text-sm text-gray-500 dark:text-gray-400 mt-2">${escapeHtml(analysis.room_rent_note)}</div>` : ''}
                                 ${analysis.rent_source ? `<div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Rent basis: ${escapeHtml(analysis.rent_source)} · ${escapeHtml(analysis.tenant_type || 'professional assumed')}</div>` : ''}
                                 ${deal.hmo_relevance ? `<div class="mt-3 rounded-lg border border-blue-100 dark:border-blue-500/20 bg-blue-50/70 dark:bg-blue-500/10 px-3 py-2 text-sm text-gray-700 dark:text-gray-200"><span class="font-semibold">Why HMO-relevant:</span> ${escapeHtml(deal.hmo_relevance)}</div>` : ''}
+                                ${Array.isArray(deal.risk_flags) && deal.risk_flags.length ? `<div class="mt-2 text-sm text-amber-700 dark:text-amber-300"><span class="font-semibold">Key risks:</span> ${escapeHtml(deal.risk_flags.join(' · '))}</div>` : ''}
                                 ${deal.next_due_diligence_question ? `<div class="mt-2 text-sm text-gray-700 dark:text-gray-200"><span class="font-semibold">Next check:</span> ${escapeHtml(deal.next_due_diligence_question)}</div>` : ''}
                                 <div class="flex flex-wrap gap-1.5 mt-3">${tagOptions.map(([tag, label]) => `<button type="button" onclick="togglePropertyDealTag('${escapeHtml(deal.id)}','${tag}')" class="text-xs px-2.5 py-1 rounded-full border ${activeTags.includes(tag) ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-300 text-gray-600 dark:border-white/20 dark:text-gray-300'}">${label}</button>`).join('')}</div>
                                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Found ${escapeHtml(deal.found || 'unknown')}</div>
@@ -6463,6 +6475,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || 'Property deals request failed');
             propertyDeals = Array.isArray(data.deals) ? data.deals : [];
+            activeHmoMarket = localStorage.getItem('property-tab') === 'london-hmo' ? 'london' : 'cardiff';
             propertyDealMeta = data.meta || {};
             renderPropertySourceOptions();
             renderPropertyDeals();
@@ -6891,7 +6904,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (refreshPropertyBtn) refreshPropertyBtn.addEventListener('click', () => loadPropertyDeals());
     [propertySearch, propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('input', renderPropertyDeals));
     [propertyStatusFilter, propertyRoiFilter, propertyAvailabilityFilter, propertyDuplicateFilter, propertySourceFilter, propertySort].forEach(el => el?.addEventListener('change', renderPropertyDeals));
-    switchPropertyTab(['openrent', 'gumtree', 'london-apartment', 'hmo', 'land-deals'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
+    switchPropertyTab(['openrent', 'gumtree', 'london-apartment', 'hmo', 'london-hmo', 'land-deals'].includes(localStorage.getItem('property-tab')) ? localStorage.getItem('property-tab') : 'openrent');
 
     // === YTJobs Logic ===
     const refreshYtJobsBtn = document.getElementById('refresh-ytjobs-btn');
