@@ -7567,52 +7567,65 @@ document.addEventListener("DOMContentLoaded", () => {
         const status = aiJobsStatusFilter?.value || 'active';
         return aiJobs.filter(job => {
             const jobStatus = job.status || 'new';
+            const isClosed = job.availability === 'closed';
             const haystack = `${job.title || ''} ${job.company || ''} ${job.location || ''} ${job.fit_note || ''}`.toLowerCase();
             if (search && !haystack.includes(search)) return false;
             if (Number(job.fit_score || 0) < minimumFit) return false;
             if (workplace !== 'all' && job.workplace !== workplace) return false;
-            if (status === 'active' && jobStatus === 'not_interested') return false;
-            if (status !== 'active' && status !== 'all' && jobStatus !== status) return false;
+            if (status === 'active' && (jobStatus === 'not_interested' || isClosed)) return false;
+            if (status === 'closed' && !isClosed) return false;
+            if (!['active', 'all', 'closed'].includes(status) && jobStatus !== status) return false;
             return true;
         }).sort((a, b) => Number(b.fit_score || 0) - Number(a.fit_score || 0) || String(a.company || '').localeCompare(String(b.company || '')));
     }
 
     function renderAiJobs() {
         if (!aiJobsList) return;
+        const liveJobs = aiJobs.filter(job => job.availability !== 'closed');
         if (aiJobsCompanyTotal) aiJobsCompanyTotal.innerText = aiCompanies.length;
-        if (aiJobsTotal) aiJobsTotal.innerText = aiJobs.length;
-        if (aiJobsStrong) aiJobsStrong.innerText = aiJobs.filter(job => Number(job.fit_score || 0) >= 80).length;
+        if (aiJobsTotal) aiJobsTotal.innerText = liveJobs.length;
+        if (aiJobsStrong) aiJobsStrong.innerText = liveJobs.filter(job => Number(job.fit_score || 0) >= 80).length;
         if (aiJobsApplied) aiJobsApplied.innerText = aiJobs.filter(job => job.status === 'applied').length;
         if (aiJobsScanMeta) {
             const checked = aiJobsMeta.searched_at ? new Date(aiJobsMeta.searched_at).toLocaleString() : 'Not checked yet';
-            aiJobsScanMeta.innerText = `${aiCompanies.length}/${aiCompanies.length} employer career sites checked ${checked} · ${aiJobs.length} relevant live roles found.`;
+            const closedSaved = aiJobs.length - liveJobs.length;
+            aiJobsScanMeta.innerText = `${aiCompanies.length}/${aiCompanies.length} employer career sites checked ${checked} · ${liveJobs.length} relevant live roles found${closedSaved ? ` · ${closedSaved} closed saved role${closedSaved === 1 ? '' : 's'}.` : '.'}`;
         }
 
         const jobs = filteredAiJobs();
-        aiJobsList.innerHTML = jobs.length ? jobs.map(job => `
-            <article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 ${job.status === 'not_interested' ? 'opacity-60' : ''}">
+        aiJobsList.innerHTML = jobs.length ? jobs.map(job => {
+            const isClosed = job.availability === 'closed';
+            return `
+            <article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 ${(job.status === 'not_interested' || isClosed) ? 'opacity-60' : ''}">
                 <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                     <div class="min-w-0 flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <h3 class="text-lg font-semibold dark:text-white">${escapeHtml(job.title || 'Untitled role')}</h3>
+                            ${isClosed ? '<span class="text-xs px-2.5 py-1 rounded-full bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300">Closed</span>' : ''}
                             <span class="text-xs px-2.5 py-1 rounded-full ${aiJobFitClass(job.fit_score)}">${Number(job.fit_score || 0)}% fit</span>
                             <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300">${escapeHtml(job.workplace || 'Unspecified')}</span>
                         </div>
                         <div class="text-sm text-gray-700 dark:text-gray-200">${escapeHtml(job.company || 'Unknown company')} · ${escapeHtml(job.location || 'Location not stated')}</div>
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-3">${escapeHtml(job.fit_note || '')}</p>
+                        ${isClosed ? `<p class="text-xs text-red-600 dark:text-red-300 mt-3">Role closed · saved status: ${escapeHtml(job.status || 'new')}</p>` : ''}
                     </div>
                     <div class="flex flex-wrap lg:flex-col gap-2 lg:items-end">
+                        ${isClosed ? `<a href="${escapeHtml(job.careers_url || job.url || '#')}" target="_blank" rel="noopener" class="text-xs px-3 py-1.5 rounded bg-black text-white dark:bg-white dark:text-black">Open company careers</a>` : `
                         <button type="button" onclick="updateAiJobStatus('${escapeHtml(job.id)}','interested')" class="text-xs px-3 py-1.5 rounded ${job.status === 'interested' ? 'bg-emerald-600 text-white' : 'border border-emerald-500 text-emerald-700 dark:text-emerald-300'}">Interested</button>
                         <button type="button" onclick="updateAiJobStatus('${escapeHtml(job.id)}','applied')" class="text-xs px-3 py-1.5 rounded ${job.status === 'applied' ? 'bg-blue-600 text-white' : 'border border-blue-500 text-blue-700 dark:text-blue-300'}">Applied</button>
                         <button type="button" onclick="updateAiJobStatus('${escapeHtml(job.id)}','not_interested')" class="text-xs px-3 py-1.5 rounded border border-gray-300 text-gray-600 dark:border-white/20 dark:text-gray-300">${job.status === 'not_interested' ? 'Restore' : 'Not interested'}</button>
-                        <a href="${escapeHtml(job.url || '#')}" target="_blank" rel="noopener" class="text-xs px-3 py-1.5 rounded bg-black text-white dark:bg-white dark:text-black">Open employer role</a>
+                        <a href="${escapeHtml(job.url || '#')}" target="_blank" rel="noopener" class="text-xs px-3 py-1.5 rounded bg-black text-white dark:bg-white dark:text-black">Open employer role</a>`}
                     </div>
                 </div>
-            </article>`).join('') : '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No AI sales roles match the current filters.</div>';
+            </article>`;
+        }).join('') : '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No AI sales roles match the current filters.</div>';
 
         if (aiCompaniesList) aiCompaniesList.innerHTML = aiCompanies.map(company => {
-            const liveCount = aiJobs.filter(job => job.company === company.name).length;
-            return `<a href="${escapeHtml(company.careers_url)}" target="_blank" rel="noopener" class="block bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 hover:border-indigo-400 transition-colors"><div class="flex items-start justify-between gap-3"><div><div class="font-medium dark:text-white">${escapeHtml(company.name)}</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${escapeHtml(company.category)} · ${escapeHtml(company.office)}</div></div><span class="text-xs px-2 py-1 rounded-full ${liveCount ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300' : 'bg-gray-100 text-gray-500 dark:bg-white/10 dark:text-gray-400'}">${liveCount ? `${liveCount} found` : 'Checked · none found'}</span></div></a>`;
+            const liveCount = aiJobs.filter(job => job.company === company.name && job.availability !== 'closed').length;
+            const blocked = company.check_status === 'blocked';
+            const label = liveCount ? `${liveCount} found` : (blocked ? 'Check blocked' : 'Checked · none found');
+            const badgeClass = liveCount ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300' : (blocked ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300' : 'bg-gray-100 text-gray-500 dark:bg-white/10 dark:text-gray-400');
+            return `<a href="${escapeHtml(company.careers_url)}" target="_blank" rel="noopener" title="${escapeHtml(company.check_note || '')}" class="block bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 hover:border-indigo-400 transition-colors"><div class="flex items-start justify-between gap-3"><div><div class="font-medium dark:text-white">${escapeHtml(company.name)}</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${escapeHtml(company.category)} · ${escapeHtml(company.office)}</div></div><span class="text-xs px-2 py-1 rounded-full ${badgeClass}">${label}</span></div></a>`;
         }).join('');
 
         if (aiJobBoardsList) aiJobBoardsList.innerHTML = aiJobBoards.map(board => `<a href="${escapeHtml(board.url)}" target="_blank" rel="noopener" class="block bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 hover:border-indigo-400 transition-colors"><div class="font-medium dark:text-white">${escapeHtml(board.name)}</div><p class="text-xs text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">${escapeHtml(board.focus)}</p></a>`).join('');

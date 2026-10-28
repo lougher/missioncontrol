@@ -1,448 +1,630 @@
 {
-  "searched_at": "2026-10-06T11:35:00+01:00",
+  "searched_at": "2026-10-28T12:15:00Z",
+  "company_audit_note": "All 50 target employers were checked against their own careers pages or employer-hosted ATS feeds. Meta, Darktrace, IBM and Oracle are explicitly marked as blocked where a defensible live inventory could not be retrieved.",
   "selection_note": "50 leading AI product, infrastructure and enterprise-software employers with a London or Reading presence. This is a practical target list, not a claim of objective global ranking.",
-  "profile_note": "Sales roles scored for roughly five years of B2B SaaS experience, especially Account Executive, Mid-Market Account Executive and software-sales roles. Roles were checked on employer career systems rather than LinkedIn. Roles requiring a language other than English, Customer Success roles, Director roles and Manager roles are excluded.",
+  "profile_note": "English-only individual-contributor software-sales roles for roughly five years of B2B SaaS experience. Customer Success, Director, Manager, Account Manager, Partnership Manager, people-management and roles requiring another language are excluded. Closed saved roles are retained separately so user decisions are not lost.",
   "companies": [
     {
       "id": "openai",
       "name": "OpenAI",
       "office": "London",
       "category": "Foundation models",
-      "careers_url": "https://openai.com/careers/search/"
+      "careers_url": "https://jobs.ashbyhq.com/openai",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "Only London closing role was Account Director, Large Enterprise, excluded as a Director role."
     },
     {
       "id": "anthropic",
       "name": "Anthropic",
       "office": "London",
       "category": "Foundation models",
-      "careers_url": "https://www.anthropic.com/careers/jobs"
+      "careers_url": "https://www.anthropic.com/careers/jobs",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "One London Enterprise AE role matched the target experience level. Five 8+ year Enterprise AE roles were excluded."
     },
     {
       "id": "google-deepmind",
       "name": "Google DeepMind",
       "office": "London",
       "category": "AI research",
-      "careers_url": "https://deepmind.google/careers/jobs/"
+      "careers_url": "https://www.google.com/about/careers/applications/jobs/results/?company=Google%20DeepMind&location=London&employment_type=FULL_TIME",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "Official search returned no Google DeepMind London roles."
     },
     {
       "id": "microsoft",
       "name": "Microsoft",
       "office": "London and Reading",
       "category": "AI platform",
-      "careers_url": "https://jobs.careers.microsoft.com/global/en/search?q=sales&lc=London%2C%20United%20Kingdom"
+      "careers_url": "https://apply.careers.microsoft.com/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "Current London and UK solution-sales and Account Executive roles were reviewed against full requirements."
     },
     {
       "id": "aws",
       "name": "Amazon Web Services",
       "office": "London",
       "category": "AI cloud",
-      "careers_url": "https://www.amazon.jobs/en/search?base_query=sales&loc_query=London%2C%20UK"
+      "careers_url": "https://www.amazon.jobs/en/teams/amazon-web-services",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "The London ProServe AE required 10+ years and the Inside Sales role required Italian, so neither qualified."
     },
     {
       "id": "nvidia",
       "name": "NVIDIA",
       "office": "London and Reading",
       "category": "AI infrastructure",
-      "careers_url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite"
+      "careers_url": "https://www.nvidia.com/en-us/about-nvidia/careers/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "The only relevant UK result was Regional Sales Manager, excluded as a Manager role."
     },
     {
       "id": "meta",
       "name": "Meta",
       "office": "London",
       "category": "AI platform",
-      "careers_url": "https://www.metacareers.com/jobs/?offices[0]=London%2C%20UK"
+      "careers_url": "https://www.metacareers.com/jobsearch/?offices%5B0%5D=London%2C%20UK",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "blocked",
+      "check_note": "The careers page was reachable but job results and full requirements were client-rendered, preventing a defensible full audit."
     },
     {
       "id": "apple",
       "name": "Apple",
       "office": "London",
       "category": "Applied AI",
-      "careers_url": "https://jobs.apple.com/en-gb/search?location=london-LDN"
+      "careers_url": "https://jobs.apple.com/en-gb/search?location=united-kingdom-GBR&search=sales",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "The London Channel Account Executive required at least 12 years of related experience."
     },
     {
       "id": "salesforce",
       "name": "Salesforce",
       "office": "London",
       "category": "Enterprise AI",
-      "careers_url": "https://careers.salesforce.com/en/jobs/?search=sales&location=London%2C%20United%20Kingdom"
+      "careers_url": "https://www.salesforce.com/company/careers/jobs/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "Current London quota-carrying AE roles were checked. Roles requiring 10+ years or excluded job types were removed."
     },
     {
       "id": "databricks",
       "name": "Databricks",
       "office": "London",
       "category": "Data and AI",
-      "careers_url": "https://www.databricks.com/company/careers/open-positions?department=Sales&location=London"
+      "careers_url": "https://www.databricks.com/company/careers/open-positions",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "Current UK closing roles were checked against full requirements; highly senior or narrowly specialised roles were excluded."
     },
     {
       "id": "snowflake",
       "name": "Snowflake",
       "office": "London",
       "category": "Data and AI",
-      "careers_url": "https://careers.snowflake.com/us/en/search-results?keywords=sales&location=London%2C%20UK"
+      "careers_url": "https://careers.snowflake.com/us/en/search-results",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "Two English-only London closing roles matched; the German-speaking SDR was excluded."
     },
     {
       "id": "palantir",
       "name": "Palantir",
       "office": "London",
       "category": "Enterprise AI",
-      "careers_url": "https://www.palantir.com/careers/"
+      "careers_url": "https://www.palantir.com/careers/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "No UK software-sales closing role was live."
     },
     {
       "id": "scale-ai",
       "name": "Scale AI",
       "office": "London",
       "category": "AI data",
-      "careers_url": "https://scale.com/careers"
+      "careers_url": "https://scale.com/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "Current Account Executive vacancies were US-only."
     },
     {
       "id": "cohere",
       "name": "Cohere",
       "office": "London",
       "category": "Foundation models",
-      "careers_url": "https://cohere.com/careers"
+      "careers_url": "https://cohere.com/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "One UK-remote Senior AE remains live; a French-speaking UK BDR was excluded."
     },
     {
       "id": "mistral-ai",
       "name": "Mistral AI",
       "office": "London",
       "category": "Foundation models",
-      "careers_url": "https://mistral.ai/careers"
+      "careers_url": "https://mistral.ai/careers/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "The UK Public Sector AE is English-only. The general London Enterprise AE requiring French was excluded."
     },
     {
       "id": "hugging-face",
       "name": "Hugging Face",
       "office": "London / UK remote",
       "category": "Open-source AI",
-      "careers_url": "https://apply.workable.com/huggingface/"
+      "careers_url": "https://huggingface.co/jobs",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "No B2B software-sales closing role was live."
     },
     {
       "id": "elevenlabs",
       "name": "ElevenLabs",
       "office": "London",
       "category": "Voice AI",
-      "careers_url": "https://elevenlabs.io/careers"
+      "careers_url": "https://elevenlabs.io/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "Current AE openings were outside the UK or explicitly US-only."
     },
     {
       "id": "synthesia",
       "name": "Synthesia",
       "office": "London",
       "category": "Video AI",
-      "careers_url": "https://www.synthesia.io/careers"
+      "careers_url": "https://www.synthesia.io/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "Current AEs were in New York or Germany; the London commercial role was Customer Success."
     },
     {
       "id": "faculty",
       "name": "Faculty",
       "office": "London",
       "category": "Applied AI",
-      "careers_url": "https://faculty.ai/careers"
+      "careers_url": "https://faculty.ai/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "London commercial vacancies were Customer Director or Head roles and were excluded."
     },
     {
       "id": "quantexa",
       "name": "Quantexa",
       "office": "London",
       "category": "Decision intelligence",
-      "careers_url": "https://www.quantexa.com/careers/jobs/"
+      "careers_url": "https://www.quantexa.com/careers/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "Sales Director and adoption/renewal-focused Account Partner roles were excluded."
     },
     {
       "id": "darktrace",
       "name": "Darktrace",
       "office": "London",
       "category": "Cyber AI",
-      "careers_url": "https://careers.darktrace.com/"
+      "careers_url": "https://www.darktrace.com/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "blocked",
+      "check_note": "The employer-configured vacancy feed returned 404 and the static careers page exposed no reliable vacancy inventory."
     },
     {
       "id": "wayve",
       "name": "Wayve",
       "office": "London",
       "category": "Autonomous driving",
-      "careers_url": "https://wayve.ai/careers/"
+      "careers_url": "https://wayve.ai/careers/join-us/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "No qualifying UK B2B software closing-sales role was live."
     },
     {
       "id": "isomorphic-labs",
       "name": "Isomorphic Labs",
       "office": "London",
       "category": "Drug discovery AI",
-      "careers_url": "https://www.isomorphiclabs.com/careers"
+      "careers_url": "https://www.isomorphiclabs.com/job-openings",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "No sales or Account Executive role was live."
     },
     {
       "id": "benevolentai",
       "name": "BenevolentAI",
       "office": "London",
       "category": "Drug discovery AI",
-      "careers_url": "https://www.benevolent.com/careers"
+      "careers_url": "https://apply.workable.com/benevolentai/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "The live employer board reported no current openings."
     },
     {
       "id": "stability-ai",
       "name": "Stability AI",
       "office": "London",
       "category": "Generative AI",
-      "careers_url": "https://stability.ai/careers"
+      "careers_url": "https://stability.ai/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "Live vacancies were engineering, research and IT rather than sales."
     },
     {
       "id": "tractable",
       "name": "Tractable",
       "office": "London",
       "category": "Computer vision",
-      "careers_url": "https://tractable.ai/careers"
+      "careers_url": "https://tractable.ai/careers/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "The only London commercial opening was Customer Success Manager, which was excluded."
     },
     {
       "id": "polyai",
       "name": "PolyAI",
       "office": "London",
       "category": "Conversational AI",
-      "careers_url": "https://poly.ai/careers/"
+      "careers_url": "https://poly.ai/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "No current closing role was live; an older Enterprise AE reference had closed."
     },
     {
       "id": "luminance",
       "name": "Luminance",
       "office": "London",
       "category": "Legal AI",
-      "careers_url": "https://www.luminance.com/careers.html"
+      "careers_url": "https://apply.workable.com/luminance-1/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "One London Account Executive role matches the target experience range."
     },
     {
       "id": "signal-ai",
       "name": "Signal AI",
       "office": "London",
       "category": "Decision intelligence",
-      "careers_url": "https://signal-ai.com/careers/"
+      "careers_url": "https://signal-ai.com/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "The live Enterprise AE was New York-based; London roles were technical."
     },
     {
       "id": "patsnap",
       "name": "Patsnap",
       "office": "London",
       "category": "Innovation intelligence",
-      "careers_url": "https://www.patsnap.com/careers/"
+      "careers_url": "https://careers.patsnap.com/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "UK Account Manager was excluded and the graduate SDR was materially too junior."
     },
     {
       "id": "thought-machine",
       "name": "Thought Machine",
       "office": "London",
       "category": "AI-enabled fintech",
-      "careers_url": "https://www.thoughtmachine.net/careers"
+      "careers_url": "https://www.thoughtmachine.net/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "No current software-sales closing role; Client Success Director roles were excluded."
     },
     {
       "id": "seldon",
       "name": "Seldon",
       "office": "London",
       "category": "MLOps",
-      "careers_url": "https://www.seldon.io/careers"
+      "careers_url": "https://jobs.ashbyhq.com/seldon",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "Live openings were technical, research or US-based."
     },
     {
       "id": "physicsx",
       "name": "PhysicsX",
       "office": "London",
       "category": "Engineering AI",
-      "careers_url": "https://www.physicsx.ai/careers"
+      "careers_url": "https://job-boards.eu.greenhouse.io/physicsx",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "No Account Executive or comparable IC software-sales role was live."
     },
     {
       "id": "robin-ai",
       "name": "Robin AI",
       "office": "London",
       "category": "Legal AI",
-      "careers_url": "https://www.robinai.com/careers"
+      "careers_url": "https://robinai.com/company",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "The employer-linked Ashby board was inactive and exposed no vacancies."
     },
     {
       "id": "beamery",
       "name": "Beamery",
       "office": "London",
       "category": "Talent AI",
-      "careers_url": "https://beamery.com/careers"
+      "careers_url": "https://careers.beamery.com/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "The only Account Executive was US-based; London roles were non-sales."
     },
     {
       "id": "glean",
       "name": "Glean",
       "office": "London",
       "category": "Enterprise search AI",
-      "careers_url": "https://www.glean.com/careers"
+      "careers_url": "https://www.glean.com/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "The London Strategic AE required 10+ years and Partner Sales Manager was excluded."
     },
     {
       "id": "writer",
       "name": "Writer",
       "office": "London",
       "category": "Enterprise generative AI",
-      "careers_url": "https://writer.com/company/careers/"
+      "careers_url": "https://jobs.ashbyhq.com/writer",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "The UK Enterprise AE is confirmed live; two strategic UK roles are retained as lower-scoring stretches."
     },
     {
       "id": "harvey",
       "name": "Harvey",
       "office": "London",
       "category": "Legal AI",
-      "careers_url": "https://www.harvey.ai/careers"
+      "careers_url": "https://jobs.ashbyhq.com/harvey",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "Current London EMEA AE roles were verified. German- and Spanish-speaking variants and management roles were excluded."
     },
     {
       "id": "perplexity",
       "name": "Perplexity",
       "office": "London",
       "category": "AI search",
-      "careers_url": "https://www.perplexity.ai/hub/careers"
+      "careers_url": "https://jobs.ashbyhq.com/perplexity",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "Current AE and BDR openings were US-based; London openings were non-sales."
     },
     {
       "id": "dataiku",
       "name": "Dataiku",
       "office": "London",
       "category": "Enterprise AI",
-      "careers_url": "https://www.dataiku.com/careers/"
+      "careers_url": "https://www.dataiku.com/company/careers",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "No UK closing vacancy; Technical Account Manager was excluded and AEs were outside the UK."
     },
     {
       "id": "uipath",
       "name": "UiPath",
       "office": "London",
       "category": "Automation AI",
-      "careers_url": "https://careers.uipath.com/careers/jobs"
+      "careers_url": "https://www.uipath.com/careers/jobs",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "A new London Enterprise Sales Executive role requiring 5+ years is live; the previous Financial Services AE has closed."
     },
     {
       "id": "celonis",
       "name": "Celonis",
       "office": "London",
       "category": "Process intelligence",
-      "careers_url": "https://www.celonis.com/careers/jobs/"
+      "careers_url": "https://careers.celonis.com/join-us/open-positions",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "One London Associate Account Executive development-programme role is live and English-only, but is below the target experience level."
     },
     {
       "id": "automation-anywhere",
       "name": "Automation Anywhere",
       "office": "London",
       "category": "Automation AI",
-      "careers_url": "https://www.automationanywhere.com/company/careers"
+      "careers_url": "https://www.automationanywhere.com/company/careers/all",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "Two London Sales Account Executive roles are live but both require at least 10 years of full-cycle software sales."
     },
     {
       "id": "c3-ai",
       "name": "C3 AI",
       "office": "London",
       "category": "Enterprise AI",
-      "careers_url": "https://c3.ai/careers/"
+      "careers_url": "https://c3.ai/careers/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "The complete live Greenhouse inventory was checked; London openings were technical or Director-level, with no eligible IC sales role."
     },
     {
       "id": "ibm",
       "name": "IBM",
       "office": "London",
       "category": "Enterprise AI",
-      "careers_url": "https://www.ibm.com/careers/search?field_keyword_08[0]=Sales&field_location[0]=United%20Kingdom"
+      "careers_url": "https://www.ibm.com/careers/search",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "blocked",
+      "check_note": "The official careers search was reachable, but its client-rendered inventory could not be retrieved reliably enough for a defensible full audit."
     },
     {
       "id": "oracle",
       "name": "Oracle",
       "office": "London and Reading",
       "category": "Enterprise AI",
-      "careers_url": "https://careers.oracle.com/jobs/#en/sites/jobsearch/requisitions?keyword=sales&location=United+Kingdom"
+      "careers_url": "https://careers.oracle.com/jobs/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "blocked",
+      "check_note": "The official Oracle careers site was reachable, but its Oracle Cloud client-rendered inventory could not be retrieved reliably enough for a defensible full audit."
     },
     {
       "id": "adobe",
       "name": "Adobe",
       "office": "London and Reading",
       "category": "Creative AI",
-      "careers_url": "https://careers.adobe.com/us/en/search-results?keywords=sales&location=London%2C%20UK"
+      "careers_url": "https://careers.adobe.com/us/en/search-results?keywords=sales",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "One London Enterprise Sales Account Executive role matched after checking full requirements; Account Manager, Director and non-sales results were excluded."
     },
     {
       "id": "sap",
       "name": "SAP",
       "office": "London",
       "category": "Enterprise AI",
-      "careers_url": "https://jobs.sap.com/search/?q=sales&locationsearch=London"
+      "careers_url": "https://careers.sap.com/search/?q=&locationsearch=United+Kingdom",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "checked_none",
+      "check_note": "No role met all criteria: relevant UK sales roles were outside target geography, required 10+ years, were early-career programmes or presales."
     },
     {
       "id": "servicenow",
       "name": "ServiceNow",
       "office": "London",
       "category": "Enterprise AI",
-      "careers_url": "https://careers.servicenow.com/jobs/?search=sales&location=London"
+      "careers_url": "https://careers.servicenow.com/jobs/",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "The existing Higher Education UK South Enterprise Account Executive remains live and English-only."
     },
     {
       "id": "sas",
       "name": "SAS",
       "office": "London",
       "category": "Analytics and AI",
-      "careers_url": "https://globalcareers-sas.icims.com/jobs/search?searchLocation=135--United+Kingdom"
+      "careers_url": "https://globalcareers-sas.icims.com/jobs/search?searchLocation=135--United+Kingdom",
+      "checked_at": "2026-10-28T10:30:00Z",
+      "check_status": "matched",
+      "check_note": "The JMP Inside Sales Account Representative remains live; the former Life Sciences Senior Associate AE has closed."
     }
   ],
   "jobs": [
     {
-      "id": "anthropic-energy-ae",
+      "id": "anthropic-enterprise-account-executive-dnb",
       "company": "Anthropic",
-      "title": "Enterprise Account Executive - Energy & Utilities",
-      "location": "London, UK",
-      "workplace": "Office",
-      "fit_score": 78,
-      "status": "new",
-      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5225003008",
-      "fit_note": "Direct enterprise AE match; industry specialism may be a stretch."
-    },
-    {
-      "id": "anthropic-insurance-ae",
-      "company": "Anthropic",
-      "title": "Enterprise Account Executive, Insurance",
-      "location": "London, UK",
-      "workplace": "Office",
-      "fit_score": 78,
-      "status": "new",
-      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5391289008",
-      "fit_note": "Strong title and SaaS fit; insurance experience may be preferred."
-    },
-    {
-      "id": "anthropic-manufacturing-ae",
-      "company": "Anthropic",
-      "title": "Enterprise Account Executive, Manufacturing",
-      "location": "London, UK",
-      "workplace": "Office",
-      "fit_score": 76,
-      "status": "interested",
-      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5237973008",
-      "fit_note": "Enterprise closing experience transfers; vertical experience may be required.",
-      "updated_at": "2026-10-06T09:42:28.746Z"
-    },
-    {
-      "id": "anthropic-retail-ae",
-      "company": "Anthropic",
-      "title": "Enterprise Account Executive - Retail",
-      "location": "London, UK",
-      "workplace": "Office",
-      "fit_score": 80,
-      "status": "new",
-      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5218573008",
-      "fit_note": "Good enterprise AE match with relevant large-customer experience."
-    },
-    {
-      "id": "cohere-senior-ae",
-      "company": "Cohere",
-      "title": "Senior Account Executive",
-      "location": "United Kingdom",
-      "workplace": "Remote",
-      "fit_score": 86,
-      "status": "new",
-      "url": "https://jobs.ashbyhq.com/cohere/bdcdc6d1-2379-40fe-bfb6-d61768043b37",
-      "fit_note": "Excellent closing-role match and UK-wide location."
-    },
-    {
-      "id": "scale-sales-enablement",
-      "company": "Scale AI",
-      "title": "Sales Enablement Lead",
-      "location": "London, UK / Dubai",
-      "workplace": "Office",
-      "fit_score": 62,
-      "status": "new",
-      "url": "https://job-boards.greenhouse.io/scaleai/jobs/4717574005",
-      "fit_note": "Commercially relevant but enablement leadership is adjacent to quota-carrying AE work."
-    },
-    {
-      "id": "glean-strategic-ae",
-      "company": "Glean",
-      "title": "Strategic Account Executive, UKI",
-      "location": "London, UK",
-      "workplace": "Office",
-      "fit_score": 80,
-      "status": "new",
-      "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4702767005",
-      "fit_note": "Strong enterprise SaaS alignment; strategic segment may expect more tenure."
-    },
-    {
-      "id": "writer-enterprise-ae",
-      "company": "Writer",
-      "title": "Enterprise Account Executive (UK)",
+      "title": "Enterprise Account Executive, DNB",
       "location": "London, UK",
       "workplace": "Hybrid",
-      "fit_score": 83,
+      "fit_score": 92,
       "status": "new",
-      "url": "https://jobs.ashbyhq.com/writer/2b11f0e2-7f66-495f-9da2-0740495c2a0b",
-      "fit_note": "Direct enterprise SaaS closing match in generative AI."
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5440855008",
+      "fit_note": "Excellent direct match: 5+ years of enterprise sales, full-cycle emerging-technology selling and quota ownership.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "microsoft-account-executive-digital-natives",
+      "company": "Microsoft",
+      "title": "Account Executive - Digital Natives",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 88,
+      "status": "new",
+      "url": "https://apply.careers.microsoft.com/careers/job/1970393557037511",
+      "fit_note": "Strong digital-native Account Executive fit for an experienced SaaS seller; London requires three office days per week.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "microsoft-digital-solution-area-specialists",
+      "company": "Microsoft",
+      "title": "Digital Solution Area Specialists",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 86,
+      "status": "new",
+      "url": "https://apply.careers.microsoft.com/careers/job/1970393556987016",
+      "fit_note": "Technology solution-sales role focused on productivity, automation and AI adoption; London requires two office days per week.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "microsoft-digital-solution-area-specialist-security-uk-and-ireland",
+      "company": "Microsoft",
+      "title": "Digital Solution Area Specialist - Security (UK & Ireland)",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 80,
+      "status": "new",
+      "url": "https://apply.careers.microsoft.com/careers/job/1970393557043734",
+      "fit_note": "Pipeline and closing role with good SaaS adjacency, though cloud-security and channel experience make it specialised.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "microsoft-security-solution-area-specialists",
+      "company": "Microsoft",
+      "title": "Security Solution Area Specialists",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 79,
+      "status": "new",
+      "url": "https://apply.careers.microsoft.com/careers/job/1970393557044063",
+      "fit_note": "Quota-bearing solution seller covering value selling, negotiation and closure; security depth and IC5 seniority make it a stretch.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "microsoft-partner-solution-sales-specialist-smb-security-uk",
+      "company": "Microsoft",
+      "title": "Partner Solution Sales Specialist SMB - Security (UK)",
+      "location": "United Kingdom",
+      "workplace": "Hybrid",
+      "fit_score": 78,
+      "status": "new",
+      "url": "https://apply.careers.microsoft.com/careers/job/1970393557038770",
+      "fit_note": "Viable partner-led SMB security sales role, though less directly aligned than a classic Account Executive motion.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "microsoft-ai-business-process-specialist-sales",
+      "company": "Microsoft",
+      "title": "AI Business Process Specialist Sales",
+      "location": "Enfield, London",
+      "workplace": "Hybrid",
+      "fit_score": 76,
+      "status": "new",
+      "url": "https://apply.careers.microsoft.com/careers/job/1970393556957366",
+      "fit_note": "Quota-owning enterprise seller closing business-application and AI deals; enterprise and CRM/ERP depth make it a stretch.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "microsoft-solution-area-specialist-cloud-and-ai",
+      "company": "Microsoft",
+      "title": "Solution Area Specialist (Cloud & AI)",
+      "location": "United Kingdom",
+      "workplace": "Hybrid",
+      "fit_score": 73,
+      "status": "new",
+      "url": "https://apply.careers.microsoft.com/careers/job/1970393557041027",
+      "fit_note": "Relevant Cloud and AI sales role, but IC5 seniority and technical depth make it a stretch.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
       "id": "databricks-digital-natives-ae",
@@ -450,32 +632,59 @@
       "title": "Digital Natives Account Executive",
       "location": "London, UK",
       "workplace": "Hybrid",
-      "fit_score": 88,
+      "fit_score": 91,
       "status": "new",
       "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8737153002",
-      "fit_note": "Excellent new-business SaaS AE fit in a high-growth customer segment."
+      "fit_note": "Strong direct sales fit across SaaS, prospecting, MEDDPICC, consumption growth and quota overachievement.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
-      "id": "databricks-startup-core-ae",
+      "id": "databricks-enterprise-account-executive-consumer-and-distribution",
       "company": "Databricks",
-      "title": "Startup Core Account Executive",
+      "title": "Enterprise Account Executive - Consumer and Distribution",
       "location": "London, UK",
       "workplace": "Hybrid",
-      "fit_score": 88,
+      "fit_score": 85,
       "status": "new",
-      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8855874002",
-      "fit_note": "Excellent fit for commercial closing and entrepreneurial background."
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8899915002",
+      "fit_note": "Strong quota-carrying cloud data and AI role without a hard tenure minimum; vertical knowledge would improve fit.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
-      "id": "databricks-enterprise-utilities",
+      "id": "databricks-new-business-enterprise-account-executive-public-sector",
       "company": "Databricks",
-      "title": "Enterprise Account Executive - Utilities",
+      "title": "New Business Enterprise Account Executive (Public Sector)",
       "location": "London, UK",
       "workplace": "Hybrid",
-      "fit_score": 76,
+      "fit_score": 78,
       "status": "new",
-      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8737171002",
-      "fit_note": "Strong role family; vertical and enterprise tenure may be a stretch."
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8899931002",
+      "fit_note": "Full-cycle new-logo role, though public-sector procurement knowledge and SC-clearance eligibility narrow the fit.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "databricks-enterprise-account-executive-uk-public-sector",
+      "company": "Databricks",
+      "title": "Enterprise Account Executive - UK Public Sector",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 74,
+      "status": "new",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8700398002",
+      "fit_note": "Quota-carrying platform role requiring UK government-market knowledge and clearance eligibility.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
       "id": "databricks-public-sector-remote",
@@ -483,76 +692,404 @@
       "title": "Enterprise Account Executive - Public Sector",
       "location": "Remote - United Kingdom",
       "workplace": "Remote",
-      "fit_score": 76,
+      "fit_score": 68,
       "status": "new",
       "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8206138002",
-      "fit_note": "Remote UK enterprise AE role; public-sector experience may be required."
+      "fit_note": "UK-remote quota role, but focused on Irish government structures and public-sector procurement.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
-      "id": "databricks-strategic-banking",
-      "company": "Databricks",
-      "title": "Strategic Account Executive - Banking",
+      "id": "salesforce-mid-market-account-executive",
+      "company": "Salesforce",
+      "title": "Mid Market Account Executive",
       "location": "London, UK",
       "workplace": "Hybrid",
-      "fit_score": 70,
+      "fit_score": 95,
       "status": "new",
-      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8845180002",
-      "fit_note": "Relevant enterprise selling, but strategic banking specialism is a stretch."
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Mid-Market-Account-Executive_JR355710",
+      "fit_note": "Excellent match for mid-market technology solution sales, quota achievement and complex SaaS cycles.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
-      "id": "harvey-enterprise-ae",
-      "company": "Harvey",
-      "title": "Account Executive, Enterprise, EMEA",
-      "location": "London",
-      "workplace": "Office",
-      "fit_score": 84,
+      "id": "salesforce-slack-commercial-account-executive",
+      "company": "Salesforce",
+      "title": "Slack - Commercial Account Executive",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 94,
       "status": "new",
-      "url": "https://jobs.ashbyhq.com/harvey/787fe815-2f6d-4a9a-8c1e-6205bd105389",
-      "fit_note": "Strong enterprise SaaS closing fit in a fast-growing AI company."
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Slack---Commercial-Account-Executive_JR353616-1",
+      "fit_note": "Direct full-cycle SaaS closing role across pipeline generation, discovery, negotiation and close.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "salesforce-gb-named-account-executive",
+      "company": "Salesforce",
+      "title": "GB Named Account Executive",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 92,
+      "status": "new",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Named-Account-Executive--General-Business_JR358044",
+      "fit_note": "Very plausible full-cycle technology solution closing role for roughly five years of SaaS sales.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "salesforce-ecs-account-executive",
+      "company": "Salesforce",
+      "title": "ECS Account Executive",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 90,
+      "status": "new",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/ECS-Account-Executive_JR349572-1",
+      "fit_note": "Hands-on IC role managing enterprise customers and personally closing opportunities up to £150k ACV.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "salesforce-enterprise-account-executive-retail-consumer-goods",
+      "company": "Salesforce",
+      "title": "Enterprise Account Executive - Retail / Consumer Goods",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 87,
+      "status": "new",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Enterprise-Account-Executive---Retail---Consumer-Goods_JR342426",
+      "fit_note": "Strong enterprise B2B SaaS role, though retail and consumer-goods experience is expected.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "salesforce-specialist-account-executive-data-360",
+      "company": "Salesforce",
+      "title": "Specialist Account Executive, Data 360",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 86,
+      "status": "new",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Specialist-Account-Executive--DataCloud_JR356541",
+      "fit_note": "Plausible specialist AE role with strong fit if backed by data-platform or enterprise SaaS exposure.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "salesforce-enterprise-account-executive-service-cloud",
+      "company": "Salesforce",
+      "title": "Enterprise Account Executive - Service Cloud",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 85,
+      "status": "new",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Account-Executive---Agentforce-Service_JR351214",
+      "fit_note": "Quota-carrying direct-sales role with account planning, discovery and business-case ownership.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "salesforce-account-executive-service-cloud",
+      "company": "Salesforce",
+      "title": "Account Executive - Service Cloud",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 85,
+      "status": "new",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Account-Executive---Service-Cloud_JR365882",
+      "fit_note": "Quota-carrying Service Cloud closer with discovery, solutioning and target-attainment requirements.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "salesforce-cloud-account-executive-partner-cloud",
+      "company": "Salesforce",
+      "title": "Cloud Account Executive - Partner Cloud",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 83,
+      "status": "new",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Cloud-Account-Executive---Partner-Cloud_JR362237",
+      "fit_note": "Plausible SaaS closing role, with partner-ecosystem expertise preferred.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "salesforce-named-account-executive-fintech",
+      "company": "Salesforce",
+      "title": "Named Account Executive - Fintech",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 83,
+      "status": "new",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Named-Account-Executive---Fintech_JR354194",
+      "fit_note": "Quota-carrying technology seller with complex stakeholder management; fintech background would improve fit.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "salesforce-named-account-executive-banking-and-fintech",
+      "company": "Salesforce",
+      "title": "Named Account Executive - Banking & Fintech",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 82,
+      "status": "new",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Named-Account-Executive---Fintech_JR336702",
+      "fit_note": "Direct quota-carrying technology sales role, with banking and fintech domain experience preferred.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "salesforce-enterprise-cloud-account-executive-platform-and-security",
+      "company": "Salesforce",
+      "title": "Enterprise Cloud Account Executive - Platform & Security",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 82,
+      "status": "new",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/United-Kingdom---London/Cloud-Account-Executive---Platform---Security_JR355711",
+      "fit_note": "Owns a dedicated quota and closes Platform and Security business; domain expertise is the principal stretch.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "snowflake-enterprise-account-executive-acquisition",
+      "company": "Snowflake",
+      "title": "Enterprise Account Executive - Acquisition",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 88,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/snowflake/2703e2b9-ce72-4c8f-a213-0cd42acdb2a2",
+      "fit_note": "Excellent level match requiring 5+ years selling technical SaaS and complex UK enterprise acquisition.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "snowflake-account-executive-defence",
+      "company": "Snowflake",
+      "title": "Account Executive - Defence",
+      "location": "London, UK",
+      "workplace": "Office",
+      "fit_score": 54,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/snowflake/b6322e07-c781-4df1-81eb-8cc9f7e0dbaa",
+      "fit_note": "Experience level aligns, but Defence ecosystem knowledge and UK SC-clearance eligibility make this a specialised stretch.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "cohere-senior-ae",
+      "company": "Cohere",
+      "title": "Senior Account Executive",
+      "location": "United Kingdom",
+      "workplace": "Remote",
+      "fit_score": 52,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/cohere/bdcdc6d1-2379-40fe-bfb6-d61768043b37",
+      "fit_note": "Strong functional hunter role, but 10+ years and seven-figure enterprise deal experience make it a major stretch.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "Fluent English is required; Dutch is only advantageous, not mandatory.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "mistral-ai-account-executive-enterprise-uk-public-sector",
+      "company": "Mistral AI",
+      "title": "Account Executive, Enterprise, UK - Public Sector",
+      "location": "London, UK",
+      "workplace": "Office",
+      "fit_score": 43,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/mistral.ai/92bec998-453a-46e5-a037-1c732321ae3f",
+      "fit_note": "Relevant end-to-end closing remit but significant UK Public Sector and AI/data-infrastructure experience are required.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in this posting; the separate French-required role was excluded.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "luminance-account-executive",
+      "company": "Luminance",
+      "title": "Account Executive",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 95,
+      "status": "new",
+      "url": "https://apply.workable.com/luminance-1/jobs/view/C7389E54B7.md",
+      "fit_note": "Excellent level match: full-cycle consultative SaaS closing with 3-6 years for Mid-Market; degree pedigree requirement is the main caveat.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "writer-enterprise-ae",
+      "company": "Writer",
+      "title": "Enterprise Account Executive (UK)",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 96,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/writer/3636baa7-7bdb-411b-b95b-44fffb1243ac",
+      "fit_note": "Exact experience match requiring 5+ years in enterprise B2B SaaS closing, quota attainment and value-based selling.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "writer-strategic-account-executive-uk",
+      "company": "Writer",
+      "title": "Strategic Account Executive (UK)",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 58,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/writer/faa2c706-7164-4ffb-b2db-13e34016667e",
+      "fit_note": "Relevant strategic role but a stretch at 7-10+ years plus Fortune 500 and C-suite sales experience.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "writer-strategic-account-executive-financial-services-uk",
+      "company": "Writer",
+      "title": "Strategic Account Executive, Financial Services (UK)",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 50,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/writer/7ec50666-8b61-4b22-ae33-bfa5dfb365c5",
+      "fit_note": "Large stretch requiring 7-10+ years and deep UK and European financial-services expertise.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
       "id": "harvey-midmarket-ae",
       "company": "Harvey",
       "title": "Account Executive, Mid Market, EMEA",
-      "location": "London",
-      "workplace": "Office",
-      "fit_score": 95,
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 94,
       "status": "new",
       "url": "https://jobs.ashbyhq.com/harvey/1207bcdf-6186-4f54-ac4d-d0575ed6459a",
-      "fit_note": "Closest match to previous mid-market AE experience."
+      "fit_note": "Strong full-cycle consultative software-sales fit; legal-sector experience is desirable rather than mandatory.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears; language-specific variants were excluded.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "harvey-enterprise-ae",
+      "company": "Harvey",
+      "title": "Account Executive, Enterprise, EMEA",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 80,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/harvey/787fe815-2f6d-4a9a-8c1e-6205bd105389",
+      "fit_note": "Plausible enterprise step-up across complex software sales and independent full-cycle ownership.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
       "id": "harvey-smb-ae",
       "company": "Harvey",
       "title": "Account Executive, SMB, EMEA",
-      "location": "London",
-      "workplace": "Office",
-      "fit_score": 86,
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 87,
       "status": "new",
       "url": "https://jobs.ashbyhq.com/harvey/80de9204-db5f-4ed9-95f6-014d33994a75",
-      "fit_note": "Direct full-cycle closing fit, slightly below previous segment."
+      "fit_note": "Strong experience fit for high-velocity, full-cycle complex-software selling, though the segment is smaller.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
-      "id": "elevenlabs-sales-development-lead",
-      "company": "ElevenLabs",
-      "title": "Sales Development Lead - Europe",
-      "location": "London",
-      "workplace": "Office",
-      "fit_score": 70,
-      "status": "new",
-      "url": "https://jobs.ashbyhq.com/elevenlabs/bb4f0758-f039-46c7-9a3f-71c145824298",
-      "fit_note": "Relevant music-adjacent AI company; people-lead remit may be a stretch."
-    },
-    {
-      "id": "uipath-senior-ae-fs",
-      "company": "UiPath",
-      "title": "Senior Account Executive - Financial Services",
-      "location": "London",
+      "id": "harvey-account-executive-enterprise-asset-management",
+      "company": "Harvey",
+      "title": "Account Executive, Enterprise, Asset Management",
+      "location": "London, UK",
       "workplace": "Hybrid",
-      "fit_score": 57,
+      "fit_score": 66,
       "status": "new",
-      "url": "https://jobs.ashbyhq.com/uipath/cdfd3f39-03d6-40e2-ac55-fda803426e0c",
-      "fit_note": "Direct enterprise software-sales role, but it asks for ten-plus years and financial-services depth."
+      "url": "https://jobs.ashbyhq.com/harvey/864392c2-9ff4-4b95-9e06-46bf46bf6522",
+      "fit_note": "Plausible only with financial-services exposure and experience selling into asset management or institutional funds.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "uipath-enterprise-sales-executive-manufacturing",
+      "company": "UiPath",
+      "title": "Enterprise Sales Executive, Manufacturing",
+      "location": "London, UK",
+      "workplace": "Office",
+      "fit_score": 88,
+      "status": "new",
+      "url": "https://jobs.ashbyhq.com/uipath/05554a0f-4c25-40db-b737-a1cf2c332412",
+      "fit_note": "Strong new-logo enterprise closing role requiring 5+ years of solution sales and full-cycle quota ownership; manufacturing experience is the main specialism.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "celonis-associate-account-executive-top-talent-sales-program-lunar-uk",
+      "company": "Celonis",
+      "title": "Associate Account Executive (Top Talent Sales Program - Lunar) UK",
+      "location": "London, UK",
+      "workplace": "Hybrid",
+      "fit_score": 68,
+      "status": "new",
+      "url": "https://careers.celonis.com/join-us/open-positions/job-detail?jobId=8037803003",
+      "fit_note": "English-only enterprise-sales development role with pipeline and revenue ownership, but its 2-3 year target makes it a likely step down for roughly five years of SaaS sales.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "Business English is required and no other language is mandatory.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
       "id": "servicenow-enterprise-ae-higher-education",
@@ -563,7 +1100,11 @@
       "fit_score": 68,
       "status": "new",
       "url": "https://jobs.smartrecruiters.com/ServiceNow/744000152395931-enterprise-account-exec-higher-education-uk-south-",
-      "fit_note": "Relevant software AE role near London, though it asks for seven-plus years and public-sector or higher-education experience."
+      "fit_note": "Live enterprise closing role, but higher-education sector depth and senior enterprise experience make it a stretch.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
       "id": "sas-jmp-inside-sales-account-representative",
@@ -574,18 +1115,41 @@
       "fit_score": 94,
       "status": "new",
       "url": "https://global-sas.icims.com/jobs/42580/jmp-inside-sales-account-representative/job",
-      "fit_note": "Excellent match: five years of software sales, full-cycle new business, prospecting and account growth. English is required; another language is only preferred."
+      "fit_note": "Excellent experience match: five years of B2B inside sales, quota ownership and software-selling skills.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
     },
     {
-      "id": "sas-senior-associate-ae-life-sciences",
-      "company": "SAS",
-      "title": "Senior Associate Account Executive - Life Sciences",
-      "location": "London or Marlow, UK",
-      "workplace": "Hybrid",
-      "fit_score": 90,
+      "id": "adobe-enterprise-sales-account-executive-creativity-and-productivity",
+      "company": "Adobe",
+      "title": "Enterprise Sales Account Executive, Creativity & Productivity",
+      "location": "London, UK",
+      "workplace": "Office",
+      "fit_score": 88,
       "status": "new",
-      "url": "https://global-sas.icims.com/jobs/42566/senior-associate-account-executive---life-sciences/job",
-      "fit_note": "Strong SaaS AE match with two to three years requested, hybrid working and English as the only required language."
+      "url": "https://careers.adobe.com/us/en/job/R171207/Enterprise-Sales-Account-Executive-Creativity-Productivity",
+      "fit_note": "Strong IC B2B SaaS closing fit across a 30-60 account patch, pipeline creation, prospecting, cross-sell and target ownership; no minimum years threshold makes five years plausible.",
+      "language_requirement": "English only; no mandatory additional language",
+      "language_evidence": "No non-English language requirement appears in the full posting.",
+      "availability": "live",
+      "checked_at": "2026-10-28T10:30:00Z"
+    },
+    {
+      "id": "anthropic-manufacturing-ae",
+      "company": "Anthropic",
+      "title": "Enterprise Account Executive, Manufacturing",
+      "location": "London, UK",
+      "workplace": "Office",
+      "fit_score": 76,
+      "status": "interested",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5237973008",
+      "fit_note": "This role is no longer live on Anthropic’s employer board. Your Interested status has been preserved here as a closed saved role.",
+      "updated_at": "2026-10-06T09:42:28.746Z",
+      "availability": "closed",
+      "closed_at": "2026-10-28",
+      "careers_url": "https://www.anthropic.com/careers/jobs"
     }
   ],
   "job_boards": [
