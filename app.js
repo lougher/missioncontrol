@@ -53,7 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (targetId === 'view-business-ideas') loadBusinessIdeas(true);
         if (targetId === 'view-life-design') loadLifeDesign(true);
         if (targetId === 'view-jobs') {
-            if ((localStorage.getItem('jobs-tab') || 'ytjobs') === 'ai') loadAiJobs(true);
+            const jobsTab = localStorage.getItem('jobs-tab') || 'ytjobs';
+            if (jobsTab === 'ai') loadAiJobs(true);
+            else if (jobsTab === 'applied') loadAppliedJobs(true);
             else loadYtJobs(true);
         }
         if (targetId === 'view-people') loadPeople(true);
@@ -7516,8 +7518,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // === Jobs section and AI Jobs Logic ===
     const jobsYtJobsTab = document.getElementById('jobs-ytjobs-tab');
     const jobsAiTab = document.getElementById('jobs-ai-tab');
+    const jobsAppliedTab = document.getElementById('jobs-applied-tab');
     const jobsYtJobsPanel = document.getElementById('jobs-ytjobs-panel');
     const jobsAiPanel = document.getElementById('jobs-ai-panel');
+    const jobsAppliedPanel = document.getElementById('jobs-applied-panel');
     const refreshAiJobsBtn = document.getElementById('refresh-ai-jobs-btn');
     const aiJobsScanMeta = document.getElementById('ai-jobs-scan-meta');
     const aiJobsCompanyTotal = document.getElementById('ai-jobs-company-total');
@@ -7531,19 +7535,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const aiJobsList = document.getElementById('ai-jobs-list');
     const aiCompaniesList = document.getElementById('ai-companies-list');
     const aiJobBoardsList = document.getElementById('ai-job-boards-list');
+    const refreshAppliedJobsBtn = document.getElementById('refresh-applied-jobs-btn');
+    const appliedJobsMeta = document.getElementById('applied-jobs-meta');
+    const appliedJobsTotal = document.getElementById('applied-jobs-total');
+    const appliedJobsActiveTotal = document.getElementById('applied-jobs-active-total');
+    const appliedJobsIgnoredTotal = document.getElementById('applied-jobs-ignored-total');
+    const appliedJobsCompanyTotal = document.getElementById('applied-jobs-company-total');
+    const appliedJobsFilter = document.getElementById('applied-jobs-filter');
+    const appliedJobsList = document.getElementById('applied-jobs-list');
     let aiJobs = [];
     let aiCompanies = [];
     let aiJobBoards = [];
     let aiJobsMeta = {};
+    let appliedJobsData = { jobs: [] };
 
     function setJobsTab(tab) {
-        const activeTab = tab === 'ai' ? 'ai' : 'ytjobs';
+        const activeTab = ['ai', 'applied'].includes(tab) ? tab : 'ytjobs';
         localStorage.setItem('jobs-tab', activeTab);
         jobsYtJobsPanel?.classList.toggle('hidden', activeTab !== 'ytjobs');
         jobsAiPanel?.classList.toggle('hidden', activeTab !== 'ai');
-        [jobsYtJobsTab, jobsAiTab].forEach(button => {
+        jobsAppliedPanel?.classList.toggle('hidden', activeTab !== 'applied');
+        [jobsYtJobsTab, jobsAiTab, jobsAppliedTab].forEach(button => {
             if (!button) return;
-            const selected = (button === jobsAiTab) === (activeTab === 'ai');
+            const selected = (button === jobsYtJobsTab && activeTab === 'ytjobs') || (button === jobsAiTab && activeTab === 'ai') || (button === jobsAppliedTab && activeTab === 'applied');
             button.classList.toggle('bg-white', selected);
             button.classList.toggle('dark:bg-[#171717]', selected);
             button.classList.toggle('shadow-sm', selected);
@@ -7552,7 +7566,78 @@ document.addEventListener("DOMContentLoaded", () => {
             button.classList.toggle('dark:text-gray-300', !selected);
         });
         if (activeTab === 'ai') loadAiJobs(true);
+        else if (activeTab === 'applied') loadAppliedJobs(true);
         else loadYtJobs(true);
+    }
+
+    function renderAppliedJobOutreach(job) {
+        const contacts = Array.isArray(job.outreachContacts) ? job.outreachContacts : [];
+        if (!contacts.length) return '';
+        const decisionMakerTypes = new Set(['Hiring decision-maker', 'Commercial sales leader', 'Regional sales leader', 'Regional GTM leader', 'Relevant product GTM leader']);
+        const orderedContacts = [...contacts].sort((a, b) => Number(decisionMakerTypes.has(b.type)) - Number(decisionMakerTypes.has(a.type)));
+        return `<section class="mt-5 pt-5 border-t border-gray-200 dark:border-white/10"><div class="flex items-center justify-between gap-3 mb-3"><h4 class="text-sm font-semibold text-gray-900 dark:text-white">Outreach</h4><span class="text-xs text-gray-500 dark:text-gray-400">Drafts only - nothing is sent automatically</span></div><div class="space-y-3">${orderedContacts.map((contact, index) => {
+            const isPriority = index === 0 && decisionMakerTypes.has(contact.type);
+            return `<article data-outreach-contact class="rounded-lg border ${isPriority ? 'border-indigo-300 dark:border-indigo-500/40 bg-indigo-50/50 dark:bg-indigo-500/5' : 'border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717]'} p-4"><div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3"><div class="min-w-0"><div class="flex flex-wrap items-center gap-2"><h5 class="font-medium text-sm text-gray-900 dark:text-white">${escapeHtml(contact.name || 'Contact')}</h5>${isPriority ? '<span class="text-[11px] px-2 py-0.5 rounded-full bg-indigo-600 text-white">Priority decision-maker</span>' : ''}<span class="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300">${escapeHtml(contact.type || 'Contact')}</span><span class="text-[11px] text-gray-500 dark:text-gray-400">${escapeHtml(contact.confidence || 'Unknown')} confidence</span></div><div class="text-xs text-gray-600 dark:text-gray-300 mt-1">${escapeHtml(contact.title || '')}</div><p class="text-xs text-gray-500 dark:text-gray-400 mt-2">${escapeHtml(contact.evidence || '')}</p></div><a href="${escapeHtml(contact.url || '#')}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-xs px-3 py-1.5 rounded bg-[#0a66c2] text-white hover:bg-[#004182] shrink-0">Open LinkedIn</a></div><div class="grid lg:grid-cols-2 gap-3 mt-4"><div class="rounded-md bg-gray-50 dark:bg-white/5 p-3"><div class="flex items-center justify-between gap-2 mb-2"><span class="text-xs font-medium text-gray-700 dark:text-gray-200">Connection note (max 200 characters)</span><button type="button" data-copy-draft="connection" class="text-xs border border-gray-200 dark:border-white/10 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-white/10">Copy note</button></div><p data-outreach-draft="connection" class="text-xs leading-relaxed text-gray-600 dark:text-gray-300 whitespace-pre-wrap">${escapeHtml(contact.connectionNote || '')}</p></div><div class="rounded-md bg-gray-50 dark:bg-white/5 p-3"><div class="flex items-center justify-between gap-2 mb-2"><span class="text-xs font-medium text-gray-700 dark:text-gray-200">Post-acceptance Loom message - replace [PASTE LOOM LINK]</span><button type="button" data-copy-draft="loom" class="text-xs border border-gray-200 dark:border-white/10 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-white/10">Copy Loom message</button></div><p data-outreach-draft="loom" class="text-xs leading-relaxed text-gray-600 dark:text-gray-300 whitespace-pre-wrap">${escapeHtml(contact.postAcceptanceLoomMessage || '')}</p></div></div></article>`;
+        }).join('')}</div></section>`;
+    }
+
+    function renderAppliedJobs(data) {
+        if (!appliedJobsList) return;
+        const jobs = Array.isArray(data.jobs) ? data.jobs : [];
+        const activeJobs = jobs.filter(job => !job.ignored);
+        const ignoredJobs = jobs.filter(job => job.ignored);
+        const filter = appliedJobsFilter?.value || 'active';
+        const visibleJobs = filter === 'ignored' ? ignoredJobs : (filter === 'all' ? jobs : activeJobs);
+        const namedCompanies = new Set(jobs.map(job => String(job.company || '').trim()).filter(Boolean));
+        if (appliedJobsTotal) appliedJobsTotal.innerText = jobs.length;
+        if (appliedJobsActiveTotal) appliedJobsActiveTotal.innerText = activeJobs.length;
+        if (appliedJobsIgnoredTotal) appliedJobsIgnoredTotal.innerText = ignoredJobs.length;
+        if (appliedJobsCompanyTotal) appliedJobsCompanyTotal.innerText = namedCompanies.size;
+        if (appliedJobsMeta) appliedJobsMeta.innerText = `${activeJobs.length} active, ${ignoredJobs.length} ignored${data.updatedAt ? ` - source updated ${data.updatedAt}` : ''}.`;
+        appliedJobsList.innerHTML = visibleJobs.length ? visibleJobs.map(job => {
+            const availability = ['open', 'closed'].includes(job.availability) ? job.availability : 'unknown';
+            const availabilityLabel = availability === 'open' ? 'Open' : (availability === 'closed' ? 'Closed' : 'Availability unknown');
+            const availabilityClass = availability === 'open'
+                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300'
+                : (availability === 'closed' ? 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300' : 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300');
+            const listingControl = job.listingUrl
+                ? `<a href="${escapeHtml(job.listingUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-xs font-medium text-blue-600 dark:text-blue-300 hover:underline">Open listing</a>`
+                : '<span class="text-xs text-gray-400 dark:text-gray-500">No exact listing link</span>';
+            const availabilityDetail = job.availabilityNote || (job.availabilityCheckedAt ? `Checked ${job.availabilityCheckedAt}` : 'Availability has not been checked');
+            return `<article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 ${job.ignored ? 'opacity-75' : ''}"><div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4"><div class="min-w-0 flex-1"><div class="flex flex-wrap items-center gap-2 mb-2"><h3 class="text-lg font-semibold dark:text-white">${escapeHtml(job.role || 'Role unclear')}</h3><span class="text-xs px-2.5 py-1 rounded-full ${job.ignored ? 'bg-gray-200 text-gray-700 dark:bg-white/10 dark:text-gray-300' : 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300'}">${job.ignored ? 'Ignored' : escapeHtml(job.status || 'Applied')}</span><span class="text-xs px-2.5 py-1 rounded-full ${availabilityClass}">${availabilityLabel}</span></div><div class="text-sm text-gray-700 dark:text-gray-200">${escapeHtml(job.company || 'Company not captured')}</div><div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400 mt-3"><span>Screenshot age: ${escapeHtml(job.age || 'Not recorded')}</span><span>Route: ${escapeHtml(job.route || 'LinkedIn + Loom video')}</span>${job.availabilityCheckedAt ? `<span>Checked: ${escapeHtml(job.availabilityCheckedAt)}</span>` : ''}</div><div class="flex flex-wrap items-center gap-3 mt-3">${listingControl}<span class="text-xs text-gray-500 dark:text-gray-400">${escapeHtml(availabilityDetail)}</span></div>${job.note ? `<p class="text-sm text-gray-500 dark:text-gray-400 mt-3">${escapeHtml(job.note)}</p>` : ''}${!job.ignored ? renderAppliedJobOutreach(job) : ''}</div><button type="button" data-applied-job-id="${escapeHtml(job.id)}" data-applied-job-ignored="${job.ignored ? 'false' : 'true'}" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-100 dark:hover:bg-white/10 transition-colors shrink-0">${job.ignored ? 'Restore' : 'Ignore'}</button></div></article>`;
+        }).join('') : `<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No ${filter === 'all' ? '' : filter + ' '}applications to show.</div>`;
+    }
+
+    async function loadAppliedJobs(silent = false) {
+        if (!appliedJobsList) return;
+        if (!silent) appliedJobsList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading applications...</div>';
+        try {
+            const res = await fetch('/api/applied-jobs');
+            const data = await res.json();
+            if (!res.ok) throw new Error('Applied jobs request failed');
+            appliedJobsData = data;
+            renderAppliedJobs(data);
+        } catch (e) {
+            console.error(e);
+            appliedJobsList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-lg p-6 text-red-600 dark:text-red-300">Failed to load applied jobs.</div>';
+        }
+    }
+
+    async function setAppliedJobIgnored(id, ignored, button) {
+        if (button) button.disabled = true;
+        try {
+            const res = await fetch(`/api/applied-jobs/${encodeURIComponent(id)}/ignored`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ignored })
+            });
+            if (!res.ok) throw new Error('Applied job update failed');
+            await loadAppliedJobs(true);
+        } catch (e) {
+            console.error(e);
+            alert('Could not update this application.');
+            if (button) button.disabled = false;
+        }
     }
 
     function aiJobFitClass(score) {
@@ -7668,10 +7753,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     jobsYtJobsTab?.addEventListener('click', () => setJobsTab('ytjobs'));
     jobsAiTab?.addEventListener('click', () => setJobsTab('ai'));
+    jobsAppliedTab?.addEventListener('click', () => setJobsTab('applied'));
     refreshAiJobsBtn?.addEventListener('click', () => loadAiJobs());
+    refreshAppliedJobsBtn?.addEventListener('click', () => loadAppliedJobs());
+    appliedJobsFilter?.addEventListener('change', () => renderAppliedJobs(appliedJobsData));
+    appliedJobsList?.addEventListener('click', async event => {
+        const copyButton = event.target.closest('[data-copy-draft]');
+        if (copyButton) {
+            const contact = copyButton.closest('[data-outreach-contact]');
+            const draft = contact?.querySelector(`[data-outreach-draft="${copyButton.dataset.copyDraft}"]`)?.textContent || '';
+            if (!draft) return;
+            const originalLabel = copyButton.textContent;
+            try {
+                await navigator.clipboard.writeText(draft);
+                copyButton.textContent = 'Copied';
+                window.setTimeout(() => { copyButton.textContent = originalLabel; }, 1400);
+            } catch (error) {
+                console.error(error);
+                copyButton.textContent = 'Copy failed';
+                window.setTimeout(() => { copyButton.textContent = originalLabel; }, 1400);
+            }
+            return;
+        }
+        const button = event.target.closest('[data-applied-job-id]');
+        if (!button) return;
+        setAppliedJobIgnored(button.dataset.appliedJobId, button.dataset.appliedJobIgnored === 'true', button);
+    });
     [aiJobsSearch, aiJobsFitFilter, aiJobsWorkplaceFilter, aiJobsStatusFilter].forEach(el => el?.addEventListener('input', renderAiJobs));
     [aiJobsFitFilter, aiJobsWorkplaceFilter, aiJobsStatusFilter].forEach(el => el?.addEventListener('change', renderAiJobs));
-    setJobsTab(location.pathname === '/jobs/ai' ? 'ai' : (localStorage.getItem('jobs-tab') || 'ytjobs'));
+    setJobsTab(location.pathname === '/jobs/ai' ? 'ai' : (location.pathname === '/jobs/applied' ? 'applied' : (localStorage.getItem('jobs-tab') || 'ytjobs')));
 
     // === LinkedIn Jobs Logic ===
     const refreshLinkedInJobsBtn = document.getElementById('refresh-linkedin-jobs-btn');

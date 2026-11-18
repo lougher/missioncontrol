@@ -71,6 +71,7 @@ const LINKEDIN_JOBS_DB_FILE = path.join(__dirname, 'linkedin_jobs_db.json');
 const YTJOBS_DB_FILE = path.join(__dirname, 'ytjobs_jobs.json');
 const YTJOBS_TALENT_FILE = path.join(__dirname, 'ytjobs_talking_head_editor_shortlist.json');
 const AI_JOBS_DB_FILE = path.join(__dirname, 'ai_jobs.json');
+const APPLIED_JOBS_DB_FILE = path.join(__dirname, 'applied_jobs.json');
 const DJ_GIGS_DB_FILE = path.join(__dirname, 'dj_gigs.json');
 const NETWORKING_EVENTS_DB_FILE = path.join(__dirname, 'networking_events.json');
 const PROPERTY_DEALS_DB_FILE = path.join(__dirname, 'property_deals.json');
@@ -203,12 +204,14 @@ function writeJournalSections(doc) {
 const server = http.createServer((req, res) => {
     res.on('error', (err) => console.error('Response error:', err));
     const requestPath = req.url.split('?')[0];
-    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/jobs' || requestPath === '/jobs/ai' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read' || requestPath === '/djing' || requestPath === '/networking' || requestPath === '/life-design') {
+    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/jobs' || requestPath === '/jobs/ai' || requestPath === '/jobs/applied' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read' || requestPath === '/djing' || requestPath === '/networking' || requestPath === '/life-design') {
         serveFile(res, path.join(__dirname, 'index.html'), 'text/html');
     } else if (requestPath === '/styles.css') {
         serveFile(res, path.join(__dirname, 'styles.css'), 'text/css');
     } else if (requestPath === '/app.js') {
         serveFile(res, path.join(__dirname, 'app.js'), 'text/javascript');
+    } else if (requestPath === '/applied_jobs.json') {
+        serveFile(res, path.join(__dirname, 'applied_jobs.json'), 'application/json');
     } else if (requestPath === '/workouts.js') {
         serveFile(res, path.join(__dirname, 'workouts.js'), 'text/javascript');
     }
@@ -276,6 +279,32 @@ const server = http.createServer((req, res) => {
         const db = readAiJobsDb();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(db));
+    } else if (req.url === '/api/applied-jobs') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readAppliedJobsDb();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/applied-jobs\/[^/]+\/ignored$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const { ignored } = JSON.parse(body || '{}');
+                if (typeof ignored !== 'boolean') throw new Error('ignored must be a boolean');
+                const job = updateAppliedJobIgnored(id, ignored);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, job }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update applied job' }));
+            }
+        });
     } else if (req.url.match(/^\/api\/ai-jobs\/[^/]+\/status$/)) {
         if (req.method !== 'POST') {
             res.writeHead(405, { 'Content-Type': 'application/json' });
@@ -2309,6 +2338,40 @@ function readAiJobsDb() {
     } catch {
         return { searched_at: '', company_audit_note: '', selection_note: '', profile_note: '', companies: [], jobs: [], job_boards: [] };
     }
+}
+
+function appliedJobId(job = {}, index = 0) {
+    if (job.id) return String(job.id);
+    const fingerprint = [job.company, job.role, job.note, job.age, index].map(value => String(value || '').trim()).join('|');
+    return 'applied-' + crypto.createHash('sha256').update(fingerprint).digest('hex').slice(0, 12);
+}
+
+function readAppliedJobsDb() {
+    const parsed = readJsonFile(APPLIED_JOBS_DB_FILE, { updatedAt: '', jobs: [] });
+    const jobs = Array.isArray(parsed.jobs) ? parsed.jobs : [];
+    return {
+        updatedAt: parsed.updatedAt || '',
+        jobs: jobs.map((job, index) => ({ ...job, id: appliedJobId(job, index), ignored: job.ignored === true }))
+    };
+}
+
+function writeAppliedJobsDb(db) {
+    const jobs = (Array.isArray(db.jobs) ? db.jobs : []).map(job => {
+        const saved = { ...job };
+        if (/^applied-[a-f0-9]{12}$/.test(String(saved.id || ''))) delete saved.id;
+        if (saved.ignored !== true) delete saved.ignored;
+        return saved;
+    });
+    fs.writeFileSync(APPLIED_JOBS_DB_FILE, JSON.stringify({ updatedAt: db.updatedAt || '', jobs }, null, 2) + '\n');
+}
+
+function updateAppliedJobIgnored(id, ignored) {
+    const db = readAppliedJobsDb();
+    const job = db.jobs.find(item => item.id === id);
+    if (!job) throw new Error('Applied job not found');
+    job.ignored = ignored;
+    writeAppliedJobsDb(db);
+    return job;
 }
 
 const NON_ENGLISH_LANGUAGE_PATTERN = /\b(?:arabic|cantonese|chinese|danish|dutch|finnish|flemish|french|german|greek|hebrew|hindi|italian|japanese|korean|mandarin|norwegian|polish|portuguese|russian|spanish|swedish|turkish|welsh)\b/i;

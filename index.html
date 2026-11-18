@@ -1179,6 +1179,7 @@
             <div class="inline-flex rounded-lg border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-1 mb-8">
                 <button id="jobs-ytjobs-tab" type="button" class="px-4 py-2 rounded-md text-sm bg-white dark:bg-[#171717] shadow-sm dark:text-white">YTJobs</button>
                 <button id="jobs-ai-tab" type="button" class="px-4 py-2 rounded-md text-sm text-gray-600 dark:text-gray-300">AI Jobs</button>
+                <button id="jobs-applied-tab" type="button" class="px-4 py-2 rounded-md text-sm text-gray-600 dark:text-gray-300">Applied Jobs</button>
             </div>
 
             <div id="jobs-ytjobs-panel">
@@ -1272,6 +1273,24 @@
                     <div class="text-sm text-gray-500 dark:text-gray-400">Loading YTJobs talent...</div>
                 </div>
             </div>
+            </div>
+
+            <div id="jobs-applied-panel" class="hidden">
+                <div class="mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-semibold dark:text-white">Applied Jobs</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Applications submitted through LinkedIn with a Loom video.</p>
+                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-2" id="applied-jobs-meta">Loading applications...</p>
+                    </div>
+                    <div class="flex items-center gap-2"><label for="applied-jobs-filter" class="text-xs text-gray-500 dark:text-gray-400">Show</label><select id="applied-jobs-filter" class="text-xs border border-gray-200 dark:border-white/10 bg-white dark:bg-[#171717] dark:text-gray-300 px-3 py-1.5 rounded"><option value="active">Active</option><option value="ignored">Ignored</option><option value="all">All</option></select><button id="refresh-applied-jobs-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh View</button></div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">Total applications</div><div id="applied-jobs-total" class="text-3xl font-semibold tracking-tight dark:text-white mt-2">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">Active pursuits</div><div id="applied-jobs-active-total" class="text-3xl font-semibold tracking-tight text-blue-600 dark:text-blue-300 mt-2">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">Ignored</div><div id="applied-jobs-ignored-total" class="text-3xl font-semibold tracking-tight text-gray-500 dark:text-gray-300 mt-2">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">Named companies</div><div id="applied-jobs-company-total" class="text-3xl font-semibold tracking-tight dark:text-white mt-2">0</div></div>
+                </div>
+                <div id="applied-jobs-list" class="space-y-3 mb-10"><div class="text-sm text-gray-500 dark:text-gray-400">Loading applications...</div></div>
             </div>
 
             <div id="jobs-ai-panel" class="hidden">
@@ -2442,7 +2461,7 @@
         </form>
     </div>
 
-    <script src="/app.js?v=20261028-ai-jobs-refresh"></script>
+    <script src="/app.js?v=20261118-applied-jobs-outreach"></script>
     <script src="/workouts.js?v=20260817-rutina-web"></script>
 </body>
 </html>

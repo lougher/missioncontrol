@@ -1,0 +1,502 @@
+{
+  "updatedAt": "2026-11-18",
+  "jobs": [
+    {
+      "age": "1 month ago",
+      "company": "Plaid",
+      "role": "Account Executive - Mid-Market",
+      "note": "Potential duplicate: separate Plaid Loom card",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4477820967/",
+      "listingTitle": "Account Executive - Mid-Market",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: Reposted 2w ago",
+      "outreachContacts": [
+        {
+          "name": "Peter Williams",
+          "title": "Commercial Lead, UK & Europe @ Plaid",
+          "url": "https://www.linkedin.com/in/peterwilliamsa/",
+          "type": "Hiring decision-maker",
+          "confidence": "Very high",
+          "evidence": "London-based Plaid leader who explicitly posted that Plaid was hiring for the Mid-Market AE role",
+          "connectionNote": "Hi Peter, I applied for Plaid's Account Executive - Mid-Market role. Your post about Plaid hiring for this role stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Peter. I applied for the Account Executive - Mid-Market role at Plaid. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        }
+      ]
+    },
+    {
+      "age": "16 Oct",
+      "company": "Plaid",
+      "role": "Account Executive - Mid-Market",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4477820967/",
+      "listingTitle": "Account Executive - Mid-Market",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: Reposted 2w ago",
+      "outreachContacts": [
+        {
+          "name": "Peter Williams",
+          "title": "Commercial Lead, UK & Europe @ Plaid",
+          "url": "https://www.linkedin.com/in/peterwilliamsa/",
+          "type": "Hiring decision-maker",
+          "confidence": "Very high",
+          "evidence": "London-based Plaid leader who explicitly posted that Plaid was hiring for the Mid-Market AE role",
+          "connectionNote": "Hi Peter, I applied for Plaid's Account Executive - Mid-Market role. Your post about Plaid hiring for this role stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Peter. I applied for the Account Executive - Mid-Market role at Plaid. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        }
+      ]
+    },
+    {
+      "age": "1 month ago",
+      "company": "Profound",
+      "role": "Account Executive",
+      "note": "Why I Excel as an Account Executive",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "1 month ago",
+      "company": "Twilio",
+      "role": "Inside Sales - Representative (Active) 2",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4477179203/",
+      "listingTitle": "Inside Sales - Representative (Active) 2",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: Reposted 2w ago",
+      "outreachContacts": [
+        {
+          "name": "Sylwia Stanikowska",
+          "title": "Recruiter at Twilio",
+          "url": "https://www.linkedin.com/in/sylwia-stanikowska-8390b692/",
+          "type": "Recruiter",
+          "confidence": "High",
+          "evidence": "Current Twilio recruiter in the London area with recent Twilio hiring activity",
+          "connectionNote": "Hi Sylwia, I applied for Twilio's Inside Sales - Representative (Active) 2 role. Your recent Twilio hiring work in London stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Sylwia. I applied for the Inside Sales - Representative (Active) 2 role at Twilio. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        }
+      ]
+    },
+    {
+      "age": "1 month ago",
+      "company": "Whatnot",
+      "role": "Role unclear",
+      "note": "Why I’m a Great Fit for Whatnot",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "1 month ago",
+      "company": "TikTok",
+      "role": "TikTok Shop - Business Development Manager - Home & Living, UK",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4468102054/",
+      "listingTitle": "TikTok Shop - Business Development Manager - Home & Living, UK",
+      "availability": "closed",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: No longer accepting applications",
+      "ignored": true
+    },
+    {
+      "age": "1 month ago",
+      "company": "",
+      "role": "Role unclear",
+      "note": "Software Sales Success and AI Passion",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "1 month ago",
+      "company": "Codility",
+      "role": "Account Executive",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "1 month ago",
+      "company": "LangChain",
+      "role": "Commercial Account Executive (UK)",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4379498804/",
+      "listingTitle": "Commercial Account Executive (UK)",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn current listing: Reposted 1w ago",
+      "outreachContacts": [
+        {
+          "name": "Cass Monk",
+          "title": "GTM Regional VP, EMEA South & Commercial",
+          "url": "https://www.linkedin.com/in/cassmonk/",
+          "type": "Commercial sales leader",
+          "confidence": "High",
+          "evidence": "UK-based LangChain leader who explicitly leads Commercial GTM",
+          "connectionNote": "Hi Cass, I applied for LangChain's Commercial Account Executive (UK) role. Your leadership of LangChain Commercial GTM stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Cass. I applied for the Commercial Account Executive (UK) role at LangChain. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        },
+        {
+          "name": "Sam Spark",
+          "title": "Regional Vice President, Northern Europe",
+          "url": "https://www.linkedin.com/in/sam-spark/",
+          "type": "Regional sales leader",
+          "confidence": "High",
+          "evidence": "Current LangChain Northern Europe sales leader based in the UK",
+          "connectionNote": "Hi Sam, I applied for LangChain's Commercial Account Executive (UK) role. Your Northern Europe sales leadership stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Sam. I applied for the Commercial Account Executive (UK) role at LangChain. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        }
+      ]
+    },
+    {
+      "age": "22 days ago",
+      "company": "",
+      "role": "Account Executive, Mid-Market",
+      "note": "Company unreadable",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "22 days ago",
+      "company": "Google",
+      "role": "Sales Specialist, Google Workspace",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4481684417/",
+      "listingTitle": "Sales Specialist, Google Workspace",
+      "availability": "closed",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: No longer accepting applications",
+      "ignored": true
+    },
+    {
+      "age": "22 days ago",
+      "company": "Digital Nonsense",
+      "role": "Enterprise Account Executive",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "23 days ago",
+      "company": "",
+      "role": "Associate Business Development Manager",
+      "note": "Company unreadable",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "28 days ago",
+      "company": "",
+      "role": "Account Executive, GTM SMB",
+      "note": "Company unreadable",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "28 days ago",
+      "company": "",
+      "role": "Technical Account Executive",
+      "note": "Company unreadable",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "30 days ago",
+      "company": "Microsoft",
+      "role": "Account Executive",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "",
+      "listingTitle": "Account Executive",
+      "availability": "closed",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "No matching applied listing remains in LinkedIn tracker and no exact current Microsoft role found",
+      "ignored": true
+    },
+    {
+      "age": "30 days ago",
+      "company": "Amazon",
+      "role": "Senior Account Executive, Amazon Leo",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4480589384/",
+      "listingTitle": "Senior Account Executive, Amazon Leo",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: Reposted 1w ago",
+      "outreachContacts": [
+        {
+          "name": "Charlie Coates",
+          "title": "Senior Enterprise Sales Manager, EMEA - Amazon Leo",
+          "url": "https://www.linkedin.com/in/charliecoates/",
+          "type": "Hiring decision-maker",
+          "confidence": "Very high",
+          "evidence": "London-based Amazon Leo sales leader who announced this position and said the European team is growing",
+          "connectionNote": "Hi Charlie, I applied for Amazon's Senior Account Executive, Amazon Leo role. Your post about the Amazon Leo team growing stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Charlie. I applied for the Senior Account Executive, Amazon Leo role at Amazon. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        },
+        {
+          "name": "Nupur Arora",
+          "title": "Lead Recruiter, Amazon Devices & Leo",
+          "url": "https://www.linkedin.com/in/nupur-arora-17b67152/",
+          "type": "Recruiter",
+          "confidence": "High",
+          "evidence": "London-based recruiter with explicit Amazon Devices & Leo responsibility",
+          "connectionNote": "Hi Nupur, I applied for Amazon's Senior Account Executive, Amazon Leo role. Your Amazon Devices & Leo recruiting work stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Nupur. I applied for the Senior Account Executive, Amazon Leo role at Amazon. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        }
+      ]
+    },
+    {
+      "age": "1 month ago",
+      "company": "Runway",
+      "role": "Mid-Market Account Executive, London",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4475512778/",
+      "listingTitle": "Mid-Market Account Executive, London",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: Posted 1mo ago without closure notice",
+      "outreachContacts": [
+        {
+          "name": "Clément Reverdy",
+          "title": "Enterprise GTM, EMEA at Runway",
+          "url": "https://www.linkedin.com/in/clemrev/",
+          "type": "Regional GTM leader",
+          "confidence": "High",
+          "evidence": "Greater London member of Runway founding EMEA GTM team who recently posted that Runway is hiring",
+          "connectionNote": "Hi Clément, I applied for Runway's Mid-Market Account Executive, London role. Your work building Runway’s EMEA GTM team stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Clément. I applied for the Mid-Market Account Executive, London role at Runway. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        },
+        {
+          "name": "Olivia MacDowell",
+          "title": "Senior Recruiter at Runway",
+          "url": "https://www.linkedin.com/in/olivia-macdowell-377139187/",
+          "type": "Recruiter",
+          "confidence": "Medium-high",
+          "evidence": "Current Runway recruiter supporting business functions, with prior Sales and GTM hiring experience",
+          "connectionNote": "Hi Olivia, I applied for Runway's Mid-Market Account Executive, London role. Your Sales and GTM recruiting experience stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Olivia. I applied for the Mid-Market Account Executive, London role at Runway. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        }
+      ]
+    },
+    {
+      "age": "1 month ago",
+      "company": "Pleo",
+      "role": "Account Executive",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "8 days ago",
+      "company": "Searchland",
+      "role": "Role unclear",
+      "note": "Speed Up Prospecting Research With Searchland",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "15 days ago",
+      "company": "Meta",
+      "role": "Account Executive, Model AI API (London)",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4483919769/",
+      "listingTitle": "Account Executive, Model AI API (London)",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: Posted 2w ago",
+      "outreachContacts": [
+        {
+          "name": "Sahil Jhamb",
+          "title": "Frontier AI GTM at Meta | London / EMEA",
+          "url": "https://www.linkedin.com/in/sahiljhamb/",
+          "type": "Relevant product GTM leader",
+          "confidence": "High",
+          "evidence": "Meta London/EMEA Frontier AI GTM profile explicitly naming Muse and Enterprise AI, directly relevant to the Model AI API role",
+          "connectionNote": "Hi Sahil, I applied for Meta's Account Executive, Model AI API (London) role. Your Frontier AI GTM work across London and EMEA stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Sahil. I applied for the Account Executive, Model AI API (London) role at Meta. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        },
+        {
+          "name": "Tom Duke",
+          "title": "Senior Recruiter at Meta",
+          "url": "https://www.linkedin.com/in/tom-duke-9b73198/",
+          "type": "Recruiter",
+          "confidence": "Medium",
+          "evidence": "UK-based Meta recruiter with recent London Applied AI recruitment activity",
+          "connectionNote": "Hi Tom, I applied for Meta's Account Executive, Model AI API (London) role. Your recent London Applied AI recruiting work stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Tom. I applied for the Account Executive, Model AI API (London) role at Meta. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        }
+      ]
+    },
+    {
+      "age": "15 days ago",
+      "company": "Exclaimer",
+      "role": "Account Executive",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "15 days ago",
+      "company": "Okta",
+      "role": "Account Executive",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "",
+      "listingTitle": "Account Executive",
+      "availability": "closed",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "Original applied listing absent from LinkedIn tracker; current Okta results are different roles",
+      "ignored": true
+    },
+    {
+      "age": "15 days ago",
+      "company": "",
+      "role": "Mid-Market Account Executive",
+      "note": "Company unreadable",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "15 days ago",
+      "company": "GONG.IO INC",
+      "role": "Enterprise Account Executive",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4318284776/",
+      "listingTitle": "Enterprise Account Executive",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: Reposted 3d ago; correct prior company extraction from Git to GONG.IO INC",
+      "outreachContacts": [
+        {
+          "name": "Samantha Stephens",
+          "title": "Area Vice President - EMEA Sales at Gong",
+          "url": "https://www.linkedin.com/in/samantha-stephens22/",
+          "type": "Hiring decision-maker",
+          "confidence": "High",
+          "evidence": "Current EMEA sales leader at Gong",
+          "connectionNote": "Hi Samantha, I applied for GONG.IO INC's Enterprise Account Executive role. Your leadership of Gong’s EMEA sales team stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Samantha. I applied for the Enterprise Account Executive role at GONG.IO INC. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        },
+        {
+          "name": "Oisín Hogan",
+          "title": "Senior Recruiter | Hiring GTM & Tech at Gong",
+          "url": "https://www.linkedin.com/in/oisinhogan/",
+          "type": "Recruiter",
+          "confidence": "High",
+          "evidence": "Current Gong recruiter explicitly hiring GTM and technology roles",
+          "connectionNote": "Hi Oisín, I applied for GONG.IO INC's Enterprise Account Executive role. Your focus on hiring GTM talent at Gong stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Oisín. I applied for the Enterprise Account Executive role at GONG.IO INC. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        }
+      ]
+    },
+    {
+      "age": "15 days ago",
+      "company": "MinIO",
+      "role": "Account Executive, NeoCloud",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4443550169/",
+      "listingTitle": "Account Executive, NeoCloud",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: Reposted 1w ago",
+      "outreachContacts": [
+        {
+          "name": "Salvatore Ippolito",
+          "title": "Leading the UK&I market strategy for MinIO",
+          "url": "https://www.linkedin.com/in/salvatore-ippolito-59a3451/",
+          "type": "Hiring decision-maker",
+          "confidence": "High",
+          "evidence": "UK-based MinIO commercial leader responsible for UK&I market strategy",
+          "connectionNote": "Hi Salvatore, I applied for MinIO's Account Executive, NeoCloud role. Your leadership of MinIO’s UK&I market strategy stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Salvatore. I applied for the Account Executive, NeoCloud role at MinIO. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        },
+        {
+          "name": "Lauren Penizotto",
+          "title": "Talent Acquisition Manager at MinIO",
+          "url": "https://www.linkedin.com/in/lauren-penizotto-6606461a1/",
+          "type": "Recruiter",
+          "confidence": "Medium",
+          "evidence": "Current MinIO Talent Acquisition Manager",
+          "connectionNote": "Hi Lauren, I applied for MinIO's Account Executive, NeoCloud role. Your talent acquisition work at MinIO stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Lauren. I applied for the Account Executive, NeoCloud role at MinIO. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        }
+      ]
+    },
+    {
+      "age": "22 days ago",
+      "company": "Spotify",
+      "role": "Account Executive - Commercial, Spotify Technology",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4483192779/",
+      "listingTitle": "Account Executive - Commercial, Spotify Technology",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: Reposted 3d ago",
+      "outreachContacts": [
+        {
+          "name": "Josh Partridge",
+          "title": "Head of Sales EMEA at Spotify",
+          "url": "https://www.linkedin.com/in/josh-partridge-47b59819/",
+          "type": "Hiring decision-maker",
+          "confidence": "High",
+          "evidence": "UK-based Spotify EMEA sales leader focused on advertising and commercial strategy",
+          "connectionNote": "Hi Josh, I applied for Spotify's Account Executive - Commercial, Spotify Technology role. Your leadership of Spotify’s EMEA sales strategy stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Josh. I applied for the Account Executive - Commercial, Spotify Technology role at Spotify. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        },
+        {
+          "name": "Norelle Briggs",
+          "title": "Recruiting for Spotify",
+          "url": "https://www.linkedin.com/in/norellebriggs/",
+          "type": "Recruiter",
+          "confidence": "High",
+          "evidence": "Current London-based Spotify recruiter",
+          "connectionNote": "Hi Norelle, I applied for Spotify's Account Executive - Commercial, Spotify Technology role. Your Spotify recruiting work in London stood out. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Norelle. I applied for the Account Executive - Commercial, Spotify Technology role at Spotify. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+        }
+      ]
+    },
+    {
+      "age": "22 days ago",
+      "company": "SiteMinder",
+      "role": "SaaS Sales Executive",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "ignored": true
+    },
+    {
+      "age": "22 days ago",
+      "company": "Flowable",
+      "role": "Account Executive",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4473753033/",
+      "listingTitle": "Account Executive",
+      "availability": "closed",
+      "availabilityCheckedAt": "2026-11-18",
+      "availabilityNote": "LinkedIn tracker: No longer accepting applications",
+      "ignored": true
+    }
+  ]
+}
