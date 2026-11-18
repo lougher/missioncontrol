@@ -6348,7 +6348,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (status === 'good' && dealStatus !== 'good') return false;
             if (status === 'all' && dealStatus === 'not_interested') return false;
             if (status === 'not_interested' && dealStatus !== 'not_interested') return false;
-            if (roiFilter === 'target' && roi < 20) return false;
+            if (roiFilter === 'target' && roi <= 20) return false;
             if (roiFilter === 'watchlist' && roi < 15) return false;
             if (roiFilter === 'below' && roi >= 15) return false;
             if (duplicateFilter === 'primary' && deal.duplicate_of) return false;
@@ -6381,7 +6381,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!propertyList) return;
         const primaryDeals = marketPropertyDeals().filter(deal => !deal.duplicate_of);
         if (propertyHmoMarketNote) propertyHmoMarketNote.textContent = activeHmoMarket === 'london'
-            ? 'Ealing borough HMO leads, including Acton, Greenford, Perivale and West Ealing. Listed deals are leads, not approved investments. Planning, licence, rent and costs need checking; a Good Deal requires credible net ROI above 20%.'
+            ? 'Greater London HMO leads. Listed deals are leads, not approved investments. Advertised rent and licences need document checks; a Good Deal requires credible net ROI above 20%.'
             : 'Cardiff HMO leads. New automated additions require recalculated net ROI above 10%; a Good Deal requires credible net ROI above 20%.';
         const total = primaryDeals.length;
         const reviewed = primaryDeals.filter(deal => deal.deal_status === 'good').length;
@@ -6399,7 +6399,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const admissionThreshold = Number(propertyDealMeta.new_deal_min_roi_pct || 0);
             const admissionRule = activeHmoMarket === 'cardiff' && admissionThreshold ? ` · New automated deals require recalculated ROI >${admissionThreshold}%` : '';
             propertyRefreshMeta.innerText = activeHmoMarket === 'london'
-                ? `Ealing listing leads checked ${propertyDealMeta.london_hmo_checked_at ? new Date(propertyDealMeta.london_hmo_checked_at).toLocaleString('en-GB') : 'not yet'} · Check live availability with the agent${admissionRule}`
+                ? `Greater London HMO search ${propertyDealMeta.london_hmo_checked_at ? new Date(propertyDealMeta.london_hmo_checked_at).toLocaleString('en-GB') : 'not yet'} · ${propertyDealMeta.london_hmo_search_note || 'Listing and rent claims need confirming with the agent.'}`
                 : `Full listing-status sweep ${refreshed} · ${Number(summary.live || 0)} live · ${Number(summary.sold_stc || 0)} Sold STC · ${Number(summary.under_offer || 0)} under offer · ${Number(summary.unavailable || 0)} unavailable · ${Number(summary.price_changes || 0)} price changes${propertyDealMeta.cardiff_hmo_spot_check_at ? ` · Targeted spot-check ${new Date(propertyDealMeta.cardiff_hmo_spot_check_at).toLocaleString('en-GB')}` : ''}${admissionRule}`;
         }
 
