@@ -24,7 +24,7 @@
           "connectionNote": "Hi Peter, I applied for Plaid's Account Executive - Mid-Market role. Your post about Plaid hiring for this role stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Peter. I applied for the Account Executive - Mid-Market role at Plaid. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Plaid introduction",
-          "inMailMessage": "Hi Peter,\nI applied for Account Executive - Mid-Market at Plaid. Seeing you post the role made me want to introduce myself directly.\nRather than send another long pitch, I made a short video showing why I think I could make an impact: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Peter,\nI applied for Account Executive - Mid-Market at Plaid. Seeing you post the role made me want to introduce myself directly.\n[PASTE LOOM LINK]\nPhil"
         }
       ]
     },
@@ -50,7 +50,7 @@
           "connectionNote": "Hi Peter, I applied for Plaid's Account Executive - Mid-Market role. Your post about Plaid hiring for this role stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Peter. I applied for the Account Executive - Mid-Market role at Plaid. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "Why Plaid caught my eye",
-          "inMailMessage": "Hi Peter,\nI applied for Account Executive - Mid-Market at Plaid. Your post about the opening caught my attention.\nRather than add another long message to your inbox, I made a short video on where I think I could add value: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Peter,\nI applied for Account Executive - Mid-Market at Plaid. Your post about the opening caught my attention.\n[PASTE LOOM LINK]\nPhil"
         }
       ]
     },
@@ -85,7 +85,7 @@
           "connectionNote": "Hi Sylwia, I applied for Twilio's Inside Sales - Representative (Active) 2 role. Your recent Twilio hiring work in London stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Sylwia. I applied for the Inside Sales - Representative (Active) 2 role at Twilio. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Twilio introduction",
-          "inMailMessage": "Hi Sylwia,\nI applied for Inside Sales - Representative (Active) 2 at Twilio and wanted to put a face to the application.\nRather than send another long pitch, I made a short video showing why I think I could make an impact: [PASTE LOOM LINK]\nIf it looks relevant, could you point me to the right person?\nPhil"
+          "inMailMessage": "Hi Sylwia,\nI applied for Inside Sales - Representative (Active) 2 at Twilio and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me to the right person?\nPhil"
         }
       ]
     },
@@ -150,7 +150,7 @@
           "connectionNote": "Hi Cass, I applied for LangChain's Commercial Account Executive (UK) role. Your leadership of LangChain Commercial GTM stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Cass. I applied for the Commercial Account Executive (UK) role at LangChain. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick LangChain introduction",
-          "inMailMessage": "Hi Cass,\nI applied for Commercial Account Executive (UK) at LangChain. As you lead Commercial GTM, I wanted to introduce myself directly.\nRather than send another long pitch, I made a short video showing where I think I could make an impact: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Cass,\nI applied for Commercial Account Executive (UK) at LangChain. As you lead Commercial GTM, I wanted to introduce myself directly.\n[PASTE LOOM LINK]\nPhil"
         },
         {
           "name": "Sam Spark",
@@ -162,7 +162,7 @@
           "connectionNote": "Hi Sam, I applied for LangChain's Commercial Account Executive (UK) role. Your Northern Europe sales leadership stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Sam. I applied for the Commercial Account Executive (UK) role at LangChain. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short LangChain video",
-          "inMailMessage": "Hi Sam,\nI applied for Commercial Account Executive (UK) at LangChain. Your Northern Europe sales remit made it worth reaching out directly.\nRather than send a long pitch, I made a short video showing why I think I could make an impact: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Sam,\nI applied for Commercial Account Executive (UK) at LangChain. Your Northern Europe sales remit made it worth reaching out directly.\n[PASTE LOOM LINK]\nPhil"
         }
       ]
     },
@@ -258,7 +258,7 @@
           "connectionNote": "Hi Charlie, I applied for Amazon's Senior Account Executive, Amazon Leo role. Your post about the Amazon Leo team growing stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Charlie. I applied for the Senior Account Executive, Amazon Leo role at Amazon. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Amazon Leo introduction",
-          "inMailMessage": "Hi Charlie,\nI applied for Senior Account Executive, Amazon Leo at Amazon. Your post about the European team growing prompted me to reach out.\nRather than send another long pitch, I made a short video showing where I think I could make an impact: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Charlie,\nI applied for Senior Account Executive, Amazon Leo at Amazon. Your post about the European team growing prompted me to reach out.\n[PASTE LOOM LINK]\nPhil"
         },
         {
           "name": "Nupur Arora",
@@ -270,7 +270,7 @@
           "connectionNote": "Hi Nupur, I applied for Amazon's Senior Account Executive, Amazon Leo role. Your Amazon Devices & Leo recruiting work stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Nupur. I applied for the Senior Account Executive, Amazon Leo role at Amazon. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short Amazon Leo video",
-          "inMailMessage": "Hi Nupur,\nI applied for Senior Account Executive, Amazon Leo at Amazon. Given your recruiting focus across Devices and Leo, I wanted to share this directly.\nRather than send another long pitch, I made a short video showing why I think I could make an impact: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Nupur,\nI applied for Senior Account Executive, Amazon Leo at Amazon. Given your recruiting focus across Devices and Leo, I wanted to share this directly.\n[PASTE LOOM LINK]\nPhil"
         }
       ]
     },
@@ -296,7 +296,7 @@
           "connectionNote": "Hi Clément, I applied for Runway's Mid-Market Account Executive, London role. Your work building Runway’s EMEA GTM team stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Clément. I applied for the Mid-Market Account Executive, London role at Runway. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Runway introduction",
-          "inMailMessage": "Hi Clément,\nI applied for Mid-Market Account Executive, London at Runway. Your work building the EMEA GTM team caught my attention.\nRather than send another long pitch, I made a short video showing where I think I could make an impact: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Clément,\nI applied for Mid-Market Account Executive, London at Runway. Your work building the EMEA GTM team caught my attention.\n[PASTE LOOM LINK]\nPhil"
         },
         {
           "name": "Olivia MacDowell",
@@ -308,7 +308,7 @@
           "connectionNote": "Hi Olivia, I applied for Runway's Mid-Market Account Executive, London role. Your Sales and GTM recruiting experience stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Olivia. I applied for the Mid-Market Account Executive, London role at Runway. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short Runway video",
-          "inMailMessage": "Hi Olivia,\nI applied for Mid-Market Account Executive, London at Runway and wanted to put a face to the application.\nRather than add another long message to your inbox, I made a short video on why I think I could make an impact: [PASTE LOOM LINK]\nIf it looks relevant, could you point me to the right person?\nPhil"
+          "inMailMessage": "Hi Olivia,\nI applied for Mid-Market Account Executive, London at Runway and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me to the right person?\nPhil"
         }
       ]
     },
@@ -351,7 +351,7 @@
           "connectionNote": "Hi Sahil, I applied for Meta's Account Executive, Model AI API (London) role. Your Frontier AI GTM work across London and EMEA stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Sahil. I applied for the Account Executive, Model AI API (London) role at Meta. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Meta introduction",
-          "inMailMessage": "Hi Sahil,\nI applied for Account Executive, Model AI API (London) at Meta. Your Frontier AI GTM work made me want to share this directly.\nRather than send another long pitch, I made a short video showing where I think I could make an impact: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Sahil,\nI applied for Account Executive, Model AI API (London) at Meta. Your Frontier AI GTM work made me want to share this directly.\n[PASTE LOOM LINK]\nPhil"
         },
         {
           "name": "Tom Duke",
@@ -363,7 +363,7 @@
           "connectionNote": "Hi Tom, I applied for Meta's Account Executive, Model AI API (London) role. Your recent London Applied AI recruiting work stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Tom. I applied for the Account Executive, Model AI API (London) role at Meta. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short Meta AI video",
-          "inMailMessage": "Hi Tom,\nI applied for Account Executive, Model AI API (London) at Meta and wanted to put a face to the application.\nRather than add another long message to your inbox, I made a short video on why I think I could make an impact: [PASTE LOOM LINK]\nIf it looks relevant, could you point me to the right person?\nPhil"
+          "inMailMessage": "Hi Tom,\nI applied for Account Executive, Model AI API (London) at Meta and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me to the right person?\nPhil"
         }
       ]
     },
@@ -419,7 +419,7 @@
           "connectionNote": "Hi Samantha, I applied for GONG.IO INC's Enterprise Account Executive role. Your leadership of Gong’s EMEA sales team stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Samantha. I applied for the Enterprise Account Executive role at GONG.IO INC. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Gong introduction",
-          "inMailMessage": "Hi Samantha,\nI applied for Enterprise Account Executive at GONG.IO INC. As you lead EMEA Sales, I wanted to introduce myself directly.\nRather than send another long pitch, I made a short video showing where I think I could make an impact: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Samantha,\nI applied for Enterprise Account Executive at GONG.IO INC. As you lead EMEA Sales, I wanted to introduce myself directly.\n[PASTE LOOM LINK]\nPhil"
         },
         {
           "name": "Oisín Hogan",
@@ -431,9 +431,10 @@
           "connectionNote": "Hi Oisín, I applied for GONG.IO INC's Enterprise Account Executive role. Your focus on hiring GTM talent at Gong stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Oisín. I applied for the Enterprise Account Executive role at GONG.IO INC. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short Gong video",
-          "inMailMessage": "Hi Oisín,\nI applied for Enterprise Account Executive at GONG.IO INC. Your focus on hiring GTM talent made it worth reaching out directly.\nRather than send a long pitch, I made a short video showing why I think I could make an impact: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Oisín,\nI applied for Enterprise Account Executive at GONG.IO INC. Your focus on hiring GTM talent made it worth reaching out directly.\n[PASTE LOOM LINK]\nPhil"
         }
-      ]
+      ],
+      "ignored": true
     },
     {
       "age": "15 days ago",
@@ -457,7 +458,7 @@
           "connectionNote": "Hi Salvatore, I applied for MinIO's Account Executive, NeoCloud role. Your leadership of MinIO’s UK&I market strategy stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Salvatore. I applied for the Account Executive, NeoCloud role at MinIO. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick MinIO introduction",
-          "inMailMessage": "Hi Salvatore,\nI applied for Account Executive, NeoCloud at MinIO. Your responsibility for UK&I strategy made me want to share this directly.\nRather than send another long pitch, I made a short video showing where I think I could make an impact: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Salvatore,\nI applied for Account Executive, NeoCloud at MinIO. Your responsibility for UK&I strategy made me want to share this directly.\n[PASTE LOOM LINK]\nPhil"
         },
         {
           "name": "Lauren Penizotto",
@@ -469,7 +470,7 @@
           "connectionNote": "Hi Lauren, I applied for MinIO's Account Executive, NeoCloud role. Your talent acquisition work at MinIO stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Lauren. I applied for the Account Executive, NeoCloud role at MinIO. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short MinIO video",
-          "inMailMessage": "Hi Lauren,\nI applied for Account Executive, NeoCloud at MinIO and wanted to put a face to the application.\nRather than add another long message to your inbox, I made a short video on why I think I could make an impact: [PASTE LOOM LINK]\nIf it looks relevant, could you point me to the right person?\nPhil"
+          "inMailMessage": "Hi Lauren,\nI applied for Account Executive, NeoCloud at MinIO and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me to the right person?\nPhil"
         }
       ]
     },
@@ -495,7 +496,7 @@
           "connectionNote": "Hi Josh, I applied for Spotify's Account Executive - Commercial, Spotify Technology role. Your leadership of Spotify’s EMEA sales strategy stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Josh. I applied for the Account Executive - Commercial, Spotify Technology role at Spotify. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Spotify introduction",
-          "inMailMessage": "Hi Josh,\nI applied for Account Executive - Commercial, Spotify Technology at Spotify. As Head of Sales EMEA, you seemed the right person to contact.\nRather than send another long pitch, I made a short video showing where I think I could make an impact: [PASTE LOOM LINK]\nWorth a quick look?\nPhil"
+          "inMailMessage": "Hi Josh,\nI applied for Account Executive - Commercial, Spotify Technology at Spotify. As Head of Sales EMEA, you seemed the right person to contact.\n[PASTE LOOM LINK]\nPhil"
         },
         {
           "name": "Norelle Briggs",
@@ -507,7 +508,7 @@
           "connectionNote": "Hi Norelle, I applied for Spotify's Account Executive - Commercial, Spotify Technology role. Your Spotify recruiting work in London stood out. I'd value connecting.",
           "postAcceptanceLoomMessage": "Thanks for connecting, Norelle. I applied for the Account Executive - Commercial, Spotify Technology role at Spotify. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short Spotify video",
-          "inMailMessage": "Hi Norelle,\nI applied for Account Executive - Commercial, Spotify Technology at Spotify and wanted to put a face to the application.\nRather than add another long message to your inbox, I made a short video on why I think I could make an impact: [PASTE LOOM LINK]\nIf it looks relevant, could you point me to the right person?\nPhil"
+          "inMailMessage": "Hi Norelle,\nI applied for Account Executive - Commercial, Spotify Technology at Spotify and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me to the right person?\nPhil"
         }
       ]
     },
