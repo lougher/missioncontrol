@@ -10,6 +10,7 @@ node_modules/
 *.out.log
 
 # Local runtime/state data
+applied_jobs_private.json
 fleet_data.json
 goals.json
 daily_news.md

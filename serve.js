@@ -72,6 +72,7 @@ const YTJOBS_DB_FILE = path.join(__dirname, 'ytjobs_jobs.json');
 const YTJOBS_TALENT_FILE = path.join(__dirname, 'ytjobs_talking_head_editor_shortlist.json');
 const AI_JOBS_DB_FILE = path.join(__dirname, 'ai_jobs.json');
 const APPLIED_JOBS_DB_FILE = path.join(__dirname, 'applied_jobs.json');
+const APPLIED_JOBS_PRIVATE_FILE = path.join(__dirname, 'applied_jobs_private.json');
 const DJ_GIGS_DB_FILE = path.join(__dirname, 'dj_gigs.json');
 const NETWORKING_EVENTS_DB_FILE = path.join(__dirname, 'networking_events.json');
 const PROPERTY_DEALS_DB_FILE = path.join(__dirname, 'property_deals.json');
@@ -2346,12 +2347,22 @@ function appliedJobId(job = {}, index = 0) {
     return 'applied-' + crypto.createHash('sha256').update(fingerprint).digest('hex').slice(0, 12);
 }
 
+function readAppliedJobsPrivateMap() {
+    const parsed = readJsonFile(APPLIED_JOBS_PRIVATE_FILE, { jobs: {} });
+    return parsed && typeof parsed.jobs === 'object' && !Array.isArray(parsed.jobs) ? parsed.jobs : {};
+}
+
 function readAppliedJobsDb() {
     const parsed = readJsonFile(APPLIED_JOBS_DB_FILE, { updatedAt: '', jobs: [] });
     const jobs = Array.isArray(parsed.jobs) ? parsed.jobs : [];
+    const privateJobs = readAppliedJobsPrivateMap();
     return {
         updatedAt: parsed.updatedAt || '',
-        jobs: jobs.map((job, index) => ({ ...job, id: appliedJobId(job, index), ignored: job.ignored === true }))
+        jobs: jobs.map((job, index) => {
+            const id = appliedJobId(job, index);
+            const privateJob = privateJobs[id] || {};
+            return { ...job, id, ignored: job.ignored === true, loomTitle: privateJob.loomTitle || '', loomUrl: privateJob.loomUrl || '' };
+        })
     };
 }
 
@@ -2359,6 +2370,8 @@ function writeAppliedJobsDb(db) {
     const jobs = (Array.isArray(db.jobs) ? db.jobs : []).map(job => {
         const saved = { ...job };
         if (/^applied-[a-f0-9]{12}$/.test(String(saved.id || ''))) delete saved.id;
+        delete saved.loomTitle;
+        delete saved.loomUrl;
         if (saved.ignored !== true) delete saved.ignored;
         return saved;
     });
