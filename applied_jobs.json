@@ -22,7 +22,9 @@
           "confidence": "Very high",
           "evidence": "London-based Plaid leader who explicitly posted that Plaid was hiring for the Mid-Market AE role",
           "connectionNote": "Hi Peter, I applied for Plaid's Account Executive - Mid-Market role. Your post about Plaid hiring for this role stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Peter. I applied for the Account Executive - Mid-Market role at Plaid. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Peter. I applied for the Account Executive - Mid-Market role at Plaid. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "Your Plaid Account Executive - Mid-Market opening",
+          "inMailMessage": "Hi Peter,\n\nI saw your post about Plaid hiring for the Account Executive - Mid-Market role and have applied. I am a B2B SaaS AE and top performer, with wins including Tesco, OpenAI, Amazon and the NHS. That experience selling to complex organisations feels relevant to Plaid's mid-market growth.\n\nI recorded a short, role-specific introduction here: [PASTE LOOM LINK]\n\nIf my background looks useful, I would value a brief conversation.\n\nBest,\nPhil"
         }
       ]
     },
@@ -46,7 +48,9 @@
           "confidence": "Very high",
           "evidence": "London-based Plaid leader who explicitly posted that Plaid was hiring for the Mid-Market AE role",
           "connectionNote": "Hi Peter, I applied for Plaid's Account Executive - Mid-Market role. Your post about Plaid hiring for this role stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Peter. I applied for the Account Executive - Mid-Market role at Plaid. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Peter. I applied for the Account Executive - Mid-Market role at Plaid. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "Your Plaid Account Executive - Mid-Market opening",
+          "inMailMessage": "Hi Peter,\n\nI saw your post about Plaid hiring for the Account Executive - Mid-Market role and have applied. I am a B2B SaaS AE and top performer, with wins including Tesco, OpenAI, Amazon and the NHS. That experience selling to complex organisations feels relevant to Plaid's mid-market growth.\n\nI recorded a short, role-specific introduction here: [PASTE LOOM LINK]\n\nIf my background looks useful, I would value a brief conversation.\n\nBest,\nPhil"
         }
       ]
     },
@@ -79,7 +83,9 @@
           "confidence": "High",
           "evidence": "Current Twilio recruiter in the London area with recent Twilio hiring activity",
           "connectionNote": "Hi Sylwia, I applied for Twilio's Inside Sales - Representative (Active) 2 role. Your recent Twilio hiring work in London stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Sylwia. I applied for the Inside Sales - Representative (Active) 2 role at Twilio. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Sylwia. I applied for the Inside Sales - Representative (Active) 2 role at Twilio. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "Twilio Inside Sales - Representative (Active) 2 application",
+          "inMailMessage": "Hi Sylwia,\n\nI have applied for the Inside Sales - Representative (Active) 2 role at Twilio. I noticed your recent Twilio hiring activity in London, though I appreciate you may not be assigned to this opening. I am a top-performing B2B SaaS AE and have closed Tesco, OpenAI, Amazon and the NHS.\n\nI recorded a concise introduction for the role: [PASTE LOOM LINK]\n\nIf you are the right person, I would welcome a conversation. If not, any guidance on the appropriate colleague would be appreciated.\n\nBest,\nPhil"
         }
       ]
     },
@@ -142,7 +148,9 @@
           "confidence": "High",
           "evidence": "UK-based LangChain leader who explicitly leads Commercial GTM",
           "connectionNote": "Hi Cass, I applied for LangChain's Commercial Account Executive (UK) role. Your leadership of LangChain Commercial GTM stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Cass. I applied for the Commercial Account Executive (UK) role at LangChain. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Cass. I applied for the Commercial Account Executive (UK) role at LangChain. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "LangChain Commercial Account Executive (UK) application",
+          "inMailMessage": "Hi Cass,\n\nI have applied for the Commercial Account Executive (UK) role at LangChain. Your leadership of Commercial GTM stood out. I am a top-performing B2B SaaS AE who has closed Tesco, OpenAI, Amazon and the NHS, and I am especially interested in how AI products move from technical adoption to durable commercial value.\n\nI recorded a short introduction tailored to LangChain: [PASTE LOOM LINK]\n\nIf the experience looks relevant to your commercial team, I would value a brief conversation.\n\nBest,\nPhil"
         },
         {
           "name": "Sam Spark",
@@ -152,7 +160,9 @@
           "confidence": "High",
           "evidence": "Current LangChain Northern Europe sales leader based in the UK",
           "connectionNote": "Hi Sam, I applied for LangChain's Commercial Account Executive (UK) role. Your Northern Europe sales leadership stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Sam. I applied for the Commercial Account Executive (UK) role at LangChain. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Sam. I applied for the Commercial Account Executive (UK) role at LangChain. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "LangChain Commercial Account Executive (UK), Northern Europe",
+          "inMailMessage": "Hi Sam,\n\nI have applied for the Commercial Account Executive (UK) role at LangChain. Given your Northern Europe sales leadership, I wanted to share my application directly. I am a top-performing B2B SaaS AE who has closed Tesco, OpenAI, Amazon and the NHS, with a strong interest in commercialising practical AI products.\n\nMy short role-specific introduction is here: [PASTE LOOM LINK]\n\nIf my background is relevant to the UK team, I would welcome a brief conversation.\n\nBest,\nPhil"
         }
       ]
     },
@@ -246,7 +256,9 @@
           "confidence": "Very high",
           "evidence": "London-based Amazon Leo sales leader who announced this position and said the European team is growing",
           "connectionNote": "Hi Charlie, I applied for Amazon's Senior Account Executive, Amazon Leo role. Your post about the Amazon Leo team growing stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Charlie. I applied for the Senior Account Executive, Amazon Leo role at Amazon. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Charlie. I applied for the Senior Account Executive, Amazon Leo role at Amazon. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "Your Senior Account Executive, Amazon Leo opening",
+          "inMailMessage": "Hi Charlie,\n\nI saw your announcement that the European Amazon Leo team is growing and have applied for the Senior Account Executive, Amazon Leo role at Amazon. I am a top-performing B2B SaaS AE, and my wins include Amazon, Tesco, OpenAI and the NHS. The combination of enterprise sales and an ambitious technology proposition is particularly compelling to me.\n\nI recorded a concise introduction for the role: [PASTE LOOM LINK]\n\nIf my experience looks relevant, I would value a brief conversation.\n\nBest,\nPhil"
         },
         {
           "name": "Nupur Arora",
@@ -256,7 +268,9 @@
           "confidence": "High",
           "evidence": "London-based recruiter with explicit Amazon Devices & Leo responsibility",
           "connectionNote": "Hi Nupur, I applied for Amazon's Senior Account Executive, Amazon Leo role. Your Amazon Devices & Leo recruiting work stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Nupur. I applied for the Senior Account Executive, Amazon Leo role at Amazon. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Nupur. I applied for the Senior Account Executive, Amazon Leo role at Amazon. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "Senior Account Executive, Amazon Leo application",
+          "inMailMessage": "Hi Nupur,\n\nI have applied for the Senior Account Executive, Amazon Leo role at Amazon. Your explicit recruiting focus across Amazon Devices and Leo made you a relevant person to contact. I am a top-performing B2B SaaS AE with wins including Amazon, Tesco, OpenAI and the NHS.\n\nI recorded a short introduction tailored to the opening: [PASTE LOOM LINK]\n\nIf my background fits what the team needs, I would welcome a brief conversation.\n\nBest,\nPhil"
         }
       ]
     },
@@ -280,7 +294,9 @@
           "confidence": "High",
           "evidence": "Greater London member of Runway founding EMEA GTM team who recently posted that Runway is hiring",
           "connectionNote": "Hi Clément, I applied for Runway's Mid-Market Account Executive, London role. Your work building Runway’s EMEA GTM team stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Clément. I applied for the Mid-Market Account Executive, London role at Runway. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Clément. I applied for the Mid-Market Account Executive, London role at Runway. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "Runway Mid-Market Account Executive, London application",
+          "inMailMessage": "Hi Clément,\n\nI have applied for the Mid-Market Account Executive, London role at Runway. Your work building Runway's EMEA GTM presence and your recent hiring post stood out. I am a top-performing B2B SaaS AE who has closed Tesco, OpenAI, Amazon and the NHS, and I am genuinely interested in applied AI and how creative teams adopt it.\n\nI recorded a short introduction for Runway: [PASTE LOOM LINK]\n\nIf the experience looks useful for the EMEA team, I would value a brief conversation.\n\nBest,\nPhil"
         },
         {
           "name": "Olivia MacDowell",
@@ -290,7 +306,9 @@
           "confidence": "Medium-high",
           "evidence": "Current Runway recruiter supporting business functions, with prior Sales and GTM hiring experience",
           "connectionNote": "Hi Olivia, I applied for Runway's Mid-Market Account Executive, London role. Your Sales and GTM recruiting experience stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Olivia. I applied for the Mid-Market Account Executive, London role at Runway. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Olivia. I applied for the Mid-Market Account Executive, London role at Runway. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "Runway Mid-Market Account Executive, London application",
+          "inMailMessage": "Hi Olivia,\n\nI have applied for the Mid-Market Account Executive, London role at Runway. Your Sales and GTM recruiting background looked relevant, though I appreciate you may not be assigned to this opening. I am a top-performing B2B SaaS AE with wins including Tesco, OpenAI, Amazon and the NHS, plus a strong interest in applied AI.\n\nMy short role-specific introduction is here: [PASTE LOOM LINK]\n\nIf you cover this search, I would welcome a conversation. If not, any pointer to the right colleague would be appreciated.\n\nBest,\nPhil"
         }
       ]
     },
@@ -331,7 +349,9 @@
           "confidence": "High",
           "evidence": "Meta London/EMEA Frontier AI GTM profile explicitly naming Muse and Enterprise AI, directly relevant to the Model AI API role",
           "connectionNote": "Hi Sahil, I applied for Meta's Account Executive, Model AI API (London) role. Your Frontier AI GTM work across London and EMEA stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Sahil. I applied for the Account Executive, Model AI API (London) role at Meta. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Sahil. I applied for the Account Executive, Model AI API (London) role at Meta. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "Meta Account Executive, Model AI API (London) application",
+          "inMailMessage": "Hi Sahil,\n\nI have applied for the Account Executive, Model AI API (London) role at Meta. Your Frontier AI GTM work across EMEA, particularly Muse and Enterprise AI, is closely relevant to why the opening interests me. I am a top-performing B2B SaaS AE who has closed Tesco, OpenAI, Amazon and the NHS.\n\nI recorded a concise introduction for the role: [PASTE LOOM LINK]\n\nIf my enterprise sales background could be useful to the team, I would value a brief conversation.\n\nBest,\nPhil"
         },
         {
           "name": "Tom Duke",
@@ -341,7 +361,9 @@
           "confidence": "Medium",
           "evidence": "UK-based Meta recruiter with recent London Applied AI recruitment activity",
           "connectionNote": "Hi Tom, I applied for Meta's Account Executive, Model AI API (London) role. Your recent London Applied AI recruiting work stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Tom. I applied for the Account Executive, Model AI API (London) role at Meta. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Tom. I applied for the Account Executive, Model AI API (London) role at Meta. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "Meta Account Executive, Model AI API (London) application",
+          "inMailMessage": "Hi Tom,\n\nI have applied for the Account Executive, Model AI API (London) role at Meta. I noticed your recent London Applied AI recruiting activity, though I appreciate you may not be assigned to this search. I am a top-performing B2B SaaS AE with wins including Tesco, OpenAI, Amazon and the NHS, and a strong interest in applied AI.\n\nMy short introduction for the role is here: [PASTE LOOM LINK]\n\nIf you cover the opening, I would welcome a conversation. If not, any guidance on the right colleague would be appreciated.\n\nBest,\nPhil"
         }
       ]
     },
@@ -395,7 +417,9 @@
           "confidence": "High",
           "evidence": "Current EMEA sales leader at Gong",
           "connectionNote": "Hi Samantha, I applied for GONG.IO INC's Enterprise Account Executive role. Your leadership of Gong’s EMEA sales team stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Samantha. I applied for the Enterprise Account Executive role at GONG.IO INC. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Samantha. I applied for the Enterprise Account Executive role at GONG.IO INC. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "GONG.IO INC Enterprise Account Executive application",
+          "inMailMessage": "Hi Samantha,\n\nI have applied for the Enterprise Account Executive role at GONG.IO INC. Given your leadership of EMEA Sales at Gong, I wanted to share my application directly. I am a top-performing B2B SaaS AE and have closed complex organisations including Tesco, OpenAI, Amazon and the NHS.\n\nI recorded a concise introduction tailored to the role: [PASTE LOOM LINK]\n\nIf my enterprise experience aligns with the team's needs, I would value a brief conversation.\n\nBest,\nPhil"
         },
         {
           "name": "Oisín Hogan",
@@ -405,7 +429,9 @@
           "confidence": "High",
           "evidence": "Current Gong recruiter explicitly hiring GTM and technology roles",
           "connectionNote": "Hi Oisín, I applied for GONG.IO INC's Enterprise Account Executive role. Your focus on hiring GTM talent at Gong stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Oisín. I applied for the Enterprise Account Executive role at GONG.IO INC. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Oisín. I applied for the Enterprise Account Executive role at GONG.IO INC. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "GONG.IO INC Enterprise Account Executive application",
+          "inMailMessage": "Hi Oisín,\n\nI have applied for the Enterprise Account Executive role at GONG.IO INC. Your remit hiring GTM talent at Gong made you a relevant person to contact. I am a top-performing B2B SaaS AE who has closed Tesco, OpenAI, Amazon and the NHS.\n\nI recorded a short introduction focused on my fit for the role: [PASTE LOOM LINK]\n\nIf the background is relevant to the search, I would welcome a brief conversation.\n\nBest,\nPhil"
         }
       ]
     },
@@ -429,7 +455,9 @@
           "confidence": "High",
           "evidence": "UK-based MinIO commercial leader responsible for UK&I market strategy",
           "connectionNote": "Hi Salvatore, I applied for MinIO's Account Executive, NeoCloud role. Your leadership of MinIO’s UK&I market strategy stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Salvatore. I applied for the Account Executive, NeoCloud role at MinIO. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Salvatore. I applied for the Account Executive, NeoCloud role at MinIO. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "MinIO Account Executive, NeoCloud application",
+          "inMailMessage": "Hi Salvatore,\n\nI have applied for the Account Executive, NeoCloud role at MinIO. Your responsibility for UK&I market strategy made your perspective especially relevant. I am a top-performing B2B SaaS AE who has closed Tesco, OpenAI, Amazon and the NHS, with a strong interest in AI infrastructure and the commercial growth around it.\n\nI recorded a concise introduction for MinIO: [PASTE LOOM LINK]\n\nIf my background could support the UK&I strategy, I would value a brief conversation.\n\nBest,\nPhil"
         },
         {
           "name": "Lauren Penizotto",
@@ -439,7 +467,9 @@
           "confidence": "Medium",
           "evidence": "Current MinIO Talent Acquisition Manager",
           "connectionNote": "Hi Lauren, I applied for MinIO's Account Executive, NeoCloud role. Your talent acquisition work at MinIO stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Lauren. I applied for the Account Executive, NeoCloud role at MinIO. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Lauren. I applied for the Account Executive, NeoCloud role at MinIO. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "MinIO Account Executive, NeoCloud application",
+          "inMailMessage": "Hi Lauren,\n\nI have applied for the Account Executive, NeoCloud role at MinIO. As MinIO's Talent Acquisition Manager, you seemed a useful person to contact, though I appreciate you may not be assigned to this opening. I am a top-performing B2B SaaS AE with wins including Tesco, OpenAI, Amazon and the NHS.\n\nMy short role-specific introduction is here: [PASTE LOOM LINK]\n\nIf you cover this search, I would welcome a conversation. If not, any pointer to the relevant colleague would be appreciated.\n\nBest,\nPhil"
         }
       ]
     },
@@ -463,7 +493,9 @@
           "confidence": "High",
           "evidence": "UK-based Spotify EMEA sales leader focused on advertising and commercial strategy",
           "connectionNote": "Hi Josh, I applied for Spotify's Account Executive - Commercial, Spotify Technology role. Your leadership of Spotify’s EMEA sales strategy stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Josh. I applied for the Account Executive - Commercial, Spotify Technology role at Spotify. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Josh. I applied for the Account Executive - Commercial, Spotify Technology role at Spotify. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "Spotify Account Executive - Commercial, Spotify Technology",
+          "inMailMessage": "Hi Josh,\n\nI have applied for the Account Executive - Commercial, Spotify Technology role at Spotify. Your leadership of EMEA sales and commercial strategy made your perspective especially relevant. I am a top-performing B2B SaaS AE who has closed Tesco, OpenAI, Amazon and the NHS.\n\nI recorded a concise introduction tailored to the role: [PASTE LOOM LINK]\n\nIf my experience looks relevant to the EMEA team, I would value a brief conversation.\n\nBest,\nPhil"
         },
         {
           "name": "Norelle Briggs",
@@ -473,7 +505,9 @@
           "confidence": "High",
           "evidence": "Current London-based Spotify recruiter",
           "connectionNote": "Hi Norelle, I applied for Spotify's Account Executive - Commercial, Spotify Technology role. Your Spotify recruiting work in London stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Norelle. I applied for the Account Executive - Commercial, Spotify Technology role at Spotify. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]"
+          "postAcceptanceLoomMessage": "Thanks for connecting, Norelle. I applied for the Account Executive - Commercial, Spotify Technology role at Spotify. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
+          "inMailSubject": "Spotify Account Executive - Commercial, Spotify Technology",
+          "inMailMessage": "Hi Norelle,\n\nI have applied for the Account Executive - Commercial, Spotify Technology role at Spotify. Your current Spotify recruiting work in London made you a relevant person to contact, though I appreciate you may not be assigned to this search. I am a top-performing B2B SaaS AE with wins including Tesco, OpenAI, Amazon and the NHS.\n\nMy short introduction for the role is here: [PASTE LOOM LINK]\n\nIf you cover the opening, I would welcome a conversation. If not, any guidance on the right colleague would be appreciated.\n\nBest,\nPhil"
         }
       ]
     },
