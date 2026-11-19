@@ -71,6 +71,7 @@ const LINKEDIN_JOBS_DB_FILE = path.join(__dirname, 'linkedin_jobs_db.json');
 const YTJOBS_DB_FILE = path.join(__dirname, 'ytjobs_jobs.json');
 const YTJOBS_TALENT_FILE = path.join(__dirname, 'ytjobs_talking_head_editor_shortlist.json');
 const AI_JOBS_DB_FILE = path.join(__dirname, 'ai_jobs.json');
+const MUSIC_JOBS_DB_FILE = path.join(__dirname, 'music_jobs.json');
 const APPLIED_JOBS_DB_FILE = path.join(__dirname, 'applied_jobs.json');
 const APPLIED_JOBS_PRIVATE_FILE = path.join(__dirname, 'applied_jobs_private.json');
 const DJ_GIGS_DB_FILE = path.join(__dirname, 'dj_gigs.json');
@@ -280,6 +281,31 @@ const server = http.createServer((req, res) => {
         const db = readAiJobsDb();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(db));
+    } else if (req.url === '/api/music-jobs') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readMusicJobsDb();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/music-jobs\/[^/]+\/status$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const { status } = JSON.parse(body || '{}');
+                const job = updateMusicJobStatus(id, status);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, job }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update music job status' }));
+            }
+        });
     } else if (req.url === '/api/applied-jobs') {
         if (req.method !== 'GET') {
             res.writeHead(405, { 'Content-Type': 'application/json' });
@@ -2339,6 +2365,43 @@ function readAiJobsDb() {
     } catch {
         return { searched_at: '', company_audit_note: '', selection_note: '', profile_note: '', companies: [], jobs: [], job_boards: [] };
     }
+}
+
+function readMusicJobsDb() {
+    try {
+        const parsed = JSON.parse(fs.readFileSync(MUSIC_JOBS_DB_FILE, 'utf8'));
+        return {
+            searched_at: parsed.searched_at || '',
+            selection_note: parsed.selection_note || '',
+            sources: Array.isArray(parsed.sources) ? parsed.sources : [],
+            companies: Array.isArray(parsed.companies) ? parsed.companies : [],
+            jobs: Array.isArray(parsed.jobs) ? parsed.jobs : []
+        };
+    } catch {
+        return { searched_at: '', selection_note: '', sources: [], companies: [], jobs: [] };
+    }
+}
+
+function writeMusicJobsDb(db) {
+    fs.writeFileSync(MUSIC_JOBS_DB_FILE, JSON.stringify({
+        searched_at: db.searched_at || '',
+        selection_note: db.selection_note || '',
+        sources: Array.isArray(db.sources) ? db.sources : [],
+        companies: Array.isArray(db.companies) ? db.companies : [],
+        jobs: Array.isArray(db.jobs) ? db.jobs : []
+    }, null, 2) + '\n');
+}
+
+function updateMusicJobStatus(id, status) {
+    const allowed = new Set(['new', 'interested', 'applied', 'not_interested']);
+    if (!allowed.has(status)) throw new Error('Invalid music job status');
+    const db = readMusicJobsDb();
+    const job = db.jobs.find(item => item.id === id);
+    if (!job) throw new Error('Music job not found');
+    job.status = status;
+    job.updated_at = new Date().toISOString();
+    writeMusicJobsDb(db);
+    return job;
 }
 
 function appliedJobId(job = {}, index = 0) {

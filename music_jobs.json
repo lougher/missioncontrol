@@ -1,0 +1,399 @@
+{
+  "searched_at": "2026-11-19T19:15:00Z",
+  "selection_note": "Initial UK-wide scan prioritising London roles at electronic and dance music companies, promoters, festivals, booking and artist-management businesses, labels, music technology and major music employers. LinkedIn roles were present in the live LinkedIn guest search feed on 19 November 2026. Music Jobs roles were live on music-jobs.com; confidential employers are labelled as such rather than guessed.",
+  "sources": [
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/jobs/"
+    },
+    {
+      "name": "Music Jobs UK",
+      "url": "https://www.music-jobs.com/uk/jobsboard"
+    }
+  ],
+  "companies": [
+    {
+      "name": "Defected Records",
+      "category": "Electronic music label and events",
+      "location": "London",
+      "careers_url": "https://defected.com/careers/"
+    },
+    {
+      "name": "Ministry of Sound / Sony Music UK",
+      "category": "Dance label and club brand",
+      "location": "London",
+      "careers_url": "https://www.sonymusic.co.uk/careers/"
+    },
+    {
+      "name": "Broadwick",
+      "category": "Venues, festivals and culture",
+      "location": "London",
+      "careers_url": "https://broadwick.com/careers/"
+    },
+    {
+      "name": "Live Nation Entertainment",
+      "category": "Concerts, festivals and promotion",
+      "location": "UK",
+      "careers_url": "https://jobs.livenationentertainment.com/"
+    },
+    {
+      "name": "Resident Advisor",
+      "category": "Electronic music media and events",
+      "location": "London / global",
+      "careers_url": "https://ra.co/jobs"
+    },
+    {
+      "name": "Beatport",
+      "category": "Electronic music technology and marketplace",
+      "location": "UK / remote",
+      "careers_url": "https://about.beatport.com/careers/"
+    },
+    {
+      "name": "fabric",
+      "category": "Nightclub and events",
+      "location": "London",
+      "careers_url": "https://www.fabriclondon.com/info/jobs"
+    },
+    {
+      "name": "The Columbo Group",
+      "category": "London venues and club nights",
+      "location": "London",
+      "careers_url": "https://www.thecolumbogroup.com/"
+    },
+    {
+      "name": "AEG Presents",
+      "category": "Live music and festivals",
+      "location": "London",
+      "careers_url": "https://www.aegworldwide.com/careers"
+    },
+    {
+      "name": "WME",
+      "category": "Artist representation and touring",
+      "location": "London",
+      "careers_url": "https://www.wmeagency.com/careers/"
+    },
+    {
+      "name": "CAA",
+      "category": "Artist representation and touring",
+      "location": "London",
+      "careers_url": "https://www.caa.com/careers"
+    },
+    {
+      "name": "Wasserman Music",
+      "category": "Music booking and artist representation",
+      "location": "London",
+      "careers_url": "https://www.teamwass.com/careers/"
+    },
+    {
+      "name": "Roc Nation",
+      "category": "Artist management, label and partnerships",
+      "location": "London",
+      "careers_url": "https://www.rocnation.com/careers/"
+    },
+    {
+      "name": "Warner Music Group",
+      "category": "Major music company and labels",
+      "location": "London",
+      "careers_url": "https://www.wmg.com/careers"
+    },
+    {
+      "name": "Universal Music Group",
+      "category": "Major music company and labels",
+      "location": "London",
+      "careers_url": "https://www.umusiccareers.com/"
+    },
+    {
+      "name": "Sony Music Entertainment UK",
+      "category": "Major music company and labels",
+      "location": "London",
+      "careers_url": "https://www.sonymusic.co.uk/careers/"
+    },
+    {
+      "name": "Believe",
+      "category": "Digital music and artist services",
+      "location": "London",
+      "careers_url": "https://www.believe.com/careers"
+    },
+    {
+      "name": "Kobalt Music",
+      "category": "Publishing and music technology",
+      "location": "London",
+      "careers_url": "https://www.kobaltmusic.com/careers/"
+    },
+    {
+      "name": "Fever",
+      "category": "Live experiences and events technology",
+      "location": "London",
+      "careers_url": "https://careers.feverup.com/"
+    },
+    {
+      "name": "Epidemic Sound",
+      "category": "Music technology and licensing",
+      "location": "London",
+      "careers_url": "https://careers.epidemicsound.com/"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "li-epidemic-senior-csm-4478573746",
+      "title": "Senior Customer Success Manager",
+      "company": "Epidemic Sound",
+      "location": "London Area, United Kingdom",
+      "category": "Music technology",
+      "source": "LinkedIn",
+      "posted_at": "Live 19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/senior-customer-success-manager-at-epidemic-sound-4478573746",
+      "fit_score": 92,
+      "fit_note": "Closest match to Phil’s B2B SaaS account management, stakeholder management and commercial experience, inside a music-licensing technology company.",
+      "status": "new",
+      "updated_at": "2026-11-19T19:05:18.811Z"
+    },
+    {
+      "id": "mj-bdm-music-touring-25535977",
+      "title": "Business Development Manager - Music Touring",
+      "company": "Confidential music touring travel specialist",
+      "location": "London",
+      "category": "Music touring",
+      "source": "Music Jobs UK",
+      "posted_at": "10/11/26",
+      "url": "https://www.music-jobs.com/uk/current/business-development-manager-music-touring-job-25535977",
+      "fit_score": 90,
+      "fit_note": "Strong direct transfer from SaaS new-business sales: lead generation, client networks and converting opportunities, now focused on music touring.",
+      "status": "new"
+    },
+    {
+      "id": "li-roc-nation-partnerships-4485784700",
+      "title": "Strategic Partnerships Manager",
+      "company": "Roc Nation",
+      "location": "London, England, United Kingdom",
+      "category": "Artist management and partnerships",
+      "source": "LinkedIn",
+      "posted_at": "Live 19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/strategic-partnerships-manager-at-roc-nation-4485784700",
+      "fit_score": 87,
+      "fit_note": "Commercial partnerships role at a major artist-management and entertainment company. Strong relationship-building and solution-selling crossover.",
+      "status": "new"
+    },
+    {
+      "id": "li-fever-market-partnerships-4466293135",
+      "title": "Market Strategy and Partnerships Manager",
+      "company": "Fever",
+      "location": "London Area, United Kingdom",
+      "category": "Events and experiences",
+      "source": "LinkedIn",
+      "posted_at": "Live 19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/market-strategy-and-partnerships-manager-at-fever-4466293135",
+      "fit_score": 85,
+      "fit_note": "Commercial strategy and partner development for live experiences. Good fit for Phil’s SaaS sales, pipeline and stakeholder background.",
+      "status": "new"
+    },
+    {
+      "id": "mj-partnerships-new-business-25535999",
+      "title": "Partnerships Manager (New Business)",
+      "company": "Confidential touring events and festivals company",
+      "location": "London",
+      "category": "Festivals and sponsorship",
+      "source": "Music Jobs UK",
+      "posted_at": "11/11/26",
+      "url": "https://www.music-jobs.com/uk/current/partnerships-manager-new-business--job-25535999",
+      "fit_score": 84,
+      "fit_note": "Originates brand sponsorships across touring events and festivals. A strong new-business and partnerships transition into live music.",
+      "status": "new"
+    },
+    {
+      "id": "li-easol-music-gtm-4483680150",
+      "title": "Director, Music GTM (UK)",
+      "company": "Easol",
+      "location": "Greater London, England, United Kingdom",
+      "category": "Music technology",
+      "source": "LinkedIn",
+      "posted_at": "Live 19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/director-music-gtm-uk-at-easol-4483680150",
+      "fit_score": 82,
+      "fit_note": "Music go-to-market role at an experience-commerce platform. Senior title, but highly relevant to Phil’s SaaS sales and entrepreneurial profile.",
+      "status": "new"
+    },
+    {
+      "id": "li-fever-senior-partnerships-4475623439",
+      "title": "Senior Market Strategy and Partnerships Manager",
+      "company": "Fever",
+      "location": "London Area, United Kingdom",
+      "category": "Events and experiences",
+      "source": "LinkedIn",
+      "posted_at": "Live 19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/senior-market-strategy-and-partnerships-manager-at-fever-4475623439",
+      "fit_score": 80,
+      "fit_note": "A more senior version of the Fever partnerships route, combining market strategy, commercial relationships and live experiences.",
+      "status": "new"
+    },
+    {
+      "id": "li-amazon-music-partnerships-4490539849",
+      "title": "Sr. Content & Editorial Partnerships Manager, Amazon Music",
+      "company": "Amazon Music",
+      "location": "London, England, United Kingdom",
+      "category": "Streaming and partnerships",
+      "source": "LinkedIn",
+      "posted_at": "Live 19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/sr-content-editorial-partnerships-manager-amazon-music-at-amazon-music-4490539849",
+      "fit_score": 76,
+      "fit_note": "High-profile music partnerships role. Strong stakeholder skills transfer, though editorial and streaming experience may be a gap.",
+      "status": "new"
+    },
+    {
+      "id": "mj-strategic-partnerships-25535748",
+      "title": "Strategic Partnerships Manager",
+      "company": "Confidential music and entertainment employer",
+      "location": "London",
+      "category": "Music partnerships",
+      "source": "Music Jobs UK",
+      "posted_at": "03/11/26",
+      "url": "https://www.music-jobs.com/uk/current/strategic-partnerships-manager-job-25535748",
+      "fit_score": 76,
+      "fit_note": "Sponsorship deals and partner growth closely match Phil’s commercial relationship and pipeline skills.",
+      "status": "new"
+    },
+    {
+      "id": "li-wme-licensing-4486531540",
+      "title": "Licensing Manager",
+      "company": "WME Group",
+      "location": "London, England, United Kingdom",
+      "category": "Music licensing and agency",
+      "source": "LinkedIn",
+      "posted_at": "Live 19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/licensing-manager-at-wme-group-4486531540",
+      "fit_score": 73,
+      "fit_note": "Commercial relationship role within a major entertainment agency. Licensing knowledge is the main learning curve.",
+      "status": "new"
+    },
+    {
+      "id": "mj-live-booking-agent-25535980",
+      "title": "Live Booking Agent",
+      "company": "Confidential entertainment agency",
+      "location": "London",
+      "category": "Booking and touring",
+      "source": "Music Jobs UK",
+      "posted_at": "10/11/26",
+      "url": "https://www.music-jobs.com/uk/current/live-booking-agent-job-25535980",
+      "fit_score": 72,
+      "fit_note": "End-to-end gig and tour bookings are pipeline-led and relationship-heavy, making this a credible move into artist representation.",
+      "status": "new"
+    },
+    {
+      "id": "li-broadwick-production-4474825292",
+      "title": "Senior Production Manager",
+      "company": "Broadwick",
+      "location": "London, England, United Kingdom",
+      "category": "Venues and festivals",
+      "source": "LinkedIn",
+      "posted_at": "Live 19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/senior-production-manager-at-broadwick-4474825292",
+      "fit_score": 68,
+      "fit_note": "Excellent dance and electronic music environment, but the role leans towards direct event-production experience rather than sales.",
+      "status": "new"
+    },
+    {
+      "id": "mj-club-promoter-house-25535740",
+      "title": "Club Promoter / Event Manager - House Music",
+      "company": "PHONO SOUNDS UK",
+      "location": "London",
+      "category": "Club nights and promotion",
+      "source": "Music Jobs UK",
+      "posted_at": "03/11/26",
+      "url": "https://www.music-jobs.com/uk/current/club-promoter-event-manager-house-music-job-25535740",
+      "fit_score": 68,
+      "fit_note": "Direct house-music opportunity planning and promoting London club events. Passion fit is excellent; experience fit is more entrepreneurial than corporate.",
+      "status": "new"
+    },
+    {
+      "id": "mj-agent-assistant-electronic-25536021",
+      "title": "Agent Assistant (Electronic)",
+      "company": "Confidential global entertainment agency",
+      "location": "London",
+      "category": "Electronic artist representation",
+      "source": "Music Jobs UK",
+      "posted_at": "11/11/26",
+      "url": "https://www.music-jobs.com/uk/current/agent-assistant-electronic--job-25536021",
+      "fit_score": 67,
+      "fit_note": "Direct route into electronic artist representation and touring. More junior administratively, but closely aligned with the target industry.",
+      "status": "new"
+    },
+    {
+      "id": "mj-project-manager-label-25535970",
+      "title": "Project Manager / Assistant - Label",
+      "company": "Confidential independent label and management company",
+      "location": "London",
+      "category": "Record label and artist management",
+      "source": "Music Jobs UK",
+      "posted_at": "16/11/26",
+      "url": "https://www.music-jobs.com/uk/current/project-manager-assistant-label-job-25535970",
+      "fit_score": 66,
+      "fit_note": "Part-time contractor role inside a growing independent label and management company. Strong industry access, but junior and lower-paid.",
+      "status": "new"
+    },
+    {
+      "id": "mj-label-assistant-25536137",
+      "title": "Label Assistant",
+      "company": "Confidential music services company",
+      "location": "London",
+      "category": "Record label",
+      "source": "Music Jobs UK",
+      "posted_at": "18/11/26",
+      "url": "https://www.music-jobs.com/uk/current/label-assistant-job-25536137",
+      "fit_score": 65,
+      "fit_note": "Supports account management, digital release coordination and performance analysis. Relevant client skills, though positioned below Phil’s current seniority.",
+      "status": "new"
+    },
+    {
+      "id": "mj-marketing-electronic-25535900",
+      "title": "Marketing Assistant - Electronic Music",
+      "company": "Confidential electronic music company",
+      "location": "London / Remote",
+      "category": "Electronic music marketing",
+      "source": "Music Jobs UK",
+      "posted_at": "06/11/26",
+      "url": "https://www.music-jobs.com/uk/current/marketing-assistant-electronic-music-job-25535900",
+      "fit_score": 64,
+      "fit_note": "Direct electronic-music environment covering content, social media and email. Strong passion fit but a junior marketing pivot.",
+      "status": "new"
+    },
+    {
+      "id": "li-atlantic-digital-4466896394",
+      "title": "Digital Strategist, Atlantic Records",
+      "company": "Warner Music Group",
+      "location": "London, England, United Kingdom",
+      "category": "Record label and digital marketing",
+      "source": "LinkedIn",
+      "posted_at": "Live 19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/digital-strategist-atlantic-records-at-warner-music-group-4466896394",
+      "fit_score": 63,
+      "fit_note": "Named major-label opportunity with digital strategy exposure. Music passion fits strongly, while direct label-marketing experience may be required.",
+      "status": "new"
+    },
+    {
+      "id": "li-live-nation-ops-4490687277",
+      "title": "Onsite Operations Director - Marketing Partnerships",
+      "company": "Live Nation Entertainment",
+      "location": "Farringdon, England, United Kingdom",
+      "category": "Concerts and festivals",
+      "source": "LinkedIn",
+      "posted_at": "Live 19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/onsite-operations-director-marketing-partnerships-at-live-nation-entertainment-4490687277",
+      "fit_score": 61,
+      "fit_note": "Top-tier live music employer and partnership setting, but the director-level onsite operations remit is a stretch.",
+      "status": "new"
+    },
+    {
+      "id": "li-festival-marketing-4489010214",
+      "title": "Marketing Manager - Music Festival",
+      "company": "Confidential festival via Handle Recruitment",
+      "location": "London, England, United Kingdom",
+      "category": "Festivals and marketing",
+      "source": "LinkedIn",
+      "posted_at": "Live 19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/marketing-manager-music-festival-at-handle-recruitment-4489010214",
+      "fit_score": 60,
+      "fit_note": "Direct festival role with excellent sector fit. Best if Phil can evidence campaign ownership and audience growth alongside commercial experience.",
+      "status": "new"
+    }
+  ]
+}
