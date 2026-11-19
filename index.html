@@ -1365,7 +1365,7 @@
                 <div>
                     <div class="text-xs font-semibold uppercase tracking-[0.18em] text-fuchsia-600 dark:text-fuchsia-300 mb-2">House DJ gig pipeline</div>
                     <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">DJing</h1>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 max-w-3xl break-words">Evidence-backed London venues where an emerging house DJ can register for open decks, pitch a warm-up set or build a promoter relationship.</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 max-w-3xl break-words">London venues for a filmed 45-90 minute house DJ warm-up set, ranked by visual backdrop, music fit and realistic access.</p>
                     <p id="dj-gigs-scan-meta" class="text-xs text-gray-400 dark:text-gray-500 mt-2">Loading venue research...</p>
                 </div>
                 <button id="refresh-dj-gigs-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh View</button>
@@ -1380,23 +1380,23 @@
 
             <div class="bg-fuchsia-50 dark:bg-fuchsia-500/10 border border-fuchsia-100 dark:border-fuchsia-500/20 rounded-xl p-4 mb-6 text-sm text-fuchsia-900 dark:text-fuchsia-100">
                 <div class="font-semibold">Search decision</div>
-                <p class="mt-1 text-fuchsia-800/80 dark:text-fuchsia-100/70">The strongest live routes are concentrated in Shoreditch and Hackney, so the scan widens slightly beyond Central London. Exact equipment is shown only when the venue or organiser publishes it. Nothing has been contacted on your behalf.</p>
+                <p class="mt-1 text-fuchsia-800/80 dark:text-fuchsia-100/70">Short open-decks nights are excluded. The list prioritises rooftops, canalside settings, industrial rooms and iconic music interiors. A contact or hire route is not permission: every performance, filming setup and YouTube release needs written venue approval.</p>
             </div>
 
             <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-6 gap-3">
                 <input id="dj-gigs-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search venue, area, genre or equipment">
-                <select id="dj-gigs-area-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All areas</option><option>Central</option><option>Near central</option><option>Wider east London</option></select>
-                <select id="dj-gigs-type-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All routes</option><option>Open decks</option><option>Vinyl open decks</option><option>Direct pitch</option><option>Promoter route</option><option>Mix submission</option><option>Monitor</option></select>
+                <select id="dj-gigs-area-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All areas</option><option>Central</option><option>East London</option><option>South London</option><option>North London</option></select>
+                <select id="dj-gigs-type-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All routes</option><option>Direct pitch</option><option>Promoter route</option><option>Venue hire</option></select>
                 <select id="dj-gigs-equipment-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">Any equipment evidence</option><option value="confirmed">Confirmed setup</option><option value="available">Setup available</option><option value="unknown">Unknown</option></select>
                 <select id="dj-gigs-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="active">Active pipeline</option><option value="new">New</option><option value="interested">Interested</option><option value="contacted">Contacted</option><option value="booked">Booked</option><option value="not_interested">Not for me</option><option value="all">All statuses</option></select>
             </div>
 
             <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-5 mb-6">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                    <div><h2 class="font-semibold dark:text-white">Starter outreach</h2><p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Tailor the first line to the venue and link one strong 30-minute house mix.</p></div>
+                    <div><h2 class="font-semibold dark:text-white">Starter outreach</h2><p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pitch a complete visual concept, a 45-90 minute set and a clear benefit for the venue.</p></div>
                     <button id="copy-dj-pitch-btn" type="button" class="text-xs px-3 py-2 rounded bg-black text-white dark:bg-white dark:text-black">Copy pitch template</button>
                 </div>
-                <p id="dj-pitch-template" class="text-sm text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">Hi [name/team], I’m a London-based house DJ looking to build more live experience. I like the sound of [venue/night] and would be happy to play a no-fee warm-up or quieter trial set that fits your crowd. Here is a short mix: [link]. I can bring a Rekordbox USB and headphones, and I’m flexible on dates. Would an opening slot or open-decks opportunity be useful?</p>
+                <p id="dj-pitch-template" class="text-sm text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">Hi [name/team], I’m a London-based house DJ producing a filmed YouTube session series in distinctive music spaces. I’d love to propose a 45-90 minute warm-up or quiet-period set at [venue], using a minimal two-camera setup and fitting your existing music direction. Here is a representative mix: [link]. I would credit and tag the venue throughout and can provide a clean promotional edit for your channels. Would you be open to discussing a suitable date, technical setup and filming permissions?</p>
             </div>
 
             <div id="dj-gigs-list" class="space-y-4"><div class="text-sm text-gray-500 dark:text-gray-400">Loading DJ opportunities...</div></div>
