@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-18",
+  "updatedAt": "2026-11-20",
   "jobs": [
     {
       "age": "1 month ago",
@@ -532,6 +532,168 @@
       "availabilityCheckedAt": "2026-11-18",
       "availabilityNote": "LinkedIn tracker: No longer accepting applications",
       "ignored": true
+    },
+    {
+      "id": "applied-linkedin-4492047653",
+      "age": "Applied 20 Nov 2026",
+      "company": "Mintive",
+      "role": "Founding Account Executive",
+      "route": "LinkedIn + Loom video",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4492047653/",
+      "listingTitle": "Founding Account Executive",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-20",
+      "availabilityNote": "Public LinkedIn role page loaded on 20 Nov 2026",
+      "outreachContacts": [
+        {
+          "name": "Jiquan Ngiam",
+          "title": "Building @ Mintive",
+          "url": "https://www.linkedin.com/in/jngiam/",
+          "type": "Hiring decision-maker",
+          "confidence": "Very high",
+          "evidence": "Top result in the targeted LinkedIn Mintive CEO search and visibly building at Mintive; best available senior company contact for a founding sales hire",
+          "connectionNote": "Hi Jiquan, I applied for Mintive's Founding Account Executive role. The agent-security mission strongly fits my SaaS and AI background. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Jiquan. I applied for Mintive's Founding Account Executive role and recorded a short introduction on why my SaaS sales and AI experience fit the opportunity: [PASTE LOOM LINK]",
+          "inMailSubject": "Founding AE application - short introduction",
+          "inMailMessage": "Hi Jiquan,\nI applied for Mintive's Founding Account Executive role. The chance to help build the commercial motion around secure agent infrastructure strongly matches my SaaS sales and AI experience.\n\nI recorded a short introduction: [PASTE LOOM LINK]\n\nIf it looks relevant, I would really value a conversation.\n\nThanks,\nPhil"
+        }
+      ]
+    },
+    {
+      "id": "applied-linkedin-4485369453",
+      "age": "Applied 20 Nov 2026",
+      "company": "Airbnb",
+      "role": "Market Manager",
+      "route": "LinkedIn application",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4485369453/",
+      "listingTitle": "Market Manager",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-20",
+      "availabilityNote": "Public LinkedIn role page loaded on 20 Nov 2026",
+      "outreachContacts": [
+        {
+          "name": "Lisa Marçais",
+          "title": "GM UKI, Nordics and MEA at Airbnb",
+          "url": "https://www.linkedin.com/in/lisa-marcais/",
+          "type": "Hiring decision-maker",
+          "confidence": "High",
+          "evidence": "London-based Airbnb regional GM covering UKI; the role owns UK supply growth and professional host relationships",
+          "connectionNote": "Hi Lisa, I applied for Airbnb's Market Manager role in London. My SaaS account growth and strategic relationship experience feels highly relevant. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Lisa. I applied for Airbnb's Market Manager role in London. I am excited by the chance to grow professional host partnerships across the UK and would value any guidance on the team or process.",
+          "inMailSubject": "Airbnb Market Manager application",
+          "inMailMessage": "Hi Lisa,\nI applied for the Market Manager role in London. My background combines account growth, new business and senior stakeholder management across complex SaaS sales. Airbnb's focus on growing professional host supply feels like a strong match.\n\nIf appropriate, I would value a brief conversation or a pointer to the right person on the team.\n\nThanks,\nPhil"
+        }
+      ]
+    },
+    {
+      "id": "applied-linkedin-4489937547",
+      "age": "Applied 20 Nov 2026",
+      "company": "Hitachi Vantara",
+      "role": "Account Executive",
+      "route": "LinkedIn application",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4489937547/",
+      "listingTitle": "Account Executive",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-20",
+      "availabilityNote": "Public LinkedIn role page loaded on 20 Nov 2026",
+      "outreachContacts": [
+        {
+          "name": "Craig Greener",
+          "title": "Sales Director, EMEA Regions at Hitachi Vantara",
+          "url": "https://www.linkedin.com/in/craiggreener/",
+          "type": "Regional sales leader",
+          "confidence": "High",
+          "evidence": "Current Hitachi Vantara EMEA regional sales director in the UK; the role is a UK new-logo Account Executive position",
+          "connectionNote": "Hi Craig, I applied for Hitachi Vantara's UK Account Executive role. My enterprise SaaS new-business experience feels closely aligned. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Craig. I applied for Hitachi Vantara's UK Account Executive role. The focus on strategic new-logo acquisition, executive engagement and complex sales cycles closely matches my background.",
+          "inMailSubject": "Hitachi Vantara AE application",
+          "inMailMessage": "Hi Craig,\nI applied for the UK Account Executive role at Hitachi Vantara. I have built new-logo pipeline, managed enterprise stakeholders and led complex SaaS sales cycles, including wins with major global organisations.\n\nGiven your EMEA regional sales remit, I wanted to introduce myself directly. I would value any guidance on the role or hiring team.\n\nThanks,\nPhil"
+        }
+      ]
+    },
+    {
+      "id": "applied-linkedin-4490858126",
+      "age": "Applied 20 Nov 2026",
+      "company": "BambooHR",
+      "role": "Account Executive (EMEA)",
+      "route": "LinkedIn application",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4490858126/",
+      "listingTitle": "Account Executive (EMEA)",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-20",
+      "availabilityNote": "Public LinkedIn role page loaded on 20 Nov 2026",
+      "outreachContacts": [
+        {
+          "name": "Tim Atyeo",
+          "title": "Senior Manager International Sales (EMEA) at BambooHR",
+          "url": "https://www.linkedin.com/in/tim-atyeo-a0828b7/",
+          "type": "Hiring decision-maker",
+          "confidence": "Very high",
+          "evidence": "Current BambooHR senior international sales manager for EMEA, matching the role description that the hire works closely with the EMEA Sales leader",
+          "connectionNote": "Hi Tim, I applied for BambooHR's Account Executive (EMEA) role. The chance to help build the UK motion strongly matches my SaaS sales background. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Tim. I applied for BambooHR's Account Executive (EMEA) role. Building pipeline, shaping the UK motion and helping establish a repeatable regional sales playbook is exactly the kind of opportunity I am looking for.",
+          "inMailSubject": "BambooHR EMEA AE application",
+          "inMailMessage": "Hi Tim,\nI applied for the Account Executive (EMEA) role in London. I bring full-cycle SaaS sales experience, a strong new-business record and the builder mindset the description calls for.\n\nThe opportunity to help shape BambooHR's UK motion really stood out. I would value a brief conversation if my background looks relevant.\n\nThanks,\nPhil"
+        }
+      ]
+    },
+    {
+      "id": "applied-linkedin-4475355247",
+      "age": "Applied 20 Nov 2026",
+      "company": "Zip",
+      "role": "Commercial Account Executive",
+      "route": "LinkedIn application",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4475355247/",
+      "listingTitle": "Commercial Account Executive",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-20",
+      "availabilityNote": "Public LinkedIn role page loaded on 20 Nov 2026",
+      "outreachContacts": [
+        {
+          "name": "Richard Cobb",
+          "title": "EMEA Sales Leader - Enterprise and Commercial at Zip",
+          "url": "https://www.linkedin.com/in/richardcobb1/",
+          "type": "Hiring decision-maker",
+          "confidence": "Very high",
+          "evidence": "London-based Zip leader explicitly responsible for EMEA Enterprise and Commercial sales, directly matching the Commercial AE remit",
+          "connectionNote": "Hi Richard, I applied for Zip's Commercial Account Executive role. My enterprise SaaS closing experience and builder mindset feel strongly aligned. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Richard. I applied for Zip's Commercial Account Executive role. My background in full-cycle SaaS sales, enterprise closing and building repeatable sales motions feels closely aligned with the team you lead.",
+          "inMailSubject": "Zip Commercial AE application",
+          "inMailMessage": "Hi Richard,\nI applied for Zip's Commercial Account Executive role in London. I bring full-cycle SaaS closing experience, enterprise wins and a strong product-consulting approach.\n\nThe combination of AI, procurement transformation and an EMEA builder role is particularly compelling. I would value a brief conversation if my background looks relevant.\n\nThanks,\nPhil"
+        }
+      ]
+    },
+    {
+      "id": "applied-linkedin-4491851259",
+      "age": "Applied 20 Nov 2026",
+      "company": "Walmart Marketplace",
+      "role": "Inbound Manager, Business Development, Marketplace Europe",
+      "route": "LinkedIn application",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4491851259/",
+      "listingTitle": "Inbound Manager, Business Development, Marketplace Europe",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-20",
+      "availabilityNote": "Public LinkedIn role page loaded on 20 Nov 2026",
+      "outreachContacts": [
+        {
+          "name": "Marion Sakowski",
+          "title": "Director of Business Development, EMEA at Walmart",
+          "url": "https://www.linkedin.com/in/marion-sakowski-49a70b41/",
+          "type": "Hiring decision-maker",
+          "confidence": "Very high",
+          "evidence": "London-based Walmart EMEA Business Development director; the role owns UK inbound seller acquisition for Marketplace Europe",
+          "connectionNote": "Hi Marion, I applied for Walmart's Inbound Manager, Business Development role. My SaaS sales and account-growth experience feels highly relevant. I'd value connecting.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Marion. I applied for Walmart's Inbound Manager, Business Development, Marketplace Europe role. The mix of seller acquisition, consultative growth and building a scalable inbound motion strongly matches my experience.",
+          "inMailSubject": "Walmart Marketplace BD application",
+          "inMailMessage": "Hi Marion,\nI applied for the Inbound Manager, Business Development, Marketplace Europe role in London. My background spans new business, account growth, high-volume pipeline management and consultative SaaS selling.\n\nThe opportunity to help UK sellers launch and grow on Walmart Marketplace feels very well aligned. I would value a brief conversation if useful.\n\nThanks,\nPhil"
+        }
+      ]
     }
   ]
 }

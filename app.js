@@ -7611,10 +7611,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const orderedContacts = [...contacts].sort((a, b) => Number(decisionMakerTypes.has(b.type)) - Number(decisionMakerTypes.has(a.type)));
         return `<section class="mt-5 pt-5 border-t border-gray-200 dark:border-white/10"><div class="flex items-center justify-between gap-3 mb-3"><h4 class="text-sm font-semibold text-gray-900 dark:text-white">Outreach</h4><span class="text-xs text-gray-500 dark:text-gray-400">Drafts only - nothing is sent automatically</span></div><div class="space-y-3">${orderedContacts.map((contact, index) => {
             const isPriority = index === 0 && decisionMakerTypes.has(contact.type);
-            const loomMessage = loomUrl
-                ? String(contact.postAcceptanceLoomMessage || '').replaceAll('[PASTE LOOM LINK]', loomUrl)
-                : String(contact.postAcceptanceLoomMessage || '');
-            const loomMessageLabel = loomUrl ? 'Post-acceptance Loom message' : 'Post-acceptance Loom message - Loom URL needs adding';
+            const postAcceptanceTemplate = String(contact.postAcceptanceLoomMessage || '');
+            const messageNeedsLoom = postAcceptanceTemplate.includes('[PASTE LOOM LINK]');
+            const loomMessage = loomUrl ? postAcceptanceTemplate.replaceAll('[PASTE LOOM LINK]', loomUrl) : postAcceptanceTemplate;
+            const loomMessageLabel = messageNeedsLoom
+                ? (loomUrl ? 'Post-acceptance Loom message' : 'Post-acceptance Loom message - Loom URL needs adding')
+                : 'Post-acceptance message';
             const inMailSubject = String(contact.inMailSubject || '');
             const inMailMessage = loomUrl
                 ? String(contact.inMailMessage || '').replaceAll('[PASTE LOOM LINK]', loomUrl)
