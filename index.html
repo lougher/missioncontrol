@@ -1477,40 +1477,69 @@
 
         <!-- ================= VIEW: NETWORKING ================= -->
         <div id="view-networking" class="view-section max-w-[100vw] sm:max-w-6xl w-full min-w-0 mx-auto px-4 sm:px-8 py-8 sm:py-12 overflow-x-hidden hidden">
-            <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <header class="mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                 <div>
-                    <div class="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300 mb-2">Meet new people consistently</div>
+                    <div class="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300 mb-2">Build a real London social circle</div>
                     <h1 class="text-3xl font-medium tracking-tight mb-2 dark:text-white">Networking</h1>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 max-w-3xl">Upcoming events for founders, startups, technology, sales, marketing, content, wealth and property - with your South Wales property groups in the same place.</p>
-                    <p id="networking-scan-meta" class="text-xs text-gray-400 dark:text-gray-500 mt-2">Loading researched events...</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 max-w-3xl">Use events to meet people quickly and recurring clubs to turn promising conversations into genuine friendships.</p>
+                    <p id="networking-scan-meta" class="text-xs text-gray-400 dark:text-gray-500 mt-2">Loading researched opportunities...</p>
                 </div>
                 <button id="refresh-networking-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh View</button>
             </header>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
-                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Upcoming dated events</div><div id="networking-upcoming" class="text-3xl font-semibold mt-2 dark:text-white">0</div></div>
-                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">London events</div><div id="networking-london" class="text-3xl font-semibold mt-2 text-indigo-600 dark:text-indigo-300">0</div></div>
-                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Interested / booked</div><div id="networking-planned" class="text-3xl font-semibold mt-2 text-emerald-600 dark:text-emerald-300">0</div></div>
-                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Attended</div><div id="networking-attended" class="text-3xl font-semibold mt-2 text-fuchsia-600 dark:text-fuchsia-300">0</div></div>
+            <div class="flex gap-2 border-b border-gray-200 dark:border-white/10 mb-6 overflow-x-auto" role="tablist" aria-label="Networking sections">
+                <button id="networking-tab-events" data-networking-tab="events" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-indigo-600 text-indigo-600 dark:text-indigo-300" role="tab" aria-selected="true">Events</button>
+                <button id="networking-tab-clubs" data-networking-tab="clubs" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Clubs & communities</button>
             </div>
 
-            <div class="bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 rounded-xl p-4 mb-6 text-sm text-indigo-900 dark:text-indigo-100">
-                <div class="font-semibold">Curated and evidence-led</div>
-                <p class="mt-1 text-indigo-800/80 dark:text-indigo-100/70">This is a broad live scan, not every event in London. Events without enough date or location evidence were excluded. Reconfirm ticket availability before travelling.</p>
-            </div>
+            <section id="networking-panel-events" data-networking-panel="events">
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Upcoming dated events</div><div id="networking-upcoming" class="text-3xl font-semibold mt-2 dark:text-white">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">London events</div><div id="networking-london" class="text-3xl font-semibold mt-2 text-indigo-600 dark:text-indigo-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Interested / booked</div><div id="networking-planned" class="text-3xl font-semibold mt-2 text-emerald-600 dark:text-emerald-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Attended</div><div id="networking-attended" class="text-3xl font-semibold mt-2 text-fuchsia-600 dark:text-fuchsia-300">0</div></div>
+                </div>
 
-            <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-12 gap-3">
-                <input id="networking-search" class="md:col-span-3 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white" placeholder="Search event, organiser, topic or area">
-                <select id="networking-category-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="all">All interests</option></select>
-                <select id="networking-region-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="London" selected>London</option><option value="South Wales">South Wales</option><option value="all">All locations</option></select>
-                <select id="networking-price-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="all">Any price</option><option value="free">Free / low-cost option</option><option value="paid">Paid</option><option value="unknown">Price to check</option></select>
-                <select id="networking-status-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="active" selected>Upcoming / tracked</option><option value="interested">Interested</option><option value="booked">Booked</option><option value="attended">Attended</option><option value="not_interested">Not for me</option><option value="all">All statuses</option></select>
-                <select id="networking-sort" class="md:col-span-1 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="date" selected>Date</option><option value="priority">Fit</option></select>
-            </div>
+                <div class="bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 rounded-xl p-4 mb-6 text-sm text-indigo-900 dark:text-indigo-100">
+                    <div class="font-semibold">Curated and evidence-led</div>
+                    <p class="mt-1 text-indigo-800/80 dark:text-indigo-100/70">This is a broad live scan, not every event in London. Events without enough date or location evidence were excluded. Reconfirm ticket availability before travelling.</p>
+                </div>
 
-            <div id="networking-list" class="space-y-4"><div class="text-sm text-gray-500 dark:text-gray-400">Loading networking events...</div></div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-12 gap-3">
+                    <input id="networking-search" class="md:col-span-3 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white" placeholder="Search event, organiser, topic or area">
+                    <select id="networking-category-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="all">All interests</option></select>
+                    <select id="networking-region-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="London" selected>London</option><option value="South Wales">South Wales</option><option value="all">All locations</option></select>
+                    <select id="networking-price-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="all">Any price</option><option value="free">Free / low-cost option</option><option value="paid">Paid</option><option value="unknown">Price to check</option></select>
+                    <select id="networking-status-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="active" selected>Upcoming / tracked</option><option value="interested">Interested</option><option value="booked">Booked</option><option value="attended">Attended</option><option value="not_interested">Not for me</option><option value="all">All statuses</option></select>
+                    <select id="networking-sort" class="md:col-span-1 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="date" selected>Date</option><option value="priority">Fit</option></select>
+                </div>
+
+                <div id="networking-list" class="space-y-4"><div class="text-sm text-gray-500 dark:text-gray-400">Loading networking events...</div></div>
+            </section>
+
+            <section id="networking-panel-clubs" data-networking-panel="clubs" class="hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Clubs researched</div><div id="networking-clubs-total" class="text-3xl font-semibold mt-2 dark:text-white">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Easy to socialise</div><div id="networking-clubs-social" class="text-3xl font-semibold mt-2 text-indigo-600 dark:text-indigo-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Considering / enquired</div><div id="networking-clubs-pipeline" class="text-3xl font-semibold mt-2 text-emerald-600 dark:text-emerald-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Joined / regular</div><div id="networking-clubs-joined" class="text-3xl font-semibold mt-2 text-fuchsia-600 dark:text-fuchsia-300">0</div></div>
+                </div>
+
+                <div class="bg-amber-50 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/20 rounded-xl p-4 mb-6 text-sm text-amber-950 dark:text-amber-100">
+                    <div class="font-semibold">The rule: repeated activity beats expensive proximity</div>
+                    <p class="mt-1 text-amber-900/80 dark:text-amber-100/70">A prestigious postcode does not guarantee approachable or successful members. Prioritise clubs where you can attend weekly, contribute to a team and see the same people for at least three months.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-12 gap-3">
+                    <input id="networking-club-search" class="md:col-span-4 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white" placeholder="Search club, activity, area or fit">
+                    <select id="networking-club-category-filter" class="md:col-span-3 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="all">All club types</option></select>
+                    <select id="networking-club-area-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="all">All target areas</option><option value="Mayfair">Mayfair</option><option value="Chelsea">Chelsea</option><option value="Kensington">Kensington</option><option value="Nearby West London">Nearby West London</option></select>
+                    <select id="networking-club-status-filter" class="md:col-span-3 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="active" selected>Active shortlist</option><option value="considering">Considering</option><option value="enquiry_sent">Enquiry sent</option><option value="trial_booked">Trial booked</option><option value="joined">Joined</option><option value="regular">Regular</option><option value="not_for_me">Not for me</option><option value="all">All statuses</option></select>
+                </div>
+
+                <div id="networking-clubs-list" class="space-y-4"><div class="text-sm text-gray-500 dark:text-gray-400">Loading clubs...</div></div>
+            </section>
         </div>
-
         <!-- ================= VIEW: PROPERTY ================= -->
         <div id="view-property" class="view-section max-w-6xl w-full mx-auto px-8 py-12 hidden">
             <header class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">

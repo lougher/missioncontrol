@@ -77,6 +77,7 @@ const APPLIED_JOBS_DB_FILE = path.join(__dirname, 'applied_jobs.json');
 const APPLIED_JOBS_PRIVATE_FILE = path.join(__dirname, 'applied_jobs_private.json');
 const DJ_GIGS_DB_FILE = path.join(__dirname, 'dj_gigs.json');
 const NETWORKING_EVENTS_DB_FILE = path.join(__dirname, 'networking_events.json');
+const NETWORKING_CLUBS_DB_FILE = path.join(__dirname, 'networking_clubs.json');
 const PROPERTY_DEALS_DB_FILE = path.join(__dirname, 'property_deals.json');
 const PROPERTY_TRACKER_STATE_FILE = path.join(WORKSPACE_DIR, 'property-deals', 'cardiff-hmo-tracker-state.json');
 const OPENRENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'openrent-leads.json');
@@ -448,6 +449,31 @@ const server = http.createServer((req, res) => {
             } catch (err) {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update networking event status' }));
+            }
+        });
+    } else if (req.url === '/api/networking-clubs') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readNetworkingClubsDb();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/networking-clubs\/[^/]+\/status$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const { status } = JSON.parse(body || '{}');
+                const club = updateNetworkingClubStatus(id, status);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, club }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update networking club status' }));
             }
         });
     } else if (req.url === '/api/ytjobs-talents') {
@@ -2650,6 +2676,41 @@ function updateNetworkingEventStatus(id, status) {
     event.updated_at = new Date().toISOString();
     writeNetworkingEventsDb(db);
     return event;
+}
+
+function readNetworkingClubsDb() {
+    try {
+        const parsed = JSON.parse(fs.readFileSync(NETWORKING_CLUBS_DB_FILE, 'utf8'));
+        return {
+            researched_at: parsed.researched_at || '',
+            search_scope: parsed.search_scope || '',
+            strategy: Array.isArray(parsed.strategy) ? parsed.strategy : [],
+            clubs: Array.isArray(parsed.clubs) ? parsed.clubs : []
+        };
+    } catch {
+        return { researched_at: '', search_scope: '', strategy: [], clubs: [] };
+    }
+}
+
+function writeNetworkingClubsDb(db) {
+    fs.writeFileSync(NETWORKING_CLUBS_DB_FILE, JSON.stringify({
+        researched_at: db.researched_at || '',
+        search_scope: db.search_scope || '',
+        strategy: Array.isArray(db.strategy) ? db.strategy : [],
+        clubs: Array.isArray(db.clubs) ? db.clubs : []
+    }, null, 2) + '\n');
+}
+
+function updateNetworkingClubStatus(id, status) {
+    const allowed = new Set(['new', 'considering', 'enquiry_sent', 'trial_booked', 'joined', 'regular', 'not_for_me']);
+    if (!allowed.has(status)) throw new Error('Invalid networking club status');
+    const db = readNetworkingClubsDb();
+    const club = db.clubs.find(item => item.id === id);
+    if (!club) throw new Error('Networking club not found');
+    club.status = status;
+    club.updated_at = new Date().toISOString();
+    writeNetworkingClubsDb(db);
+    return club;
 }
 
 function getYtJobsTalentId(talent) {

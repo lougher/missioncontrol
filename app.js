@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
             else loadYtJobs(true);
         }
         if (targetId === 'view-people') loadPeople(true);
-        if (targetId === 'view-networking') loadNetworkingEvents(true);
+        if (targetId === 'view-networking') { loadNetworkingEvents(true); loadNetworkingClubs(true); }
         if (targetId === 'view-djing') loadDjGigs(true);
         if (targetId === 'view-property') {
             const activePropertyTab = localStorage.getItem('property-tab') || 'openrent';
@@ -7396,9 +7396,161 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    refreshNetworkingBtn?.addEventListener('click', () => loadNetworkingEvents());
+    const networkingTabEvents = document.getElementById('networking-tab-events');
+    const networkingTabClubs = document.getElementById('networking-tab-clubs');
+    const networkingPanelEvents = document.getElementById('networking-panel-events');
+    const networkingPanelClubs = document.getElementById('networking-panel-clubs');
+    const networkingClubsList = document.getElementById('networking-clubs-list');
+    const networkingClubSearch = document.getElementById('networking-club-search');
+    const networkingClubCategoryFilter = document.getElementById('networking-club-category-filter');
+    const networkingClubAreaFilter = document.getElementById('networking-club-area-filter');
+    const networkingClubStatusFilter = document.getElementById('networking-club-status-filter');
+    let networkingClubs = [];
+    let networkingClubsMeta = {};
+    let activeNetworkingTab = localStorage.getItem('networking-active-tab') === 'clubs' ? 'clubs' : 'events';
+
+    function setNetworkingTab(tab) {
+        activeNetworkingTab = tab === 'clubs' ? 'clubs' : 'events';
+        localStorage.setItem('networking-active-tab', activeNetworkingTab);
+        const clubsActive = activeNetworkingTab === 'clubs';
+        networkingPanelEvents?.classList.toggle('hidden', clubsActive);
+        networkingPanelClubs?.classList.toggle('hidden', !clubsActive);
+        [networkingTabEvents, networkingTabClubs].forEach(button => {
+            if (!button) return;
+            const selected = button.dataset.networkingTab === activeNetworkingTab;
+            button.setAttribute('aria-selected', String(selected));
+            button.classList.toggle('border-indigo-600', selected);
+            button.classList.toggle('text-indigo-600', selected);
+            button.classList.toggle('dark:text-indigo-300', selected);
+            button.classList.toggle('border-transparent', !selected);
+            button.classList.toggle('text-gray-500', !selected);
+        });
+        if (clubsActive) renderNetworkingClubs();
+        else renderNetworkingEvents();
+        updateNetworkingMeta();
+    }
+
+    function updateNetworkingMeta() {
+        if (!networkingScanMeta) return;
+        if (activeNetworkingTab === 'clubs') {
+            const checked = networkingClubsMeta.researched_at ? new Date(networkingClubsMeta.researched_at).toLocaleString('en-GB') : 'Not checked yet';
+            networkingScanMeta.innerText = 'Club research checked ' + checked + ' · ' + networkingClubs.length + ' repeat-visit communities.';
+            return;
+        }
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const upcoming = networkingEvents.filter(event => event.start_date && networkingDateValue(event) >= today.getTime()).length;
+        const checked = networkingMeta.searched_at ? new Date(networkingMeta.searched_at).toLocaleString('en-GB') : 'Not checked yet';
+        networkingScanMeta.innerText = 'Event research checked ' + checked + ' · ' + upcoming + ' upcoming dated events · ' + networkingEvents.filter(event => !event.start_date).length + ' groups awaiting dates.';
+    }
+
+    function networkingClubStatusLabel(status) {
+        return ({ new: 'New', considering: 'Considering', enquiry_sent: 'Enquiry sent', trial_booked: 'Trial booked', joined: 'Joined', regular: 'Regular', not_for_me: 'Not for me' })[status] || 'New';
+    }
+
+    function populateNetworkingClubCategories() {
+        if (!networkingClubCategoryFilter) return;
+        const selected = networkingClubCategoryFilter.value || 'all';
+        const categories = [...new Set(networkingClubs.map(club => club.category).filter(Boolean))].sort();
+        networkingClubCategoryFilter.innerHTML = '<option value="all">All club types</option>' + categories.map(category => '<option value="' + escapeHtml(category) + '">' + escapeHtml(category) + '</option>').join('');
+        networkingClubCategoryFilter.value = categories.includes(selected) ? selected : 'all';
+    }
+
+    function filteredNetworkingClubs() {
+        const search = (networkingClubSearch?.value || '').trim().toLowerCase();
+        const category = networkingClubCategoryFilter?.value || 'all';
+        const area = networkingClubAreaFilter?.value || 'all';
+        const status = networkingClubStatusFilter?.value || 'active';
+        return networkingClubs.filter(club => {
+            const currentStatus = club.status || 'new';
+            const haystack = [club.name, club.category, club.area, club.location_tier, club.access, club.best_for, club.network_fit, club.recurring_hook].join(' ').toLowerCase();
+            if (search && !haystack.includes(search)) return false;
+            if (category !== 'all' && club.category !== category) return false;
+            if (area !== 'all' && club.location_tier !== area && club.area !== area) return false;
+            if (status === 'active' && currentStatus === 'not_for_me') return false;
+            if (!['active', 'all'].includes(status) && currentStatus !== status) return false;
+            return true;
+        }).sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0));
+    }
+
+    function renderNetworkingClubs() {
+        if (!networkingClubsList) return;
+        document.getElementById('networking-clubs-total').innerText = networkingClubs.length;
+        document.getElementById('networking-clubs-social').innerText = networkingClubs.filter(club => Number(club.social_ease || 0) >= 4).length;
+        document.getElementById('networking-clubs-pipeline').innerText = networkingClubs.filter(club => ['considering', 'enquiry_sent', 'trial_booked'].includes(club.status)).length;
+        document.getElementById('networking-clubs-joined').innerText = networkingClubs.filter(club => ['joined', 'regular'].includes(club.status)).length;
+        const clubs = filteredNetworkingClubs();
+        networkingClubsList.innerHTML = clubs.length ? clubs.map(club => {
+            const currentStatus = club.status || 'new';
+            const ease = Math.max(1, Math.min(5, Number(club.social_ease || 1)));
+            const easeDots = Array.from({ length: 5 }, (_, index) => '<span class="inline-block w-2 h-2 rounded-full ' + (index < ease ? 'bg-indigo-500' : 'bg-gray-200 dark:bg-white/10') + '"></span>').join('');
+            return '<article class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-5 ' + (currentStatus === 'not_for_me' ? 'opacity-60' : '') + '">' +
+                '<div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">' +
+                    '<div class="min-w-0 flex-1">' +
+                        '<div class="flex flex-wrap items-center gap-2 mb-2"><h2 class="text-lg font-semibold dark:text-white">' + escapeHtml(club.name || 'Untitled club') + '</h2><span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300">' + escapeHtml(club.category || '') + '</span><span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300">' + escapeHtml(club.area || '') + '</span><span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">' + Number(club.priority || 0) + ' fit</span></div>' +
+                        '<div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400"><span>Social ease</span><span class="flex gap-1">' + easeDots + '</span><span>' + ease + '/5</span><span>·</span><span>' + escapeHtml(club.access || '') + '</span></div>' +
+                        '<p class="text-sm font-medium text-gray-800 dark:text-gray-100 mt-3">Best for: ' + escapeHtml(club.best_for || '') + '</p>' +
+                        '<p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">' + escapeHtml(club.network_fit || '') + '</p>' +
+                        '<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-sm"><div class="rounded-lg bg-indigo-50 dark:bg-indigo-500/10 p-3"><div class="text-xs uppercase tracking-wide text-indigo-500">How friendships form</div><div class="dark:text-white mt-1">' + escapeHtml(club.recurring_hook || '') + '</div></div><div class="rounded-lg bg-amber-50 dark:bg-amber-500/10 p-3"><div class="text-xs uppercase tracking-wide text-amber-600">First move</div><div class="dark:text-white mt-1">' + escapeHtml(club.first_move || '') + '</div></div></div>' +
+                        '<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 text-sm"><div class="rounded-lg bg-gray-50 dark:bg-white/5 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">Membership route</div><div class="font-medium dark:text-white mt-1">' + escapeHtml(club.membership_route || '') + '</div></div><div class="rounded-lg bg-gray-50 dark:bg-white/5 p-3"><div class="text-xs uppercase tracking-wide text-gray-400">Published cost</div><div class="font-medium dark:text-white mt-1">' + escapeHtml(club.cost || 'Check with club') + '</div></div></div>' +
+                        '<p class="text-xs text-gray-400 dark:text-gray-500 mt-4">Evidence: ' + escapeHtml(club.evidence_note || '') + '</p>' +
+                    '</div>' +
+                    '<div class="grid grid-cols-2 xl:flex xl:flex-col gap-2 xl:items-stretch xl:w-36">' +
+                        '<button type="button" onclick="updateNetworkingClubStatus(\'' + escapeHtml(club.id) + '\',\'considering\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'considering' ? 'bg-emerald-600 text-white' : 'border border-emerald-500 text-emerald-700 dark:text-emerald-300') + '">Considering</button>' +
+                        '<button type="button" onclick="updateNetworkingClubStatus(\'' + escapeHtml(club.id) + '\',\'enquiry_sent\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'enquiry_sent' ? 'bg-blue-600 text-white' : 'border border-blue-500 text-blue-700 dark:text-blue-300') + '">Enquiry sent</button>' +
+                        '<button type="button" onclick="updateNetworkingClubStatus(\'' + escapeHtml(club.id) + '\',\'trial_booked\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'trial_booked' ? 'bg-amber-500 text-white' : 'border border-amber-500 text-amber-700 dark:text-amber-300') + '">Trial booked</button>' +
+                        '<button type="button" onclick="updateNetworkingClubStatus(\'' + escapeHtml(club.id) + '\',\'joined\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'joined' ? 'bg-fuchsia-600 text-white' : 'border border-fuchsia-500 text-fuchsia-700 dark:text-fuchsia-300') + '">Joined</button>' +
+                        '<button type="button" onclick="updateNetworkingClubStatus(\'' + escapeHtml(club.id) + '\',\'regular\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'regular' ? 'bg-indigo-600 text-white' : 'border border-indigo-500 text-indigo-700 dark:text-indigo-300') + '">Regular</button>' +
+                        '<button type="button" onclick="updateNetworkingClubStatus(\'' + escapeHtml(club.id) + '\',\'not_for_me\')" class="text-xs px-3 py-2 rounded border border-gray-300 text-gray-600 dark:border-white/20 dark:text-gray-300">' + (currentStatus === 'not_for_me' ? 'Restore' : 'Not for me') + '</button>' +
+                        '<a href="' + escapeHtml(club.url || '#') + '" target="_blank" rel="noopener" class="col-span-2 text-center text-xs px-3 py-2 rounded bg-black text-white dark:bg-white dark:text-black">View membership</a>' +
+                        '<div class="col-span-2 text-center text-[11px] text-gray-400 mt-1">' + escapeHtml(networkingClubStatusLabel(currentStatus)) + '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</article>';
+        }).join('') : '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No clubs match the current filters.</div>';
+    }
+
+    async function loadNetworkingClubs(silent = false) {
+        if (!networkingClubsList) return;
+        if (!silent) networkingClubsList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading clubs...</div>';
+        try {
+            const res = await fetch('/api/networking-clubs');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Networking clubs request failed');
+            networkingClubs = Array.isArray(data.clubs) ? data.clubs : [];
+            networkingClubsMeta = data || {};
+            populateNetworkingClubCategories();
+            renderNetworkingClubs();
+            updateNetworkingMeta();
+        } catch (error) {
+            console.error(error);
+            networkingClubsList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-lg p-6 text-red-600 dark:text-red-300">Failed to load networking clubs.</div>';
+        }
+    }
+
+    window.updateNetworkingClubStatus = async (id, status) => {
+        const current = networkingClubs.find(club => club.id === id);
+        const nextStatus = status === 'not_for_me' && current?.status === 'not_for_me' ? 'new' : status;
+        try {
+            const res = await fetch('/api/networking-clubs/' + encodeURIComponent(id) + '/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: nextStatus }) });
+            const data = await res.json();
+            if (!res.ok || !data.club) throw new Error(data.error || 'Club status update failed');
+            const index = networkingClubs.findIndex(club => club.id === id);
+            if (index !== -1) networkingClubs[index] = data.club;
+            renderNetworkingClubs();
+        } catch (error) {
+            console.error(error);
+            alert('Could not update networking club status.');
+        }
+    };
+
+    refreshNetworkingBtn?.addEventListener('click', () => activeNetworkingTab === 'clubs' ? loadNetworkingClubs() : loadNetworkingEvents());
+    networkingTabEvents?.addEventListener('click', () => setNetworkingTab('events'));
+    networkingTabClubs?.addEventListener('click', () => setNetworkingTab('clubs'));
     [networkingSearch, networkingCategoryFilter, networkingRegionFilter, networkingPriceFilter, networkingStatusFilter, networkingSort].forEach(element => element?.addEventListener('input', renderNetworkingEvents));
     [networkingCategoryFilter, networkingRegionFilter, networkingPriceFilter, networkingStatusFilter, networkingSort].forEach(element => element?.addEventListener('change', renderNetworkingEvents));
+    [networkingClubSearch, networkingClubCategoryFilter, networkingClubAreaFilter, networkingClubStatusFilter].forEach(element => element?.addEventListener('input', renderNetworkingClubs));
+    [networkingClubCategoryFilter, networkingClubAreaFilter, networkingClubStatusFilter].forEach(element => element?.addEventListener('change', renderNetworkingClubs));
+    setNetworkingTab(activeNetworkingTab);
 
     // === DJing opportunities ===
     const djGigsList = document.getElementById('dj-gigs-list');
@@ -8643,7 +8795,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         else if (activeView.id === 'view-analytics') loadAnalyticsData(true);
         else if (activeView.id === 'view-people') loadPeople(true);
-        else if (activeView.id === 'view-networking') loadNetworkingEvents(true);
+        else if (activeView.id === 'view-networking') { loadNetworkingEvents(true); loadNetworkingClubs(true); }
     }, 5000);
 
     // Initial Load
