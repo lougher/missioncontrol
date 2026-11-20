@@ -1,0 +1,232 @@
+{
+  "searched_at": "2026-11-20T10:55:00Z",
+  "selection_note": "Initial LinkedIn scan for content creator, social content, video producer, YouTube and technical video roles at technology companies or closely adjacent brands in London and Spain. Every retained listing was live in LinkedIn search on 20 November 2026 and its public detail page was inspected.",
+  "language_note": "Only English-speaking roles were retained. Roles requiring Spanish, French or Italian were excluded. Tomorrow University lists German as optional, not required.",
+  "sources": [
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/jobs/"
+    }
+  ],
+  "companies": [
+    {
+      "name": "HowNow",
+      "category": "B2B SaaS and AI learning",
+      "location": "London",
+      "careers_url": "https://uk.linkedin.com/jobs/view/social-content-producer-b2b-experience-required-london-based-at-hownow-4478991722"
+    },
+    {
+      "name": "fonio.ai",
+      "category": "AI agents and communications SaaS",
+      "location": "London and Barcelona",
+      "careers_url": "https://uk.linkedin.com/jobs/view/content-creator-uk-at-fonio-ai-4477855381"
+    },
+    {
+      "name": "SearchApi",
+      "category": "Developer API and AI search data",
+      "location": "Spain / remote",
+      "careers_url": "https://es.linkedin.com/jobs/view/youtube-technical-content-creator-at-searchapi-4431721260"
+    },
+    {
+      "name": "Beam",
+      "category": "AI for frontline services",
+      "location": "London",
+      "careers_url": "https://uk.linkedin.com/jobs/view/content-creator-at-beam-4478122678"
+    },
+    {
+      "name": "Flipper Devices",
+      "category": "Consumer technology and gadgets",
+      "location": "London",
+      "careers_url": "https://uk.linkedin.com/jobs/view/videographer-senior-at-flipper-devices-inc-4474517411"
+    },
+    {
+      "name": "New Scientist",
+      "category": "Science and technology media",
+      "location": "London",
+      "careers_url": "https://uk.linkedin.com/jobs/view/social-video-producer-at-new-scientist-4486180198"
+    },
+    {
+      "name": "Tomorrow University",
+      "category": "EdTech and remote education",
+      "location": "Spain / remote",
+      "careers_url": "https://es.linkedin.com/jobs/view/%F0%9F%8E%AC-junior-video-content-creative-producer-f-m-x-100%25-remote-at-tomorrow-university-of-applied-sciences-4485826880"
+    },
+    {
+      "name": "HP",
+      "category": "Technology and customer education",
+      "location": "Barcelona area",
+      "careers_url": "https://es.linkedin.com/jobs/view/customer-service-project-program-manager-for-video-shorts-at-hp-4489648915"
+    },
+    {
+      "name": "Ministry of Sound",
+      "category": "Music, culture and entertainment",
+      "location": "London",
+      "careers_url": "https://uk.linkedin.com/jobs/view/content-producer-at-ministry-of-sound-4490744160"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "li-hownow-social-content-4478991722",
+      "title": "Social Content Producer - B2B Experience Required",
+      "company": "HowNow",
+      "location": "London, England, United Kingdom",
+      "category": "B2B social content",
+      "source": "LinkedIn",
+      "posted_at": "21/10/26",
+      "url": "https://uk.linkedin.com/jobs/view/social-content-producer-b2b-experience-required-london-based-at-hownow-4478991722",
+      "fit_score": 95,
+      "fit_note": "Exceptional crossover with Phil’s B2B SaaS sales background. The role turns complex SaaS and AI concepts into LinkedIn-first stories for business buyers and expects a hands-on maker who can shoot, edit and design.",
+      "formats": "LinkedIn, video, photography, design and B2B storytelling",
+      "technology": "B2B SaaS, AI workplace learning",
+      "language_requirement": "English only; no other mandatory language found",
+      "status": "new",
+      "updated_at": "2026-11-20T10:44:08.964Z"
+    },
+    {
+      "id": "li-fonio-content-creator-4477855381",
+      "title": "Content Creator (UK)",
+      "company": "fonio.ai",
+      "location": "London Area, United Kingdom",
+      "category": "On-camera AI content",
+      "source": "LinkedIn",
+      "posted_at": "31/10/26",
+      "url": "https://uk.linkedin.com/jobs/view/content-creator-uk-at-fonio-ai-4477855381",
+      "fit_score": 93,
+      "fit_note": "A near-direct match for Phil’s technology, sales and creator ambitions. The role is the on-camera face of a fast-growing B2B AI company, explaining automation in an entertaining, conversion-aware way.",
+      "formats": "TikTok, Instagram Reels and on-camera product storytelling",
+      "technology": "AI agents, automation and communications SaaS",
+      "language_requirement": "Native-level English required",
+      "salary": "£50,000-£65,000 plus equity",
+      "status": "new"
+    },
+    {
+      "id": "li-searchapi-youtube-4431721260",
+      "title": "YouTube Technical Content Creator",
+      "company": "SearchApi",
+      "location": "Spain / remote",
+      "category": "YouTube and developer content",
+      "source": "LinkedIn",
+      "posted_at": "22/06/26; verified live 20/11/26",
+      "url": "https://es.linkedin.com/jobs/view/youtube-technical-content-creator-at-searchapi-4431721260",
+      "fit_score": 88,
+      "fit_note": "Owns an AI-native technology company’s video channel and presents demos, shorts, webinars and long-form YouTube. Strong creator fit; the main stretch is building and confidently explaining working developer demos.",
+      "formats": "YouTube Shorts, long-form video, webinars and technical demos",
+      "technology": "Search API, AI and developer tools",
+      "language_requirement": "Native or C2 English required; no Spanish requirement",
+      "status": "new"
+    },
+    {
+      "id": "li-beam-content-4478122678",
+      "title": "Content Creator",
+      "company": "Beam",
+      "location": "London Area, United Kingdom",
+      "category": "AI brand content",
+      "source": "LinkedIn",
+      "posted_at": "13/10/26",
+      "url": "https://uk.linkedin.com/jobs/view/content-creator-at-beam-4478122678",
+      "fit_score": 85,
+      "fit_note": "Owns social content for an AI company with an impact-led mission. It combines storytelling, video, photography, writing and leadership content with input from sales and the wider business.",
+      "formats": "Social video, photography, blogs, paid social and LinkedIn",
+      "technology": "Applied AI for frontline services",
+      "language_requirement": "English listing; no other mandatory language found",
+      "status": "new"
+    },
+    {
+      "id": "li-fonio-video-producer-4480125605",
+      "title": "Video Producer",
+      "company": "fonio.ai",
+      "location": "Barcelona, Catalonia, Spain",
+      "category": "Video production and editing",
+      "source": "LinkedIn",
+      "posted_at": "06/11/26",
+      "url": "https://es.linkedin.com/jobs/view/video-producer-at-fonio-ai-4480125605",
+      "fit_score": 82,
+      "fit_note": "Strong AI and SaaS environment with end-to-end ownership of YouTube, LinkedIn, Reels and paid video. The biggest gap is the stated three years of professional editing experience.",
+      "formats": "YouTube tutorials and interviews, LinkedIn clips, Reels and paid ads",
+      "technology": "AI agents and communications SaaS",
+      "language_requirement": "English application and working environment; no Spanish requirement found",
+      "salary": "€55,000-€80,000 plus equity and relocation support",
+      "status": "new"
+    },
+    {
+      "id": "li-flipper-videographer-4474517411",
+      "title": "Senior Videographer",
+      "company": "Flipper Devices Inc",
+      "location": "London, England, United Kingdom",
+      "category": "Product video and social",
+      "source": "LinkedIn",
+      "posted_at": "01/10/26",
+      "url": "https://uk.linkedin.com/jobs/view/videographer-senior-at-flipper-devices-inc-4474517411",
+      "fit_score": 78,
+      "fit_note": "Creates entertaining, educational and promotional content for a distinctive consumer technology brand. Excellent sector fit, with a higher technical production bar and three-plus years of video experience required.",
+      "formats": "Instagram, TikTok, YouTube, tutorials, interviews and vertical video",
+      "technology": "Consumer gadgets, productivity hardware and apps",
+      "language_requirement": "C1 English required; no other mandatory language",
+      "status": "new"
+    },
+    {
+      "id": "li-new-scientist-video-4486180198",
+      "title": "Social Video Producer",
+      "company": "New Scientist",
+      "location": "London Area, United Kingdom",
+      "category": "Science video storytelling",
+      "source": "LinkedIn",
+      "posted_at": "02/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/social-video-producer-at-new-scientist-4486180198",
+      "fit_score": 76,
+      "fit_note": "A strong technology-adjacent creator role producing accurate, entertaining science videos and helping journalists present on camera. Direct editorial video experience is likely the main gap.",
+      "formats": "Instagram, TikTok, Facebook, YouTube, podcasts and interviews",
+      "technology": "Science, technology and digital media",
+      "language_requirement": "English listing; no other mandatory language found",
+      "status": "new"
+    },
+    {
+      "id": "li-tomorrow-university-video-4485826880",
+      "title": "Junior Video Content & Creative Producer",
+      "company": "Tomorrow University of Applied Sciences",
+      "location": "Spain / 100% remote",
+      "category": "EdTech video content",
+      "source": "LinkedIn",
+      "posted_at": "05/11/26",
+      "url": "https://es.linkedin.com/jobs/view/%F0%9F%8E%AC-junior-video-content-creative-producer-f-m-x-100%25-remote-at-tomorrow-university-of-applied-sciences-4485826880",
+      "fit_score": 75,
+      "fit_note": "Remote-first EdTech creator role spanning demand creation and recurring video formats. It is junior, but offers a credible entry into technology content with location flexibility from Spain.",
+      "formats": "Video series, YouTube and marketing content",
+      "technology": "EdTech, AI-enabled learning and remote education",
+      "language_requirement": "English working environment; German is optional, not required",
+      "status": "new"
+    },
+    {
+      "id": "li-hp-video-shorts-4489648915",
+      "title": "Customer Service Project/Program Manager for Video Shorts",
+      "company": "HP",
+      "location": "Sant Cugat del Vallès, Catalonia, Spain",
+      "category": "YouTube Shorts strategy",
+      "source": "LinkedIn",
+      "posted_at": "10/11/26",
+      "url": "https://es.linkedin.com/jobs/view/customer-service-project-program-manager-for-video-shorts-at-hp-4489648915",
+      "fit_score": 72,
+      "fit_note": "Technology-company role owning strategy and delivery for HP Support YouTube Shorts. Phil’s stakeholder and project skills transfer well, though it manages vendors more than creating every video personally.",
+      "formats": "YouTube Shorts and short-form customer support video",
+      "technology": "Consumer technology and customer education",
+      "language_requirement": "English-related degree accepted; no mandatory Spanish requirement found",
+      "status": "new"
+    },
+    {
+      "id": "li-ministry-content-producer-4490744160",
+      "title": "Content Producer",
+      "company": "Ministry of Sound",
+      "location": "London, England, United Kingdom",
+      "category": "Culture and music content",
+      "source": "LinkedIn",
+      "posted_at": "13/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/content-producer-at-ministry-of-sound-4490744160",
+      "fit_score": 71,
+      "fit_note": "Not a technology company, but an unusually strong passion match combining video, YouTube, artists, club nights and social storytelling. It expects confident filming, editing and colour grading in live environments.",
+      "formats": "YouTube, TikTok, Instagram, Twitch, interviews, live events and photography",
+      "technology": "Digital content production and social platforms",
+      "language_requirement": "English listing; no other mandatory language found",
+      "status": "new"
+    }
+  ]
+}
