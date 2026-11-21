@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
             else loadYtJobs(true);
         }
         if (targetId === 'view-people') loadPeople(true);
-        if (targetId === 'view-networking') { loadNetworkingEvents(true); loadNetworkingClubs(true); }
+        if (targetId === 'view-networking') { loadNetworkingEvents(true); loadNetworkingClubs(true); loadNetworkingInfluencers(true); }
         if (targetId === 'view-djing') loadDjGigs(true);
         if (targetId === 'view-property') {
             const activePropertyTab = localStorage.getItem('property-tab') || 'openrent';
@@ -7398,24 +7398,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const networkingTabEvents = document.getElementById('networking-tab-events');
     const networkingTabClubs = document.getElementById('networking-tab-clubs');
+    const networkingTabInfluencers = document.getElementById('networking-tab-influencers');
     const networkingPanelEvents = document.getElementById('networking-panel-events');
     const networkingPanelClubs = document.getElementById('networking-panel-clubs');
+    const networkingPanelInfluencers = document.getElementById('networking-panel-influencers');
     const networkingClubsList = document.getElementById('networking-clubs-list');
     const networkingClubSearch = document.getElementById('networking-club-search');
     const networkingClubCategoryFilter = document.getElementById('networking-club-category-filter');
     const networkingClubAreaFilter = document.getElementById('networking-club-area-filter');
     const networkingClubStatusFilter = document.getElementById('networking-club-status-filter');
+    const networkingInfluencersList = document.getElementById('networking-influencers-list');
+    const networkingInfluencerSearch = document.getElementById('networking-influencer-search');
+    const networkingInfluencerCategoryFilter = document.getElementById('networking-influencer-category-filter');
+    const networkingInfluencerEaseFilter = document.getElementById('networking-influencer-ease-filter');
+    const networkingInfluencerStatusFilter = document.getElementById('networking-influencer-status-filter');
     let networkingClubs = [];
     let networkingClubsMeta = {};
-    let activeNetworkingTab = localStorage.getItem('networking-active-tab') === 'clubs' ? 'clubs' : 'events';
+    let networkingInfluencers = [];
+    let networkingInfluencersMeta = {};
+    const savedNetworkingTab = localStorage.getItem('networking-active-tab');
+    let activeNetworkingTab = ['events', 'clubs', 'influencers'].includes(savedNetworkingTab) ? savedNetworkingTab : 'events';
 
     function setNetworkingTab(tab) {
-        activeNetworkingTab = tab === 'clubs' ? 'clubs' : 'events';
+        activeNetworkingTab = ['events', 'clubs', 'influencers'].includes(tab) ? tab : 'events';
         localStorage.setItem('networking-active-tab', activeNetworkingTab);
-        const clubsActive = activeNetworkingTab === 'clubs';
-        networkingPanelEvents?.classList.toggle('hidden', clubsActive);
-        networkingPanelClubs?.classList.toggle('hidden', !clubsActive);
-        [networkingTabEvents, networkingTabClubs].forEach(button => {
+        networkingPanelEvents?.classList.toggle('hidden', activeNetworkingTab !== 'events');
+        networkingPanelClubs?.classList.toggle('hidden', activeNetworkingTab !== 'clubs');
+        networkingPanelInfluencers?.classList.toggle('hidden', activeNetworkingTab !== 'influencers');
+        [networkingTabEvents, networkingTabClubs, networkingTabInfluencers].forEach(button => {
             if (!button) return;
             const selected = button.dataset.networkingTab === activeNetworkingTab;
             button.setAttribute('aria-selected', String(selected));
@@ -7425,7 +7435,8 @@ document.addEventListener("DOMContentLoaded", () => {
             button.classList.toggle('border-transparent', !selected);
             button.classList.toggle('text-gray-500', !selected);
         });
-        if (clubsActive) renderNetworkingClubs();
+        if (activeNetworkingTab === 'clubs') renderNetworkingClubs();
+        else if (activeNetworkingTab === 'influencers') renderNetworkingInfluencers();
         else renderNetworkingEvents();
         updateNetworkingMeta();
     }
@@ -7435,6 +7446,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (activeNetworkingTab === 'clubs') {
             const checked = networkingClubsMeta.researched_at ? new Date(networkingClubsMeta.researched_at).toLocaleString('en-GB') : 'Not checked yet';
             networkingScanMeta.innerText = 'Club research checked ' + checked + ' · ' + networkingClubs.length + ' repeat-visit communities.';
+            return;
+        }
+        if (activeNetworkingTab === 'influencers') {
+            const checked = networkingInfluencersMeta.researched_at ? new Date(networkingInfluencersMeta.researched_at).toLocaleString('en-GB') : 'Not checked yet';
+            networkingScanMeta.innerText = 'Influencer research checked ' + checked + ' · ' + networkingInfluencers.length + ' London-connected public profiles.';
             return;
         }
         const today = new Date(); today.setHours(0, 0, 0, 0);
@@ -7544,13 +7560,116 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    refreshNetworkingBtn?.addEventListener('click', () => activeNetworkingTab === 'clubs' ? loadNetworkingClubs() : loadNetworkingEvents());
+    function networkingInfluencerStatusLabel(status) {
+        return ({ new: 'New', following: 'Following', target: 'Priority target', contacted: 'Contacted', met: 'Met', not_for_me: 'Not for me' })[status] || 'New';
+    }
+
+    function populateNetworkingInfluencerCategories() {
+        if (!networkingInfluencerCategoryFilter) return;
+        const selected = networkingInfluencerCategoryFilter.value || 'all';
+        const categories = [...new Set(networkingInfluencers.map(person => person.category).filter(Boolean))].sort();
+        networkingInfluencerCategoryFilter.innerHTML = '<option value="all">All categories</option>' + categories.map(category => '<option value="' + escapeHtml(category) + '">' + escapeHtml(category) + '</option>').join('');
+        networkingInfluencerCategoryFilter.value = categories.includes(selected) ? selected : 'all';
+    }
+
+    function filteredNetworkingInfluencers() {
+        const search = (networkingInfluencerSearch?.value || '').trim().toLowerCase();
+        const category = networkingInfluencerCategoryFilter?.value || 'all';
+        const minimumEase = Number(networkingInfluencerEaseFilter?.value || 0);
+        const status = networkingInfluencerStatusFilter?.value || 'active';
+        return networkingInfluencers.filter(person => {
+            const currentStatus = person.status || 'new';
+            const haystack = [person.name, person.category, person.london_connection, person.why_relevant, person.known_for, person.public_route, person.approach].join(' ').toLowerCase();
+            if (search && !haystack.includes(search)) return false;
+            if (category !== 'all' && person.category !== category) return false;
+            if (minimumEase && Number(person.meeting_ease || 0) < minimumEase) return false;
+            if (status === 'active' && currentStatus === 'not_for_me') return false;
+            if (!['active', 'all'].includes(status) && currentStatus !== status) return false;
+            return true;
+        }).sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0));
+    }
+
+    function renderNetworkingInfluencers() {
+        if (!networkingInfluencersList) return;
+        document.getElementById('networking-influencers-total').innerText = networkingInfluencers.length;
+        document.getElementById('networking-influencers-accessible').innerText = networkingInfluencers.filter(person => Number(person.meeting_ease || 0) >= 4).length;
+        document.getElementById('networking-influencers-targeted').innerText = networkingInfluencers.filter(person => ['following', 'target'].includes(person.status)).length;
+        document.getElementById('networking-influencers-connected').innerText = networkingInfluencers.filter(person => ['contacted', 'met'].includes(person.status)).length;
+        const people = filteredNetworkingInfluencers();
+        networkingInfluencersList.innerHTML = people.length ? people.map(person => {
+            const currentStatus = person.status || 'new';
+            const ease = Math.max(1, Math.min(5, Number(person.meeting_ease || 1)));
+            const easeDots = Array.from({ length: 5 }, (_, index) => '<span class="inline-block w-2 h-2 rounded-full ' + (index < ease ? 'bg-indigo-500' : 'bg-gray-200 dark:bg-white/10') + '"></span>').join('');
+            const secondaryLink = person.secondary_url ? '<a href="' + escapeHtml(person.secondary_url) + '" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded border border-gray-300 text-gray-700 dark:border-white/20 dark:text-gray-200">Related platform</a>' : '';
+            return '<article class="bg-white dark:bg-[#171717] border border-gray-200 dark:border-white/10 rounded-xl p-5 ' + (currentStatus === 'not_for_me' ? 'opacity-60' : '') + '">' +
+                '<div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">' +
+                    '<div class="min-w-0 flex-1">' +
+                        '<div class="flex flex-wrap items-center gap-2 mb-2"><h2 class="text-lg font-semibold dark:text-white">' + escapeHtml(person.name || 'Unnamed') + '</h2><span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300">' + escapeHtml(person.category || '') + '</span><span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">' + Number(person.priority || 0) + ' fit</span></div>' +
+                        '<div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400"><span>Public meeting ease</span><span class="flex gap-1">' + easeDots + '</span><span>' + ease + '/5</span></div>' +
+                        '<p class="text-sm font-medium text-gray-800 dark:text-gray-100 mt-3">Known for: ' + escapeHtml(person.known_for || '') + '</p>' +
+                        '<p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">' + escapeHtml(person.why_relevant || '') + '</p>' +
+                        '<div class="mt-3 rounded-lg bg-gray-50 dark:bg-white/5 p-3 text-sm"><div class="text-xs uppercase tracking-wide text-gray-400">London connection</div><div class="dark:text-white mt-1">' + escapeHtml(person.london_connection || '') + '</div></div>' +
+                        '<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 text-sm"><div class="rounded-lg bg-indigo-50 dark:bg-indigo-500/10 p-3"><div class="text-xs uppercase tracking-wide text-indigo-500">Public meeting route</div><div class="dark:text-white mt-1">' + escapeHtml(person.public_route || '') + '</div></div><div class="rounded-lg bg-amber-50 dark:bg-amber-500/10 p-3"><div class="text-xs uppercase tracking-wide text-amber-600">Best approach</div><div class="dark:text-white mt-1">' + escapeHtml(person.approach || '') + '</div></div></div>' +
+                        '<p class="text-xs text-gray-400 dark:text-gray-500 mt-4">Evidence: ' + escapeHtml(person.evidence_note || '') + '</p>' +
+                    '</div>' +
+                    '<div class="grid grid-cols-2 xl:flex xl:flex-col gap-2 xl:items-stretch xl:w-36">' +
+                        '<button type="button" onclick="updateNetworkingInfluencerStatus(\'' + escapeHtml(person.id) + '\',\'following\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'following' ? 'bg-emerald-600 text-white' : 'border border-emerald-500 text-emerald-700 dark:text-emerald-300') + '">Following</button>' +
+                        '<button type="button" onclick="updateNetworkingInfluencerStatus(\'' + escapeHtml(person.id) + '\',\'target\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'target' ? 'bg-indigo-600 text-white' : 'border border-indigo-500 text-indigo-700 dark:text-indigo-300') + '">Priority target</button>' +
+                        '<button type="button" onclick="updateNetworkingInfluencerStatus(\'' + escapeHtml(person.id) + '\',\'contacted\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'contacted' ? 'bg-blue-600 text-white' : 'border border-blue-500 text-blue-700 dark:text-blue-300') + '">Contacted</button>' +
+                        '<button type="button" onclick="updateNetworkingInfluencerStatus(\'' + escapeHtml(person.id) + '\',\'met\')" class="text-xs px-3 py-2 rounded ' + (currentStatus === 'met' ? 'bg-fuchsia-600 text-white' : 'border border-fuchsia-500 text-fuchsia-700 dark:text-fuchsia-300') + '">Met</button>' +
+                        '<button type="button" onclick="updateNetworkingInfluencerStatus(\'' + escapeHtml(person.id) + '\',\'not_for_me\')" class="text-xs px-3 py-2 rounded border border-gray-300 text-gray-600 dark:border-white/20 dark:text-gray-300">' + (currentStatus === 'not_for_me' ? 'Restore' : 'Not for me') + '</button>' +
+                        '<a href="' + escapeHtml(person.primary_url || '#') + '" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded bg-black text-white dark:bg-white dark:text-black">Public profile</a>' + secondaryLink +
+                        '<div class="col-span-2 text-center text-[11px] text-gray-400 mt-1">' + escapeHtml(networkingInfluencerStatusLabel(currentStatus)) + '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</article>';
+        }).join('') : '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No influencers match the current filters.</div>';
+    }
+
+    async function loadNetworkingInfluencers(silent = false) {
+        if (!networkingInfluencersList) return;
+        if (!silent) networkingInfluencersList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading London influencers...</div>';
+        try {
+            const res = await fetch('/api/networking-influencers');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Influencer request failed');
+            networkingInfluencers = Array.isArray(data.influencers) ? data.influencers : [];
+            networkingInfluencersMeta = data || {};
+            populateNetworkingInfluencerCategories();
+            renderNetworkingInfluencers();
+            updateNetworkingMeta();
+        } catch (error) {
+            console.error(error);
+            networkingInfluencersList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-lg p-6 text-red-600 dark:text-red-300">Failed to load London influencers.</div>';
+        }
+    }
+
+    window.updateNetworkingInfluencerStatus = async (id, status) => {
+        const current = networkingInfluencers.find(person => person.id === id);
+        const nextStatus = status === 'not_for_me' && current?.status === 'not_for_me' ? 'new' : status;
+        try {
+            const res = await fetch('/api/networking-influencers/' + encodeURIComponent(id) + '/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: nextStatus }) });
+            const data = await res.json();
+            if (!res.ok || !data.influencer) throw new Error(data.error || 'Influencer status update failed');
+            const index = networkingInfluencers.findIndex(person => person.id === id);
+            if (index !== -1) networkingInfluencers[index] = data.influencer;
+            renderNetworkingInfluencers();
+        } catch (error) {
+            console.error(error);
+            alert('Could not update influencer status.');
+        }
+    };
+
+    refreshNetworkingBtn?.addEventListener('click', () => activeNetworkingTab === 'clubs' ? loadNetworkingClubs() : activeNetworkingTab === 'influencers' ? loadNetworkingInfluencers() : loadNetworkingEvents());
     networkingTabEvents?.addEventListener('click', () => setNetworkingTab('events'));
     networkingTabClubs?.addEventListener('click', () => setNetworkingTab('clubs'));
+    networkingTabInfluencers?.addEventListener('click', () => setNetworkingTab('influencers'));
     [networkingSearch, networkingCategoryFilter, networkingRegionFilter, networkingPriceFilter, networkingStatusFilter, networkingSort].forEach(element => element?.addEventListener('input', renderNetworkingEvents));
     [networkingCategoryFilter, networkingRegionFilter, networkingPriceFilter, networkingStatusFilter, networkingSort].forEach(element => element?.addEventListener('change', renderNetworkingEvents));
     [networkingClubSearch, networkingClubCategoryFilter, networkingClubAreaFilter, networkingClubStatusFilter].forEach(element => element?.addEventListener('input', renderNetworkingClubs));
     [networkingClubCategoryFilter, networkingClubAreaFilter, networkingClubStatusFilter].forEach(element => element?.addEventListener('change', renderNetworkingClubs));
+    [networkingInfluencerSearch, networkingInfluencerCategoryFilter, networkingInfluencerEaseFilter, networkingInfluencerStatusFilter].forEach(element => element?.addEventListener('input', renderNetworkingInfluencers));
+    [networkingInfluencerCategoryFilter, networkingInfluencerEaseFilter, networkingInfluencerStatusFilter].forEach(element => element?.addEventListener('change', renderNetworkingInfluencers));
     setNetworkingTab(activeNetworkingTab);
 
     // === DJing opportunities ===
@@ -8796,7 +8915,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         else if (activeView.id === 'view-analytics') loadAnalyticsData(true);
         else if (activeView.id === 'view-people') loadPeople(true);
-        else if (activeView.id === 'view-networking') { loadNetworkingEvents(true); loadNetworkingClubs(true); }
+        else if (activeView.id === 'view-networking') { loadNetworkingEvents(true); loadNetworkingClubs(true); loadNetworkingInfluencers(true); }
     }, 5000);
 
     // Initial Load

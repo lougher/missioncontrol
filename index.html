@@ -1490,6 +1490,7 @@
             <div class="flex gap-2 border-b border-gray-200 dark:border-white/10 mb-6 overflow-x-auto" role="tablist" aria-label="Networking sections">
                 <button id="networking-tab-events" data-networking-tab="events" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-indigo-600 text-indigo-600 dark:text-indigo-300" role="tab" aria-selected="true">Events</button>
                 <button id="networking-tab-clubs" data-networking-tab="clubs" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Clubs & communities</button>
+                <button id="networking-tab-influencers" data-networking-tab="influencers" class="shrink-0 px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-800 dark:hover:text-gray-200" role="tab" aria-selected="false">Influencers</button>
             </div>
 
             <section id="networking-panel-events" data-networking-panel="events">
@@ -1538,6 +1539,29 @@
                 </div>
 
                 <div id="networking-clubs-list" class="space-y-4"><div class="text-sm text-gray-500 dark:text-gray-400">Loading clubs...</div></div>
+            </section>
+
+            <section id="networking-panel-influencers" data-networking-panel="influencers" class="hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">People researched</div><div id="networking-influencers-total" class="text-3xl font-semibold mt-2 dark:text-white">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Easier public routes</div><div id="networking-influencers-accessible" class="text-3xl font-semibold mt-2 text-indigo-600 dark:text-indigo-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Following / targets</div><div id="networking-influencers-targeted" class="text-3xl font-semibold mt-2 text-emerald-600 dark:text-emerald-300">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500">Contacted / met</div><div id="networking-influencers-connected" class="text-3xl font-semibold mt-2 text-fuchsia-600 dark:text-fuchsia-300">0</div></div>
+                </div>
+
+                <div class="bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 rounded-xl p-4 mb-6 text-sm text-indigo-950 dark:text-indigo-100">
+                    <div class="font-semibold">Ranked for relevance and realistic public access</div>
+                    <p class="mt-1 text-indigo-900/80 dark:text-indigo-100/70">This is not a definitive follower league table. It prioritises London-connected people relevant to your business, property and creator goals, with public events or professional channels where a genuine introduction is possible. Private locations are deliberately excluded.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-12 gap-3">
+                    <input id="networking-influencer-search" class="md:col-span-4 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white" placeholder="Search person, category, route or relevance">
+                    <select id="networking-influencer-category-filter" class="md:col-span-3 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="all">All categories</option></select>
+                    <select id="networking-influencer-ease-filter" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="all">Any meeting ease</option><option value="4">Easier public route</option><option value="3">Moderate or easier</option><option value="2">Long-term targets</option></select>
+                    <select id="networking-influencer-status-filter" class="md:col-span-3 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white"><option value="active" selected>Active shortlist</option><option value="following">Following</option><option value="target">Priority target</option><option value="contacted">Contacted</option><option value="met">Met</option><option value="not_for_me">Not for me</option><option value="all">All statuses</option></select>
+                </div>
+
+                <div id="networking-influencers-list" class="space-y-4"><div class="text-sm text-gray-500 dark:text-gray-400">Loading London influencers...</div></div>
             </section>
         </div>
         <!-- ================= VIEW: PROPERTY ================= -->

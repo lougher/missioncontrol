@@ -78,6 +78,7 @@ const APPLIED_JOBS_PRIVATE_FILE = path.join(__dirname, 'applied_jobs_private.jso
 const DJ_GIGS_DB_FILE = path.join(__dirname, 'dj_gigs.json');
 const NETWORKING_EVENTS_DB_FILE = path.join(__dirname, 'networking_events.json');
 const NETWORKING_CLUBS_DB_FILE = path.join(__dirname, 'networking_clubs.json');
+const NETWORKING_INFLUENCERS_DB_FILE = path.join(__dirname, 'networking_influencers.json');
 const PROPERTY_DEALS_DB_FILE = path.join(__dirname, 'property_deals.json');
 const PROPERTY_TRACKER_STATE_FILE = path.join(WORKSPACE_DIR, 'property-deals', 'cardiff-hmo-tracker-state.json');
 const OPENRENT_LEADS_FILE = path.join(WORKSPACE_DIR, 'property-leads', 'openrent-leads.json');
@@ -474,6 +475,31 @@ const server = http.createServer((req, res) => {
             } catch (err) {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update networking club status' }));
+            }
+        });
+    } else if (req.url === '/api/networking-influencers') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readNetworkingInfluencersDb();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/networking-influencers\/[^/]+\/status$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const { status } = JSON.parse(body || '{}');
+                const influencer = updateNetworkingInfluencerStatus(id, status);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, influencer }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update influencer status' }));
             }
         });
     } else if (req.url === '/api/ytjobs-talents') {
@@ -2711,6 +2737,41 @@ function updateNetworkingClubStatus(id, status) {
     club.updated_at = new Date().toISOString();
     writeNetworkingClubsDb(db);
     return club;
+}
+
+function readNetworkingInfluencersDb() {
+    try {
+        const parsed = JSON.parse(fs.readFileSync(NETWORKING_INFLUENCERS_DB_FILE, 'utf8'));
+        return {
+            researched_at: parsed.researched_at || '',
+            scope: parsed.scope || '',
+            method: Array.isArray(parsed.method) ? parsed.method : [],
+            influencers: Array.isArray(parsed.influencers) ? parsed.influencers : []
+        };
+    } catch {
+        return { researched_at: '', scope: '', method: [], influencers: [] };
+    }
+}
+
+function writeNetworkingInfluencersDb(db) {
+    fs.writeFileSync(NETWORKING_INFLUENCERS_DB_FILE, JSON.stringify({
+        researched_at: db.researched_at || '',
+        scope: db.scope || '',
+        method: Array.isArray(db.method) ? db.method : [],
+        influencers: Array.isArray(db.influencers) ? db.influencers : []
+    }, null, 2) + '\n');
+}
+
+function updateNetworkingInfluencerStatus(id, status) {
+    const allowed = new Set(['new', 'following', 'target', 'contacted', 'met', 'not_for_me']);
+    if (!allowed.has(status)) throw new Error('Invalid influencer status');
+    const db = readNetworkingInfluencersDb();
+    const influencer = db.influencers.find(item => item.id === id);
+    if (!influencer) throw new Error('Influencer not found');
+    influencer.status = status;
+    influencer.updated_at = new Date().toISOString();
+    writeNetworkingInfluencersDb(db);
+    return influencer;
 }
 
 function getYtJobsTalentId(talent) {
