@@ -8293,7 +8293,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (aiJobsScanMeta) {
             const checked = aiJobsMeta.searched_at ? new Date(aiJobsMeta.searched_at).toLocaleString() : 'Not checked yet';
             const closedSaved = aiJobs.length - liveJobs.length;
-            aiJobsScanMeta.innerText = `${aiCompanies.length}/${aiCompanies.length} employer career sites checked ${checked} · ${liveJobs.length} relevant live roles found${closedSaved ? ` · ${closedSaved} closed saved role${closedSaved === 1 ? '' : 's'}.` : '.'}`;
+            aiJobsScanMeta.innerText = `${aiCompanies.length} AI employers monitored · search refreshed ${checked} · ${liveJobs.length} relevant live roles found${closedSaved ? ` · ${closedSaved} closed saved role${closedSaved === 1 ? '' : 's'}.` : '.'}`;
         }
 
         const jobs = filteredAiJobs();
