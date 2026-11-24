@@ -7795,11 +7795,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const jobsAiTab = document.getElementById('jobs-ai-tab');
     const jobsMusicTab = document.getElementById('jobs-music-tab');
     const jobsContentTab = document.getElementById('jobs-content-tab');
+    const jobsPropertyTab = document.getElementById('jobs-property-tab');
     const jobsAppliedTab = document.getElementById('jobs-applied-tab');
     const jobsYtJobsPanel = document.getElementById('jobs-ytjobs-panel');
     const jobsAiPanel = document.getElementById('jobs-ai-panel');
     const jobsMusicPanel = document.getElementById('jobs-music-panel');
     const jobsContentPanel = document.getElementById('jobs-content-panel');
+    const jobsPropertyPanel = document.getElementById('jobs-property-panel');
     const jobsAppliedPanel = document.getElementById('jobs-applied-panel');
     const refreshAiJobsBtn = document.getElementById('refresh-ai-jobs-btn');
     const aiJobsScanMeta = document.getElementById('ai-jobs-scan-meta');
@@ -7830,6 +7832,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const contentJobsList = document.getElementById('content-jobs-list');
     const contentCompaniesList = document.getElementById('content-companies-list');
     const contentJobsScanMeta = document.getElementById('content-jobs-scan-meta');
+    const refreshPropertyJobsBtn = document.getElementById('refresh-property-jobs-btn');
+    const propertyJobsSearch = document.getElementById('property-jobs-search');
+    const propertyJobsLocationFilter = document.getElementById('property-jobs-location-filter');
+    const propertyJobsCategoryFilter = document.getElementById('property-jobs-category-filter');
+    const propertyJobsStatusFilter = document.getElementById('property-jobs-status-filter');
+    const propertyJobsList = document.getElementById('property-jobs-list');
+    const propertyCompaniesList = document.getElementById('property-companies-list');
+    const propertyJobsScanMeta = document.getElementById('property-jobs-scan-meta');
     const refreshAppliedJobsBtn = document.getElementById('refresh-applied-jobs-btn');
     const appliedJobsMeta = document.getElementById('applied-jobs-meta');
     const appliedJobsTotal = document.getElementById('applied-jobs-total');
@@ -7848,19 +7858,23 @@ document.addEventListener("DOMContentLoaded", () => {
     let contentJobs = [];
     let contentCompanies = [];
     let contentJobsMeta = {};
+    let propertyJobs = [];
+    let propertyCompanies = [];
+    let propertyJobsMeta = {};
     let appliedJobsData = { jobs: [] };
 
     function setJobsTab(tab) {
-        const activeTab = ['ai', 'music', 'content', 'applied'].includes(tab) ? tab : 'ytjobs';
+        const activeTab = ['ai', 'music', 'content', 'property', 'applied'].includes(tab) ? tab : 'ytjobs';
         localStorage.setItem('jobs-tab', activeTab);
         jobsYtJobsPanel?.classList.toggle('hidden', activeTab !== 'ytjobs');
         jobsAiPanel?.classList.toggle('hidden', activeTab !== 'ai');
         jobsMusicPanel?.classList.toggle('hidden', activeTab !== 'music');
         jobsContentPanel?.classList.toggle('hidden', activeTab !== 'content');
+        jobsPropertyPanel?.classList.toggle('hidden', activeTab !== 'property');
         jobsAppliedPanel?.classList.toggle('hidden', activeTab !== 'applied');
-        [jobsYtJobsTab, jobsAiTab, jobsMusicTab, jobsContentTab, jobsAppliedTab].forEach(button => {
+        [jobsYtJobsTab, jobsAiTab, jobsMusicTab, jobsContentTab, jobsPropertyTab, jobsAppliedTab].forEach(button => {
             if (!button) return;
-            const selected = (button === jobsYtJobsTab && activeTab === 'ytjobs') || (button === jobsAiTab && activeTab === 'ai') || (button === jobsMusicTab && activeTab === 'music') || (button === jobsContentTab && activeTab === 'content') || (button === jobsAppliedTab && activeTab === 'applied');
+            const selected = (button === jobsYtJobsTab && activeTab === 'ytjobs') || (button === jobsAiTab && activeTab === 'ai') || (button === jobsMusicTab && activeTab === 'music') || (button === jobsContentTab && activeTab === 'content') || (button === jobsPropertyTab && activeTab === 'property') || (button === jobsAppliedTab && activeTab === 'applied');
             button.classList.toggle('bg-white', selected);
             button.classList.toggle('dark:bg-[#171717]', selected);
             button.classList.toggle('shadow-sm', selected);
@@ -7871,6 +7885,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (activeTab === 'ai') loadAiJobs(true);
         else if (activeTab === 'music') loadMusicJobs(true);
         else if (activeTab === 'content') loadContentJobs(true);
+        else if (activeTab === 'property') loadPropertyJobs(true);
         else if (activeTab === 'applied') loadAppliedJobs(true);
         else loadYtJobs(true);
     }
@@ -7958,6 +7973,96 @@ document.addEventListener("DOMContentLoaded", () => {
             if (button) button.disabled = false;
         }
     }
+
+
+    function propertyJobFitClass(score) {
+        if (Number(score) >= 80) return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300';
+        if (Number(score) >= 65) return 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300';
+        return 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+    }
+
+    function populatePropertyJobCategories() {
+        if (!propertyJobsCategoryFilter) return;
+        const current = propertyJobsCategoryFilter.value || 'all';
+        const categories = [...new Set(propertyJobs.map(job => job.category).filter(Boolean))].sort();
+        propertyJobsCategoryFilter.innerHTML = '<option value="all">All property sectors</option>' + categories.map(category => '<option value="' + escapeHtml(category) + '">' + escapeHtml(category) + '</option>').join('');
+        propertyJobsCategoryFilter.value = categories.includes(current) ? current : 'all';
+    }
+
+    function filteredPropertyJobs() {
+        const search = (propertyJobsSearch?.value || '').toLowerCase().trim();
+        const location = propertyJobsLocationFilter?.value || 'all';
+        const category = propertyJobsCategoryFilter?.value || 'all';
+        const status = propertyJobsStatusFilter?.value || 'active';
+        return propertyJobs.filter(job => {
+            const jobStatus = job.status || 'new';
+            const haystack = [job.title, job.company, job.location, job.category, job.fit_note, job.sector].join(' ').toLowerCase();
+            if (search && !haystack.includes(search)) return false;
+            if (location === 'London' && !/london/i.test(job.location || '')) return false;
+            if (location === 'UK' && /london/i.test(job.location || '')) return false;
+            if (category !== 'all' && job.category !== category) return false;
+            if (status === 'active' && jobStatus === 'not_interested') return false;
+            if (!['active', 'all'].includes(status) && jobStatus !== status) return false;
+            return true;
+        }).sort((a, b) => Number(b.fit_score || 0) - Number(a.fit_score || 0) || String(a.company || '').localeCompare(String(b.company || '')));
+    }
+
+    function renderPropertyJobs() {
+        if (!propertyJobsList) return;
+        const total = document.getElementById('property-jobs-total');
+        const strong = document.getElementById('property-jobs-strong');
+        const interested = document.getElementById('property-jobs-interested');
+        const applied = document.getElementById('property-jobs-applied');
+        if (total) total.innerText = propertyJobs.length;
+        if (strong) strong.innerText = propertyJobs.filter(job => Number(job.fit_score || 0) >= 80).length;
+        if (interested) interested.innerText = propertyJobs.filter(job => job.status === 'interested').length;
+        if (applied) applied.innerText = propertyJobs.filter(job => job.status === 'applied').length;
+        if (propertyJobsScanMeta) {
+            const checked = propertyJobsMeta.searched_at ? new Date(propertyJobsMeta.searched_at).toLocaleString('en-GB') : 'Not checked yet';
+            propertyJobsScanMeta.innerText = propertyJobs.length + ' live UK roles checked ' + checked + ' across property software, proptech and accommodation operators.';
+        }
+        const jobs = filteredPropertyJobs();
+        propertyJobsList.innerHTML = jobs.length ? jobs.map(job =>             '<article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 ' + (job.status === 'not_interested' ? 'opacity-60' : '') + '">' +
+            '<div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4"><div class="min-w-0 flex-1">' +
+            '<div class="flex flex-wrap items-center gap-2 mb-2"><h3 class="text-lg font-semibold dark:text-white">' + escapeHtml(job.title || 'Untitled role') + '</h3><span class="text-xs px-2.5 py-1 rounded-full ' + propertyJobFitClass(job.fit_score) + '">' + Number(job.fit_score || 0) + '% fit</span><span class="text-xs px-2.5 py-1 rounded-full bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-300">' + escapeHtml(job.category || 'Property') + '</span></div>' +
+            '<div class="text-sm text-gray-700 dark:text-gray-200">' + escapeHtml(job.company || 'Unknown company') + ' · ' + escapeHtml(job.location || '') + '</div>' +
+            '<p class="text-sm text-gray-500 dark:text-gray-400 mt-3">' + escapeHtml(job.fit_note || '') + '</p>' +
+            (job.salary ? '<p class="text-xs text-gray-500 dark:text-gray-400 mt-3"><span class="font-medium">Salary:</span> ' + escapeHtml(job.salary) + '</p>' : '') +
+            '<div class="flex flex-wrap gap-3 text-xs text-gray-400 mt-3"><span>Source: ' + escapeHtml(job.source || 'LinkedIn') + '</span>' + (job.posted_at ? '<span>Posted / checked: ' + escapeHtml(job.posted_at) + '</span>' : '') + '</div></div>' +
+            '<div class="flex flex-wrap lg:flex-col gap-2 lg:items-stretch lg:w-40"><button type="button" onclick="updatePropertyJobStatus(\'' + escapeHtml(job.id) + '\',\'interested\')" class="text-xs px-3 py-2 rounded ' + (job.status === 'interested' ? 'bg-emerald-600 text-white' : 'border border-emerald-500 text-emerald-700 dark:text-emerald-300') + '">Interested</button><button type="button" onclick="updatePropertyJobStatus(\'' + escapeHtml(job.id) + '\',\'applied\')" class="text-xs px-3 py-2 rounded ' + (job.status === 'applied' ? 'bg-blue-600 text-white' : 'border border-blue-500 text-blue-700 dark:text-blue-300') + '">Applied</button><button type="button" onclick="updatePropertyJobStatus(\'' + escapeHtml(job.id) + '\',\'not_interested\')" class="text-xs px-3 py-2 rounded border border-gray-300 text-gray-600 dark:border-white/20 dark:text-gray-300">' + (job.status === 'not_interested' ? 'Restore' : 'Not interested') + '</button><a href="' + escapeHtml(job.url || '#') + '" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded bg-black text-white dark:bg-white dark:text-black">Open employer role</a></div></div></article>').join('') : '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No property jobs match the current filters.</div>';
+        if (propertyCompaniesList) propertyCompaniesList.innerHTML = propertyCompanies.map(company => '<a href="' + escapeHtml(company.careers_url || '#') + '" target="_blank" rel="noopener" class="block bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 hover:border-teal-400 transition-colors"><div class="font-medium dark:text-white">' + escapeHtml(company.name) + '</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">' + escapeHtml(company.category || '') + ' · ' + escapeHtml(company.location || '') + '</div></a>').join('');
+    }
+
+    async function loadPropertyJobs(silent = false) {
+        if (!propertyJobsList) return;
+        if (!silent) propertyJobsList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading property roles...</div>';
+        try {
+            const res = await fetch('/api/property-jobs');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Property Jobs request failed');
+            propertyJobs = Array.isArray(data.jobs) ? data.jobs : [];
+            propertyCompanies = Array.isArray(data.companies) ? data.companies : [];
+            propertyJobsMeta = data || {};
+            populatePropertyJobCategories();
+            renderPropertyJobs();
+        } catch (e) {
+            console.error(e);
+            propertyJobsList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-lg p-6 text-red-600 dark:text-red-300">Failed to load Property Jobs.</div>';
+        }
+    }
+
+    window.updatePropertyJobStatus = async (id, status) => {
+        const current = propertyJobs.find(job => job.id === id);
+        const nextStatus = status === 'not_interested' && current?.status === 'not_interested' ? 'new' : status;
+        try {
+            const res = await fetch('/api/property-jobs/' + encodeURIComponent(id) + '/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: nextStatus }) });
+            const data = await res.json();
+            if (!res.ok || !data.job) throw new Error(data.error || 'Status update failed');
+            const index = propertyJobs.findIndex(job => job.id === id);
+            if (index !== -1) propertyJobs[index] = data.job;
+            renderPropertyJobs();
+        } catch (e) { console.error(e); alert('Could not update property job status.'); }
+    };
 
     function contentJobFitClass(score) {
         if (Number(score) >= 80) return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300';
@@ -8268,10 +8373,14 @@ document.addEventListener("DOMContentLoaded", () => {
     jobsAiTab?.addEventListener('click', () => setJobsTab('ai'));
     jobsMusicTab?.addEventListener('click', () => setJobsTab('music'));
     jobsContentTab?.addEventListener('click', () => setJobsTab('content'));
+    jobsPropertyTab?.addEventListener('click', () => setJobsTab('property'));
     jobsAppliedTab?.addEventListener('click', () => setJobsTab('applied'));
     refreshAiJobsBtn?.addEventListener('click', () => loadAiJobs());
     refreshMusicJobsBtn?.addEventListener('click', () => loadMusicJobs());
     refreshContentJobsBtn?.addEventListener('click', () => loadContentJobs());
+    refreshPropertyJobsBtn?.addEventListener('click', () => loadPropertyJobs());
+    [propertyJobsSearch, propertyJobsLocationFilter, propertyJobsCategoryFilter, propertyJobsStatusFilter].forEach(el => el?.addEventListener('input', renderPropertyJobs));
+    [propertyJobsLocationFilter, propertyJobsCategoryFilter, propertyJobsStatusFilter].forEach(el => el?.addEventListener('change', renderPropertyJobs));
     [contentJobsSearch, contentJobsLocationFilter, contentJobsCategoryFilter, contentJobsStatusFilter].forEach(el => el?.addEventListener('input', renderContentJobs));
     [contentJobsLocationFilter, contentJobsCategoryFilter, contentJobsStatusFilter].forEach(el => el?.addEventListener('change', renderContentJobs));
     [musicJobsSearch, musicJobsLocationFilter, musicJobsCategoryFilter, musicJobsStatusFilter].forEach(el => el?.addEventListener('input', renderMusicJobs));

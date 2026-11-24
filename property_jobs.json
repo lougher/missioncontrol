@@ -1,0 +1,326 @@
+{
+  "searched_at": "2026-11-24T14:25:00Z",
+  "selection_note": "Current UK roles in property software, proptech, hospitality technology, serviced-living and property operations. Prioritised commercial roles that use Phil's B2B SaaS, proptech and Airbnb-hosting experience. Excluded traditional estate-agency negotiator roles and specialist property roles requiring qualifications he does not have.",
+  "sources": [
+    {
+      "name": "LinkedIn public jobs feed",
+      "url": "https://www.linkedin.com/jobs/search/?keywords=proptech%20sales&location=United%20Kingdom",
+      "checked_at": "2026-11-24",
+      "note": "Exact direct listing URLs retained only when present in the current public feed or current listing page."
+    },
+    {
+      "name": "Employer career pages",
+      "url": "https://www.houseful.co.uk/careers",
+      "checked_at": "2026-11-24",
+      "note": "Used for employer monitoring and direct role context where available."
+    }
+  ],
+  "companies": [
+    {
+      "name": "Houseful",
+      "category": "Residential property software",
+      "location": "London",
+      "careers_url": "https://www.houseful.co.uk/careers"
+    },
+    {
+      "name": "CoStar Group",
+      "category": "Property data and software",
+      "location": "London and UK",
+      "careers_url": "https://www.costargroup.com/careers"
+    },
+    {
+      "name": "Matterport",
+      "category": "Digital twin property technology",
+      "location": "Manchester / UK",
+      "careers_url": "https://www.costargroup.com/careers"
+    },
+    {
+      "name": "Searchland",
+      "category": "Property data SaaS",
+      "location": "London",
+      "careers_url": "https://searchland.co.uk/careers"
+    },
+    {
+      "name": "Buildscout",
+      "category": "Construction and property data SaaS",
+      "location": "London",
+      "careers_url": "https://www.linkedin.com/company/buildscout/jobs/"
+    },
+    {
+      "name": "SiteMinder",
+      "category": "Hotel and accommodation software",
+      "location": "London",
+      "careers_url": "https://www.siteminder.com/careers/"
+    },
+    {
+      "name": "GuestReady",
+      "category": "Short-let and Airbnb management",
+      "location": "London / UK",
+      "careers_url": "https://careers.guestready.com/"
+    },
+    {
+      "name": "Houst",
+      "category": "Short-let and Airbnb management",
+      "location": "London / UK",
+      "careers_url": "https://www.houst.com/about"
+    },
+    {
+      "name": "Pass the Keys",
+      "category": "Short-let and Airbnb management",
+      "location": "UK",
+      "careers_url": "https://www.passthekeys.com/en/"
+    },
+    {
+      "name": "Bob W",
+      "category": "Tech-led serviced apartments",
+      "location": "London",
+      "careers_url": "https://careers.bobw.co/"
+    },
+    {
+      "name": "edyn / Locke",
+      "category": "Aparthotels and serviced living",
+      "location": "London / UK",
+      "careers_url": "https://www.findingedyn.com/"
+    },
+    {
+      "name": "Staycity",
+      "category": "Aparthotels",
+      "location": "London / UK",
+      "careers_url": "https://careers.staycity.com/"
+    },
+    {
+      "name": "Convene Hospitality Group",
+      "category": "Flexible workspace and hospitality",
+      "location": "London",
+      "careers_url": "https://convene.com/careers/"
+    },
+    {
+      "name": "Greystar",
+      "category": "Build-to-rent and property management",
+      "location": "London / UK",
+      "careers_url": "https://jobs.greystar.com/"
+    },
+    {
+      "name": "Yugo",
+      "category": "Student accommodation operations",
+      "location": "London / UK",
+      "careers_url": "https://yugo.com/en-gb"
+    },
+    {
+      "name": "UniHomes",
+      "category": "Student property marketplace",
+      "location": "Sheffield",
+      "careers_url": "https://www.unihomes.co.uk/careers"
+    },
+    {
+      "name": "Goodlord",
+      "category": "Lettings software",
+      "location": "London",
+      "careers_url": "https://www.goodlord.com/about/careers"
+    },
+    {
+      "name": "Reapit",
+      "category": "Estate agency software",
+      "location": "UK",
+      "careers_url": "https://careers.reapit.com/"
+    },
+    {
+      "name": "Plentific",
+      "category": "Property operations software",
+      "location": "London",
+      "careers_url": "https://www.plentific.com/careers"
+    },
+    {
+      "name": "Home Made",
+      "category": "Tech-enabled lettings and property management",
+      "location": "London",
+      "careers_url": "https://careers.home-made.com/"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "li-4491139186",
+      "title": "Business Development Manager",
+      "company": "Buildscout",
+      "location": "London, England, United Kingdom",
+      "category": "Proptech SaaS sales",
+      "source": "LinkedIn",
+      "posted_at": "17/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/business-development-manager-at-buildscout-4491139186",
+      "salary": "£40,000-£50,000 base; £70,000+ OTE",
+      "fit_score": 96,
+      "fit_note": "Exceptional match: full-cycle SaaS sales into property and construction customers, with outbound prospecting, negotiation and customer acquisition. Phil's current proptech sales role and enterprise SaaS background map directly; the only trade-off is a lower base than some senior AE roles.",
+      "status": "new",
+      "updated_at": "2026-11-24T14:08:51.491Z"
+    },
+    {
+      "id": "li-4473131635",
+      "title": "Account Executive - B2B SaaS",
+      "company": "Houseful",
+      "location": "London, England, United Kingdom",
+      "category": "Property software sales",
+      "source": "LinkedIn",
+      "posted_at": "15/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/account-executive-b2b-saas-at-houseful-4473131635",
+      "fit_score": 95,
+      "fit_note": "Direct continuation of Phil's proptech and full-cycle AE experience. Houseful sells software and data into the UK residential property market, so his Alto market knowledge, SaaS closing record and housing-sector credibility are unusually relevant.",
+      "status": "new"
+    },
+    {
+      "id": "li-4484998978",
+      "title": "CoStar Real Estate Manager, Sales Executive",
+      "company": "CoStar",
+      "location": "London, England, United Kingdom",
+      "category": "Property software sales",
+      "source": "LinkedIn",
+      "posted_at": "20/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/costar-group-costar-real-estate-manager-sales-executive-london-at-costar-4484998978",
+      "fit_score": 92,
+      "fit_note": "Strong enterprise proptech fit selling lease-administration and property-management software. Phil has the complex SaaS sales, stakeholder management and UK property context required; corporate real-estate buyers are a new segment but highly transferable.",
+      "status": "new"
+    },
+    {
+      "id": "li-4492417484",
+      "title": "Sales Executive",
+      "company": "RENTALINK",
+      "location": "London Area, United Kingdom",
+      "category": "Rental proptech sales",
+      "source": "LinkedIn",
+      "posted_at": "19/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/sales-executive-at-rentalink-4492417484",
+      "fit_score": 90,
+      "fit_note": "Highly relevant commercial role at a rental-focused property technology business. Phil combines B2B SaaS sales, direct property-sector experience and first-hand understanding of landlords and rental operations.",
+      "status": "new"
+    },
+    {
+      "id": "li-4490816631",
+      "title": "Business Development Manager",
+      "company": "Searchland",
+      "location": "London, England, United Kingdom",
+      "category": "Property data SaaS sales",
+      "source": "LinkedIn",
+      "posted_at": "17/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/business-development-manager-at-searchland-4490816631",
+      "fit_score": 90,
+      "fit_note": "Strong match for outbound and consultative selling of property-data software. Phil's property-market knowledge and full-cycle SaaS track record fit well, although the role may lean more heavily towards high-velocity new business than enterprise account growth.",
+      "status": "new"
+    },
+    {
+      "id": "li-4285040778",
+      "title": "Business Development Executive",
+      "company": "SiteMinder",
+      "location": "London, England, United Kingdom",
+      "category": "Accommodation technology",
+      "source": "LinkedIn",
+      "posted_at": "15/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/business-development-executive-at-siteminder-4285040778",
+      "fit_score": 88,
+      "fit_note": "Excellent bridge between SaaS and accommodation. The role sells hotel-commerce technology to property owners across the UK and Europe, matching Phil's prospecting skills and personal interest in Airbnb operations. The advertised seniority appears below his current level.",
+      "status": "new"
+    },
+    {
+      "id": "li-4488827029",
+      "title": "Strategic Account Manager",
+      "company": "Equiem",
+      "location": "London, England, United Kingdom",
+      "category": "Tenant experience proptech",
+      "source": "LinkedIn",
+      "posted_at": "09/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/strategic-account-manager-at-equiem-4488827029",
+      "fit_score": 87,
+      "fit_note": "Strong account-growth and stakeholder-management fit within a tenant-experience proptech platform. Phil's enterprise relationship skills transfer well; this is more account management and adoption focused than his recent new-business AE work.",
+      "status": "new"
+    },
+    {
+      "id": "li-4442586963",
+      "title": "Account Executive, Matterport",
+      "company": "Matterport",
+      "location": "Manchester, England, United Kingdom",
+      "category": "Property technology sales",
+      "source": "LinkedIn",
+      "posted_at": "04/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/account-executive-matterport-manchester-at-matterport-4442586963",
+      "fit_score": 85,
+      "fit_note": "Strong fit selling visual property technology with a recognisable SaaS-style commercial motion. Phil's enterprise closing experience and property background are relevant; Manchester location is the main practical consideration.",
+      "status": "new"
+    },
+    {
+      "id": "li-4393530149",
+      "title": "Telephone Business Development Consultant, OnTheMarket",
+      "company": "CoStar / OnTheMarket",
+      "location": "London, England, United Kingdom",
+      "category": "Property marketplace sales",
+      "source": "LinkedIn",
+      "posted_at": "02/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/telephone-business-development-consultant-onthemarket-london-at-costar-4393530149",
+      "fit_score": 82,
+      "fit_note": "Direct UK estate-agency market relevance and a clear fit with Phil's prospecting and property-software experience. It may be more telephone-led and junior than his ideal next move, but the employer and buyer set are highly aligned.",
+      "status": "new"
+    },
+    {
+      "id": "li-4490721779",
+      "title": "Account Manager",
+      "company": "Convene",
+      "location": "London, England, United Kingdom",
+      "category": "Hospitality and flexible space",
+      "source": "LinkedIn",
+      "posted_at": "13/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/account-manager-at-convene-4490721779",
+      "fit_score": 80,
+      "fit_note": "Good commercial crossover into a hospitality-led property operator. The role owns account growth, tours, demos and corporate relationships, using Phil's sales and stakeholder skills while moving closer to the accommodation and operating side of property.",
+      "status": "new"
+    },
+    {
+      "id": "li-4493663473",
+      "title": "Sales Executive - Private Rental",
+      "company": "UniHomes",
+      "location": "Sheffield, England, United Kingdom",
+      "category": "Rental marketplace sales",
+      "source": "LinkedIn",
+      "posted_at": "23/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/sales-executive-private-rental-at-unihomes-4493663473",
+      "fit_score": 78,
+      "fit_note": "Relevant rental-market sales role at a property marketplace, with a strong connection to Phil's landlord and proptech experience. Location and potentially more transactional sales scope make it a secondary option.",
+      "status": "new"
+    },
+    {
+      "id": "li-4488231355",
+      "title": "Assistant Manager",
+      "company": "Greystar",
+      "location": "London, England, United Kingdom",
+      "category": "Property management operations",
+      "source": "LinkedIn",
+      "posted_at": "11/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/assistant-manager-at-greystar-international-4488231355",
+      "fit_score": 74,
+      "fit_note": "Useful route into hands-on property management: leasing, reservations, occupancy, resident retention and service recovery. Phil's Airbnb hosting and people-management experience help, but direct build-to-rent operations and tenancy administration would be a learning curve.",
+      "status": "new"
+    },
+    {
+      "id": "li-4486060168",
+      "title": "Residence Manager",
+      "company": "Yugo",
+      "location": "London, England, United Kingdom",
+      "category": "Accommodation operations",
+      "source": "LinkedIn",
+      "posted_at": "03/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/residence-manager-at-yugo-4486060168",
+      "fit_score": 72,
+      "fit_note": "Relevant operator-side role managing an accommodation asset, customer experience and commercial performance. Phil brings hospitality leadership from Japan and Airbnb-host perspective, though student-accommodation operations are not his direct background.",
+      "status": "new"
+    },
+    {
+      "id": "li-4488538579",
+      "title": "Sales Executive",
+      "company": "Homes for Students",
+      "location": "Liverpool, England, United Kingdom",
+      "category": "Accommodation sales",
+      "source": "LinkedIn",
+      "posted_at": "12/11/26",
+      "url": "https://uk.linkedin.com/jobs/view/sales-executive-at-homes-for-students-4488538579",
+      "fit_score": 70,
+      "fit_note": "Commercial role inside a large accommodation operator, offering exposure to property operations and occupancy growth. Phil is more senior than the advertised level and Liverpool may be impractical, so this is best treated as a sector-entry fallback.",
+      "status": "new"
+    }
+  ]
+}

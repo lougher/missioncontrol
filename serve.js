@@ -73,6 +73,7 @@ const YTJOBS_TALENT_FILE = path.join(__dirname, 'ytjobs_talking_head_editor_shor
 const AI_JOBS_DB_FILE = path.join(__dirname, 'ai_jobs.json');
 const MUSIC_JOBS_DB_FILE = path.join(__dirname, 'music_jobs.json');
 const CONTENT_JOBS_DB_FILE = path.join(__dirname, 'content_jobs.json');
+const PROPERTY_JOBS_DB_FILE = path.join(__dirname, 'property_jobs.json');
 const APPLIED_JOBS_DB_FILE = path.join(__dirname, 'applied_jobs.json');
 const APPLIED_JOBS_PRIVATE_FILE = path.join(__dirname, 'applied_jobs_private.json');
 const DJ_GIGS_DB_FILE = path.join(__dirname, 'dj_gigs.json');
@@ -307,6 +308,31 @@ const server = http.createServer((req, res) => {
             } catch (err) {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update music job status' }));
+            }
+        });
+    } else if (req.url === '/api/property-jobs') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readPropertyJobsDb();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/property-jobs\/[^/]+\/status$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const { status } = JSON.parse(body || '{}');
+                const job = updatePropertyJobStatus(id, status);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, job }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update property job status' }));
             }
         });
     } else if (req.url === '/api/content-jobs') {
@@ -2479,6 +2505,44 @@ function updateMusicJobStatus(id, status) {
     job.status = status;
     job.updated_at = new Date().toISOString();
     writeMusicJobsDb(db);
+    return job;
+}
+
+
+function readPropertyJobsDb() {
+    try {
+        const parsed = JSON.parse(fs.readFileSync(PROPERTY_JOBS_DB_FILE, 'utf8'));
+        return {
+            searched_at: parsed.searched_at || '',
+            selection_note: parsed.selection_note || '',
+            sources: Array.isArray(parsed.sources) ? parsed.sources : [],
+            companies: Array.isArray(parsed.companies) ? parsed.companies : [],
+            jobs: Array.isArray(parsed.jobs) ? parsed.jobs : []
+        };
+    } catch {
+        return { searched_at: '', selection_note: '', sources: [], companies: [], jobs: [] };
+    }
+}
+
+function writePropertyJobsDb(db) {
+    fs.writeFileSync(PROPERTY_JOBS_DB_FILE, JSON.stringify({
+        searched_at: db.searched_at || '',
+        selection_note: db.selection_note || '',
+        sources: Array.isArray(db.sources) ? db.sources : [],
+        companies: Array.isArray(db.companies) ? db.companies : [],
+        jobs: Array.isArray(db.jobs) ? db.jobs : []
+    }, null, 2) + '\n');
+}
+
+function updatePropertyJobStatus(id, status) {
+    const allowed = new Set(['new', 'interested', 'applied', 'not_interested']);
+    if (!allowed.has(status)) throw new Error('Invalid property job status');
+    const db = readPropertyJobsDb();
+    const job = db.jobs.find(item => item.id === id);
+    if (!job) throw new Error('Property job not found');
+    job.status = status;
+    job.updated_at = new Date().toISOString();
+    writePropertyJobsDb(db);
     return job;
 }
 
