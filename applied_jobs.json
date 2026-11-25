@@ -546,19 +546,10 @@
       "availability": "open",
       "availabilityCheckedAt": "2026-11-20",
       "availabilityNote": "Public LinkedIn role page loaded on 20 Nov 2026",
-      "outreachContacts": [
-        {
-          "name": "Lisa Marçais",
-          "title": "GM UKI, Nordics and MEA at Airbnb",
-          "url": "https://www.linkedin.com/in/lisa-marcais/",
-          "type": "Hiring decision-maker",
-          "confidence": "High",
-          "evidence": "London-based Airbnb regional GM covering UKI; the role owns UK supply growth and professional host relationships",
-          "inMailSubject": "Airbnb Market Manager application",
-          "inMailMessage": "Hi Lisa,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
-        }
-      ],
-      "ignored": true
+      "outreachContacts": [],
+      "ignored": true,
+      "ignoredAt": "2026-11-25",
+      "ignoreReason": "No longer pursuing"
     },
     {
       "id": "applied-linkedin-4489937547",
@@ -572,19 +563,10 @@
       "availability": "open",
       "availabilityCheckedAt": "2026-11-20",
       "availabilityNote": "Public LinkedIn role page loaded on 20 Nov 2026",
-      "outreachContacts": [
-        {
-          "name": "Craig Greener",
-          "title": "Sales Director, EMEA Regions at Hitachi Vantara",
-          "url": "https://www.linkedin.com/in/craiggreener/",
-          "type": "Regional sales leader",
-          "confidence": "High",
-          "evidence": "Current Hitachi Vantara EMEA regional sales director in the UK; the role is a UK new-logo Account Executive position",
-          "inMailSubject": "Hitachi Vantara AE application",
-          "inMailMessage": "Hi Craig,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
-        }
-      ],
-      "ignored": true
+      "outreachContacts": [],
+      "ignored": true,
+      "ignoredAt": "2026-11-25",
+      "ignoreReason": "No longer pursuing"
     },
     {
       "id": "applied-linkedin-4490858126",
@@ -598,19 +580,10 @@
       "availability": "open",
       "availabilityCheckedAt": "2026-11-20",
       "availabilityNote": "Public LinkedIn role page loaded on 20 Nov 2026",
-      "outreachContacts": [
-        {
-          "name": "Tim Atyeo",
-          "title": "Senior Manager International Sales (EMEA) at BambooHR",
-          "url": "https://www.linkedin.com/in/tim-atyeo-a0828b7/",
-          "type": "Hiring decision-maker",
-          "confidence": "Very high",
-          "evidence": "Current BambooHR senior international sales manager for EMEA, matching the role description that the hire works closely with the EMEA Sales leader",
-          "inMailSubject": "BambooHR EMEA AE application",
-          "inMailMessage": "Hi Tim,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
-        }
-      ],
-      "ignored": true
+      "outreachContacts": [],
+      "ignored": true,
+      "ignoredAt": "2026-11-25",
+      "ignoreReason": "No longer pursuing"
     },
     {
       "id": "applied-linkedin-4475355247",
