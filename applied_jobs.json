@@ -733,6 +733,18 @@
           "postAcceptanceLoomMessage": "Thanks for connecting, Billy. I’ve applied for Houst’s Inbound Sales Executive role. I bring full-cycle SaaS sales experience, direct proptech knowledge and first-hand experience running my own Airbnb property, so Houst’s mission feels especially relevant. I’d value a quick conversation if my background looks useful.",
           "inMailSubject": "Houst Inbound Sales Executive application",
           "inMailMessage": "Hi Billy,\n\nI’ve applied for Houst’s Inbound Sales Executive role. I bring full-cycle SaaS sales experience, current property-technology knowledge and first-hand experience hosting my own Airbnb property.\n\nThe combination of inbound conversion, property management and a fast-moving technology business feels unusually well aligned. I’d value a brief conversation if my background looks relevant.\n\nThanks,\nPhil"
+        },
+        {
+          "name": "Megan Van Strijp",
+          "title": "People & Culture Lead at Houst",
+          "url": "https://www.linkedin.com/in/megan-van-strijp-79044910b/",
+          "type": "HR/recruitment contact",
+          "confidence": "High",
+          "evidence": "Authenticated LinkedIn profile identifies Megan as People & Culture Lead at Houst, and Houst’s company People view surfaces her for people and HR research. Her location is South Africa, so UK-role ownership is not inferred.",
+          "connectionNote": "Hi Megan, I’ve applied for Houst’s Inbound Sales Executive role. My SaaS sales, proptech experience and first-hand Airbnb hosting feel strongly aligned.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Megan. I’ve applied for Houst’s Inbound Sales Executive role. I bring full-cycle SaaS sales, direct proptech knowledge and first-hand experience running my own Airbnb property. I’d be grateful if you could keep my application in mind or point me towards the appropriate recruitment contact.",
+          "inMailSubject": "Houst Inbound Sales Executive application",
+          "inMailMessage": "Hi Megan,\n\nI’ve applied for Houst’s Inbound Sales Executive role. My background combines full-cycle SaaS sales, current property-technology experience and first-hand experience hosting my own Airbnb property.\n\nThe role feels unusually well aligned. I’d be grateful if you could keep my application in mind or direct me to the appropriate recruitment contact for the UK sales team.\n\nThanks,\nPhil"
         }
       ]
     },
@@ -760,6 +772,18 @@
           "postAcceptanceLoomMessage": "Thanks for connecting, Osiri. I’ve applied for Drata’s Emerging Account Executive role in London. I’ve led full-cycle SaaS sales, built new-business pipeline and closed complex enterprise customers including OpenAI and Amazon. Drata’s AI-led trust platform and ownership culture really stood out.",
           "inMailSubject": "Drata Emerging AE application - London",
           "inMailMessage": "Hi Osiri,\n\nI’ve applied for Drata’s Emerging Account Executive role in London. My background includes full-cycle SaaS selling, outbound pipeline development and enterprise wins with organisations including OpenAI and Amazon.\n\nDrata’s focus on agentic trust management and its high-ownership EMEA culture particularly appealed to me. I’d value a brief conversation if my experience looks relevant.\n\nThanks,\nPhil"
+        },
+        {
+          "name": "Alex Indelicato",
+          "title": "Leading Talent Acquisition at Drata",
+          "url": "https://www.linkedin.com/in/alexindelicato/",
+          "type": "HR/recruitment contact",
+          "confidence": "High",
+          "evidence": "Authenticated LinkedIn profile identifies Alex as leading Talent Acquisition at Drata and as a SaaS hiring principal. The profile does not state a specific EMEA remit, so regional ownership is not inferred.",
+          "connectionNote": "Hi Alex, I’ve applied for Drata’s Emerging Account Executive role in London. My full-cycle SaaS sales and enterprise closing experience feel closely aligned.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Alex. I’ve applied for Drata’s Emerging Account Executive role in London. I bring full-cycle SaaS sales, outbound pipeline development and major enterprise wins. I’d appreciate any guidance on the process or the most relevant EMEA recruitment contact.",
+          "inMailSubject": "Drata Emerging Account Executive application",
+          "inMailMessage": "Hi Alex,\n\nI’ve applied for Drata’s Emerging Account Executive role in London. My background includes full-cycle SaaS selling, outbound pipeline development and enterprise wins with organisations including OpenAI and Amazon.\n\nDrata’s high-ownership EMEA culture particularly appealed to me. I’d appreciate any guidance on the process or the appropriate EMEA recruitment contact.\n\nThanks,\nPhil"
         }
       ]
     },
@@ -787,6 +811,18 @@
           "postAcceptanceLoomMessage": "Thanks for connecting, Erik. I’ve applied for Conductor’s London Account Executive role. I bring full-cycle enterprise SaaS sales experience, consistent quota performance and major customer wins. The opportunity to sell an AEO platform as AI reshapes enterprise search is particularly compelling.",
           "inMailSubject": "Conductor Account Executive application",
           "inMailMessage": "Hi Erik,\n\nI’ve applied for Conductor’s London Account Executive role. I bring full-cycle enterprise SaaS experience, a consistent record of quota achievement and complex wins with major organisations.\n\nConductor’s position at the intersection of AI search, AEO and digital growth is especially exciting. I’d value a brief conversation if my background looks relevant to your EMEA team.\n\nThanks,\nPhil"
+        },
+        {
+          "name": "Michelle (Pepe) Hosford",
+          "title": "Talent Acquisition Manager at Conductor",
+          "url": "https://www.linkedin.com/in/michellepepehosford/",
+          "type": "HR/recruitment contact",
+          "confidence": "High",
+          "evidence": "Authenticated LinkedIn profile and Conductor’s company People view identify Michelle as Talent Acquisition Manager at Conductor. She is US-based, so direct ownership of the London role is not inferred.",
+          "connectionNote": "Hi Michelle, I’ve applied for Conductor’s London Account Executive role. My enterprise SaaS record and experience selling to senior stakeholders feel strongly aligned.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Michelle. I’ve applied for Conductor’s London Account Executive role. I bring full-cycle enterprise SaaS experience, consistent quota performance and major customer wins. I’d appreciate any guidance on the recruitment process or the right EMEA talent contact.",
+          "inMailSubject": "Conductor London Account Executive application",
+          "inMailMessage": "Hi Michelle,\n\nI’ve applied for Conductor’s London Account Executive role. I bring full-cycle enterprise SaaS experience, a consistent record of quota achievement and complex wins with major organisations.\n\nConductor’s position in AI search and AEO is especially compelling. I’d appreciate any guidance on the process or the appropriate EMEA talent contact.\n\nThanks,\nPhil"
         }
       ]
     },
@@ -814,6 +850,18 @@
           "postAcceptanceLoomMessage": "Thanks for connecting, Ben. I’ve applied for Epidemic Sound’s London Account Executive role. I bring full-cycle enterprise SaaS sales, complex negotiation experience and major customer wins, alongside a long-standing background in electronic music production and DJing. The combination feels genuinely distinctive.",
           "inMailSubject": "Epidemic Sound Account Executive application",
           "inMailMessage": "Hi Ben,\n\nI’ve applied for Epidemic Sound’s London Account Executive role. I bring full-cycle enterprise SaaS experience, complex deal leadership and major customer wins. I’ve also produced electronic music and DJed for years, so the chance to combine commercial experience with a product and industry I genuinely care about is especially compelling.\n\nI’d value a brief conversation if my background looks relevant.\n\nThanks,\nPhil"
+        },
+        {
+          "name": "Mine Konuk Alonzi",
+          "title": "Director of Talent Acquisition at Epidemic Sound",
+          "url": "https://www.linkedin.com/in/minekonuk/",
+          "type": "HR/recruitment contact",
+          "confidence": "High",
+          "evidence": "Authenticated LinkedIn profile identifies Mine as Director of Talent Acquisition at Epidemic Sound. The profile is based in Stockholm and does not state ownership of this London role, so direct role ownership is not inferred.",
+          "connectionNote": "Hi Mine, I’ve applied for Epidemic Sound’s London Account Executive role. My enterprise SaaS record and lifelong passion for electronic music make it a standout fit.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Mine. I’ve applied for Epidemic Sound’s London Account Executive role. I bring enterprise SaaS sales, complex deal experience and a long-standing background in electronic music production and DJing. I’d be grateful if you could keep my application in mind.",
+          "inMailSubject": "Epidemic Sound Account Executive application",
+          "inMailMessage": "Hi Mine,\n\nI’ve applied for Epidemic Sound’s London Account Executive role. I bring full-cycle enterprise SaaS experience, complex deal leadership and major customer wins. I’ve also produced electronic music and DJed for years, so this opportunity feels genuinely distinctive.\n\nI’d be grateful if you could keep my application in mind or direct me to the recruiter handling the role.\n\nThanks,\nPhil"
         }
       ]
     },
@@ -895,6 +943,18 @@
           "postAcceptanceLoomMessage": "Thanks for connecting, Sin Man. I’ve applied for TikTok Shop’s Business Development Manager role in Home & Living. I bring full-cycle new-business experience, account growth skills and first-hand property and Airbnb knowledge. The chance to acquire and help scale merchants in this category is especially relevant.",
           "inMailSubject": "TikTok Shop Home & Living BDM application",
           "inMailMessage": "Hi Sin Man,\n\nI’ve applied for TikTok Shop’s Business Development Manager role in Home & Living. My background spans prospecting, negotiation, closing and account growth, with additional first-hand experience in property and Airbnb hosting.\n\nThe opportunity to onboard and help merchants achieve early success in Home & Living feels very well aligned. I’d value a brief conversation if useful.\n\nThanks,\nPhil"
+        },
+        {
+          "name": "Sara N.",
+          "title": "Talent Acquisition Partner at TikTok, EMEA",
+          "url": "https://www.linkedin.com/in/saranavidnia/",
+          "type": "HR/recruitment contact",
+          "confidence": "Very high",
+          "evidence": "Authenticated LinkedIn profile identifies Sara as a London-based Talent Acquisition Partner at TikTok for EMEA, and her activity includes a repost of this exact Home & Living Business Development Manager role.",
+          "connectionNote": "Hi Sara, I’ve applied for TikTok Shop’s Home & Living BDM role. My new-business, account-growth and property experience feel highly relevant to the category.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Sara. I’ve applied for TikTok Shop’s Business Development Manager role in Home & Living. I bring full-cycle new-business experience, account growth skills and first-hand property and Airbnb knowledge. I noticed you shared this exact role and would value any guidance on the process.",
+          "inMailSubject": "TikTok Shop Home & Living BDM application",
+          "inMailMessage": "Hi Sara,\n\nI’ve applied for TikTok Shop’s Business Development Manager role in Home & Living. My background spans prospecting, negotiation, closing and account growth, alongside first-hand property and Airbnb experience.\n\nI noticed you shared this exact role, so I wanted to introduce myself directly. I’d value any guidance on the next stage of the process.\n\nThanks,\nPhil"
         }
       ]
     },
@@ -922,6 +982,18 @@
           "postAcceptanceLoomMessage": "Thanks for connecting, Jonathan. I’ve applied for Jetfly’s UK Sales Executive role. I bring full-cycle consultative sales experience, complex negotiation skills and a track record of building trusted relationships with senior decision-makers. Jetfly’s fractional-ownership model and focus on long-term client relationships are especially appealing.",
           "inMailSubject": "Jetfly UK Sales Executive application",
           "inMailMessage": "Hi Jonathan,\n\nI’ve applied for Jetfly’s UK Sales Executive role. My background includes full-cycle consultative selling, complex negotiations and major enterprise wins requiring trusted relationships with senior stakeholders.\n\nThe opportunity to develop the UK fractional-ownership market and work closely with the UK Sales Director is particularly compelling. I’d value a brief conversation if my experience looks relevant.\n\nThanks,\nPhil"
+        },
+        {
+          "name": "Sylvie Addamiano",
+          "title": "Group HR Director at Jetfly",
+          "url": "https://www.linkedin.com/in/sylvie-addamiano-94985166/",
+          "type": "HR/recruitment contact",
+          "confidence": "High",
+          "evidence": "Authenticated LinkedIn profile identifies Sylvie as Group HR Director at Jetfly. She is based at the Luxembourg group headquarters, so direct ownership of the UK Sales Executive vacancy is not inferred.",
+          "connectionNote": "Hi Sylvie, I’ve applied for Jetfly’s UK Sales Executive role. My high-value consultative sales and senior stakeholder experience feel strongly transferable.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, Sylvie. I’ve applied for Jetfly’s UK Sales Executive role. I bring full-cycle consultative sales, complex negotiation experience and a track record of trusted senior relationships. I’d be grateful if you could keep my application in mind or direct me to the relevant recruiter.",
+          "inMailSubject": "Jetfly UK Sales Executive application",
+          "inMailMessage": "Hi Sylvie,\n\nI’ve applied for Jetfly’s UK Sales Executive role. My background includes full-cycle consultative selling, complex negotiations and major enterprise wins requiring trusted senior relationships.\n\nJetfly’s fractional-ownership model and focus on long-term clients particularly appeal to me. I’d be grateful if you could keep my application in mind or direct me to the relevant recruiter.\n\nThanks,\nPhil"
         }
       ]
     },
@@ -949,6 +1021,18 @@
           "postAcceptanceLoomMessage": "Thanks for connecting, Dylan. I’ve applied for IBM’s UK&I Confluent Account Executive role. I bring full-cycle enterprise SaaS sales, strong prospecting and complex deal execution, including major global customer wins. As someone already selling Confluent at IBM, I’d really value any insight on the team or hiring process.",
           "inMailSubject": "IBM UK&I Confluent Account Executive application",
           "inMailMessage": "Hi Dylan,\n\nI’ve applied for IBM’s UK&I Confluent Account Executive role. My background includes full-cycle enterprise SaaS sales, new-logo acquisition and complex deal execution with major global organisations.\n\nYour direct experience selling Confluent at IBM made you the most relevant person to contact. If appropriate, I’d value any insight on the team or the right hiring contact.\n\nThanks,\nPhil"
+        },
+        {
+          "name": "James Llewellyn",
+          "title": "Senior Talent Acquisition Partner at IBM",
+          "url": "https://www.linkedin.com/in/james-llewellyn-assoc-cipd-2873b0129/",
+          "type": "HR/recruitment contact",
+          "confidence": "High",
+          "evidence": "Authenticated LinkedIn profile and IBM’s company People view identify James as a UK-based Senior Talent Acquisition Partner at IBM. His profile does not specify Confluent or Global Sales ownership, so direct ownership of this vacancy is not inferred.",
+          "connectionNote": "Hi James, I’ve applied for IBM’s UK&I Confluent Account Executive role. My enterprise SaaS sales and new-logo experience feel closely aligned.",
+          "postAcceptanceLoomMessage": "Thanks for connecting, James. I’ve applied for IBM’s UK&I Confluent Account Executive role. I bring full-cycle enterprise SaaS sales, strong prospecting and complex deal execution. I’d appreciate any guidance on the process or the recruiter supporting IBM Global Sales.",
+          "inMailSubject": "IBM UK&I Confluent Account Executive application",
+          "inMailMessage": "Hi James,\n\nI’ve applied for IBM’s UK&I Confluent Account Executive role. My background includes full-cycle enterprise SaaS sales, new-logo acquisition and complex deal execution with major global organisations.\n\nI’d appreciate any guidance on the process or the appropriate talent partner supporting IBM Global Sales and the Confluent team.\n\nThanks,\nPhil"
         }
       ]
     }
