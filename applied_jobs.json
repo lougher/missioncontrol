@@ -21,8 +21,8 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "London-based Plaid leader who explicitly posted that Plaid was hiring for the Mid-Market AE role",
-          "inMailSubject": "A quick Plaid introduction",
-          "inMailMessage": "Hi Peter,\nI applied for Account Executive - Mid-Market at Plaid. Seeing you post the role made me want to introduce myself directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Plaid Mid-Market AE application",
+          "inMailMessage": "Hi Peter,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -46,8 +46,8 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "London-based Plaid leader who explicitly posted that Plaid was hiring for the Mid-Market AE role",
-          "inMailSubject": "Why Plaid caught my eye",
-          "inMailMessage": "Hi Peter,\nI applied for Account Executive - Mid-Market at Plaid. Your post about the opening caught my attention.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Plaid Mid-Market AE application",
+          "inMailMessage": "Hi Peter,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -80,8 +80,8 @@
           "type": "Recruiter",
           "confidence": "High",
           "evidence": "Current Twilio recruiter in the London area with recent Twilio hiring activity",
-          "inMailSubject": "A quick Twilio introduction",
-          "inMailMessage": "Hi Sylwia,\nI applied for Inside Sales - Representative (Active) 2 at Twilio and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Twilio Inside Sales Representative application",
+          "inMailMessage": "Hi Sylwia,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -144,8 +144,8 @@
           "type": "Commercial sales leader",
           "confidence": "High",
           "evidence": "UK-based LangChain leader who explicitly leads Commercial GTM",
-          "inMailSubject": "A quick LangChain introduction",
-          "inMailMessage": "Hi Cass,\nI applied for Commercial Account Executive (UK) at LangChain. As you lead Commercial GTM, I wanted to introduce myself directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "LangChain Commercial AE application",
+          "inMailMessage": "Hi Cass,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Sam Spark",
@@ -154,8 +154,8 @@
           "type": "Regional sales leader",
           "confidence": "High",
           "evidence": "Current LangChain Northern Europe sales leader based in the UK",
-          "inMailSubject": "A short LangChain video",
-          "inMailMessage": "Hi Sam,\nI applied for Commercial Account Executive (UK) at LangChain. Your Northern Europe sales remit made it worth reaching out directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "LangChain Commercial AE application",
+          "inMailMessage": "Hi Sam,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -249,8 +249,8 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "London-based Amazon Leo sales leader who announced this position and said the European team is growing",
-          "inMailSubject": "A quick Amazon Leo introduction",
-          "inMailMessage": "Hi Charlie,\nI applied for Senior Account Executive, Amazon Leo at Amazon. Your post about the European team growing prompted me to reach out.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Amazon Leo Senior AE application",
+          "inMailMessage": "Hi Charlie,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Nupur Arora",
@@ -259,8 +259,8 @@
           "type": "Recruiter",
           "confidence": "High",
           "evidence": "London-based recruiter with explicit Amazon Devices & Leo responsibility",
-          "inMailSubject": "A short Amazon Leo video",
-          "inMailMessage": "Hi Nupur,\nI applied for Senior Account Executive, Amazon Leo at Amazon. Given your recruiting focus across Devices and Leo, I wanted to share this directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Amazon Leo Senior AE application",
+          "inMailMessage": "Hi Nupur,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -284,8 +284,8 @@
           "type": "Regional GTM leader",
           "confidence": "High",
           "evidence": "Greater London member of Runway founding EMEA GTM team who recently posted that Runway is hiring",
-          "inMailSubject": "A quick Runway introduction",
-          "inMailMessage": "Hi Clément,\nI applied for Mid-Market Account Executive, London at Runway. Your work building the EMEA GTM team caught my attention.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Runway Mid-Market AE application",
+          "inMailMessage": "Hi Clément,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Olivia MacDowell",
@@ -294,8 +294,8 @@
           "type": "Recruiter",
           "confidence": "Medium-high",
           "evidence": "Current Runway recruiter supporting business functions, with prior Sales and GTM hiring experience",
-          "inMailSubject": "A short Runway video",
-          "inMailMessage": "Hi Olivia,\nI applied for Mid-Market Account Executive, London at Runway and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Runway Mid-Market AE application",
+          "inMailMessage": "Hi Olivia,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -336,8 +336,8 @@
           "type": "Relevant product GTM leader",
           "confidence": "High",
           "evidence": "Meta London/EMEA Frontier AI GTM profile explicitly naming Muse and Enterprise AI, directly relevant to the Model AI API role",
-          "inMailSubject": "A quick Meta introduction",
-          "inMailMessage": "Hi Sahil,\nI applied for Account Executive, Model AI API (London) at Meta. Your Frontier AI GTM work made me want to share this directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Meta Model AI API AE application",
+          "inMailMessage": "Hi Sahil,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Tom Duke",
@@ -346,8 +346,8 @@
           "type": "Recruiter",
           "confidence": "Medium",
           "evidence": "UK-based Meta recruiter with recent London Applied AI recruitment activity",
-          "inMailSubject": "A short Meta AI video",
-          "inMailMessage": "Hi Tom,\nI applied for Account Executive, Model AI API (London) at Meta and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Meta Model AI API AE application",
+          "inMailMessage": "Hi Tom,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -401,8 +401,8 @@
           "type": "Hiring decision-maker",
           "confidence": "High",
           "evidence": "Current EMEA sales leader at Gong",
-          "inMailSubject": "A quick Gong introduction",
-          "inMailMessage": "Hi Samantha,\nI applied for Enterprise Account Executive at GONG.IO INC. As you lead EMEA Sales, I wanted to introduce myself directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Gong Enterprise AE application",
+          "inMailMessage": "Hi Samantha,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Oisín Hogan",
@@ -411,8 +411,8 @@
           "type": "Recruiter",
           "confidence": "High",
           "evidence": "Current Gong recruiter explicitly hiring GTM and technology roles",
-          "inMailSubject": "A short Gong video",
-          "inMailMessage": "Hi Oisín,\nI applied for Enterprise Account Executive at GONG.IO INC. Your focus on hiring GTM talent made it worth reaching out directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Gong Enterprise AE application",
+          "inMailMessage": "Hi Oisín,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -436,8 +436,8 @@
           "type": "Hiring decision-maker",
           "confidence": "High",
           "evidence": "UK-based MinIO commercial leader responsible for UK&I market strategy",
-          "inMailSubject": "A quick MinIO introduction",
-          "inMailMessage": "Hi Salvatore,\nI applied for Account Executive, NeoCloud at MinIO. Your responsibility for UK&I strategy made me want to share this directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "MinIO NeoCloud AE application",
+          "inMailMessage": "Hi Salvatore,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Lauren Penizotto",
@@ -446,8 +446,8 @@
           "type": "Recruiter",
           "confidence": "Medium",
           "evidence": "Current MinIO Talent Acquisition Manager",
-          "inMailSubject": "A short MinIO video",
-          "inMailMessage": "Hi Lauren,\nI applied for Account Executive, NeoCloud at MinIO and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "MinIO NeoCloud AE application",
+          "inMailMessage": "Hi Lauren,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -471,8 +471,8 @@
           "type": "Hiring decision-maker",
           "confidence": "High",
           "evidence": "UK-based Spotify EMEA sales leader focused on advertising and commercial strategy",
-          "inMailSubject": "A quick Spotify introduction",
-          "inMailMessage": "Hi Josh,\nI applied for Account Executive - Commercial, Spotify Technology at Spotify. As Head of Sales EMEA, you seemed the right person to contact.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Spotify Commercial AE application",
+          "inMailMessage": "Hi Josh,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Norelle Briggs",
@@ -481,8 +481,8 @@
           "type": "Recruiter",
           "confidence": "High",
           "evidence": "Current London-based Spotify recruiter",
-          "inMailSubject": "A short Spotify video",
-          "inMailMessage": "Hi Norelle,\nI applied for Account Executive - Commercial, Spotify Technology at Spotify and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
+          "inMailSubject": "Spotify Commercial AE application",
+          "inMailMessage": "Hi Norelle,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -528,8 +528,8 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "Top result in the targeted LinkedIn Mintive CEO search and visibly building at Mintive; best available senior company contact for a founding sales hire",
-          "inMailSubject": "Founding AE application - short introduction",
-          "inMailMessage": "Hi Jiquan,\nI applied for Mintive's Founding Account Executive role. The chance to help build the commercial motion around secure agent infrastructure strongly matches my SaaS sales and AI experience.\n\nI recorded a short introduction: [PASTE LOOM LINK]\n\nIf it looks relevant, I would really value a conversation.\n\nThanks,\nPhil"
+          "inMailSubject": "Mintive Founding AE application",
+          "inMailMessage": "Hi Jiquan,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -555,7 +555,7 @@
           "confidence": "High",
           "evidence": "London-based Airbnb regional GM covering UKI; the role owns UK supply growth and professional host relationships",
           "inMailSubject": "Airbnb Market Manager application",
-          "inMailMessage": "Hi Lisa,\nI applied for the Market Manager role in London. My background combines account growth, new business and senior stakeholder management across complex SaaS sales. Airbnb's focus on growing professional host supply feels like a strong match.\n\nIf appropriate, I would value a brief conversation or a pointer to the right person on the team.\n\nThanks,\nPhil"
+          "inMailMessage": "Hi Lisa,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -581,7 +581,7 @@
           "confidence": "High",
           "evidence": "Current Hitachi Vantara EMEA regional sales director in the UK; the role is a UK new-logo Account Executive position",
           "inMailSubject": "Hitachi Vantara AE application",
-          "inMailMessage": "Hi Craig,\nI applied for the UK Account Executive role at Hitachi Vantara. I have built new-logo pipeline, managed enterprise stakeholders and led complex SaaS sales cycles, including wins with major global organisations.\n\nGiven your EMEA regional sales remit, I wanted to introduce myself directly. I would value any guidance on the role or hiring team.\n\nThanks,\nPhil"
+          "inMailMessage": "Hi Craig,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -607,7 +607,7 @@
           "confidence": "Very high",
           "evidence": "Current BambooHR senior international sales manager for EMEA, matching the role description that the hire works closely with the EMEA Sales leader",
           "inMailSubject": "BambooHR EMEA AE application",
-          "inMailMessage": "Hi Tim,\nI applied for the Account Executive (EMEA) role in London. I bring full-cycle SaaS sales experience, a strong new-business record and the builder mindset the description calls for.\n\nThe opportunity to help shape BambooHR's UK motion really stood out. I would value a brief conversation if my background looks relevant.\n\nThanks,\nPhil"
+          "inMailMessage": "Hi Tim,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -633,7 +633,7 @@
           "confidence": "Very high",
           "evidence": "London-based Zip leader explicitly responsible for EMEA Enterprise and Commercial sales, directly matching the Commercial AE remit",
           "inMailSubject": "Zip Commercial AE application",
-          "inMailMessage": "Hi Richard,\nI applied for Zip's Commercial Account Executive role in London. I bring full-cycle SaaS closing experience, enterprise wins and a strong product-consulting approach.\n\nThe combination of AI, procurement transformation and an EMEA builder role is particularly compelling. I would value a brief conversation if my background looks relevant.\n\nThanks,\nPhil"
+          "inMailMessage": "Hi Richard,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ],
       "ignored": true
@@ -658,8 +658,8 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "London-based Walmart EMEA Business Development director; the role owns UK inbound seller acquisition for Marketplace Europe",
-          "inMailSubject": "Walmart Marketplace BD application",
-          "inMailMessage": "Hi Marion,\nI applied for the Inbound Manager, Business Development, Marketplace Europe role in London. My background spans new business, account growth, high-volume pipeline management and consultative SaaS selling.\n\nThe opportunity to help UK sellers launch and grow on Walmart Marketplace feels very well aligned. I would value a brief conversation if useful.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "Walmart Marketplace Europe Business Development Manager application",
+          "inMailMessage": "Hi Marion,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     },
@@ -684,7 +684,7 @@
           "confidence": "Very high",
           "evidence": "Houst company people search identifies Billy as Sales Team Lead; the applied role is an inbound sales position on the same team",
           "inMailSubject": "Houst Inbound Sales Executive application",
-          "inMailMessage": "Hi Billy,\n\nI’ve applied for Houst’s Inbound Sales Executive role. I bring full-cycle SaaS sales experience, current property-technology knowledge and first-hand experience hosting my own Airbnb property.\n\nThe combination of inbound conversion, property management and a fast-moving technology business feels unusually well aligned. I’d value a brief conversation if my background looks relevant.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailMessage": "Hi Billy,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Megan Van Strijp",
@@ -694,7 +694,7 @@
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile identifies Megan as People & Culture Lead at Houst, and Houst’s company People view surfaces her for people and HR research. Her location is South Africa, so UK-role ownership is not inferred.",
           "inMailSubject": "Houst Inbound Sales Executive application",
-          "inMailMessage": "Hi Megan,\n\nI’ve applied for Houst’s Inbound Sales Executive role. My background combines full-cycle SaaS sales, current property-technology experience and first-hand experience hosting my own Airbnb property.\n\nThe role feels unusually well aligned. I’d be grateful if you could keep my application in mind or direct me to the appropriate recruitment contact for the UK sales team.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailMessage": "Hi Megan,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     },
@@ -718,8 +718,8 @@
           "type": "Regional GTM leader",
           "confidence": "High",
           "evidence": "Targeted Drata company search returns Osiri within EMEA sales and his visible headline explicitly covers scaling SaaS revenue and GTM teams in EMEA",
-          "inMailSubject": "Drata Emerging AE application - London",
-          "inMailMessage": "Hi Osiri,\n\nI’ve applied for Drata’s Emerging Account Executive role in London. My background includes full-cycle SaaS selling, outbound pipeline development and enterprise wins with organisations including OpenAI and Amazon.\n\nDrata’s focus on agentic trust management and its high-ownership EMEA culture particularly appealed to me. I’d value a brief conversation if my experience looks relevant.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "Drata Emerging AE application",
+          "inMailMessage": "Hi Osiri,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Alex Indelicato",
@@ -728,8 +728,8 @@
           "type": "HR/recruitment contact",
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile identifies Alex as leading Talent Acquisition at Drata and as a SaaS hiring principal. The profile does not state a specific EMEA remit, so regional ownership is not inferred.",
-          "inMailSubject": "Drata Emerging Account Executive application",
-          "inMailMessage": "Hi Alex,\n\nI’ve applied for Drata’s Emerging Account Executive role in London. My background includes full-cycle SaaS selling, outbound pipeline development and enterprise wins with organisations including OpenAI and Amazon.\n\nDrata’s high-ownership EMEA culture particularly appealed to me. I’d appreciate any guidance on the process or the appropriate EMEA recruitment contact.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "Drata Emerging AE application",
+          "inMailMessage": "Hi Alex,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     },
@@ -753,8 +753,8 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "Conductor company people search identifies Erik as VP Sales EMEA, directly owning the region and function for the London Account Executive role",
-          "inMailSubject": "Conductor Account Executive application",
-          "inMailMessage": "Hi Erik,\n\nI’ve applied for Conductor’s London Account Executive role. I bring full-cycle enterprise SaaS experience, a consistent record of quota achievement and complex wins with major organisations.\n\nConductor’s position at the intersection of AI search, AEO and digital growth is especially exciting. I’d value a brief conversation if my background looks relevant to your EMEA team.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "Conductor AE application",
+          "inMailMessage": "Hi Erik,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Michelle (Pepe) Hosford",
@@ -763,8 +763,8 @@
           "type": "HR/recruitment contact",
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile and Conductor’s company People view identify Michelle as Talent Acquisition Manager at Conductor. She is US-based, so direct ownership of the London role is not inferred.",
-          "inMailSubject": "Conductor London Account Executive application",
-          "inMailMessage": "Hi Michelle,\n\nI’ve applied for Conductor’s London Account Executive role. I bring full-cycle enterprise SaaS experience, a consistent record of quota achievement and complex wins with major organisations.\n\nConductor’s position in AI search and AEO is especially compelling. I’d appreciate any guidance on the process or the appropriate EMEA talent contact.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "Conductor AE application",
+          "inMailMessage": "Hi Michelle,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     },
@@ -788,8 +788,8 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "Epidemic Sound company people search identifies Ben as Director of Enterprise Sales; the applied London role closes mid-market and enterprise new business",
-          "inMailSubject": "Epidemic Sound Account Executive application",
-          "inMailMessage": "Hi Ben,\n\nI’ve applied for Epidemic Sound’s London Account Executive role. I bring full-cycle enterprise SaaS experience, complex deal leadership and major customer wins. I’ve also produced electronic music and DJed for years, so the chance to combine commercial experience with a product and industry I genuinely care about is especially compelling.\n\nI’d value a brief conversation if my background looks relevant.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "Epidemic Sound AE application",
+          "inMailMessage": "Hi Ben,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Mine Konuk Alonzi",
@@ -798,8 +798,8 @@
           "type": "HR/recruitment contact",
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile identifies Mine as Director of Talent Acquisition at Epidemic Sound. The profile is based in Stockholm and does not state ownership of this London role, so direct role ownership is not inferred.",
-          "inMailSubject": "Epidemic Sound Account Executive application",
-          "inMailMessage": "Hi Mine,\n\nI’ve applied for Epidemic Sound’s London Account Executive role. I bring full-cycle enterprise SaaS experience, complex deal leadership and major customer wins. I’ve also produced electronic music and DJed for years, so this opportunity feels genuinely distinctive.\n\nI’d be grateful if you could keep my application in mind or direct me to the recruiter handling the role.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "Epidemic Sound AE application",
+          "inMailMessage": "Hi Mine,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     },
@@ -823,8 +823,8 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "Targeted Contilio AI founder search identifies Zara as CEO and Co-Founder; at an 11-50 person company she is the strongest evidenced decision-maker for a senior enterprise sales hire",
-          "inMailSubject": "Contilio AI Senior Account Executive application",
-          "inMailMessage": "Hi Zara,\n\nI’ve applied for Contilio AI’s Senior Account Executive role. My background combines full-cycle enterprise SaaS sales, complex multi-stakeholder deals and current experience in property technology.\n\nContilio’s use of 3D AI to improve construction delivery feels unusually well aligned with both my commercial track record and sector knowledge. I’d value a brief conversation if useful.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "Contilio AI Senior Enterprise AE application",
+          "inMailMessage": "Hi Zara,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     },
@@ -848,8 +848,8 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "The listing names Amelia as a co-founder and targeted LinkedIn search confirms her current Co-Founder role; ivee is an early-stage founder-led company",
-          "inMailSubject": "ivee Account Executive talent-bank application",
-          "inMailMessage": "Hi Amelia,\n\nI’ve applied to ivee’s Account Executive talent bank. My background combines full-cycle SaaS sales, enterprise customer wins and practical experience building and working with AI tools.\n\nYour focus on making AI adoption useful and accessible, supported by consulting and upskilling, really stood out. I’d value a brief conversation if my profile could fit the team as it grows.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "ivee AE application",
+          "inMailMessage": "Hi Amelia,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     },
@@ -873,8 +873,8 @@
           "type": "Relevant category leader",
           "confidence": "High",
           "evidence": "TikTok company people search identifies Sin Man as Category Manager for Home & Living and Electronics, the exact category covered by the applied Business Development Manager role",
-          "inMailSubject": "TikTok Shop Home & Living BDM application",
-          "inMailMessage": "Hi Sin Man,\n\nI’ve applied for TikTok Shop’s Business Development Manager role in Home & Living. My background spans prospecting, negotiation, closing and account growth, with additional first-hand experience in property and Airbnb hosting.\n\nThe opportunity to onboard and help merchants achieve early success in Home & Living feels very well aligned. I’d value a brief conversation if useful.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "TikTok Home & Living BDM application",
+          "inMailMessage": "Hi Sin Man,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Sara N.",
@@ -883,8 +883,8 @@
           "type": "HR/recruitment contact",
           "confidence": "Very high",
           "evidence": "Authenticated LinkedIn profile identifies Sara as a London-based Talent Acquisition Partner at TikTok for EMEA, and her activity includes a repost of this exact Home & Living Business Development Manager role.",
-          "inMailSubject": "TikTok Shop Home & Living BDM application",
-          "inMailMessage": "Hi Sara,\n\nI’ve applied for TikTok Shop’s Business Development Manager role in Home & Living. My background spans prospecting, negotiation, closing and account growth, alongside first-hand property and Airbnb experience.\n\nI noticed you shared this exact role, so I wanted to introduce myself directly. I’d value any guidance on the next stage of the process.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "TikTok Home & Living BDM application",
+          "inMailMessage": "Hi Sara,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     },
@@ -909,7 +909,7 @@
           "confidence": "Very high",
           "evidence": "The listing says the hire reports to the UK Sales Director; Jetfly company people search identifies Jonathan as UK Director and one of only two UK sales profiles",
           "inMailSubject": "Jetfly UK Sales Executive application",
-          "inMailMessage": "Hi Jonathan,\n\nI’ve applied for Jetfly’s UK Sales Executive role. My background includes full-cycle consultative selling, complex negotiations and major enterprise wins requiring trusted relationships with senior stakeholders.\n\nThe opportunity to develop the UK fractional-ownership market and work closely with the UK Sales Director is particularly compelling. I’d value a brief conversation if my experience looks relevant.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailMessage": "Hi Jonathan,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "Sylvie Addamiano",
@@ -919,7 +919,7 @@
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile identifies Sylvie as Group HR Director at Jetfly. She is based at the Luxembourg group headquarters, so direct ownership of the UK Sales Executive vacancy is not inferred.",
           "inMailSubject": "Jetfly UK Sales Executive application",
-          "inMailMessage": "Hi Sylvie,\n\nI’ve applied for Jetfly’s UK Sales Executive role. My background includes full-cycle consultative selling, complex negotiations and major enterprise wins requiring trusted senior relationships.\n\nJetfly’s fractional-ownership model and focus on long-term clients particularly appeal to me. I’d be grateful if you could keep my application in mind or direct me to the relevant recruiter.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailMessage": "Hi Sylvie,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     },
@@ -943,8 +943,8 @@
           "type": "Relevant product sales peer",
           "confidence": "Medium",
           "evidence": "IBM company people search identifies Dylan as a UK Confluent sales specialist. No named hiring manager or unambiguous UK Confluent sales leader was visible, so this is the best evidenced product-team contact rather than an inferred manager",
-          "inMailSubject": "IBM UK&I Confluent Account Executive application",
-          "inMailMessage": "Hi Dylan,\n\nI’ve applied for IBM’s UK&I Confluent Account Executive role. My background includes full-cycle enterprise SaaS sales, new-logo acquisition and complex deal execution with major global organisations.\n\nYour direct experience selling Confluent at IBM made you the most relevant person to contact. If appropriate, I’d value any insight on the team or the right hiring contact.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "IBM UK&I Confluent AE application",
+          "inMailMessage": "Hi Dylan,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         },
         {
           "name": "James Llewellyn",
@@ -953,8 +953,8 @@
           "type": "HR/recruitment contact",
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile and IBM’s company People view identify James as a UK-based Senior Talent Acquisition Partner at IBM. His profile does not specify Confluent or Global Sales ownership, so direct ownership of this vacancy is not inferred.",
-          "inMailSubject": "IBM UK&I Confluent Account Executive application",
-          "inMailMessage": "Hi James,\n\nI’ve applied for IBM’s UK&I Confluent Account Executive role. My background includes full-cycle enterprise SaaS sales, new-logo acquisition and complex deal execution with major global organisations.\n\nI’d appreciate any guidance on the process or the appropriate talent partner supporting IBM Global Sales and the Confluent team.\n\nI’ve also recorded a short Loom outlining why I’m a strong fit: [PASTE LOOM LINK]\n\nThanks,\nPhil"
+          "inMailSubject": "IBM UK&I Confluent AE application",
+          "inMailMessage": "Hi James,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     }
