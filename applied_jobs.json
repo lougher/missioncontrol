@@ -21,8 +21,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "London-based Plaid leader who explicitly posted that Plaid was hiring for the Mid-Market AE role",
-          "connectionNote": "Hi Peter, I applied for Plaid's Account Executive - Mid-Market role. Your post about Plaid hiring for this role stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Peter. I applied for the Account Executive - Mid-Market role at Plaid. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Plaid introduction",
           "inMailMessage": "Hi Peter,\nI applied for Account Executive - Mid-Market at Plaid. Seeing you post the role made me want to introduce myself directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         }
@@ -48,8 +46,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "London-based Plaid leader who explicitly posted that Plaid was hiring for the Mid-Market AE role",
-          "connectionNote": "Hi Peter, I applied for Plaid's Account Executive - Mid-Market role. Your post about Plaid hiring for this role stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Peter. I applied for the Account Executive - Mid-Market role at Plaid. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "Why Plaid caught my eye",
           "inMailMessage": "Hi Peter,\nI applied for Account Executive - Mid-Market at Plaid. Your post about the opening caught my attention.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         }
@@ -84,8 +80,6 @@
           "type": "Recruiter",
           "confidence": "High",
           "evidence": "Current Twilio recruiter in the London area with recent Twilio hiring activity",
-          "connectionNote": "Hi Sylwia, I applied for Twilio's Inside Sales - Representative (Active) 2 role. Your recent Twilio hiring work in London stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Sylwia. I applied for the Inside Sales - Representative (Active) 2 role at Twilio. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Twilio introduction",
           "inMailMessage": "Hi Sylwia,\nI applied for Inside Sales - Representative (Active) 2 at Twilio and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         }
@@ -150,8 +144,6 @@
           "type": "Commercial sales leader",
           "confidence": "High",
           "evidence": "UK-based LangChain leader who explicitly leads Commercial GTM",
-          "connectionNote": "Hi Cass, I applied for LangChain's Commercial Account Executive (UK) role. Your leadership of LangChain Commercial GTM stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Cass. I applied for the Commercial Account Executive (UK) role at LangChain. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick LangChain introduction",
           "inMailMessage": "Hi Cass,\nI applied for Commercial Account Executive (UK) at LangChain. As you lead Commercial GTM, I wanted to introduce myself directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         },
@@ -162,8 +154,6 @@
           "type": "Regional sales leader",
           "confidence": "High",
           "evidence": "Current LangChain Northern Europe sales leader based in the UK",
-          "connectionNote": "Hi Sam, I applied for LangChain's Commercial Account Executive (UK) role. Your Northern Europe sales leadership stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Sam. I applied for the Commercial Account Executive (UK) role at LangChain. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short LangChain video",
           "inMailMessage": "Hi Sam,\nI applied for Commercial Account Executive (UK) at LangChain. Your Northern Europe sales remit made it worth reaching out directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         }
@@ -259,8 +249,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "London-based Amazon Leo sales leader who announced this position and said the European team is growing",
-          "connectionNote": "Hi Charlie, I applied for Amazon's Senior Account Executive, Amazon Leo role. Your post about the Amazon Leo team growing stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Charlie. I applied for the Senior Account Executive, Amazon Leo role at Amazon. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Amazon Leo introduction",
           "inMailMessage": "Hi Charlie,\nI applied for Senior Account Executive, Amazon Leo at Amazon. Your post about the European team growing prompted me to reach out.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         },
@@ -271,8 +259,6 @@
           "type": "Recruiter",
           "confidence": "High",
           "evidence": "London-based recruiter with explicit Amazon Devices & Leo responsibility",
-          "connectionNote": "Hi Nupur, I applied for Amazon's Senior Account Executive, Amazon Leo role. Your Amazon Devices & Leo recruiting work stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Nupur. I applied for the Senior Account Executive, Amazon Leo role at Amazon. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short Amazon Leo video",
           "inMailMessage": "Hi Nupur,\nI applied for Senior Account Executive, Amazon Leo at Amazon. Given your recruiting focus across Devices and Leo, I wanted to share this directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         }
@@ -298,8 +284,6 @@
           "type": "Regional GTM leader",
           "confidence": "High",
           "evidence": "Greater London member of Runway founding EMEA GTM team who recently posted that Runway is hiring",
-          "connectionNote": "Hi Clément, I applied for Runway's Mid-Market Account Executive, London role. Your work building Runway’s EMEA GTM team stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Clément. I applied for the Mid-Market Account Executive, London role at Runway. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Runway introduction",
           "inMailMessage": "Hi Clément,\nI applied for Mid-Market Account Executive, London at Runway. Your work building the EMEA GTM team caught my attention.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         },
@@ -310,8 +294,6 @@
           "type": "Recruiter",
           "confidence": "Medium-high",
           "evidence": "Current Runway recruiter supporting business functions, with prior Sales and GTM hiring experience",
-          "connectionNote": "Hi Olivia, I applied for Runway's Mid-Market Account Executive, London role. Your Sales and GTM recruiting experience stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Olivia. I applied for the Mid-Market Account Executive, London role at Runway. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short Runway video",
           "inMailMessage": "Hi Olivia,\nI applied for Mid-Market Account Executive, London at Runway and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         }
@@ -354,8 +336,6 @@
           "type": "Relevant product GTM leader",
           "confidence": "High",
           "evidence": "Meta London/EMEA Frontier AI GTM profile explicitly naming Muse and Enterprise AI, directly relevant to the Model AI API role",
-          "connectionNote": "Hi Sahil, I applied for Meta's Account Executive, Model AI API (London) role. Your Frontier AI GTM work across London and EMEA stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Sahil. I applied for the Account Executive, Model AI API (London) role at Meta. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Meta introduction",
           "inMailMessage": "Hi Sahil,\nI applied for Account Executive, Model AI API (London) at Meta. Your Frontier AI GTM work made me want to share this directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         },
@@ -366,8 +346,6 @@
           "type": "Recruiter",
           "confidence": "Medium",
           "evidence": "UK-based Meta recruiter with recent London Applied AI recruitment activity",
-          "connectionNote": "Hi Tom, I applied for Meta's Account Executive, Model AI API (London) role. Your recent London Applied AI recruiting work stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Tom. I applied for the Account Executive, Model AI API (London) role at Meta. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short Meta AI video",
           "inMailMessage": "Hi Tom,\nI applied for Account Executive, Model AI API (London) at Meta and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         }
@@ -423,8 +401,6 @@
           "type": "Hiring decision-maker",
           "confidence": "High",
           "evidence": "Current EMEA sales leader at Gong",
-          "connectionNote": "Hi Samantha, I applied for GONG.IO INC's Enterprise Account Executive role. Your leadership of Gong’s EMEA sales team stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Samantha. I applied for the Enterprise Account Executive role at GONG.IO INC. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Gong introduction",
           "inMailMessage": "Hi Samantha,\nI applied for Enterprise Account Executive at GONG.IO INC. As you lead EMEA Sales, I wanted to introduce myself directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         },
@@ -435,8 +411,6 @@
           "type": "Recruiter",
           "confidence": "High",
           "evidence": "Current Gong recruiter explicitly hiring GTM and technology roles",
-          "connectionNote": "Hi Oisín, I applied for GONG.IO INC's Enterprise Account Executive role. Your focus on hiring GTM talent at Gong stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Oisín. I applied for the Enterprise Account Executive role at GONG.IO INC. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short Gong video",
           "inMailMessage": "Hi Oisín,\nI applied for Enterprise Account Executive at GONG.IO INC. Your focus on hiring GTM talent made it worth reaching out directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         }
@@ -462,8 +436,6 @@
           "type": "Hiring decision-maker",
           "confidence": "High",
           "evidence": "UK-based MinIO commercial leader responsible for UK&I market strategy",
-          "connectionNote": "Hi Salvatore, I applied for MinIO's Account Executive, NeoCloud role. Your leadership of MinIO’s UK&I market strategy stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Salvatore. I applied for the Account Executive, NeoCloud role at MinIO. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick MinIO introduction",
           "inMailMessage": "Hi Salvatore,\nI applied for Account Executive, NeoCloud at MinIO. Your responsibility for UK&I strategy made me want to share this directly.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         },
@@ -474,8 +446,6 @@
           "type": "Recruiter",
           "confidence": "Medium",
           "evidence": "Current MinIO Talent Acquisition Manager",
-          "connectionNote": "Hi Lauren, I applied for MinIO's Account Executive, NeoCloud role. Your talent acquisition work at MinIO stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Lauren. I applied for the Account Executive, NeoCloud role at MinIO. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short MinIO video",
           "inMailMessage": "Hi Lauren,\nI applied for Account Executive, NeoCloud at MinIO and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         }
@@ -501,8 +471,6 @@
           "type": "Hiring decision-maker",
           "confidence": "High",
           "evidence": "UK-based Spotify EMEA sales leader focused on advertising and commercial strategy",
-          "connectionNote": "Hi Josh, I applied for Spotify's Account Executive - Commercial, Spotify Technology role. Your leadership of Spotify’s EMEA sales strategy stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Josh. I applied for the Account Executive - Commercial, Spotify Technology role at Spotify. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A quick Spotify introduction",
           "inMailMessage": "Hi Josh,\nI applied for Account Executive - Commercial, Spotify Technology at Spotify. As Head of Sales EMEA, you seemed the right person to contact.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         },
@@ -513,8 +481,6 @@
           "type": "Recruiter",
           "confidence": "High",
           "evidence": "Current London-based Spotify recruiter",
-          "connectionNote": "Hi Norelle, I applied for Spotify's Account Executive - Commercial, Spotify Technology role. Your Spotify recruiting work in London stood out. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Norelle. I applied for the Account Executive - Commercial, Spotify Technology role at Spotify. I recorded a short Loom on my SaaS sales fit and what I could bring to the team: [PASTE LOOM LINK]",
           "inMailSubject": "A short Spotify video",
           "inMailMessage": "Hi Norelle,\nI applied for Account Executive - Commercial, Spotify Technology at Spotify and wanted to put a face to the application.\n[PASTE LOOM LINK]\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\nPhil"
         }
@@ -562,8 +528,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "Top result in the targeted LinkedIn Mintive CEO search and visibly building at Mintive; best available senior company contact for a founding sales hire",
-          "connectionNote": "Hi Jiquan, I applied for Mintive's Founding Account Executive role. The agent-security mission strongly fits my SaaS and AI background. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Jiquan. I applied for Mintive's Founding Account Executive role and recorded a short introduction on why my SaaS sales and AI experience fit the opportunity: [PASTE LOOM LINK]",
           "inMailSubject": "Founding AE application - short introduction",
           "inMailMessage": "Hi Jiquan,\nI applied for Mintive's Founding Account Executive role. The chance to help build the commercial motion around secure agent infrastructure strongly matches my SaaS sales and AI experience.\n\nI recorded a short introduction: [PASTE LOOM LINK]\n\nIf it looks relevant, I would really value a conversation.\n\nThanks,\nPhil"
         }
@@ -590,8 +554,6 @@
           "type": "Hiring decision-maker",
           "confidence": "High",
           "evidence": "London-based Airbnb regional GM covering UKI; the role owns UK supply growth and professional host relationships",
-          "connectionNote": "Hi Lisa, I applied for Airbnb's Market Manager role in London. My SaaS account growth and strategic relationship experience feels highly relevant. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Lisa. I applied for Airbnb's Market Manager role in London. I am excited by the chance to grow professional host partnerships across the UK and would value any guidance on the team or process.",
           "inMailSubject": "Airbnb Market Manager application",
           "inMailMessage": "Hi Lisa,\nI applied for the Market Manager role in London. My background combines account growth, new business and senior stakeholder management across complex SaaS sales. Airbnb's focus on growing professional host supply feels like a strong match.\n\nIf appropriate, I would value a brief conversation or a pointer to the right person on the team.\n\nThanks,\nPhil"
         }
@@ -618,8 +580,6 @@
           "type": "Regional sales leader",
           "confidence": "High",
           "evidence": "Current Hitachi Vantara EMEA regional sales director in the UK; the role is a UK new-logo Account Executive position",
-          "connectionNote": "Hi Craig, I applied for Hitachi Vantara's UK Account Executive role. My enterprise SaaS new-business experience feels closely aligned. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Craig. I applied for Hitachi Vantara's UK Account Executive role. The focus on strategic new-logo acquisition, executive engagement and complex sales cycles closely matches my background.",
           "inMailSubject": "Hitachi Vantara AE application",
           "inMailMessage": "Hi Craig,\nI applied for the UK Account Executive role at Hitachi Vantara. I have built new-logo pipeline, managed enterprise stakeholders and led complex SaaS sales cycles, including wins with major global organisations.\n\nGiven your EMEA regional sales remit, I wanted to introduce myself directly. I would value any guidance on the role or hiring team.\n\nThanks,\nPhil"
         }
@@ -646,8 +606,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "Current BambooHR senior international sales manager for EMEA, matching the role description that the hire works closely with the EMEA Sales leader",
-          "connectionNote": "Hi Tim, I applied for BambooHR's Account Executive (EMEA) role. The chance to help build the UK motion strongly matches my SaaS sales background. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Tim. I applied for BambooHR's Account Executive (EMEA) role. Building pipeline, shaping the UK motion and helping establish a repeatable regional sales playbook is exactly the kind of opportunity I am looking for.",
           "inMailSubject": "BambooHR EMEA AE application",
           "inMailMessage": "Hi Tim,\nI applied for the Account Executive (EMEA) role in London. I bring full-cycle SaaS sales experience, a strong new-business record and the builder mindset the description calls for.\n\nThe opportunity to help shape BambooHR's UK motion really stood out. I would value a brief conversation if my background looks relevant.\n\nThanks,\nPhil"
         }
@@ -674,8 +632,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "London-based Zip leader explicitly responsible for EMEA Enterprise and Commercial sales, directly matching the Commercial AE remit",
-          "connectionNote": "Hi Richard, I applied for Zip's Commercial Account Executive role. My enterprise SaaS closing experience and builder mindset feel strongly aligned. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Richard. I applied for Zip's Commercial Account Executive role. My background in full-cycle SaaS sales, enterprise closing and building repeatable sales motions feels closely aligned with the team you lead.",
           "inMailSubject": "Zip Commercial AE application",
           "inMailMessage": "Hi Richard,\nI applied for Zip's Commercial Account Executive role in London. I bring full-cycle SaaS closing experience, enterprise wins and a strong product-consulting approach.\n\nThe combination of AI, procurement transformation and an EMEA builder role is particularly compelling. I would value a brief conversation if my background looks relevant.\n\nThanks,\nPhil"
         }
@@ -702,8 +658,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "London-based Walmart EMEA Business Development director; the role owns UK inbound seller acquisition for Marketplace Europe",
-          "connectionNote": "Hi Marion, I applied for Walmart's Inbound Manager, Business Development role. My SaaS sales and account-growth experience feels highly relevant. I'd value connecting.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Marion. I applied for Walmart's Inbound Manager, Business Development, Marketplace Europe role. The mix of seller acquisition, consultative growth and building a scalable inbound motion strongly matches my experience.",
           "inMailSubject": "Walmart Marketplace BD application",
           "inMailMessage": "Hi Marion,\nI applied for the Inbound Manager, Business Development, Marketplace Europe role in London. My background spans new business, account growth, high-volume pipeline management and consultative SaaS selling.\n\nThe opportunity to help UK sellers launch and grow on Walmart Marketplace feels very well aligned. I would value a brief conversation if useful.\n\nThanks,\nPhil"
         }
@@ -729,8 +683,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "Houst company people search identifies Billy as Sales Team Lead; the applied role is an inbound sales position on the same team",
-          "connectionNote": "Hi Billy, I’ve applied for Houst’s Inbound Sales Executive role. My SaaS sales background and experience hosting my own Airbnb make this a particularly exciting fit.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Billy. I’ve applied for Houst’s Inbound Sales Executive role. I bring full-cycle SaaS sales experience, direct proptech knowledge and first-hand experience running my own Airbnb property, so Houst’s mission feels especially relevant. I’d value a quick conversation if my background looks useful.",
           "inMailSubject": "Houst Inbound Sales Executive application",
           "inMailMessage": "Hi Billy,\n\nI’ve applied for Houst’s Inbound Sales Executive role. I bring full-cycle SaaS sales experience, current property-technology knowledge and first-hand experience hosting my own Airbnb property.\n\nThe combination of inbound conversion, property management and a fast-moving technology business feels unusually well aligned. I’d value a brief conversation if my background looks relevant.\n\nThanks,\nPhil"
         },
@@ -741,8 +693,6 @@
           "type": "HR/recruitment contact",
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile identifies Megan as People & Culture Lead at Houst, and Houst’s company People view surfaces her for people and HR research. Her location is South Africa, so UK-role ownership is not inferred.",
-          "connectionNote": "Hi Megan, I’ve applied for Houst’s Inbound Sales Executive role. My SaaS sales, proptech experience and first-hand Airbnb hosting feel strongly aligned.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Megan. I’ve applied for Houst’s Inbound Sales Executive role. I bring full-cycle SaaS sales, direct proptech knowledge and first-hand experience running my own Airbnb property. I’d be grateful if you could keep my application in mind or point me towards the appropriate recruitment contact.",
           "inMailSubject": "Houst Inbound Sales Executive application",
           "inMailMessage": "Hi Megan,\n\nI’ve applied for Houst’s Inbound Sales Executive role. My background combines full-cycle SaaS sales, current property-technology experience and first-hand experience hosting my own Airbnb property.\n\nThe role feels unusually well aligned. I’d be grateful if you could keep my application in mind or direct me to the appropriate recruitment contact for the UK sales team.\n\nThanks,\nPhil"
         }
@@ -768,8 +718,6 @@
           "type": "Regional GTM leader",
           "confidence": "High",
           "evidence": "Targeted Drata company search returns Osiri within EMEA sales and his visible headline explicitly covers scaling SaaS revenue and GTM teams in EMEA",
-          "connectionNote": "Hi Osiri, I’ve applied for Drata’s Emerging Account Executive role in London. My full-cycle SaaS sales and enterprise closing experience feel closely aligned.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Osiri. I’ve applied for Drata’s Emerging Account Executive role in London. I’ve led full-cycle SaaS sales, built new-business pipeline and closed complex enterprise customers including OpenAI and Amazon. Drata’s AI-led trust platform and ownership culture really stood out.",
           "inMailSubject": "Drata Emerging AE application - London",
           "inMailMessage": "Hi Osiri,\n\nI’ve applied for Drata’s Emerging Account Executive role in London. My background includes full-cycle SaaS selling, outbound pipeline development and enterprise wins with organisations including OpenAI and Amazon.\n\nDrata’s focus on agentic trust management and its high-ownership EMEA culture particularly appealed to me. I’d value a brief conversation if my experience looks relevant.\n\nThanks,\nPhil"
         },
@@ -780,8 +728,6 @@
           "type": "HR/recruitment contact",
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile identifies Alex as leading Talent Acquisition at Drata and as a SaaS hiring principal. The profile does not state a specific EMEA remit, so regional ownership is not inferred.",
-          "connectionNote": "Hi Alex, I’ve applied for Drata’s Emerging Account Executive role in London. My full-cycle SaaS sales and enterprise closing experience feel closely aligned.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Alex. I’ve applied for Drata’s Emerging Account Executive role in London. I bring full-cycle SaaS sales, outbound pipeline development and major enterprise wins. I’d appreciate any guidance on the process or the most relevant EMEA recruitment contact.",
           "inMailSubject": "Drata Emerging Account Executive application",
           "inMailMessage": "Hi Alex,\n\nI’ve applied for Drata’s Emerging Account Executive role in London. My background includes full-cycle SaaS selling, outbound pipeline development and enterprise wins with organisations including OpenAI and Amazon.\n\nDrata’s high-ownership EMEA culture particularly appealed to me. I’d appreciate any guidance on the process or the appropriate EMEA recruitment contact.\n\nThanks,\nPhil"
         }
@@ -807,8 +753,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "Conductor company people search identifies Erik as VP Sales EMEA, directly owning the region and function for the London Account Executive role",
-          "connectionNote": "Hi Erik, I’ve applied for Conductor’s London Account Executive role. My enterprise SaaS record and experience selling to senior stakeholders feel strongly aligned.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Erik. I’ve applied for Conductor’s London Account Executive role. I bring full-cycle enterprise SaaS sales experience, consistent quota performance and major customer wins. The opportunity to sell an AEO platform as AI reshapes enterprise search is particularly compelling.",
           "inMailSubject": "Conductor Account Executive application",
           "inMailMessage": "Hi Erik,\n\nI’ve applied for Conductor’s London Account Executive role. I bring full-cycle enterprise SaaS experience, a consistent record of quota achievement and complex wins with major organisations.\n\nConductor’s position at the intersection of AI search, AEO and digital growth is especially exciting. I’d value a brief conversation if my background looks relevant to your EMEA team.\n\nThanks,\nPhil"
         },
@@ -819,8 +763,6 @@
           "type": "HR/recruitment contact",
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile and Conductor’s company People view identify Michelle as Talent Acquisition Manager at Conductor. She is US-based, so direct ownership of the London role is not inferred.",
-          "connectionNote": "Hi Michelle, I’ve applied for Conductor’s London Account Executive role. My enterprise SaaS record and experience selling to senior stakeholders feel strongly aligned.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Michelle. I’ve applied for Conductor’s London Account Executive role. I bring full-cycle enterprise SaaS experience, consistent quota performance and major customer wins. I’d appreciate any guidance on the recruitment process or the right EMEA talent contact.",
           "inMailSubject": "Conductor London Account Executive application",
           "inMailMessage": "Hi Michelle,\n\nI’ve applied for Conductor’s London Account Executive role. I bring full-cycle enterprise SaaS experience, a consistent record of quota achievement and complex wins with major organisations.\n\nConductor’s position in AI search and AEO is especially compelling. I’d appreciate any guidance on the process or the appropriate EMEA talent contact.\n\nThanks,\nPhil"
         }
@@ -846,8 +788,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "Epidemic Sound company people search identifies Ben as Director of Enterprise Sales; the applied London role closes mid-market and enterprise new business",
-          "connectionNote": "Hi Ben, I’ve applied for Epidemic Sound’s London Account Executive role. My enterprise SaaS sales record and lifelong passion for electronic music make it a standout fit.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Ben. I’ve applied for Epidemic Sound’s London Account Executive role. I bring full-cycle enterprise SaaS sales, complex negotiation experience and major customer wins, alongside a long-standing background in electronic music production and DJing. The combination feels genuinely distinctive.",
           "inMailSubject": "Epidemic Sound Account Executive application",
           "inMailMessage": "Hi Ben,\n\nI’ve applied for Epidemic Sound’s London Account Executive role. I bring full-cycle enterprise SaaS experience, complex deal leadership and major customer wins. I’ve also produced electronic music and DJed for years, so the chance to combine commercial experience with a product and industry I genuinely care about is especially compelling.\n\nI’d value a brief conversation if my background looks relevant.\n\nThanks,\nPhil"
         },
@@ -858,8 +798,6 @@
           "type": "HR/recruitment contact",
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile identifies Mine as Director of Talent Acquisition at Epidemic Sound. The profile is based in Stockholm and does not state ownership of this London role, so direct role ownership is not inferred.",
-          "connectionNote": "Hi Mine, I’ve applied for Epidemic Sound’s London Account Executive role. My enterprise SaaS record and lifelong passion for electronic music make it a standout fit.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Mine. I’ve applied for Epidemic Sound’s London Account Executive role. I bring enterprise SaaS sales, complex deal experience and a long-standing background in electronic music production and DJing. I’d be grateful if you could keep my application in mind.",
           "inMailSubject": "Epidemic Sound Account Executive application",
           "inMailMessage": "Hi Mine,\n\nI’ve applied for Epidemic Sound’s London Account Executive role. I bring full-cycle enterprise SaaS experience, complex deal leadership and major customer wins. I’ve also produced electronic music and DJed for years, so this opportunity feels genuinely distinctive.\n\nI’d be grateful if you could keep my application in mind or direct me to the recruiter handling the role.\n\nThanks,\nPhil"
         }
@@ -885,8 +823,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "Targeted Contilio AI founder search identifies Zara as CEO and Co-Founder; at an 11-50 person company she is the strongest evidenced decision-maker for a senior enterprise sales hire",
-          "connectionNote": "Hi Zara, I’ve applied for Contilio AI’s Senior AE role. My enterprise SaaS sales and proptech experience make the construction-AI opportunity especially relevant.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Zara. I’ve applied for Contilio AI’s Senior Account Executive role. I bring full-cycle enterprise SaaS experience, complex stakeholder selling and current proptech market knowledge. Building a category leader around 3D AI for construction feels like a rare fit across both my experience and interests.",
           "inMailSubject": "Contilio AI Senior Account Executive application",
           "inMailMessage": "Hi Zara,\n\nI’ve applied for Contilio AI’s Senior Account Executive role. My background combines full-cycle enterprise SaaS sales, complex multi-stakeholder deals and current experience in property technology.\n\nContilio’s use of 3D AI to improve construction delivery feels unusually well aligned with both my commercial track record and sector knowledge. I’d value a brief conversation if useful.\n\nThanks,\nPhil"
         }
@@ -912,8 +848,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "The listing names Amelia as a co-founder and targeted LinkedIn search confirms her current Co-Founder role; ivee is an early-stage founder-led company",
-          "connectionNote": "Hi Amelia, I’ve applied to ivee’s Account Executive talent bank. My SaaS sales background and hands-on interest in AI adoption feel closely aligned with your mission.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Amelia. I’ve applied to ivee’s Account Executive talent bank. I bring full-cycle SaaS sales, enterprise customer wins and hands-on experience building with AI tools. ivee’s mission of helping people actually adopt AI, rather than simply buying it, really resonated with me.",
           "inMailSubject": "ivee Account Executive talent-bank application",
           "inMailMessage": "Hi Amelia,\n\nI’ve applied to ivee’s Account Executive talent bank. My background combines full-cycle SaaS sales, enterprise customer wins and practical experience building and working with AI tools.\n\nYour focus on making AI adoption useful and accessible, supported by consulting and upskilling, really stood out. I’d value a brief conversation if my profile could fit the team as it grows.\n\nThanks,\nPhil"
         }
@@ -939,8 +873,6 @@
           "type": "Relevant category leader",
           "confidence": "High",
           "evidence": "TikTok company people search identifies Sin Man as Category Manager for Home & Living and Electronics, the exact category covered by the applied Business Development Manager role",
-          "connectionNote": "Hi Sin Man, I’ve applied for TikTok Shop’s Home & Living BDM role. My new-business, account-growth and property experience feel highly relevant to the category.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Sin Man. I’ve applied for TikTok Shop’s Business Development Manager role in Home & Living. I bring full-cycle new-business experience, account growth skills and first-hand property and Airbnb knowledge. The chance to acquire and help scale merchants in this category is especially relevant.",
           "inMailSubject": "TikTok Shop Home & Living BDM application",
           "inMailMessage": "Hi Sin Man,\n\nI’ve applied for TikTok Shop’s Business Development Manager role in Home & Living. My background spans prospecting, negotiation, closing and account growth, with additional first-hand experience in property and Airbnb hosting.\n\nThe opportunity to onboard and help merchants achieve early success in Home & Living feels very well aligned. I’d value a brief conversation if useful.\n\nThanks,\nPhil"
         },
@@ -951,8 +883,6 @@
           "type": "HR/recruitment contact",
           "confidence": "Very high",
           "evidence": "Authenticated LinkedIn profile identifies Sara as a London-based Talent Acquisition Partner at TikTok for EMEA, and her activity includes a repost of this exact Home & Living Business Development Manager role.",
-          "connectionNote": "Hi Sara, I’ve applied for TikTok Shop’s Home & Living BDM role. My new-business, account-growth and property experience feel highly relevant to the category.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Sara. I’ve applied for TikTok Shop’s Business Development Manager role in Home & Living. I bring full-cycle new-business experience, account growth skills and first-hand property and Airbnb knowledge. I noticed you shared this exact role and would value any guidance on the process.",
           "inMailSubject": "TikTok Shop Home & Living BDM application",
           "inMailMessage": "Hi Sara,\n\nI’ve applied for TikTok Shop’s Business Development Manager role in Home & Living. My background spans prospecting, negotiation, closing and account growth, alongside first-hand property and Airbnb experience.\n\nI noticed you shared this exact role, so I wanted to introduce myself directly. I’d value any guidance on the next stage of the process.\n\nThanks,\nPhil"
         }
@@ -978,8 +908,6 @@
           "type": "Hiring decision-maker",
           "confidence": "Very high",
           "evidence": "The listing says the hire reports to the UK Sales Director; Jetfly company people search identifies Jonathan as UK Director and one of only two UK sales profiles",
-          "connectionNote": "Hi Jonathan, I’ve applied for Jetfly’s UK Sales Executive role. My high-value consultative sales and senior stakeholder experience feel strongly transferable.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Jonathan. I’ve applied for Jetfly’s UK Sales Executive role. I bring full-cycle consultative sales experience, complex negotiation skills and a track record of building trusted relationships with senior decision-makers. Jetfly’s fractional-ownership model and focus on long-term client relationships are especially appealing.",
           "inMailSubject": "Jetfly UK Sales Executive application",
           "inMailMessage": "Hi Jonathan,\n\nI’ve applied for Jetfly’s UK Sales Executive role. My background includes full-cycle consultative selling, complex negotiations and major enterprise wins requiring trusted relationships with senior stakeholders.\n\nThe opportunity to develop the UK fractional-ownership market and work closely with the UK Sales Director is particularly compelling. I’d value a brief conversation if my experience looks relevant.\n\nThanks,\nPhil"
         },
@@ -990,8 +918,6 @@
           "type": "HR/recruitment contact",
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile identifies Sylvie as Group HR Director at Jetfly. She is based at the Luxembourg group headquarters, so direct ownership of the UK Sales Executive vacancy is not inferred.",
-          "connectionNote": "Hi Sylvie, I’ve applied for Jetfly’s UK Sales Executive role. My high-value consultative sales and senior stakeholder experience feel strongly transferable.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Sylvie. I’ve applied for Jetfly’s UK Sales Executive role. I bring full-cycle consultative sales, complex negotiation experience and a track record of trusted senior relationships. I’d be grateful if you could keep my application in mind or direct me to the relevant recruiter.",
           "inMailSubject": "Jetfly UK Sales Executive application",
           "inMailMessage": "Hi Sylvie,\n\nI’ve applied for Jetfly’s UK Sales Executive role. My background includes full-cycle consultative selling, complex negotiations and major enterprise wins requiring trusted senior relationships.\n\nJetfly’s fractional-ownership model and focus on long-term clients particularly appeal to me. I’d be grateful if you could keep my application in mind or direct me to the relevant recruiter.\n\nThanks,\nPhil"
         }
@@ -1017,8 +943,6 @@
           "type": "Relevant product sales peer",
           "confidence": "Medium",
           "evidence": "IBM company people search identifies Dylan as a UK Confluent sales specialist. No named hiring manager or unambiguous UK Confluent sales leader was visible, so this is the best evidenced product-team contact rather than an inferred manager",
-          "connectionNote": "Hi Dylan, I’ve applied for IBM’s UK&I Confluent Account Executive role. My enterprise SaaS sales and new-logo experience feel closely aligned with the team.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, Dylan. I’ve applied for IBM’s UK&I Confluent Account Executive role. I bring full-cycle enterprise SaaS sales, strong prospecting and complex deal execution, including major global customer wins. As someone already selling Confluent at IBM, I’d really value any insight on the team or hiring process.",
           "inMailSubject": "IBM UK&I Confluent Account Executive application",
           "inMailMessage": "Hi Dylan,\n\nI’ve applied for IBM’s UK&I Confluent Account Executive role. My background includes full-cycle enterprise SaaS sales, new-logo acquisition and complex deal execution with major global organisations.\n\nYour direct experience selling Confluent at IBM made you the most relevant person to contact. If appropriate, I’d value any insight on the team or the right hiring contact.\n\nThanks,\nPhil"
         },
@@ -1029,8 +953,6 @@
           "type": "HR/recruitment contact",
           "confidence": "High",
           "evidence": "Authenticated LinkedIn profile and IBM’s company People view identify James as a UK-based Senior Talent Acquisition Partner at IBM. His profile does not specify Confluent or Global Sales ownership, so direct ownership of this vacancy is not inferred.",
-          "connectionNote": "Hi James, I’ve applied for IBM’s UK&I Confluent Account Executive role. My enterprise SaaS sales and new-logo experience feel closely aligned.",
-          "postAcceptanceLoomMessage": "Thanks for connecting, James. I’ve applied for IBM’s UK&I Confluent Account Executive role. I bring full-cycle enterprise SaaS sales, strong prospecting and complex deal execution. I’d appreciate any guidance on the process or the recruiter supporting IBM Global Sales.",
           "inMailSubject": "IBM UK&I Confluent Account Executive application",
           "inMailMessage": "Hi James,\n\nI’ve applied for IBM’s UK&I Confluent Account Executive role. My background includes full-cycle enterprise SaaS sales, new-logo acquisition and complex deal execution with major global organisations.\n\nI’d appreciate any guidance on the process or the appropriate talent partner supporting IBM Global Sales and the Confluent team.\n\nThanks,\nPhil"
         }
