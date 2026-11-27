@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25",
+  "updatedAt": "2026-11-27",
   "jobs": [
     {
       "age": "1 month ago",
@@ -634,7 +634,8 @@
           "inMailSubject": "Walmart Marketplace Europe Business Development Manager application",
           "inMailMessage": "Hi Marion,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
-      ]
+      ],
+      "finished": true
     },
     {
       "id": "applied-linkedin-4490418490",
@@ -669,7 +670,8 @@
           "inMailSubject": "Houst Inbound Sales Executive application",
           "inMailMessage": "Hi Megan,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
-      ]
+      ],
+      "ignored": true
     },
     {
       "id": "applied-linkedin-4471802201",
@@ -704,7 +706,8 @@
           "inMailSubject": "Drata Emerging AE application",
           "inMailMessage": "Hi Alex,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
-      ]
+      ],
+      "finished": true
     },
     {
       "id": "applied-linkedin-4484703770",
@@ -739,7 +742,8 @@
           "inMailSubject": "Conductor AE application",
           "inMailMessage": "Hi Michelle,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
-      ]
+      ],
+      "finished": true
     },
     {
       "id": "applied-linkedin-4494160341",
@@ -774,7 +778,8 @@
           "inMailSubject": "Epidemic Sound AE application",
           "inMailMessage": "Hi Mine,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
-      ]
+      ],
+      "finished": true
     },
     {
       "id": "applied-linkedin-4489447291",
@@ -799,7 +804,8 @@
           "inMailSubject": "Contilio AI Senior Enterprise AE application",
           "inMailMessage": "Hi Zara,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
-      ]
+      ],
+      "finished": true
     },
     {
       "id": "applied-linkedin-4492687870",
@@ -824,7 +830,8 @@
           "inMailSubject": "ivee AE application",
           "inMailMessage": "Hi Amelia,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
-      ]
+      ],
+      "finished": true
     },
     {
       "id": "applied-linkedin-4493113096",
@@ -859,7 +866,8 @@
           "inMailSubject": "TikTok Home & Living BDM application",
           "inMailMessage": "Hi Sara,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
-      ]
+      ],
+      "finished": true
     },
     {
       "id": "applied-linkedin-4494108843",
@@ -894,7 +902,8 @@
           "inMailSubject": "Jetfly UK Sales Executive application",
           "inMailMessage": "Hi Sylvie,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
-      ]
+      ],
+      "finished": true
     },
     {
       "id": "applied-linkedin-4488502826",
@@ -928,6 +937,165 @@
           "evidence": "Authenticated LinkedIn profile and IBM’s company People view identify James as a UK-based Senior Talent Acquisition Partner at IBM. His profile does not specify Confluent or Global Sales ownership, so direct ownership of this vacancy is not inferred.",
           "inMailSubject": "IBM UK&I Confluent AE application",
           "inMailMessage": "Hi James,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
+        }
+      ],
+      "finished": true
+    },
+    {
+      "id": "applied-linkedin-4495814566",
+      "age": "Applied 27 Nov 2026",
+      "company": "LandTech",
+      "role": "Account Executive",
+      "route": "Application submitted via LandTech from LinkedIn listing",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4495814566/",
+      "listingTitle": "Account Executive",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-27",
+      "availabilityNote": "Exact authenticated LinkedIn listing loaded on 27 Nov 2026 with an active Apply control and no closure notice",
+      "outreachContacts": [
+        {
+          "name": "Darren Keith",
+          "title": "Strategic and Data Driven Revenue Leader at LandTech",
+          "url": "https://www.linkedin.com/in/darren-keith/",
+          "type": "Relevant revenue leader",
+          "confidence": "Medium",
+          "evidence": "Authenticated LinkedIn profile identifies Darren as a LandTech-affiliated strategic revenue leader. The listing is a new-business mid-market Account Executive role; his exact current title and reporting relationship are not exposed, so hiring ownership is not inferred.",
+          "inMailSubject": "LandTech AE application",
+          "inMailMessage": "Hi Darren,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
+        },
+        {
+          "name": "Jess Weaver",
+          "title": "VP of People | Talent Strategy | People Operations | SaaS & Tech at LandTech",
+          "url": "https://www.linkedin.com/in/jess-weaver-15966527/",
+          "type": "HR/recruitment contact",
+          "confidence": "High",
+          "evidence": "Authenticated LinkedIn profile identifies Jess as LandTech’s UK VP of People with talent strategy responsibility. Her profile does not name this vacancy, so direct recruiting ownership is not inferred.",
+          "inMailSubject": "LandTech AE application",
+          "inMailMessage": "Hi Jess,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
+        }
+      ]
+    },
+    {
+      "id": "applied-linkedin-4495202640",
+      "age": "Applied 27 Nov 2026",
+      "company": "ABB",
+      "role": "Business Development Manager - Data Centre",
+      "route": "Application submitted via ABB from LinkedIn listing",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4495202640/",
+      "listingTitle": "Business Development Manager - Data Centre",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-27",
+      "availabilityNote": "Exact authenticated LinkedIn listing loaded on 27 Nov 2026 with an active Apply control and no closure notice",
+      "outreachContacts": [
+        {
+          "name": "Suchi Senanayake",
+          "title": "UK Sales Manager at ABB | Data Centres, Renewable Energy and Utilities",
+          "url": "https://www.linkedin.com/in/suchisenanayake/",
+          "type": "Relevant UK data-centre sales leader",
+          "confidence": "High",
+          "evidence": "Authenticated LinkedIn people search identifies Suchi as an ABB UK Sales Manager whose visible remit explicitly includes data centres. The role reports to a Segment Sales Manager, but Suchi’s direct ownership of this vacancy is not inferred.",
+          "inMailSubject": "ABB Data Centre BDM application",
+          "inMailMessage": "Hi Suchi,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
+        },
+        {
+          "name": "Ryan Lloyd",
+          "title": "Talent Partner at ABB",
+          "url": "https://www.linkedin.com/in/ryan-lloyd-cert-rr-5119b4105/",
+          "type": "HR/recruitment contact",
+          "confidence": "High",
+          "evidence": "Authenticated LinkedIn search identifies Ryan as an ABB Talent Partner based in England. His profile does not name the Data Centre vacancy, so direct recruiting ownership is not inferred.",
+          "inMailSubject": "ABB Data Centre BDM application",
+          "inMailMessage": "Hi Ryan,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
+        }
+      ]
+    },
+    {
+      "id": "applied-linkedin-4495300277",
+      "age": "Applied 27 Nov 2026",
+      "company": "Katapult",
+      "role": "Senior Account Executive - AI & Cloud (confidential client)",
+      "note": "Katapult is the recruitment agency. The listing withholds the client name and describes it only as a Fortune Global 100, top-three cloud provider.",
+      "route": "Application submitted through LinkedIn listing",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4495300277/",
+      "listingTitle": "Senior Account Executive - AI & Cloud",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-27",
+      "availabilityNote": "Exact authenticated LinkedIn listing loaded on 27 Nov 2026 and showed Application submitted; no closure notice",
+      "outreachGap": "Functional decision-maker unavailable: the client company and its hiring team are withheld by the agency listing.",
+      "outreachContacts": [
+        {
+          "name": "Max Keur",
+          "title": "Co-Founder at Katapult | SaaS Sales Recruitment",
+          "url": "https://www.linkedin.com/in/max-keur-saas-sales-recruitment/",
+          "type": "Named agency recruiter / job poster",
+          "confidence": "Very high",
+          "evidence": "The exact LinkedIn listing names Max as its job poster, and authenticated LinkedIn search identifies him as Katapult’s Co-Founder focused on SaaS sales recruitment. The confidential client’s decision-maker cannot be verified from the listing.",
+          "inMailSubject": "Katapult Senior AI & Cloud AE application",
+          "inMailMessage": "Hi Max,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
+        }
+      ]
+    },
+    {
+      "id": "applied-linkedin-4495509204",
+      "age": "Applied 27 Nov 2026",
+      "company": "Smart Bricks",
+      "role": "B2C Sales Executive",
+      "route": "Application submitted through LinkedIn listing",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4495509204/",
+      "listingTitle": "B2C Sales Executive",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-27",
+      "availabilityNote": "Exact authenticated LinkedIn listing loaded on 27 Nov 2026 and showed Application submitted; no closure notice",
+      "outreachGap": "HR/recruitment contact unavailable: no credible Smart Bricks recruiter or people partner with a verifiable remit was found. The listing says the role reports to the GM B2C, but that person was not identifiable from visible evidence.",
+      "outreachContacts": [
+        {
+          "name": "Mohamed Mohamed",
+          "title": "Founder of Smart Bricks",
+          "url": "https://www.linkedin.com/in/mohamedmohamed1/",
+          "type": "Company founder / relevant senior leader",
+          "confidence": "Medium",
+          "evidence": "Authenticated LinkedIn search identifies Mohamed as Smart Bricks’ founder. The listing says this role reports to the GM B2C; Mohamed is not presented as that person, so direct hiring ownership or reporting line is not inferred.",
+          "inMailSubject": "Smart Bricks B2C Sales Executive application",
+          "inMailMessage": "Hi Mohamed,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
+        }
+      ]
+    },
+    {
+      "id": "applied-linkedin-4490529040",
+      "age": "Applied 27 Nov 2026",
+      "company": "Salesforce",
+      "role": "Commercial Account Executive - Marketing Cloud",
+      "route": "Application submitted via Salesforce from LinkedIn listing",
+      "status": "Applied",
+      "listingUrl": "https://www.linkedin.com/jobs/view/4490529040/",
+      "listingTitle": "Commercial Account Executive - Marketing Cloud",
+      "availability": "open",
+      "availabilityCheckedAt": "2026-11-27",
+      "availabilityNote": "Exact authenticated LinkedIn listing loaded on 27 Nov 2026 with an active Apply control and no closure notice",
+      "outreachContacts": [
+        {
+          "name": "Beth Flintoff",
+          "title": "Head of Marketing Cloud UKI at Salesforce",
+          "url": "https://www.linkedin.com/in/beth-flintoff1/",
+          "type": "Relevant UKI functional leader",
+          "confidence": "Very high",
+          "evidence": "Authenticated LinkedIn search identifies Beth as Salesforce’s Head of Marketing Cloud UKI in London, matching the applied product, function and geography. Direct hiring ownership is not inferred.",
+          "inMailSubject": "Salesforce Marketing Cloud AE application",
+          "inMailMessage": "Hi Beth,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
+        },
+        {
+          "name": "Megan Grieve",
+          "title": "Senior GTM Talent Partner at Salesforce | EMEA",
+          "url": "https://www.linkedin.com/in/megan-grieve/",
+          "type": "HR/recruitment contact",
+          "confidence": "Very high",
+          "evidence": "Authenticated LinkedIn search identifies Megan as a London-based Salesforce Senior GTM Talent Partner responsible for building sales teams across EMEA, matching the role’s GTM function and geography. Her profile does not name this vacancy, so direct recruiting ownership is not inferred.",
+          "inMailSubject": "Salesforce Marketing Cloud AE application",
+          "inMailMessage": "Hi Megan,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     }
