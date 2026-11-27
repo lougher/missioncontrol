@@ -1030,9 +1030,9 @@
           "name": "Max Keur",
           "title": "Co-Founder at Katapult | SaaS Sales Recruitment",
           "url": "https://www.linkedin.com/in/max-keur-saas-sales-recruitment/",
-          "type": "Named agency recruiter / job poster",
+          "type": "Named hiring-team contact / agency recruiter",
           "confidence": "Very high",
-          "evidence": "The exact LinkedIn listing names Max as its job poster, and authenticated LinkedIn search identifies him as Katapult’s Co-Founder focused on SaaS sales recruitment. The confidential client’s decision-maker cannot be verified from the listing.",
+          "evidence": "The exact LinkedIn listing shows Max under “People you can reach out to” and “Meet the hiring team”. Authenticated LinkedIn search identifies him as Katapult’s Co-Founder focused on SaaS sales recruitment. The confidential client’s internal decision-maker cannot be verified from the listing.",
           "inMailSubject": "Katapult Senior AI & Cloud AE application",
           "inMailMessage": "Hi Max,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
