@@ -7796,12 +7796,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const jobsMusicTab = document.getElementById('jobs-music-tab');
     const jobsContentTab = document.getElementById('jobs-content-tab');
     const jobsPropertyTab = document.getElementById('jobs-property-tab');
+    const jobsLuxuryTab = document.getElementById('jobs-luxury-tab');
     const jobsAppliedTab = document.getElementById('jobs-applied-tab');
     const jobsYtJobsPanel = document.getElementById('jobs-ytjobs-panel');
     const jobsAiPanel = document.getElementById('jobs-ai-panel');
     const jobsMusicPanel = document.getElementById('jobs-music-panel');
     const jobsContentPanel = document.getElementById('jobs-content-panel');
     const jobsPropertyPanel = document.getElementById('jobs-property-panel');
+    const jobsLuxuryPanel = document.getElementById('jobs-luxury-panel');
     const jobsAppliedPanel = document.getElementById('jobs-applied-panel');
     const refreshAiJobsBtn = document.getElementById('refresh-ai-jobs-btn');
     const aiJobsScanMeta = document.getElementById('ai-jobs-scan-meta');
@@ -7840,6 +7842,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const propertyJobsList = document.getElementById('property-jobs-list');
     const propertyCompaniesList = document.getElementById('property-companies-list');
     const propertyJobsScanMeta = document.getElementById('property-jobs-scan-meta');
+    const refreshLuxuryJobsBtn = document.getElementById('refresh-luxury-jobs-btn');
+    const luxuryJobsSearch = document.getElementById('luxury-jobs-search');
+    const luxuryJobsLocationFilter = document.getElementById('luxury-jobs-location-filter');
+    const luxuryJobsCategoryFilter = document.getElementById('luxury-jobs-category-filter');
+    const luxuryJobsStatusFilter = document.getElementById('luxury-jobs-status-filter');
+    const luxuryJobsList = document.getElementById('luxury-jobs-list');
+    const luxuryCompaniesList = document.getElementById('luxury-companies-list');
+    const luxuryJobsScanMeta = document.getElementById('luxury-jobs-scan-meta');
     const refreshAppliedJobsBtn = document.getElementById('refresh-applied-jobs-btn');
     const appliedJobsMeta = document.getElementById('applied-jobs-meta');
     const appliedJobsTotal = document.getElementById('applied-jobs-total');
@@ -7862,20 +7872,24 @@ document.addEventListener("DOMContentLoaded", () => {
     let propertyJobs = [];
     let propertyCompanies = [];
     let propertyJobsMeta = {};
+    let luxuryJobs = [];
+    let luxuryCompanies = [];
+    let luxuryJobsMeta = {};
     let appliedJobsData = { jobs: [] };
 
     function setJobsTab(tab) {
-        const activeTab = ['ai', 'music', 'content', 'property', 'applied'].includes(tab) ? tab : 'ytjobs';
+        const activeTab = ['ai', 'music', 'content', 'property', 'luxury', 'applied'].includes(tab) ? tab : 'ytjobs';
         localStorage.setItem('jobs-tab', activeTab);
         jobsYtJobsPanel?.classList.toggle('hidden', activeTab !== 'ytjobs');
         jobsAiPanel?.classList.toggle('hidden', activeTab !== 'ai');
         jobsMusicPanel?.classList.toggle('hidden', activeTab !== 'music');
         jobsContentPanel?.classList.toggle('hidden', activeTab !== 'content');
         jobsPropertyPanel?.classList.toggle('hidden', activeTab !== 'property');
+        jobsLuxuryPanel?.classList.toggle('hidden', activeTab !== 'luxury');
         jobsAppliedPanel?.classList.toggle('hidden', activeTab !== 'applied');
-        [jobsYtJobsTab, jobsAiTab, jobsMusicTab, jobsContentTab, jobsPropertyTab, jobsAppliedTab].forEach(button => {
+        [jobsYtJobsTab, jobsAiTab, jobsMusicTab, jobsContentTab, jobsPropertyTab, jobsLuxuryTab, jobsAppliedTab].forEach(button => {
             if (!button) return;
-            const selected = (button === jobsYtJobsTab && activeTab === 'ytjobs') || (button === jobsAiTab && activeTab === 'ai') || (button === jobsMusicTab && activeTab === 'music') || (button === jobsContentTab && activeTab === 'content') || (button === jobsPropertyTab && activeTab === 'property') || (button === jobsAppliedTab && activeTab === 'applied');
+            const selected = (button === jobsYtJobsTab && activeTab === 'ytjobs') || (button === jobsAiTab && activeTab === 'ai') || (button === jobsMusicTab && activeTab === 'music') || (button === jobsContentTab && activeTab === 'content') || (button === jobsPropertyTab && activeTab === 'property') || (button === jobsLuxuryTab && activeTab === 'luxury') || (button === jobsAppliedTab && activeTab === 'applied');
             button.classList.toggle('bg-white', selected);
             button.classList.toggle('dark:bg-[#171717]', selected);
             button.classList.toggle('shadow-sm', selected);
@@ -7887,6 +7901,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (activeTab === 'music') loadMusicJobs(true);
         else if (activeTab === 'content') loadContentJobs(true);
         else if (activeTab === 'property') loadPropertyJobs(true);
+        else if (activeTab === 'luxury') loadLuxuryJobs(true);
         else if (activeTab === 'applied') loadAppliedJobs(true);
         else loadYtJobs(true);
     }
@@ -7988,6 +8003,98 @@ document.addEventListener("DOMContentLoaded", () => {
     function setAppliedJobFinished(id, finished, button) {
         return setAppliedJobState(id, 'finished', finished, button);
     }
+
+    function luxuryJobFitClass(score) {
+        if (Number(score) >= 80) return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300';
+        if (Number(score) >= 65) return 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300';
+        return 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+    }
+
+    function populateLuxuryJobCategories() {
+        if (!luxuryJobsCategoryFilter) return;
+        const current = luxuryJobsCategoryFilter.value || 'all';
+        const categories = [...new Set(luxuryJobs.map(job => job.category).filter(Boolean))].sort();
+        luxuryJobsCategoryFilter.innerHTML = '<option value="all">Private aviation & yachts</option>' + categories.map(category => '<option value="' + escapeHtml(category) + '">' + escapeHtml(category) + '</option>').join('');
+        luxuryJobsCategoryFilter.value = categories.includes(current) ? current : 'all';
+    }
+
+    function filteredLuxuryJobs() {
+        const search = (luxuryJobsSearch?.value || '').toLowerCase().trim();
+        const location = luxuryJobsLocationFilter?.value || 'all';
+        const category = luxuryJobsCategoryFilter?.value || 'all';
+        const status = luxuryJobsStatusFilter?.value || 'active';
+        return luxuryJobs.filter(job => {
+            const jobStatus = job.status || 'new';
+            const haystack = [job.title, job.company, job.location, job.category, job.fit_note, job.sector, job.english_evidence].join(' ').toLowerCase();
+            if (search && !haystack.includes(search)) return false;
+            if (location === 'UK' && job.region !== 'UK') return false;
+            if (location === 'Europe' && job.region !== 'Europe') return false;
+            if (category !== 'all' && job.category !== category) return false;
+            if (status === 'active' && jobStatus === 'not_interested') return false;
+            if (!['active', 'all'].includes(status) && jobStatus !== status) return false;
+            return true;
+        }).sort((a, b) => Number(b.fit_score || 0) - Number(a.fit_score || 0) || String(a.company || '').localeCompare(String(b.company || '')));
+    }
+
+    function renderLuxuryJobs() {
+        if (!luxuryJobsList) return;
+        const total = document.getElementById('luxury-jobs-total');
+        const ukTotal = document.getElementById('luxury-jobs-uk');
+        const interested = document.getElementById('luxury-jobs-interested');
+        const applied = document.getElementById('luxury-jobs-applied');
+        if (total) total.innerText = luxuryJobs.length;
+        if (ukTotal) ukTotal.innerText = luxuryJobs.filter(job => job.region === 'UK').length;
+        if (interested) interested.innerText = luxuryJobs.filter(job => job.status === 'interested').length;
+        if (applied) applied.innerText = luxuryJobs.filter(job => job.status === 'applied').length;
+        if (luxuryJobsScanMeta) {
+            const checked = luxuryJobsMeta.searched_at ? new Date(luxuryJobsMeta.searched_at).toLocaleString('en-GB') : 'Not checked yet';
+            const ukCount = luxuryJobs.filter(job => job.region === 'UK').length;
+            const europeCount = luxuryJobs.filter(job => job.region === 'Europe').length;
+            luxuryJobsScanMeta.innerText = luxuryJobs.length + ' live roles checked ' + checked + ': ' + ukCount + ' UK and ' + europeCount + ' English-speaking European.';
+        }
+        const jobs = filteredLuxuryJobs();
+        luxuryJobsList.innerHTML = jobs.length ? jobs.map(job =>             '<article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 ' + (job.status === 'not_interested' ? 'opacity-60' : '') + '">' +
+            '<div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4"><div class="min-w-0 flex-1">' +
+            '<div class="flex flex-wrap items-center gap-2 mb-2"><h3 class="text-lg font-semibold dark:text-white">' + escapeHtml(job.title || 'Untitled role') + '</h3><span class="text-xs px-2.5 py-1 rounded-full ' + luxuryJobFitClass(job.fit_score) + '">' + Number(job.fit_score || 0) + '% fit</span><span class="text-xs px-2.5 py-1 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-300">' + escapeHtml(job.category || 'Luxury sales') + '</span></div>' +
+            '<div class="text-sm text-gray-700 dark:text-gray-200">' + escapeHtml(job.company || 'Unknown company') + ' · ' + escapeHtml(job.location || '') + '</div>' +
+            '<p class="text-sm text-gray-500 dark:text-gray-400 mt-3">' + escapeHtml(job.fit_note || '') + '</p>' +
+            (job.salary ? '<p class="text-xs text-gray-500 dark:text-gray-400 mt-3"><span class="font-medium">Salary:</span> ' + escapeHtml(job.salary) + '</p>' : '') +
+            (job.region === 'Europe' && job.english_evidence ? '<p class="text-xs text-gray-500 dark:text-gray-400 mt-3"><span class="font-medium">English evidence:</span> ' + escapeHtml(job.english_evidence) + '</p>' : '') +
+            '<div class="flex flex-wrap gap-3 text-xs text-gray-400 mt-3"><span>Source: ' + escapeHtml(job.source || 'LinkedIn') + '</span>' + (job.posted_at ? '<span>Posted / checked: ' + escapeHtml(job.posted_at) + '</span>' : '') + '</div></div>' +
+            '<div class="flex flex-wrap lg:flex-col gap-2 lg:items-stretch lg:w-40"><button type="button" onclick="updateLuxuryJobStatus(\'' + escapeHtml(job.id) + '\',\'interested\')" class="text-xs px-3 py-2 rounded ' + (job.status === 'interested' ? 'bg-emerald-600 text-white' : 'border border-emerald-500 text-emerald-700 dark:text-emerald-300') + '">Interested</button><button type="button" onclick="updateLuxuryJobStatus(\'' + escapeHtml(job.id) + '\',\'applied\')" class="text-xs px-3 py-2 rounded ' + (job.status === 'applied' ? 'bg-blue-600 text-white' : 'border border-blue-500 text-blue-700 dark:text-blue-300') + '">Applied</button><button type="button" onclick="updateLuxuryJobStatus(\'' + escapeHtml(job.id) + '\',\'not_interested\')" class="text-xs px-3 py-2 rounded border border-gray-300 text-gray-600 dark:border-white/20 dark:text-gray-300">' + (job.status === 'not_interested' ? 'Restore' : 'Not interested') + '</button><a href="' + escapeHtml(job.url || '#') + '" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded bg-black text-white dark:bg-white dark:text-black">Open employer role</a></div></div></article>').join('') : '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No private aviation or superyacht sales jobs match the current filters.</div>';
+        if (luxuryCompaniesList) luxuryCompaniesList.innerHTML = luxuryCompanies.map(company => '<a href="' + escapeHtml(company.careers_url || '#') + '" target="_blank" rel="noopener" class="block bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 hover:border-sky-400 transition-colors"><div class="font-medium dark:text-white">' + escapeHtml(company.name) + '</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">' + escapeHtml(company.category || '') + ' · ' + escapeHtml(company.location || '') + '</div></a>').join('');
+    }
+
+    async function loadLuxuryJobs(silent = false) {
+        if (!luxuryJobsList) return;
+        if (!silent) luxuryJobsList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading private aviation and superyacht sales roles...</div>';
+        try {
+            const res = await fetch('/api/luxury-sales-jobs');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Luxury Jobs request failed');
+            luxuryJobs = Array.isArray(data.jobs) ? data.jobs : [];
+            luxuryCompanies = Array.isArray(data.companies) ? data.companies : [];
+            luxuryJobsMeta = data || {};
+            populateLuxuryJobCategories();
+            renderLuxuryJobs();
+        } catch (e) {
+            console.error(e);
+            luxuryJobsList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-lg p-6 text-red-600 dark:text-red-300">Failed to load private aviation and superyacht sales jobs.</div>';
+        }
+    }
+
+    window.updateLuxuryJobStatus = async (id, status) => {
+        const current = luxuryJobs.find(job => job.id === id);
+        const nextStatus = status === 'not_interested' && current?.status === 'not_interested' ? 'new' : status;
+        try {
+            const res = await fetch('/api/luxury-sales-jobs/' + encodeURIComponent(id) + '/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: nextStatus }) });
+            const data = await res.json();
+            if (!res.ok || !data.job) throw new Error(data.error || 'Status update failed');
+            const index = luxuryJobs.findIndex(job => job.id === id);
+            if (index !== -1) luxuryJobs[index] = data.job;
+            renderLuxuryJobs();
+        } catch (e) { console.error(e); alert('Could not update luxury sales job status.'); }
+    };
 
     function propertyJobFitClass(score) {
         if (Number(score) >= 80) return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300';
@@ -8388,11 +8495,15 @@ document.addEventListener("DOMContentLoaded", () => {
     jobsMusicTab?.addEventListener('click', () => setJobsTab('music'));
     jobsContentTab?.addEventListener('click', () => setJobsTab('content'));
     jobsPropertyTab?.addEventListener('click', () => setJobsTab('property'));
+    jobsLuxuryTab?.addEventListener('click', () => setJobsTab('luxury'));
     jobsAppliedTab?.addEventListener('click', () => setJobsTab('applied'));
     refreshAiJobsBtn?.addEventListener('click', () => loadAiJobs());
     refreshMusicJobsBtn?.addEventListener('click', () => loadMusicJobs());
     refreshContentJobsBtn?.addEventListener('click', () => loadContentJobs());
     refreshPropertyJobsBtn?.addEventListener('click', () => loadPropertyJobs());
+    refreshLuxuryJobsBtn?.addEventListener('click', () => loadLuxuryJobs());
+    [luxuryJobsSearch, luxuryJobsLocationFilter, luxuryJobsCategoryFilter, luxuryJobsStatusFilter].forEach(el => el?.addEventListener('input', renderLuxuryJobs));
+    [luxuryJobsLocationFilter, luxuryJobsCategoryFilter, luxuryJobsStatusFilter].forEach(el => el?.addEventListener('change', renderLuxuryJobs));
     [propertyJobsSearch, propertyJobsLocationFilter, propertyJobsCategoryFilter, propertyJobsStatusFilter].forEach(el => el?.addEventListener('input', renderPropertyJobs));
     [propertyJobsLocationFilter, propertyJobsCategoryFilter, propertyJobsStatusFilter].forEach(el => el?.addEventListener('change', renderPropertyJobs));
     [contentJobsSearch, contentJobsLocationFilter, contentJobsCategoryFilter, contentJobsStatusFilter].forEach(el => el?.addEventListener('input', renderContentJobs));
@@ -8429,7 +8540,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     [aiJobsSearch, aiJobsFitFilter, aiJobsWorkplaceFilter, aiJobsStatusFilter].forEach(el => el?.addEventListener('input', renderAiJobs));
     [aiJobsFitFilter, aiJobsWorkplaceFilter, aiJobsStatusFilter].forEach(el => el?.addEventListener('change', renderAiJobs));
-    setJobsTab(location.pathname === '/jobs/ai' ? 'ai' : (location.pathname === '/jobs/applied' ? 'applied' : (localStorage.getItem('jobs-tab') || 'ytjobs')));
+    setJobsTab(location.pathname === '/jobs/ai' ? 'ai' : (location.pathname === '/jobs/applied' ? 'applied' : (location.pathname === '/jobs/luxury-sales' ? 'luxury' : (localStorage.getItem('jobs-tab') || 'ytjobs'))));
 
     // === LinkedIn Jobs Logic ===
     const refreshLinkedInJobsBtn = document.getElementById('refresh-linkedin-jobs-btn');

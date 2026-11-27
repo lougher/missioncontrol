@@ -1,0 +1,237 @@
+{
+  "searched_at": "2026-11-27T13:20:53.416580+00:00",
+  "selection_note": "UK-first private aviation, charter, yacht and superyacht commercial roles posted within the previous month. European roles are included only where English-language suitability was evidenced. Jetfly was not duplicated because Phil has already applied. Foreign-language-specific roles and an expired Malta listing were excluded.",
+  "sources": [
+    "LinkedIn guest search and exact job pages",
+    "Official employer career pages for watchlist links"
+  ],
+  "companies": [
+    {
+      "name": "Air Charter Service",
+      "category": "Private aviation and charter",
+      "location": "UK and Geneva",
+      "careers_url": "https://www.aircharterservice.com/"
+    },
+    {
+      "name": "NetJets Europe",
+      "category": "Private aviation",
+      "location": "London and Europe",
+      "careers_url": "https://www.netjets.com/en-us/careers"
+    },
+    {
+      "name": "Flexjet",
+      "category": "Private aviation and charter",
+      "location": "London",
+      "careers_url": "https://careers.flexjet.com/"
+    },
+    {
+      "name": "ACC Aviation",
+      "category": "Aviation services and charter",
+      "location": "Reigate, UK",
+      "careers_url": "https://www.accaviation.com/careers/"
+    },
+    {
+      "name": "Global Jet International",
+      "category": "Private aviation and charter",
+      "location": "Remote UK or Europe",
+      "careers_url": "https://globaljet.aero/"
+    },
+    {
+      "name": "Fraser Yachts",
+      "category": "Superyacht brokerage",
+      "location": "London and Europe",
+      "careers_url": "https://www.fraseryachts.com/"
+    },
+    {
+      "name": "Burton Waters Boat Sales",
+      "category": "Yacht and boat sales",
+      "location": "Lincoln, UK",
+      "careers_url": "https://burtonwaters.co.uk/"
+    },
+    {
+      "name": "Morgan Philips Group",
+      "category": "Luxury aviation recruiter",
+      "location": "London",
+      "careers_url": "https://uk.morganphilips.com/"
+    },
+    {
+      "name": "Leisure People Recruitment",
+      "category": "Yacht brokerage recruiter",
+      "location": "UK",
+      "careers_url": "https://www.leisurepeople.com/"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "li-4490639612",
+      "title": "UK Sales Executive – Luxury Aviation -(M&F) UK880638",
+      "company": "Morgan Philips Group",
+      "location": "London Area, United Kingdom",
+      "region": "UK",
+      "category": "Private Aviation Sales",
+      "source": "LinkedIn",
+      "posted_at": "2026-11-20",
+      "url": "https://uk.linkedin.com/jobs/view/uk-sales-executive-%E2%80%93-luxury-aviation-m-f-uk880638-at-morgan-philips-group-4490639612",
+      "fit_score": 94,
+      "fit_note": "Excellent transferable fit: the recruiter explicitly welcomes proven relationship-led sellers from technology and other sectors, with luxury aviation training and HNW client development central to the role. Phil's consultative SaaS sales and networking background maps strongly; private aviation knowledge is the main learning curve.",
+      "status": "new",
+      "verification_note": "Exact LinkedIn listing verified live during this search."
+    },
+    {
+      "id": "li-4489584550",
+      "title": "Private Jets Sales Consultant - £35,000pa + 10% Uncapped Commission",
+      "company": "Air Charter Service",
+      "location": "Surbiton, England, United Kingdom",
+      "region": "UK",
+      "category": "Private Jet Charter Sales",
+      "source": "LinkedIn",
+      "posted_at": "2026-11-13",
+      "url": "https://uk.linkedin.com/jobs/view/private-jets-sales-consultant-%C2%A335-000pa-%2B-10%25-uncapped-commission-at-air-charter-service-4489584550",
+      "fit_score": 92,
+      "fit_note": "Strong entry route into private aviation: ACS asks for customer-facing sales or relationship experience and commercial drive, then provides a structured five-month training programme. Phil's consultative selling and client-management background match well.",
+      "status": "new",
+      "verification_note": "Exact LinkedIn listing verified live during this search.",
+      "salary": "£35,000 base + 10% uncapped commission"
+    },
+    {
+      "id": "li-4397990015",
+      "title": "Sales Executive - Ready to launch or elevate your career in Private Aviation?",
+      "company": "NetJets Europe",
+      "location": "London, England, United Kingdom",
+      "region": "UK",
+      "category": "Private Aviation Sales",
+      "source": "LinkedIn",
+      "posted_at": "2026-11-26",
+      "url": "https://uk.linkedin.com/jobs/view/sales-executive-ready-to-launch-or-elevate-your-career-in-private-aviation%3F-at-netjets-europe-4397990015",
+      "fit_score": 89,
+      "fit_note": "Strong commercial match selling private aviation to HNW individuals and corporations through networking, acquisition, communication and negotiation. Phil brings the core sales skills; building a private-aviation network is the principal gap.",
+      "status": "new",
+      "verification_note": "Exact LinkedIn listing verified live during this search."
+    },
+    {
+      "id": "li-4493778396",
+      "title": "Senior Business Development Executive",
+      "company": "ACC Aviation",
+      "location": "Reigate, England, United Kingdom",
+      "region": "UK",
+      "category": "Aviation Business Development",
+      "source": "LinkedIn guest feed",
+      "posted_at": "2026-11-23",
+      "url": "https://uk.linkedin.com/jobs/view/senior-business-development-executive-at-acc-aviation-4493778396",
+      "fit_score": 85,
+      "fit_note": "The senior business-development remit aligns with Phil's outbound prospecting, relationship building and commercial sales experience. Exact requirements were rate-limited, so the score is provisional pending a full read.",
+      "status": "new",
+      "verification_note": "Exact job ID, title, company, location, posting date and direct URL were verified in LinkedIn’s guest feed; the detail page was rate-limited."
+    },
+    {
+      "id": "li-4440527984",
+      "title": "Senior Sales Executive - Charter Broker",
+      "company": "Flexjet",
+      "location": "London, England, United Kingdom",
+      "region": "UK",
+      "category": "Air Charter Brokerage",
+      "source": "LinkedIn guest feed",
+      "posted_at": "2026-11-21",
+      "url": "https://uk.linkedin.com/jobs/view/senior-sales-executive-charter-broker-at-flexjet-4440527984",
+      "fit_score": 82,
+      "fit_note": "The senior charter-broker sales remit fits Phil's commercial and relationship-led selling strengths, but likely aviation brokerage expectations make this a stretch role. Exact requirements were rate-limited, so review the listing before applying.",
+      "status": "new",
+      "verification_note": "Exact job ID, title, company, location, posting date and direct URL were verified in LinkedIn’s guest feed; the detail page was rate-limited."
+    },
+    {
+      "id": "li-4495009879",
+      "title": "Luxury Travel Sales Team Leader",
+      "company": "Air Charter Service",
+      "location": "Surbiton, England, United Kingdom",
+      "region": "UK",
+      "category": "Luxury Travel Sales",
+      "source": "LinkedIn",
+      "posted_at": "2026-11-26",
+      "url": "https://uk.linkedin.com/jobs/view/luxury-travel-sales-team-leader-at-air-charter-service-4495009879",
+      "fit_score": 80,
+      "fit_note": "Good luxury-client and sales-leadership crossover: the role combines revenue ownership, direct selling, client management and building a luxury travel team alongside charter flights. Phil's sales background fits; direct luxury-travel leadership is the main gap.",
+      "status": "new",
+      "verification_note": "Exact LinkedIn listing verified live during this search."
+    },
+    {
+      "id": "li-4490181963",
+      "title": "Operations & Charter Sales Executive (Remote, UK or Europe)",
+      "company": "Global Jet International",
+      "location": "United Kingdom",
+      "region": "UK",
+      "category": "Aviation Charter Sales",
+      "source": "LinkedIn",
+      "posted_at": "2026-11-17",
+      "url": "https://uk.linkedin.com/jobs/view/operations-charter-sales-executive-remote-uk-or-europe-at-global-jet-international-4490181963",
+      "fit_score": 60,
+      "fit_note": "Relevant remote charter-sales opportunity with explicit English requirements, but it asks for at least three years in business aviation and Avinode knowledge. Worth considering only if the employer is open to exceptional transferable sales experience.",
+      "status": "new",
+      "verification_note": "Exact LinkedIn listing verified live during this search.",
+      "english_evidence": "The listing explicitly requires excellent written and spoken English and allows remote work from the UK or Europe."
+    },
+    {
+      "id": "li-4493021189",
+      "title": "Sales Broker",
+      "company": "Fraser Yachts",
+      "location": "London Area, United Kingdom",
+      "region": "UK",
+      "category": "Superyacht Sales",
+      "source": "LinkedIn guest feed",
+      "posted_at": "2026-11-24",
+      "url": "https://uk.linkedin.com/jobs/view/sales-broker-at-fraser-yachts-4493021189",
+      "fit_score": 78,
+      "fit_note": "Direct superyacht sales-broker opportunity in London and a strong sector match. Phil's high-value consultative sales skills are relevant, but exact brokerage and industry-experience requirements were rate-limited, so the fit is provisional.",
+      "status": "new",
+      "verification_note": "Exact job ID, title, company, location, posting date and direct URL were verified in LinkedIn’s guest feed; the detail page was rate-limited."
+    },
+    {
+      "id": "li-4494140607",
+      "title": "Boat Sales Executive",
+      "company": "Burton Waters Boat Sales",
+      "location": "Lincoln, England, United Kingdom",
+      "region": "UK",
+      "category": "Yacht Sales",
+      "source": "LinkedIn",
+      "posted_at": "2026-11-24",
+      "url": "https://uk.linkedin.com/jobs/view/boat-sales-executive-at-burton-waters-boat-sales-4494140607",
+      "fit_score": 88,
+      "fit_note": "Strong transferable high-value sales role: Burton Waters explicitly accepts experience selling boats, cars, motorhomes or other high-value products and says boating experience is helpful rather than essential. Product training and uncapped commission make this a credible transition.",
+      "status": "new",
+      "verification_note": "Exact LinkedIn listing verified live during this search.",
+      "salary": "OTE £40k+ with uncapped commission"
+    },
+    {
+      "id": "li-4486403980",
+      "title": "Boat Sales Broker",
+      "company": "Leisure People Recruitment",
+      "location": "Long Eaton, England, United Kingdom",
+      "region": "UK",
+      "category": "Yacht Brokerage",
+      "source": "LinkedIn",
+      "posted_at": "2026-11-24",
+      "url": "https://uk.linkedin.com/jobs/view/boat-sales-broker-at-leisure-people-recruitment-4486403980",
+      "fit_score": 86,
+      "fit_note": "Strong adjacent move into yacht brokerage: the recruiter wants high-value product or service sales and provides full boat-sales brokerage training. Phil's prospecting and end-to-end sales experience map well.",
+      "status": "new",
+      "verification_note": "Exact LinkedIn listing verified live during this search.",
+      "salary": "Circa £30,000 base; £46,000 OTE uncapped"
+    },
+    {
+      "id": "li-4489559896",
+      "title": "Private Jets Sales Consultant - CHF 70'000 + 10% Commission",
+      "company": "Air Charter Service",
+      "location": "Meyrin, Geneva, Switzerland",
+      "region": "Europe",
+      "category": "Private Jet Charter Sales",
+      "source": "LinkedIn",
+      "posted_at": "2026-11-13",
+      "url": "https://ch.linkedin.com/jobs/view/private-jets-sales-consultant-chf-70-000-%2B-10%25-commission-at-air-charter-service-4489559896",
+      "fit_score": 84,
+      "fit_note": "Strong English-language European option: ACS seeks luxury customer-facing sales experience and offers London-based training. Phil's consultative sales and client relationship background fit; Swiss relocation and luxury-market positioning need consideration.",
+      "status": "new",
+      "verification_note": "Exact LinkedIn listing verified live during this search.",
+      "salary": "CHF 70,000 base + 10% uncapped commission",
+      "english_evidence": "The posting and requirements are in English with no French or German requirement stated; ACS separately advertises a German-speaking version of the Geneva role."
+    }
+  ]
+}
