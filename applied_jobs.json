@@ -1053,14 +1053,14 @@
       "outreachGap": "HR/recruitment contact unavailable: no credible Smart Bricks recruiter or people partner with a verifiable remit was found. The listing says the role reports to the GM B2C, but that person was not identifiable from visible evidence.",
       "outreachContacts": [
         {
-          "name": "Mohamed Mohamed",
-          "title": "Founder of Smart Bricks",
-          "url": "https://www.linkedin.com/in/mohamedmohamed1/",
-          "type": "Company founder / relevant senior leader",
-          "confidence": "Medium",
-          "evidence": "Authenticated LinkedIn search identifies Mohamed as Smart Bricks’ founder. The listing says this role reports to the GM B2C; Mohamed is not presented as that person, so direct hiring ownership or reporting line is not inferred.",
+          "name": "Alexander C.",
+          "title": "Head of Operations at Smart Bricks",
+          "url": "https://www.linkedin.com/in/alexander-c-423a7681/",
+          "type": "Relevant senior operations leader",
+          "confidence": "High",
+          "evidence": "Phil identified Alexander from the Smart Bricks LinkedIn people results as Head of Operations. He is a senior company operator who can route the B2C Sales Executive application; the listing says the role reports to the GM B2C, so direct hiring ownership is not inferred.",
           "inMailSubject": "Smart Bricks B2C Sales Executive application",
-          "inMailMessage": "Hi Mohamed,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
+          "inMailMessage": "Hi Alexander,\n\nI applied for the above role and wanted to put a face to the application:\n\n[PASTE LOOM LINK]\n\nIf it looks relevant, could you point me in the right direction?\n\nThanks so much,\n\nPhil"
         }
       ]
     },
