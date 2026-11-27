@@ -7844,6 +7844,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const appliedJobsMeta = document.getElementById('applied-jobs-meta');
     const appliedJobsTotal = document.getElementById('applied-jobs-total');
     const appliedJobsActiveTotal = document.getElementById('applied-jobs-active-total');
+    const appliedJobsFinishedTotal = document.getElementById('applied-jobs-finished-total');
     const appliedJobsIgnoredTotal = document.getElementById('applied-jobs-ignored-total');
     const appliedJobsCompanyTotal = document.getElementById('applied-jobs-company-total');
     const appliedJobsFilter = document.getElementById('applied-jobs-filter');
@@ -7909,16 +7910,18 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderAppliedJobs(data) {
         if (!appliedJobsList) return;
         const jobs = Array.isArray(data.jobs) ? data.jobs : [];
-        const activeJobs = jobs.filter(job => !job.ignored);
+        const activeJobs = jobs.filter(job => !job.ignored && !job.finished);
+        const finishedJobs = jobs.filter(job => job.finished);
         const ignoredJobs = jobs.filter(job => job.ignored);
         const filter = appliedJobsFilter?.value || 'active';
-        const visibleJobs = filter === 'ignored' ? ignoredJobs : (filter === 'all' ? jobs : activeJobs);
+        const visibleJobs = filter === 'finished' ? finishedJobs : (filter === 'ignored' ? ignoredJobs : (filter === 'all' ? jobs : activeJobs));
         const namedCompanies = new Set(jobs.map(job => String(job.company || '').trim()).filter(Boolean));
         if (appliedJobsTotal) appliedJobsTotal.innerText = jobs.length;
         if (appliedJobsActiveTotal) appliedJobsActiveTotal.innerText = activeJobs.length;
+        if (appliedJobsFinishedTotal) appliedJobsFinishedTotal.innerText = finishedJobs.length;
         if (appliedJobsIgnoredTotal) appliedJobsIgnoredTotal.innerText = ignoredJobs.length;
         if (appliedJobsCompanyTotal) appliedJobsCompanyTotal.innerText = namedCompanies.size;
-        if (appliedJobsMeta) appliedJobsMeta.innerText = `${activeJobs.length} active, ${ignoredJobs.length} ignored${data.updatedAt ? ` - source updated ${data.updatedAt}` : ''}.`;
+        if (appliedJobsMeta) appliedJobsMeta.innerText = activeJobs.length + ' active, ' + finishedJobs.length + ' finished, ' + ignoredJobs.length + ' ignored' + (data.updatedAt ? ' - source updated ' + data.updatedAt : '') + '.';
         appliedJobsList.innerHTML = visibleJobs.length ? visibleJobs.map(job => {
             const availability = ['open', 'closed'].includes(job.availability) ? job.availability : 'unknown';
             const availabilityLabel = availability === 'open' ? 'Open' : (availability === 'closed' ? 'Closed' : 'Availability unknown');
@@ -7932,7 +7935,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? `<div class="mt-3 rounded-lg border border-violet-200 dark:border-violet-500/30 bg-violet-50 dark:bg-violet-500/10 p-3"><div class="text-xs font-medium text-violet-800 dark:text-violet-200">Loom URL</div><div class="mt-1 flex flex-wrap items-center gap-3"><a href="${escapeHtml(job.loomUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-xs font-semibold text-violet-700 dark:text-violet-300 hover:underline">Open Loom</a><span class="text-xs text-gray-600 dark:text-gray-300">${escapeHtml(job.loomTitle || 'Application video')}</span></div></div>`
                 : '<div class="mt-3 rounded-lg border border-amber-200 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/10 p-3 text-xs font-medium text-amber-800 dark:text-amber-200">Loom URL needs adding</div>';
             const availabilityDetail = job.availabilityNote || (job.availabilityCheckedAt ? `Checked ${job.availabilityCheckedAt}` : 'Availability has not been checked');
-            return `<article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 ${job.ignored ? 'opacity-75' : ''}"><div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4"><div class="min-w-0 flex-1"><div class="flex flex-wrap items-center gap-2 mb-2"><h3 class="text-lg font-semibold dark:text-white">${escapeHtml(job.role || 'Role unclear')}</h3><span class="text-xs px-2.5 py-1 rounded-full ${job.ignored ? 'bg-gray-200 text-gray-700 dark:bg-white/10 dark:text-gray-300' : 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300'}">${job.ignored ? 'Ignored' : escapeHtml(job.status || 'Applied')}</span><span class="text-xs px-2.5 py-1 rounded-full ${availabilityClass}">${availabilityLabel}</span></div><div class="text-sm text-gray-700 dark:text-gray-200">${escapeHtml(job.company || 'Company not captured')}</div><div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400 mt-3"><span>Screenshot age: ${escapeHtml(job.age || 'Not recorded')}</span><span>Route: ${escapeHtml(job.route || 'LinkedIn + Loom video')}</span>${job.availabilityCheckedAt ? `<span>Checked: ${escapeHtml(job.availabilityCheckedAt)}</span>` : ''}</div><div class="flex flex-wrap items-center gap-3 mt-3">${listingControl}<span class="text-xs text-gray-500 dark:text-gray-400">${escapeHtml(availabilityDetail)}</span></div>${job.note ? `<p class="text-sm text-gray-500 dark:text-gray-400 mt-3">${escapeHtml(job.note)}</p>` : ''}${loomControl}${!job.ignored ? renderAppliedJobOutreach(job) : ''}</div><button type="button" data-applied-job-id="${escapeHtml(job.id)}" data-applied-job-ignored="${job.ignored ? 'false' : 'true'}" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-100 dark:hover:bg-white/10 transition-colors shrink-0">${job.ignored ? 'Restore' : 'Ignore'}</button></div></article>`;
+            const pursuitMuted = job.ignored || job.finished;
+            const pursuitLabel = job.finished ? 'Finished' : (job.ignored ? 'Ignored' : (job.status || 'Applied'));
+            const pursuitClass = job.finished
+                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300'
+                : (job.ignored ? 'bg-gray-200 text-gray-700 dark:bg-white/10 dark:text-gray-300' : 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300');
+            const actionControls = job.finished
+                ? '<button type="button" data-applied-job-id="' + escapeHtml(job.id) + '" data-applied-job-finished="false" class="text-xs border border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300 px-3 py-1.5 rounded hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-colors">Reopen</button>'
+                : (job.ignored
+                    ? '<button type="button" data-applied-job-id="' + escapeHtml(job.id) + '" data-applied-job-ignored="false" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">Restore</button>'
+                    : '<button type="button" data-applied-job-id="' + escapeHtml(job.id) + '" data-applied-job-finished="true" class="text-xs border border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300 px-3 py-1.5 rounded hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-colors">Mark finished</button><button type="button" data-applied-job-id="' + escapeHtml(job.id) + '" data-applied-job-ignored="true" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">Ignore</button>');
+            return `<article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 ${pursuitMuted ? 'opacity-75' : ''}"><div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4"><div class="min-w-0 flex-1"><div class="flex flex-wrap items-center gap-2 mb-2"><h3 class="text-lg font-semibold dark:text-white">${escapeHtml(job.role || 'Role unclear')}</h3><span class="text-xs px-2.5 py-1 rounded-full ${pursuitClass}">${escapeHtml(pursuitLabel)}</span><span class="text-xs px-2.5 py-1 rounded-full ${availabilityClass}">${availabilityLabel}</span></div><div class="text-sm text-gray-700 dark:text-gray-200">${escapeHtml(job.company || 'Company not captured')}</div><div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400 mt-3"><span>Screenshot age: ${escapeHtml(job.age || 'Not recorded')}</span><span>Route: ${escapeHtml(job.route || 'LinkedIn + Loom video')}</span>${job.availabilityCheckedAt ? `<span>Checked: ${escapeHtml(job.availabilityCheckedAt)}</span>` : ''}</div><div class="flex flex-wrap items-center gap-3 mt-3">${listingControl}<span class="text-xs text-gray-500 dark:text-gray-400">${escapeHtml(availabilityDetail)}</span></div>${job.note ? `<p class="text-sm text-gray-500 dark:text-gray-400 mt-3">${escapeHtml(job.note)}</p>` : ''}${loomControl}${!pursuitMuted ? renderAppliedJobOutreach(job) : ''}</div><div class="flex flex-wrap items-center gap-2 shrink-0">${actionControls}</div></div></article>`;
         }).join('') : `<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No ${filter === 'all' ? '' : filter + ' '}applications to show.</div>`;
     }
 
@@ -7951,13 +7964,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    async function setAppliedJobIgnored(id, ignored, button) {
+    async function setAppliedJobState(id, field, value, button) {
         if (button) button.disabled = true;
         try {
-            const res = await fetch(`/api/applied-jobs/${encodeURIComponent(id)}/ignored`, {
+            const res = await fetch('/api/applied-jobs/' + encodeURIComponent(id) + '/' + field, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ignored })
+                body: JSON.stringify({ [field]: value })
             });
             if (!res.ok) throw new Error('Applied job update failed');
             await loadAppliedJobs(true);
@@ -7968,6 +7981,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function setAppliedJobIgnored(id, ignored, button) {
+        return setAppliedJobState(id, 'ignored', ignored, button);
+    }
+
+    function setAppliedJobFinished(id, finished, button) {
+        return setAppliedJobState(id, 'finished', finished, button);
+    }
 
     function propertyJobFitClass(score) {
         if (Number(score) >= 80) return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300';
@@ -8401,6 +8421,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const button = event.target.closest('[data-applied-job-id]');
         if (!button) return;
+        if (button.dataset.appliedJobFinished !== undefined) {
+            setAppliedJobFinished(button.dataset.appliedJobId, button.dataset.appliedJobFinished === 'true', button);
+            return;
+        }
         setAppliedJobIgnored(button.dataset.appliedJobId, button.dataset.appliedJobIgnored === 'true', button);
     });
     [aiJobsSearch, aiJobsFitFilter, aiJobsWorkplaceFilter, aiJobsStatusFilter].forEach(el => el?.addEventListener('input', renderAiJobs));

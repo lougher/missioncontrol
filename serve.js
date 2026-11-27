@@ -386,6 +386,24 @@ const server = http.createServer((req, res) => {
                 res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update applied job' }));
             }
         });
+    } else if (req.url.match(/^\/api\/applied-jobs\/[^/]+\/finished$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const { finished } = JSON.parse(body || '{}');
+                if (typeof finished !== 'boolean') throw new Error('finished must be a boolean');
+                const job = updateAppliedJobFinished(id, finished);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, job }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update applied job' }));
+            }
+        });
     } else if (req.url.match(/^\/api\/ai-jobs\/[^/]+\/status$/)) {
         if (req.method !== 'POST') {
             res.writeHead(405, { 'Content-Type': 'application/json' });
@@ -2605,7 +2623,7 @@ function readAppliedJobsDb() {
         jobs: jobs.map((job, index) => {
             const id = appliedJobId(job, index);
             const privateJob = privateJobs[id] || {};
-            return { ...job, id, ignored: job.ignored === true, loomTitle: privateJob.loomTitle || '', loomUrl: privateJob.loomUrl || '' };
+            return { ...job, id, ignored: job.ignored === true, finished: job.finished === true, loomTitle: privateJob.loomTitle || '', loomUrl: privateJob.loomUrl || '' };
         })
     };
 }
@@ -2617,6 +2635,7 @@ function writeAppliedJobsDb(db) {
         delete saved.loomTitle;
         delete saved.loomUrl;
         if (saved.ignored !== true) delete saved.ignored;
+        if (saved.finished !== true) delete saved.finished;
         return saved;
     });
     fs.writeFileSync(APPLIED_JOBS_DB_FILE, JSON.stringify({ updatedAt: db.updatedAt || '', jobs }, null, 2) + '\n');
@@ -2627,6 +2646,17 @@ function updateAppliedJobIgnored(id, ignored) {
     const job = db.jobs.find(item => item.id === id);
     if (!job) throw new Error('Applied job not found');
     job.ignored = ignored;
+    if (ignored) job.finished = false;
+    writeAppliedJobsDb(db);
+    return job;
+}
+
+function updateAppliedJobFinished(id, finished) {
+    const db = readAppliedJobsDb();
+    const job = db.jobs.find(item => item.id === id);
+    if (!job) throw new Error('Applied job not found');
+    job.finished = finished;
+    if (finished) job.ignored = false;
     writeAppliedJobsDb(db);
     return job;
 }
