@@ -1,0 +1,62 @@
+{
+  "searched_at": "2026-11-28T08:20:00Z",
+  "freshness_cutoff": "2026-10-28",
+  "selection_note": "Ibiza-based roles posted within the previous month, verified live, relevant to sales, marketing, events or transferable commercial/content work, and explicitly suitable where English is the required language and Spanish is optional rather than mandatory. British applicants still need the legal right to work in Spain; neither retained listing states that sponsorship is available.",
+  "language_note": "English-only filter applied. Roles requiring Spanish or another non-English language were excluded. An English-language advert alone was not treated as proof that English is sufficient.",
+  "sources": [
+    "LinkedIn guest feed",
+    "Authenticated LinkedIn job page"
+  ],
+  "companies": [
+    {
+      "name": "Nobu Hotel Ibiza Bay",
+      "category": "Luxury hospitality",
+      "location": "Ibiza",
+      "careers_url": "https://nobuhotels.teamtailor.com/",
+      "check_result": "1 matched English-suitable role"
+    },
+    {
+      "name": "The Pacha Group",
+      "category": "Music, nightlife and events",
+      "location": "Ibiza",
+      "careers_url": "https://www.linkedin.com/company/the-pacha-group/jobs/",
+      "check_result": "1 matched English-suitable role"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "li-4487381413",
+      "title": "Groups and Events Sales Manager",
+      "company": "Nobu Hotel Ibiza Bay",
+      "location": "Ibiza, Balearic Islands, Spain",
+      "category": "Events & Hospitality Sales",
+      "source": "LinkedIn",
+      "posted_at": "2026-11-07",
+      "url": "https://es.linkedin.com/jobs/view/groups-and-events-sales-manager-at-nobu-hotel-ibiza-bay-4487381413",
+      "fit_score": 94,
+      "fit_note": "Excellent commercial crossover: owns group and event enquiries from lead through proposal, negotiation and contract, develops MICE and luxury-travel partnerships, and manages a revenue pipeline. Phil's consultative B2B sales and relationship-building experience map strongly; direct luxury-hospitality and Ibiza event-market experience are the main gaps.",
+      "english_evidence": "The listing explicitly requires fluent English. Spanish is highly desirable, not mandatory; additional languages are only an advantage.",
+      "work_authorisation": "Not stated. As a British applicant, confirm Spanish work-authorisation eligibility before applying.",
+      "contract": "Year-round contract",
+      "status": "new",
+      "verification_note": "Exact LinkedIn role and full requirements verified live on 28 November 2026."
+    },
+    {
+      "id": "li-4494926551",
+      "title": "Social Media Creator",
+      "company": "The Pacha Group",
+      "location": "Ibiza, Balearic Islands, Spain",
+      "category": "Marketing & Content",
+      "source": "LinkedIn",
+      "posted_at": "2026-11-25",
+      "url": "https://es.linkedin.com/jobs/view/social-media-creator-at-the-pacha-group-4494926551",
+      "fit_score": 87,
+      "fit_note": "Strong passion and creator fit: produces phone-first nightlife content across TikTok, Instagram, YouTube and other channels for Pacha's 2027 season. Phil's short-form content work, electronic-music interest and social-platform experience align well; proven real-time event coverage and a polished nightlife portfolio are the main gaps.",
+      "english_evidence": "The listing explicitly requires fluent written and spoken English. Spanish is listed only as a plus.",
+      "work_authorisation": "Not stated. As a British applicant, confirm Spanish work-authorisation eligibility before applying.",
+      "contract": "Full-time, 2027 Ibiza season (mid-April to mid-October)",
+      "status": "new",
+      "verification_note": "Exact LinkedIn role and full requirements verified live on 28 November 2026."
+    }
+  ]
+}

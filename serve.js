@@ -75,6 +75,7 @@ const MUSIC_JOBS_DB_FILE = path.join(__dirname, 'music_jobs.json');
 const CONTENT_JOBS_DB_FILE = path.join(__dirname, 'content_jobs.json');
 const PROPERTY_JOBS_DB_FILE = path.join(__dirname, 'property_jobs.json');
 const LUXURY_SALES_JOBS_DB_FILE = path.join(__dirname, 'luxury_sales_jobs.json');
+const IBIZA_JOBS_DB_FILE = path.join(__dirname, 'ibiza_jobs.json');
 const APPLIED_JOBS_DB_FILE = path.join(__dirname, 'applied_jobs.json');
 const APPLIED_JOBS_PRIVATE_FILE = path.join(__dirname, 'applied_jobs_private.json');
 const DJ_GIGS_DB_FILE = path.join(__dirname, 'dj_gigs.json');
@@ -211,7 +212,7 @@ function writeJournalSections(doc) {
 const server = http.createServer((req, res) => {
     res.on('error', (err) => console.error('Response error:', err));
     const requestPath = req.url.split('?')[0];
-    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/jobs' || requestPath === '/jobs/ai' || requestPath === '/jobs/applied' || requestPath === '/jobs/luxury-sales' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read' || requestPath === '/djing' || requestPath === '/networking' || requestPath === '/life-design') {
+    if (requestPath === '/' || requestPath === '/index.html' || requestPath === '/linkedin-jobs' || requestPath === '/jobs/linkedin' || requestPath === '/jobs' || requestPath === '/jobs/ai' || requestPath === '/jobs/applied' || requestPath === '/jobs/luxury-sales' || requestPath === '/jobs/ibiza' || requestPath === '/ytjobs' || requestPath === '/jobs/youtube' || requestPath === '/property' || requestPath === '/people' || requestPath === '/read' || requestPath === '/djing' || requestPath === '/networking' || requestPath === '/life-design') {
         serveFile(res, path.join(__dirname, 'index.html'), 'text/html');
     } else if (requestPath === '/styles.css') {
         serveFile(res, path.join(__dirname, 'styles.css'), 'text/css');
@@ -359,6 +360,31 @@ const server = http.createServer((req, res) => {
             } catch (err) {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update luxury sales job status' }));
+            }
+        });
+    } else if (req.url === '/api/ibiza-jobs') {
+        if (req.method !== 'GET') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const db = readIbizaJobsDb();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(db));
+    } else if (req.url.match(/^\/api\/ibiza-jobs\/[^/]+\/status$/)) {
+        if (req.method !== 'POST') {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        }
+        const id = decodeURIComponent(req.url.split('/')[3]);
+        readBody(req, (body) => {
+            try {
+                const { status } = JSON.parse(body || '{}');
+                const job = updateIbizaJobStatus(id, status);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, job }));
+            } catch (err) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to update Ibiza job status' }));
             }
         });
     } else if (req.url === '/api/content-jobs') {
@@ -2624,6 +2650,47 @@ function updateLuxurySalesJobStatus(id, status) {
     job.status = status;
     job.updated_at = new Date().toISOString();
     writeLuxurySalesJobsDb(db);
+    return job;
+}
+
+function readIbizaJobsDb() {
+    try {
+        const parsed = JSON.parse(fs.readFileSync(IBIZA_JOBS_DB_FILE, 'utf8'));
+        return {
+            searched_at: parsed.searched_at || '',
+            freshness_cutoff: parsed.freshness_cutoff || '',
+            selection_note: parsed.selection_note || '',
+            language_note: parsed.language_note || '',
+            sources: Array.isArray(parsed.sources) ? parsed.sources : [],
+            companies: Array.isArray(parsed.companies) ? parsed.companies : [],
+            jobs: Array.isArray(parsed.jobs) ? parsed.jobs : []
+        };
+    } catch {
+        return { searched_at: '', freshness_cutoff: '', selection_note: '', language_note: '', sources: [], companies: [], jobs: [] };
+    }
+}
+
+function writeIbizaJobsDb(db) {
+    fs.writeFileSync(IBIZA_JOBS_DB_FILE, JSON.stringify({
+        searched_at: db.searched_at || '',
+        freshness_cutoff: db.freshness_cutoff || '',
+        selection_note: db.selection_note || '',
+        language_note: db.language_note || '',
+        sources: Array.isArray(db.sources) ? db.sources : [],
+        companies: Array.isArray(db.companies) ? db.companies : [],
+        jobs: Array.isArray(db.jobs) ? db.jobs : []
+    }, null, 2) + '\n');
+}
+
+function updateIbizaJobStatus(id, status) {
+    const allowed = new Set(['new', 'interested', 'applied', 'not_interested']);
+    if (!allowed.has(status)) throw new Error('Invalid Ibiza job status');
+    const db = readIbizaJobsDb();
+    const job = db.jobs.find(item => item.id === id);
+    if (!job) throw new Error('Ibiza job not found');
+    job.status = status;
+    job.updated_at = new Date().toISOString();
+    writeIbizaJobsDb(db);
     return job;
 }
 

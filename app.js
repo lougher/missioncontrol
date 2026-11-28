@@ -7797,6 +7797,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const jobsContentTab = document.getElementById('jobs-content-tab');
     const jobsPropertyTab = document.getElementById('jobs-property-tab');
     const jobsLuxuryTab = document.getElementById('jobs-luxury-tab');
+    const jobsIbizaTab = document.getElementById('jobs-ibiza-tab');
     const jobsAppliedTab = document.getElementById('jobs-applied-tab');
     const jobsYtJobsPanel = document.getElementById('jobs-ytjobs-panel');
     const jobsAiPanel = document.getElementById('jobs-ai-panel');
@@ -7804,6 +7805,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const jobsContentPanel = document.getElementById('jobs-content-panel');
     const jobsPropertyPanel = document.getElementById('jobs-property-panel');
     const jobsLuxuryPanel = document.getElementById('jobs-luxury-panel');
+    const jobsIbizaPanel = document.getElementById('jobs-ibiza-panel');
     const jobsAppliedPanel = document.getElementById('jobs-applied-panel');
     const refreshAiJobsBtn = document.getElementById('refresh-ai-jobs-btn');
     const aiJobsScanMeta = document.getElementById('ai-jobs-scan-meta');
@@ -7850,6 +7852,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const luxuryJobsList = document.getElementById('luxury-jobs-list');
     const luxuryCompaniesList = document.getElementById('luxury-companies-list');
     const luxuryJobsScanMeta = document.getElementById('luxury-jobs-scan-meta');
+    const refreshIbizaJobsBtn = document.getElementById('refresh-ibiza-jobs-btn');
+    const ibizaJobsSearch = document.getElementById('ibiza-jobs-search');
+    const ibizaJobsLocationFilter = document.getElementById('ibiza-jobs-location-filter');
+    const ibizaJobsCategoryFilter = document.getElementById('ibiza-jobs-category-filter');
+    const ibizaJobsStatusFilter = document.getElementById('ibiza-jobs-status-filter');
+    const ibizaJobsList = document.getElementById('ibiza-jobs-list');
+    const ibizaCompaniesList = document.getElementById('ibiza-companies-list');
+    const ibizaJobsScanMeta = document.getElementById('ibiza-jobs-scan-meta');
     const refreshAppliedJobsBtn = document.getElementById('refresh-applied-jobs-btn');
     const appliedJobsMeta = document.getElementById('applied-jobs-meta');
     const appliedJobsTotal = document.getElementById('applied-jobs-total');
@@ -7875,10 +7885,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let luxuryJobs = [];
     let luxuryCompanies = [];
     let luxuryJobsMeta = {};
+    let ibizaJobs = [];
+    let ibizaCompanies = [];
+    let ibizaJobsMeta = {};
     let appliedJobsData = { jobs: [] };
 
     function setJobsTab(tab) {
-        const activeTab = ['ai', 'music', 'content', 'property', 'luxury', 'applied'].includes(tab) ? tab : 'ytjobs';
+        const activeTab = ['ai', 'music', 'content', 'property', 'luxury', 'ibiza', 'applied'].includes(tab) ? tab : 'ytjobs';
         localStorage.setItem('jobs-tab', activeTab);
         jobsYtJobsPanel?.classList.toggle('hidden', activeTab !== 'ytjobs');
         jobsAiPanel?.classList.toggle('hidden', activeTab !== 'ai');
@@ -7886,10 +7899,11 @@ document.addEventListener("DOMContentLoaded", () => {
         jobsContentPanel?.classList.toggle('hidden', activeTab !== 'content');
         jobsPropertyPanel?.classList.toggle('hidden', activeTab !== 'property');
         jobsLuxuryPanel?.classList.toggle('hidden', activeTab !== 'luxury');
+        jobsIbizaPanel?.classList.toggle('hidden', activeTab !== 'ibiza');
         jobsAppliedPanel?.classList.toggle('hidden', activeTab !== 'applied');
-        [jobsYtJobsTab, jobsAiTab, jobsMusicTab, jobsContentTab, jobsPropertyTab, jobsLuxuryTab, jobsAppliedTab].forEach(button => {
+        [jobsYtJobsTab, jobsAiTab, jobsMusicTab, jobsContentTab, jobsPropertyTab, jobsLuxuryTab, jobsIbizaTab, jobsAppliedTab].forEach(button => {
             if (!button) return;
-            const selected = (button === jobsYtJobsTab && activeTab === 'ytjobs') || (button === jobsAiTab && activeTab === 'ai') || (button === jobsMusicTab && activeTab === 'music') || (button === jobsContentTab && activeTab === 'content') || (button === jobsPropertyTab && activeTab === 'property') || (button === jobsLuxuryTab && activeTab === 'luxury') || (button === jobsAppliedTab && activeTab === 'applied');
+            const selected = (button === jobsYtJobsTab && activeTab === 'ytjobs') || (button === jobsAiTab && activeTab === 'ai') || (button === jobsMusicTab && activeTab === 'music') || (button === jobsContentTab && activeTab === 'content') || (button === jobsPropertyTab && activeTab === 'property') || (button === jobsLuxuryTab && activeTab === 'luxury') || (button === jobsIbizaTab && activeTab === 'ibiza') || (button === jobsAppliedTab && activeTab === 'applied');
             button.classList.toggle('bg-white', selected);
             button.classList.toggle('dark:bg-[#171717]', selected);
             button.classList.toggle('shadow-sm', selected);
@@ -7902,6 +7916,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (activeTab === 'content') loadContentJobs(true);
         else if (activeTab === 'property') loadPropertyJobs(true);
         else if (activeTab === 'luxury') loadLuxuryJobs(true);
+        else if (activeTab === 'ibiza') loadIbizaJobs(true);
         else if (activeTab === 'applied') loadAppliedJobs(true);
         else loadYtJobs(true);
     }
@@ -8094,6 +8109,95 @@ document.addEventListener("DOMContentLoaded", () => {
             if (index !== -1) luxuryJobs[index] = data.job;
             renderLuxuryJobs();
         } catch (e) { console.error(e); alert('Could not update luxury sales job status.'); }
+    };
+
+    function ibizaJobFitClass(score) {
+        if (Number(score) >= 80) return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300';
+        if (Number(score) >= 65) return 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300';
+        return 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+    }
+
+    function populateIbizaJobCategories() {
+        if (!ibizaJobsCategoryFilter) return;
+        const current = ibizaJobsCategoryFilter.value || 'all';
+        const categories = [...new Set(ibizaJobs.map(job => job.category).filter(Boolean))].sort();
+        ibizaJobsCategoryFilter.innerHTML = '<option value="all">All role categories</option>' + categories.map(category => '<option value="' + escapeHtml(category) + '">' + escapeHtml(category) + '</option>').join('');
+        ibizaJobsCategoryFilter.value = categories.includes(current) ? current : 'all';
+    }
+
+    function filteredIbizaJobs() {
+        const search = (ibizaJobsSearch?.value || '').toLowerCase().trim();
+        const location = ibizaJobsLocationFilter?.value || 'all';
+        const category = ibizaJobsCategoryFilter?.value || 'all';
+        const status = ibizaJobsStatusFilter?.value || 'active';
+        return ibizaJobs.filter(job => {
+            const jobStatus = job.status || 'new';
+            const haystack = [job.title, job.company, job.location, job.category, job.fit_note, job.sector, job.english_evidence].join(' ').toLowerCase();
+            if (search && !haystack.includes(search)) return false;
+            if (category !== 'all' && job.category !== category) return false;
+            if (status === 'active' && jobStatus === 'not_interested') return false;
+            if (!['active', 'all'].includes(status) && jobStatus !== status) return false;
+            return true;
+        }).sort((a, b) => Number(b.fit_score || 0) - Number(a.fit_score || 0) || String(a.company || '').localeCompare(String(b.company || '')));
+    }
+
+    function renderIbizaJobs() {
+        if (!ibizaJobsList) return;
+        const total = document.getElementById('ibiza-jobs-total');
+        const englishTotal = document.getElementById('ibiza-jobs-uk');
+        const interested = document.getElementById('ibiza-jobs-interested');
+        const applied = document.getElementById('ibiza-jobs-applied');
+        if (total) total.innerText = ibizaJobs.length;
+        if (englishTotal) englishTotal.innerText = ibizaJobs.length;
+        if (interested) interested.innerText = ibizaJobs.filter(job => job.status === 'interested').length;
+        if (applied) applied.innerText = ibizaJobs.filter(job => job.status === 'applied').length;
+        if (ibizaJobsScanMeta) {
+            const checked = ibizaJobsMeta.searched_at ? new Date(ibizaJobsMeta.searched_at).toLocaleString('en-GB') : 'Not checked yet';
+            ibizaJobsScanMeta.innerText = ibizaJobs.length + ' verified English-suitable Ibiza roles checked ' + checked + '.';
+        }
+        const jobs = filteredIbizaJobs();
+        ibizaJobsList.innerHTML = jobs.length ? jobs.map(job =>             '<article class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5 ' + (job.status === 'not_interested' ? 'opacity-60' : '') + '">' +
+            '<div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4"><div class="min-w-0 flex-1">' +
+            '<div class="flex flex-wrap items-center gap-2 mb-2"><h3 class="text-lg font-semibold dark:text-white">' + escapeHtml(job.title || 'Untitled role') + '</h3><span class="text-xs px-2.5 py-1 rounded-full ' + ibizaJobFitClass(job.fit_score) + '">' + Number(job.fit_score || 0) + '% fit</span><span class="text-xs px-2.5 py-1 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-300">' + escapeHtml(job.category || 'Ibiza sales') + '</span></div>' +
+            '<div class="text-sm text-gray-700 dark:text-gray-200">' + escapeHtml(job.company || 'Unknown company') + ' · ' + escapeHtml(job.location || '') + '</div>' +
+            '<p class="text-sm text-gray-500 dark:text-gray-400 mt-3">' + escapeHtml(job.fit_note || '') + '</p>' +
+            (job.contract ? '<p class="text-xs text-gray-500 dark:text-gray-400 mt-3"><span class="font-medium">Contract:</span> ' + escapeHtml(job.contract) + '</p>' : '') +
+            (job.english_evidence ? '<p class="text-xs text-gray-500 dark:text-gray-400 mt-3"><span class="font-medium">English evidence:</span> ' + escapeHtml(job.english_evidence) + '</p>' : '') +
+            (job.work_authorisation ? '<p class="text-xs text-amber-700 dark:text-amber-300 mt-2"><span class="font-medium">Work rights:</span> ' + escapeHtml(job.work_authorisation) + '</p>' : '') +
+            '<div class="flex flex-wrap gap-3 text-xs text-gray-400 mt-3"><span>Source: ' + escapeHtml(job.source || 'LinkedIn') + '</span>' + (job.posted_at ? '<span>Posted / checked: ' + escapeHtml(job.posted_at) + '</span>' : '') + '</div></div>' +
+            '<div class="flex flex-wrap lg:flex-col gap-2 lg:items-stretch lg:w-40"><button type="button" onclick="updateIbizaJobStatus(\'' + escapeHtml(job.id) + '\',\'interested\')" class="text-xs px-3 py-2 rounded ' + (job.status === 'interested' ? 'bg-emerald-600 text-white' : 'border border-emerald-500 text-emerald-700 dark:text-emerald-300') + '">Interested</button><button type="button" onclick="updateIbizaJobStatus(\'' + escapeHtml(job.id) + '\',\'applied\')" class="text-xs px-3 py-2 rounded ' + (job.status === 'applied' ? 'bg-blue-600 text-white' : 'border border-blue-500 text-blue-700 dark:text-blue-300') + '">Applied</button><button type="button" onclick="updateIbizaJobStatus(\'' + escapeHtml(job.id) + '\',\'not_interested\')" class="text-xs px-3 py-2 rounded border border-gray-300 text-gray-600 dark:border-white/20 dark:text-gray-300">' + (job.status === 'not_interested' ? 'Restore' : 'Not interested') + '</button><a href="' + escapeHtml(job.url || '#') + '" target="_blank" rel="noopener" class="text-center text-xs px-3 py-2 rounded bg-black text-white dark:bg-white dark:text-black">Open employer role</a></div></div></article>').join('') : '<div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-8 text-gray-500">No Ibiza jobs match the current filters.</div>';
+        if (ibizaCompaniesList) ibizaCompaniesList.innerHTML = ibizaCompanies.map(company => '<a href="' + escapeHtml(company.careers_url || '#') + '" target="_blank" rel="noopener" class="block bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4 hover:border-sky-400 transition-colors"><div class="font-medium dark:text-white">' + escapeHtml(company.name) + '</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">' + escapeHtml(company.category || '') + ' · ' + escapeHtml(company.location || '') + '</div></a>').join('');
+    }
+
+    async function loadIbizaJobs(silent = false) {
+        if (!ibizaJobsList) return;
+        if (!silent) ibizaJobsList.innerHTML = '<div class="text-sm text-gray-500 dark:text-gray-400">Loading English-suitable Ibiza roles...</div>';
+        try {
+            const res = await fetch('/api/ibiza-jobs');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Ibiza Jobs request failed');
+            ibizaJobs = Array.isArray(data.jobs) ? data.jobs : [];
+            ibizaCompanies = Array.isArray(data.companies) ? data.companies : [];
+            ibizaJobsMeta = data || {};
+            populateIbizaJobCategories();
+            renderIbizaJobs();
+        } catch (e) {
+            console.error(e);
+            ibizaJobsList.innerHTML = '<div class="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-lg p-6 text-red-600 dark:text-red-300">Failed to load Ibiza jobs.</div>';
+        }
+    }
+
+    window.updateIbizaJobStatus = async (id, status) => {
+        const current = ibizaJobs.find(job => job.id === id);
+        const nextStatus = status === 'not_interested' && current?.status === 'not_interested' ? 'new' : status;
+        try {
+            const res = await fetch('/api/ibiza-jobs/' + encodeURIComponent(id) + '/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: nextStatus }) });
+            const data = await res.json();
+            if (!res.ok || !data.job) throw new Error(data.error || 'Status update failed');
+            const index = ibizaJobs.findIndex(job => job.id === id);
+            if (index !== -1) ibizaJobs[index] = data.job;
+            renderIbizaJobs();
+        } catch (e) { console.error(e); alert('Could not update Ibiza job status.'); }
     };
 
     function propertyJobFitClass(score) {
@@ -8496,12 +8600,16 @@ document.addEventListener("DOMContentLoaded", () => {
     jobsContentTab?.addEventListener('click', () => setJobsTab('content'));
     jobsPropertyTab?.addEventListener('click', () => setJobsTab('property'));
     jobsLuxuryTab?.addEventListener('click', () => setJobsTab('luxury'));
+    jobsIbizaTab?.addEventListener('click', () => setJobsTab('ibiza'));
     jobsAppliedTab?.addEventListener('click', () => setJobsTab('applied'));
     refreshAiJobsBtn?.addEventListener('click', () => loadAiJobs());
     refreshMusicJobsBtn?.addEventListener('click', () => loadMusicJobs());
     refreshContentJobsBtn?.addEventListener('click', () => loadContentJobs());
     refreshPropertyJobsBtn?.addEventListener('click', () => loadPropertyJobs());
     refreshLuxuryJobsBtn?.addEventListener('click', () => loadLuxuryJobs());
+    refreshIbizaJobsBtn?.addEventListener('click', () => loadIbizaJobs());
+    [ibizaJobsSearch, ibizaJobsLocationFilter, ibizaJobsCategoryFilter, ibizaJobsStatusFilter].forEach(el => el?.addEventListener('input', renderIbizaJobs));
+    [ibizaJobsLocationFilter, ibizaJobsCategoryFilter, ibizaJobsStatusFilter].forEach(el => el?.addEventListener('change', renderIbizaJobs));
     [luxuryJobsSearch, luxuryJobsLocationFilter, luxuryJobsCategoryFilter, luxuryJobsStatusFilter].forEach(el => el?.addEventListener('input', renderLuxuryJobs));
     [luxuryJobsLocationFilter, luxuryJobsCategoryFilter, luxuryJobsStatusFilter].forEach(el => el?.addEventListener('change', renderLuxuryJobs));
     [propertyJobsSearch, propertyJobsLocationFilter, propertyJobsCategoryFilter, propertyJobsStatusFilter].forEach(el => el?.addEventListener('input', renderPropertyJobs));
@@ -8540,7 +8648,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     [aiJobsSearch, aiJobsFitFilter, aiJobsWorkplaceFilter, aiJobsStatusFilter].forEach(el => el?.addEventListener('input', renderAiJobs));
     [aiJobsFitFilter, aiJobsWorkplaceFilter, aiJobsStatusFilter].forEach(el => el?.addEventListener('change', renderAiJobs));
-    setJobsTab(location.pathname === '/jobs/ai' ? 'ai' : (location.pathname === '/jobs/applied' ? 'applied' : (location.pathname === '/jobs/luxury-sales' ? 'luxury' : (localStorage.getItem('jobs-tab') || 'ytjobs'))));
+    setJobsTab(location.pathname === '/jobs/ai' ? 'ai' : (location.pathname === '/jobs/applied' ? 'applied' : (location.pathname === '/jobs/luxury-sales' ? 'luxury' : (location.pathname === '/jobs/ibiza' ? 'ibiza' : (localStorage.getItem('jobs-tab') || 'ytjobs')))));
 
     // === LinkedIn Jobs Logic ===
     const refreshLinkedInJobsBtn = document.getElementById('refresh-linkedin-jobs-btn');
@@ -9159,7 +9267,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initial Load
     const initialView = location.pathname === '/linkedin-jobs' || location.pathname === '/jobs/linkedin'
         ? 'view-linkedin-jobs'
-        : ['/jobs', '/jobs/ai', '/ytjobs', '/jobs/youtube'].includes(location.pathname)
+        : ['/jobs', '/jobs/ai', '/jobs/applied', '/jobs/luxury-sales', '/jobs/ibiza', '/ytjobs', '/jobs/youtube'].includes(location.pathname)
             ? 'view-jobs'
         : location.pathname === '/property'
             ? 'view-property'
@@ -9175,7 +9283,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ? 'view-life-design'
             : 'view-goals';
 
-    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/jobs', '/jobs/ai', '/ytjobs', '/jobs/youtube', '/property', '/people', '/read', '/djing', '/networking', '/life-design'].includes(location.pathname)) {
+    if (contextSwitcher && !['/linkedin-jobs', '/jobs/linkedin', '/jobs', '/jobs/ai', '/jobs/applied', '/jobs/luxury-sales', '/jobs/ibiza', '/ytjobs', '/jobs/youtube', '/property', '/people', '/read', '/djing', '/networking', '/life-design'].includes(location.pathname)) {
         contextSwitcher.value = 'lifeos';
         navMissionControl?.classList.add('hidden');
         navLifeOs?.classList.remove('hidden');

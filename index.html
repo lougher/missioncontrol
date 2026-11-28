@@ -1176,13 +1176,14 @@
                 </div>
             </header>
 
-            <div class="flex flex-wrap w-fit rounded-lg border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-1 mb-8">
+            <div class="flex flex-wrap w-full max-w-full rounded-lg border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-1 mb-8">
                 <button id="jobs-ytjobs-tab" type="button" class="px-4 py-2 rounded-md text-sm bg-white dark:bg-[#171717] shadow-sm dark:text-white">YTJobs</button>
                 <button id="jobs-ai-tab" type="button" class="px-4 py-2 rounded-md text-sm text-gray-600 dark:text-gray-300">AI Jobs</button>
                 <button id="jobs-music-tab" type="button" class="px-4 py-2 rounded-md text-sm text-gray-600 dark:text-gray-300">Music Jobs</button>
                 <button id="jobs-content-tab" type="button" class="px-4 py-2 rounded-md text-sm text-gray-600 dark:text-gray-300">Content Creator Jobs</button>
                 <button id="jobs-property-tab" type="button" class="px-4 py-2 rounded-md text-sm text-gray-600 dark:text-gray-300">Property Jobs</button>
                 <button id="jobs-luxury-tab" type="button" class="px-4 py-2 rounded-md text-sm text-gray-600 dark:text-gray-300">Private Jet & Yacht Sales</button>
+                <button id="jobs-ibiza-tab" type="button" class="px-4 py-2 rounded-md text-sm text-gray-600 dark:text-gray-300">Ibiza Jobs</button>
                 <button id="jobs-applied-tab" type="button" class="px-4 py-2 rounded-md text-sm text-gray-600 dark:text-gray-300">Applied Jobs</button>
             </div>
 
@@ -1377,6 +1378,31 @@
                 </div>
                 <div id="luxury-jobs-list" class="space-y-3 mb-10"><div class="text-sm text-gray-500 dark:text-gray-400">Loading private aviation and superyacht sales roles...</div></div>
                 <section><h3 class="text-lg font-semibold dark:text-white mb-1">Target employers</h3><p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Private aviation and yacht businesses represented by verified roles in this search.</p><div id="luxury-companies-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div></section>
+            </div>
+
+            <div id="jobs-ibiza-panel" class="hidden">
+                <div class="mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-semibold dark:text-white">Ibiza, Spain Jobs</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Fresh Ibiza-based sales, marketing, events and transferable roles where English is explicitly sufficient.</p>
+                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-2" id="ibiza-jobs-scan-meta">Loading scan details...</p>
+                    </div>
+                    <button id="refresh-ibiza-jobs-btn" class="text-xs border border-gray-200 dark:border-white/10 dark:text-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-white/5 transition-colors w-fit">Refresh View</button>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">Live roles</div><div id="ibiza-jobs-total" class="text-3xl font-semibold tracking-tight text-sky-600 dark:text-sky-300 mt-2">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">English-suitable</div><div id="ibiza-jobs-uk" class="text-3xl font-semibold tracking-tight dark:text-white mt-2">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">Interested</div><div id="ibiza-jobs-interested" class="text-3xl font-semibold tracking-tight text-emerald-600 dark:text-emerald-300 mt-2">0</div></div>
+                    <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-5"><div class="text-xs text-gray-500 dark:text-gray-400">Applied</div><div id="ibiza-jobs-applied" class="text-3xl font-semibold tracking-tight text-blue-600 dark:text-blue-300 mt-2">0</div></div>
+                </div>
+                <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-5 gap-3">
+                    <input id="ibiza-jobs-search" class="md:col-span-2 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none" placeholder="Search role, company, location or category">
+                    <select id="ibiza-jobs-location-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All Ibiza locations</option></select>
+                    <select id="ibiza-jobs-category-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="all">All role categories</option></select>
+                    <select id="ibiza-jobs-status-filter" class="rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-[#171717] px-3 py-2 text-sm dark:text-white focus:outline-none"><option value="active">Active review</option><option value="new">New</option><option value="interested">Interested</option><option value="applied">Applied</option><option value="not_interested">Not interested</option><option value="all">All statuses</option></select>
+                </div>
+                <div id="ibiza-jobs-list" class="space-y-3 mb-10"><div class="text-sm text-gray-500 dark:text-gray-400">Loading English-suitable Ibiza roles...</div></div>
+                <section><h3 class="text-lg font-semibold dark:text-white mb-1">Ibiza employer watchlist</h3><p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Employers represented by verified English-suitable roles in this search.</p><div id="ibiza-companies-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div></section>
             </div>
 
             <div id="jobs-applied-panel" class="hidden">
